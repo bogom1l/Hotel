@@ -23,7 +23,7 @@ public class HotelServiceImpl implements HotelService{
 
     @Override
     public String removeRoom() {
-        return "You removed a room";
+        return "You removed a room.";
     }
 
     @Override
