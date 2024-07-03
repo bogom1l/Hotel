@@ -2,7 +2,6 @@ package com.tinqinacademy.hotel.controllers;
 
 import com.tinqinacademy.hotel.model.Test;
 import com.tinqinacademy.hotel.services.HotelService;
-import com.tinqinacademy.hotel.services.HotelServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -32,7 +31,7 @@ public class HotelController {
     @PostMapping("/book")
     public ResponseEntity<?> bookRoom(){
         String result = hotelService.bookRoom();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK); //TODO ? HttpStatus.CREATED
     }
 
     @Operation(summary = "Checks a room availability", description = "Room must exist")
