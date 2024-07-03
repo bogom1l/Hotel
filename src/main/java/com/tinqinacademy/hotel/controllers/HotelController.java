@@ -18,7 +18,7 @@ public class HotelController {
     private final HotelService hotelService;
 
     @Autowired
-    public HotelController(HotelServiceImpl hotelService) {
+    public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
 
