@@ -53,8 +53,12 @@ public class HotelServiceImpl implements HotelService{
 
     @Override
     public List<String> getRooms(GetRoomInput input) {
+        log.info("GetRooms called with input: {}", input);
 
-        return List.of("1","2","3");
+        List<String> rooms = List.of("1", "2", "3");
+
+        log.info("getRooms returned: {}", rooms);
+        return rooms;
     }
 
 }

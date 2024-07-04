@@ -34,7 +34,7 @@ public class HotelController {
     @PostMapping("/book")
     public ResponseEntity<?> bookRoom(){
         String result = hotelService.bookRoom();
-        return new ResponseEntity<>(result, HttpStatus.OK); //TODO ? HttpStatus.CREATED
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @Operation(summary = "Checks a room availability", description = "Room must exist")
