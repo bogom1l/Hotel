@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.services;
 
-import com.tinqinacademy.hotel.model.Test;
+import com.tinqinacademy.hotel.model.RoomInput;
+import com.tinqinacademy.hotel.model.RoomOutput;
 
 public interface HotelService {
 
@@ -8,7 +9,7 @@ public interface HotelService {
 
     Boolean isAvailable();
 
-    String addRoom(Test input);
+    RoomOutput addRoom(RoomInput input);
 
     String removeRoom();
 

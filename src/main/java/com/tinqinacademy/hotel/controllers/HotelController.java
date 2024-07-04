@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.controllers;
 
-import com.tinqinacademy.hotel.model.Test;
+import com.tinqinacademy.hotel.model.RoomInput;
+import com.tinqinacademy.hotel.model.RoomOutput;
 import com.tinqinacademy.hotel.services.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -51,9 +52,9 @@ public class HotelController {
             @ApiResponse(responseCode = "400", description = "Room failed adding")
     })
     @PostMapping("/add")
-    public ResponseEntity<?> addRoom(@RequestBody Test input){
-        String result = hotelService.addRoom(input);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<?> addRoom(@RequestBody RoomInput input){
+        RoomOutput output = hotelService.addRoom(input);
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Remove a room", description = "Remove room")
@@ -77,5 +78,7 @@ public class HotelController {
         String result = hotelService.editRoom();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
 
 }

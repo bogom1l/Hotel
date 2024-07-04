@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.services;
 
-import com.tinqinacademy.hotel.model.Test;
+import com.tinqinacademy.hotel.model.RoomInput;
+import com.tinqinacademy.hotel.model.RoomOutput;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,8 +18,18 @@ public class HotelServiceImpl implements HotelService{
     }
 
     @Override
-    public String addRoom(Test input) {
-        return input.getName() + input.getType();
+    public RoomOutput addRoom(RoomInput input) {
+        RoomOutput output = RoomOutput.builder()
+                .id(input.getId())
+                .roomNumber(input.getRoomNumber())
+                .bedCount(input.getBedCount())
+                .bedSize(input.getBedSize())
+                .floor(input.getFloor())
+                .price(input.getPrice())
+                .bathroomType(input.getBathroomType())
+        .build();
+
+        return output;
     }
 
     @Override
