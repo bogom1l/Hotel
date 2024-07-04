@@ -18,7 +18,7 @@ public enum BedSize {
     }
 
     @JsonCreator
-    public BedSize getByCode(String code) {
+    public static BedSize getByCode(String code) {
         for (BedSize bedSize : BedSize.values()) {
             if(code.equals(bedSize.code)){
                 return bedSize;

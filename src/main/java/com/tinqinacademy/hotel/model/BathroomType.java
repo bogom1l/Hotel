@@ -15,7 +15,7 @@ public enum BathroomType {
     }
 
     @JsonCreator
-    public BathroomType getByCode(String code) {
+    public static BathroomType getByCode(String code) {
         for (BathroomType bathroomType : BathroomType.values()) {
             if(code.equals(bathroomType.code)){
                 return bathroomType;

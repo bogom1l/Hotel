@@ -15,9 +15,9 @@ public class RoomInput {
     private String id;
     private String roomNumber;
     private Integer bedCount;
-    private BedSize bedSize;
+    private String bedSize;
     private Integer floor;
     private BigDecimal price;
-    private BathroomType bathroomType;
+    private String bathroomType;
 
 }
