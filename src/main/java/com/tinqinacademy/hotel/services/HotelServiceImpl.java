@@ -4,6 +4,9 @@ import com.tinqinacademy.hotel.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Service
 public class HotelServiceImpl implements HotelService{
@@ -36,11 +39,7 @@ public class HotelServiceImpl implements HotelService{
         return output;
     }
 
-    @Override
-    public String getRoom(GetRoom room) {
-        BedSize bedSize = BedSize.getByCode(room.getBedType());
-        return "Bed Type = " + bedSize + ", Floor = " + room.getFloor();
-    }
+
 
     @Override
     public String removeRoom() {
@@ -52,5 +51,10 @@ public class HotelServiceImpl implements HotelService{
         return "You edited a room";
     }
 
+    @Override
+    public List<String> getRooms(GetRoomInput input) {
+
+        return List.of("1","2","3");
+    }
 
 }

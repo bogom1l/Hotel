@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.model;
 
 import lombok.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -8,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class GetRoom {
-    private String bedType;
-    private Integer floor;
+public class GetRoomOutput {
+    private List<String> ids;
 }

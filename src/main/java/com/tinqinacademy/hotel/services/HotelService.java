@@ -1,8 +1,10 @@
 package com.tinqinacademy.hotel.services;
 
-import com.tinqinacademy.hotel.model.GetRoom;
+import com.tinqinacademy.hotel.model.GetRoomInput;
 import com.tinqinacademy.hotel.model.RoomInput;
 import com.tinqinacademy.hotel.model.RoomOutput;
+
+import java.util.List;
 
 public interface HotelService {
 
@@ -16,5 +18,5 @@ public interface HotelService {
 
     String editRoom();
 
-    String getRoom(GetRoom room);
+    List<String> getRooms(GetRoomInput input);
 }

@@ -1,8 +1,6 @@
 package com.tinqinacademy.hotel.controllers;
 
-import com.tinqinacademy.hotel.model.GetRoom;
-import com.tinqinacademy.hotel.model.RoomInput;
-import com.tinqinacademy.hotel.model.RoomOutput;
+import com.tinqinacademy.hotel.model.*;
 import com.tinqinacademy.hotel.services.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,7 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/home")
+import java.time.LocalDate;
+import java.util.List;
+
+@RequestMapping("/hotel")
 @RestController
 public class HotelController {
 
@@ -80,14 +81,23 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    // localhost:8080/home/get/3?bedType=single
-    @GetMapping("/get/{floor}")
-    public ResponseEntity<?> getRoom(@RequestParam String bedType, @PathVariable Integer floor){
-        GetRoom room = GetRoom.builder()
-                .bedType(bedType)
-                .floor(floor)
+
+    @GetMapping("/rooms")
+    public ResponseEntity<?> getRooms(@RequestParam LocalDate startDate,
+                                      @RequestParam LocalDate endDate,
+                                      @RequestParam Integer bedCount,
+                                      @RequestParam String bedSize,
+                                      @RequestParam String bathroomType){
+        GetRoomInput input = GetRoomInput.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .bedCount(bedCount)
+                .bedSize(bedSize)
+                .bathroomType(bathroomType)
                 .build();
-        String result = hotelService.getRoom(room);
+
+        List<String> result = hotelService.getRooms(input);
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
