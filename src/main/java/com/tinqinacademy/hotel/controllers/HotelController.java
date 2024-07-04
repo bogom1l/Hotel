@@ -80,6 +80,7 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // localhost:8080/home/get/3?bedType=single
     @GetMapping("/get/{floor}")
     public ResponseEntity<?> getRoom(@RequestParam String bedType, @PathVariable Integer floor){
         GetRoom room = GetRoom.builder()
