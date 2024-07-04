@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.controllers;
 
+import com.tinqinacademy.hotel.model.GetRoom;
 import com.tinqinacademy.hotel.model.RoomInput;
 import com.tinqinacademy.hotel.model.RoomOutput;
 import com.tinqinacademy.hotel.services.HotelService;
@@ -79,6 +80,15 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/get/{floor}")
+    public ResponseEntity<?> getRoom(@RequestParam String bedType, @PathVariable Integer floor){
+        GetRoom room = GetRoom.builder()
+                .bedType(bedType)
+                .floor(floor)
+                .build();
+        String result = hotelService.getRoom(room);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
 }

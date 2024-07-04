@@ -1,11 +1,10 @@
 package com.tinqinacademy.hotel.services;
 
-import com.tinqinacademy.hotel.model.BathroomType;
-import com.tinqinacademy.hotel.model.BedSize;
-import com.tinqinacademy.hotel.model.RoomInput;
-import com.tinqinacademy.hotel.model.RoomOutput;
+import com.tinqinacademy.hotel.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class HotelServiceImpl implements HotelService{
 
@@ -21,6 +20,8 @@ public class HotelServiceImpl implements HotelService{
 
     @Override
     public RoomOutput addRoom(RoomInput input) {
+        log.info("Start addRoom input: {}", input);
+
         RoomOutput output = RoomOutput.builder()
                 .id(input.getId())
                 .roomNumber(input.getRoomNumber())
@@ -29,9 +30,16 @@ public class HotelServiceImpl implements HotelService{
                 .floor(input.getFloor())
                 .price(input.getPrice())
                 .bathroomType(BathroomType.getByCode(input.getBathroomType()))
-        .build();
+                .build();
 
+        log.info("End addRoom output: {}", output);
         return output;
+    }
+
+    @Override
+    public String getRoom(GetRoom room) {
+        BedSize bedSize = BedSize.getByCode(room.getBedType());
+        return "Bed Type = " + bedSize + ", Floor = " + room.getFloor();
     }
 
     @Override
@@ -43,4 +51,6 @@ public class HotelServiceImpl implements HotelService{
     public String editRoom() {
         return "You edited a room";
     }
+
+
 }
