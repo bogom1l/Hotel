@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.controllers;
 
 import com.tinqinacademy.hotel.model.*;
+import com.tinqinacademy.hotel.model.enums.BedSize;
 import com.tinqinacademy.hotel.model.input.GetRoomInput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -94,7 +95,9 @@ public class HotelController {
                 .endDate(endDate)
                 .bedCount(bedCount)
                 .bedSize(bedSize)
-                .bathroomType(bathroomType)
+                // TODO: maybe it shouldn't work when i give it wrong enum data
+                //  .bedSize(BedSize.getByCode(bedSize).toString())
+                .bathroomType(bathroomType) // TODO: same here
                 .build();
 
         List<String> result = hotelService.getRooms(input);
