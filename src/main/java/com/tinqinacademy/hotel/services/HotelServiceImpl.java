@@ -1,15 +1,18 @@
 package com.tinqinacademy.hotel.services;
 
 import com.tinqinacademy.hotel.model.*;
+import com.tinqinacademy.hotel.model.enums.BathroomType;
+import com.tinqinacademy.hotel.model.enums.BedSize;
+import com.tinqinacademy.hotel.model.input.GetRoomInput;
+import com.tinqinacademy.hotel.services.contracts.HotelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Service
-public class HotelServiceImpl implements HotelService{
+public class HotelServiceImpl implements HotelService {
 
     @Override
     public String bookRoom() {

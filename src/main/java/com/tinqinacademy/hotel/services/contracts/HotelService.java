@@ -1,6 +1,6 @@
-package com.tinqinacademy.hotel.services;
+package com.tinqinacademy.hotel.services.contracts;
 
-import com.tinqinacademy.hotel.model.GetRoomInput;
+import com.tinqinacademy.hotel.model.input.GetRoomInput;
 import com.tinqinacademy.hotel.model.RoomInput;
 import com.tinqinacademy.hotel.model.RoomOutput;
 

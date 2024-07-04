@@ -1,5 +1,7 @@
 package com.tinqinacademy.hotel.model;
 
+import com.tinqinacademy.hotel.model.enums.BathroomType;
+import com.tinqinacademy.hotel.model.enums.BedSize;
 import lombok.*;
 
 import java.math.BigDecimal;

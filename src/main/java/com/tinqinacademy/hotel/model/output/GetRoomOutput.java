@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.model;
+package com.tinqinacademy.hotel.model.output;
 
 import lombok.*;
 import java.util.List;

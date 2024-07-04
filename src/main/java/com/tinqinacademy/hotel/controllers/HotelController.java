@@ -1,7 +1,8 @@
 package com.tinqinacademy.hotel.controllers;
 
 import com.tinqinacademy.hotel.model.*;
-import com.tinqinacademy.hotel.services.HotelService;
+import com.tinqinacademy.hotel.model.input.GetRoomInput;
+import com.tinqinacademy.hotel.services.contracts.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
