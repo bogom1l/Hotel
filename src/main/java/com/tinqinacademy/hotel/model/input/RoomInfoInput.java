@@ -9,5 +9,5 @@ import lombok.*;
 @Builder
 @ToString
 public class RoomInfoInput {
-    private String id;
+    private String roomId;
 }

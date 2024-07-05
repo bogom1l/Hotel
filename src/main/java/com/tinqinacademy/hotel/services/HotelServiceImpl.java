@@ -2,9 +2,11 @@ package com.tinqinacademy.hotel.services;
 
 import com.tinqinacademy.hotel.model.enums.BathroomType;
 import com.tinqinacademy.hotel.model.enums.BedSize;
+import com.tinqinacademy.hotel.model.input.BookRoomInput;
 import com.tinqinacademy.hotel.model.input.GetRoomInput;
 import com.tinqinacademy.hotel.model.input.RoomInfoInput;
 import com.tinqinacademy.hotel.model.input.RoomInput;
+import com.tinqinacademy.hotel.model.output.BookRoomOutput;
 import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
 import com.tinqinacademy.hotel.model.output.RoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
@@ -21,10 +23,7 @@ import java.util.Random;
 @Service
 public class HotelServiceImpl implements HotelService {
 
-    @Override
-    public String bookRoom() {
-        return "You booked a room";
-    }
+
 
     @Override
     public Boolean isAvailable() {
@@ -79,7 +78,7 @@ public class HotelServiceImpl implements HotelService {
         List<LocalDate> sampleDates = GenerateSampleDates();
 
         RoomInfoOutput output = RoomInfoOutput.builder() // with sample random data
-                .id(input.getId())
+                .id(input.getRoomId())
                 .price(BigDecimal.valueOf(random.nextDouble(50_000) + 1))
                 .floor(random.nextInt(10) + 1)
                 .bedSize(BedSize.DOUBLE)
@@ -102,4 +101,13 @@ public class HotelServiceImpl implements HotelService {
         return sampleDates;
     }
 
+    @Override
+    public BookRoomOutput bookRoom(BookRoomInput input) {
+        log.info("bookRoom called with input: {}", input);
+
+        BookRoomOutput output = BookRoomOutput.builder().build();
+
+        log.info("bookRoom returned: {}", output);
+        return output;
+    }
 }

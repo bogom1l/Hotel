@@ -1,8 +1,10 @@
 package com.tinqinacademy.hotel.controllers;
 
+import com.tinqinacademy.hotel.model.input.BookRoomInput;
 import com.tinqinacademy.hotel.model.input.GetRoomInput;
 import com.tinqinacademy.hotel.model.input.RoomInfoInput;
 import com.tinqinacademy.hotel.model.input.RoomInput;
+import com.tinqinacademy.hotel.model.output.BookRoomOutput;
 import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
 import com.tinqinacademy.hotel.model.output.RoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
@@ -28,18 +30,6 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @Operation(summary = "Books a room", description = "Book must exist")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Room booked successfully"),
-            @ApiResponse(responseCode = "400", description = "Already booked"),
-            @ApiResponse(responseCode = "404", description = "Error not found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
-    })
-    @PostMapping("/book")
-    public ResponseEntity<?> bookRoom(){
-        String result = hotelService.bookRoom();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
 
     @Operation(summary = "Checks a room availability", description = "Room must exist")
     @ApiResponses(value = {
@@ -85,6 +75,8 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // -----
+
 
     @GetMapping("/rooms")
     public ResponseEntity<?> getRooms(@RequestParam LocalDate startDate,
@@ -107,16 +99,45 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getRoomInfo(@PathVariable String id){
+    @GetMapping("/{roomId}")
+    public ResponseEntity<?> getRoomInfo(@PathVariable String roomId){
 
         RoomInfoInput room = RoomInfoInput.builder()
-                .id(id)
+                .roomId(roomId)
                 .build();
 
         RoomInfoOutput result = hotelService.getRoomInfo(room);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Books a room", description = "Books the room specified")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Room booked successfully"),
+            @ApiResponse(responseCode = "400", description = "Already booked"),
+            @ApiResponse(responseCode = "404", description = "Error not found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @PostMapping("/{roomId}")
+    public ResponseEntity<?> bookRoom(@PathVariable String roomId,
+                                      @RequestParam String startDate,
+                                      @RequestParam String endDate,
+                                      @RequestParam String firstName,
+                                      @RequestParam String lastName,
+                                      @RequestParam String phoneNo){
+
+        BookRoomInput input = BookRoomInput.builder()
+                .roomId(roomId)
+                .startDate(startDate)
+                .endDate(endDate)
+                .firstName(firstName)
+                .lastName(lastName)
+                .phoneNo(phoneNo)
+                .build();
+
+        BookRoomOutput result = hotelService.bookRoom(input);
+
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
 }
