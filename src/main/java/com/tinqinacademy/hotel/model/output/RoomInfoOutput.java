@@ -1,10 +1,12 @@
-package com.tinqinacademy.hotel.model;
+package com.tinqinacademy.hotel.model.output;
 
 import com.tinqinacademy.hotel.model.enums.BathroomType;
 import com.tinqinacademy.hotel.model.enums.BedSize;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,14 +14,12 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @ToString
-public class RoomOutput {
-
+public class RoomInfoOutput {
     private String id;
-    private String roomNumber;
-    private Integer bedCount;
-    private BedSize bedSize;
-    private Integer floor;
     private BigDecimal price;
+    private Integer floor;
+    private BedSize bedSize;
     private BathroomType bathroomType;
-
+    private Integer bedCount;
+    private List<LocalDate> datesOccupied;
 }

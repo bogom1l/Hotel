@@ -1,8 +1,10 @@
 package com.tinqinacademy.hotel.controllers;
 
-import com.tinqinacademy.hotel.model.*;
-import com.tinqinacademy.hotel.model.enums.BedSize;
 import com.tinqinacademy.hotel.model.input.GetRoomInput;
+import com.tinqinacademy.hotel.model.input.RoomInfoInput;
+import com.tinqinacademy.hotel.model.input.RoomInput;
+import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
+import com.tinqinacademy.hotel.model.output.RoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -105,5 +107,16 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRoomInfo(@PathVariable String id){
+
+        RoomInfoInput room = RoomInfoInput.builder()
+                .id(id)
+                .build();
+
+        RoomInfoOutput result = hotelService.getRoomInfo(room);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 }
