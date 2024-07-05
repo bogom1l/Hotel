@@ -2,11 +2,9 @@ package com.tinqinacademy.hotel.services;
 
 import com.tinqinacademy.hotel.model.enums.BathroomType;
 import com.tinqinacademy.hotel.model.enums.BedSize;
-import com.tinqinacademy.hotel.model.input.BookRoomInput;
-import com.tinqinacademy.hotel.model.input.GetRoomInput;
-import com.tinqinacademy.hotel.model.input.RoomInfoInput;
-import com.tinqinacademy.hotel.model.input.RoomInput;
+import com.tinqinacademy.hotel.model.input.*;
 import com.tinqinacademy.hotel.model.output.BookRoomOutput;
+import com.tinqinacademy.hotel.model.output.DeleteBookingOutput;
 import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
 import com.tinqinacademy.hotel.model.output.RoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
@@ -91,6 +89,7 @@ public class HotelServiceImpl implements HotelService {
         return output;
     }
 
+
     private List<LocalDate> GenerateSampleDates(){
         List<LocalDate> sampleDates = new ArrayList<>();
         sampleDates.add(LocalDate.now());
@@ -110,4 +109,15 @@ public class HotelServiceImpl implements HotelService {
         log.info("bookRoom returned: {}", output);
         return output;
     }
+
+    @Override
+    public DeleteBookingOutput deleteBooking(DeleteBookingInput input) {
+        log.info("deleteBooking called with input: {}", input);
+
+        DeleteBookingOutput output = DeleteBookingOutput.builder().build();
+
+        log.info("deleteBooking returned: {}", output);
+        return output;
+    }
+
 }

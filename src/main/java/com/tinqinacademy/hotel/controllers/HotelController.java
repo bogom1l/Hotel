@@ -1,10 +1,8 @@
 package com.tinqinacademy.hotel.controllers;
 
-import com.tinqinacademy.hotel.model.input.BookRoomInput;
-import com.tinqinacademy.hotel.model.input.GetRoomInput;
-import com.tinqinacademy.hotel.model.input.RoomInfoInput;
-import com.tinqinacademy.hotel.model.input.RoomInput;
+import com.tinqinacademy.hotel.model.input.*;
 import com.tinqinacademy.hotel.model.output.BookRoomOutput;
+import com.tinqinacademy.hotel.model.output.DeleteBookingOutput;
 import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
 import com.tinqinacademy.hotel.model.output.RoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
@@ -134,6 +132,18 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // DELETE /hotel/{bookingId}
+    @DeleteMapping("/{bookingId}")
+    public ResponseEntity<?> deleteBooking(@PathVariable String bookingId){
+
+        DeleteBookingInput input = DeleteBookingInput.builder()
+                .bookingId(bookingId)
+                .build();
+
+        DeleteBookingOutput result = hotelService.deleteBooking(input);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
 
