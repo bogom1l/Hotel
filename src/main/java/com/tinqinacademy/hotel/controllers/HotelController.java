@@ -78,6 +78,7 @@ public class HotelController {
     // -----
 
 
+    // GET /hotel/rooms
     @GetMapping("/rooms")
     public ResponseEntity<?> getRooms(@RequestParam LocalDate startDate,
                                       @RequestParam LocalDate endDate,
@@ -99,6 +100,7 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // GET /hotel/{roomId}
     @GetMapping("/{roomId}")
     public ResponseEntity<?> getRoomInfo(@PathVariable String roomId){
 
@@ -111,6 +113,7 @@ public class HotelController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // POST /hotel/{roomId}
     @Operation(summary = "Books a room", description = "Books the room specified")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Room booked successfully"),
@@ -139,5 +142,8 @@ public class HotelController {
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+
+
+
 
 }
