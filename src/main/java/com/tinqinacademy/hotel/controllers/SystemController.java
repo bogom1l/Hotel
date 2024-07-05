@@ -25,7 +25,7 @@ public class SystemController {
         this.systemService = systemService;
     }
 
-    @Operation(summary = "Register a visitor", description = "Registers a visitor")
+    @Operation(summary = "Register a visitor", description = "Registers a visitor as room renter")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Visitor registered successfully"),
             @ApiResponse(responseCode = "400", description = "Error registering visitor")
