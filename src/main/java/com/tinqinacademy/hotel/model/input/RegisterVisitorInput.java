@@ -11,5 +11,5 @@ import java.util.List;
 @Builder
 @ToString
 public class RegisterVisitorInput {
-    private List<Visitor> visitorList;
+    private List<VisitorInput> visitorList;
 }

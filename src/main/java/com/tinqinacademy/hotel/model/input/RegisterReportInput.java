@@ -2,22 +2,21 @@ package com.tinqinacademy.hotel.model.input;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-public class Visitor {
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String firstName;
+public class RegisterReportInput {
+    private String startDate;
+    private String endDate;
+    private String fistName;
     private String lastName;
     private String phoneNo;
     private String idCardNo;
-    private String idCardValidity; // TODO: LocalDate
+    private String idCardValidity;
     private String idCardIssueAuthority;
-    private String idCardIssueDate; // TODO: LocalDate
+    private String idCardIssueDate;
+    private String roomNo;
 }

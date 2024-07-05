@@ -89,7 +89,7 @@ public class HotelController {
                 .bathroomType(bathroomType) // TODO: same here
                 .build();
 
-        List<String> result = hotelService.getRooms(input);
+        List<String> result = hotelService.getRooms(input); //TODO Outputmodel
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
