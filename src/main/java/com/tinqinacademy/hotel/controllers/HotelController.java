@@ -116,31 +116,22 @@ public class HotelController {
     // POST /hotel/{roomId}
     @Operation(summary = "Books a room", description = "Books the room specified")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Room booked successfully"),
+            @ApiResponse(responseCode = "200", description = "Room booked successfully"),
             @ApiResponse(responseCode = "400", description = "Already booked"),
             @ApiResponse(responseCode = "404", description = "Error not found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PostMapping("/{roomId}")
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
-                                      @RequestParam String startDate,
-                                      @RequestParam String endDate,
-                                      @RequestParam String firstName,
-                                      @RequestParam String lastName,
-                                      @RequestParam String phoneNo){
+                                      @RequestBody BookRoomInput input){
 
-        BookRoomInput input = BookRoomInput.builder()
+        BookRoomInput updatedInput = input.toBuilder()
                 .roomId(roomId)
-                .startDate(startDate)
-                .endDate(endDate)
-                .firstName(firstName)
-                .lastName(lastName)
-                .phoneNo(phoneNo)
                 .build();
 
-        BookRoomOutput result = hotelService.bookRoom(input);
+        BookRoomOutput result = hotelService.bookRoom(updatedInput);
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 

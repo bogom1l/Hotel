@@ -5,9 +5,9 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+// @AllArgsConstructor
 @Builder
 @ToString
 public class BookRoomOutput {
-    private String test = ""; // just to avoid error
+    // private String test = ""; // just to avoid error
 }
