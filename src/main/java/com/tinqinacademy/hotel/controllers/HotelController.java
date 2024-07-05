@@ -1,10 +1,7 @@
 package com.tinqinacademy.hotel.controllers;
 
 import com.tinqinacademy.hotel.model.input.*;
-import com.tinqinacademy.hotel.model.output.BookRoomOutput;
-import com.tinqinacademy.hotel.model.output.DeleteBookingOutput;
-import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
-import com.tinqinacademy.hotel.model.output.RoomOutput;
+import com.tinqinacademy.hotel.model.output.*;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,7 +24,6 @@ public class HotelController {
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
-
 
     @Operation(summary = "Checks a room availability", description = "Room must exist")
     @ApiResponses(value = {

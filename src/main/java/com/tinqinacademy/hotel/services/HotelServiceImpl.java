@@ -21,8 +21,6 @@ import java.util.Random;
 @Service
 public class HotelServiceImpl implements HotelService {
 
-
-
     @Override
     public Boolean isAvailable() {
         return true;
@@ -45,8 +43,6 @@ public class HotelServiceImpl implements HotelService {
         log.info("End addRoom output: {}", output);
         return output;
     }
-
-
 
     @Override
     public String removeRoom() {
@@ -88,7 +84,6 @@ public class HotelServiceImpl implements HotelService {
         log.info("getRoomInfo returned: {}", output);
         return output;
     }
-
 
     private List<LocalDate> GenerateSampleDates(){
         List<LocalDate> sampleDates = new ArrayList<>();
