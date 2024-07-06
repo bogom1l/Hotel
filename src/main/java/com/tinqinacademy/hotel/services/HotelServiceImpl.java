@@ -9,6 +9,7 @@ import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
 import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
+import com.tinqinacademy.hotel.model.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,18 +25,20 @@ import java.util.Random;
 public class HotelServiceImpl implements HotelService {
 
     @Override
-    public List<String> getRooms(GetRoomInput input) {
-        log.info("GetRooms called with input: {}", input);
+    public GetRoomOutput getRooms(GetRoomInput input) {
+        log.info("Start getRooms with input: {}", input);
 
-        List<String> rooms = List.of("1", "2", "3");
+        GetRoomOutput output = GetRoomOutput.builder()
+                .ids(List.of("1", "2", "3", "63"))
+                .build();
 
-        log.info("getRooms returned: {}", rooms);
-        return rooms;
+        log.info("End getRooms with output: {}", output);
+        return output;
     }
 
     @Override
     public RoomInfoOutput getRoomInfo(RoomInfoInput input) {
-        log.info("getRoomInfo called with input: {}", input);
+        log.info("Start getRoomInfo with input: {}", input);
 
         Random random = new Random();
         List<LocalDate> sampleDates = generateSampleDates();
@@ -50,7 +53,7 @@ public class HotelServiceImpl implements HotelService {
                 .datesOccupied(sampleDates)
                 .build();
 
-        log.info("getRoomInfo returned: {}", output);
+        log.info("End getRoomInfo with output: {}", output);
         return output;
     }
 
@@ -66,21 +69,21 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public BookRoomOutput bookRoom(BookRoomInput input) {
-        log.info("bookRoom called with input: {}", input);
+        log.info("Start bookRoom with input: {}", input);
 
         BookRoomOutput output = BookRoomOutput.builder().build();
 
-        log.info("bookRoom returned: {}", output);
+        log.info("End bookRoom with output: {}", output);
         return output;
     }
 
     @Override
     public DeleteBookingOutput deleteBooking(DeleteBookingInput input) {
-        log.info("deleteBooking called with input: {}", input);
+        log.info("Start deleteBooking with input: {}", input);
 
         DeleteBookingOutput output = DeleteBookingOutput.builder().build();
 
-        log.info("deleteBooking returned: {}", output);
+        log.info("End deleteBooking with output: {}", output);
         return output;
     }
 

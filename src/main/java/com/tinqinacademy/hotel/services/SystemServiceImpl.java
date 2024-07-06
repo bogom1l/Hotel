@@ -23,20 +23,22 @@ public class SystemServiceImpl implements SystemService {
 
         RegisterVisitorOutput output = RegisterVisitorOutput.builder().build();
 
-        log.info("End registerVisitor output: {}", output);
+        log.info("End registerVisitor with output: {}", output);
         return output;
     }
 
     @Override
     public RegisterReportOutput registerReport(RegisterReportInput input) {
+        log.info("Start registerReport with input: {}", input);
 
         List<VisitorReportOutput> sampleVisitorReports = generateSampleVisitorReports();
 
-        RegisterReportOutput result = RegisterReportOutput.builder()
+        RegisterReportOutput output = RegisterReportOutput.builder()
                 .visitors(sampleVisitorReports)
                 .build();
 
-        return result;
+        log.info("End registerReport with output: {}", output);
+        return output;
     }
 
     private List<VisitorReportOutput> generateSampleVisitorReports(){

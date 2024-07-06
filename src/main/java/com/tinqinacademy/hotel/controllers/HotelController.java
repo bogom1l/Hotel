@@ -7,6 +7,7 @@ import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
 import com.tinqinacademy.hotel.model.getroominfo.RoomInfoInput;
 import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
+import com.tinqinacademy.hotel.model.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -47,22 +48,22 @@ public class HotelController {
                 .bathroomType(bathroomType) // TODO: same here
                 .build();
 
-        List<String> result = hotelService.getRooms(input); //TODO Outputmodel
+        GetRoomOutput output = hotelService.getRooms(input);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
     // GET /hotel/{roomId}
     @GetMapping("/{roomId}")
     public ResponseEntity<?> getRoomInfo(@PathVariable String roomId){
 
-        RoomInfoInput room = RoomInfoInput.builder()
+        RoomInfoInput input = RoomInfoInput.builder()
                 .roomId(roomId)
                 .build();
 
-        RoomInfoOutput result = hotelService.getRoomInfo(room);
+        RoomInfoOutput output = hotelService.getRoomInfo(input);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
     // POST /hotel/{roomId}
@@ -81,9 +82,9 @@ public class HotelController {
                 .roomId(roomId)
                 .build();
 
-        BookRoomOutput result = hotelService.bookRoom(updatedInput);
+        BookRoomOutput output = hotelService.bookRoom(updatedInput);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
     // DELETE /hotel/{bookingId}
@@ -94,9 +95,9 @@ public class HotelController {
                 .bookingId(bookingId)
                 .build();
 
-        DeleteBookingOutput result = hotelService.deleteBooking(input);
+        DeleteBookingOutput output = hotelService.deleteBooking(input);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
 

@@ -32,9 +32,9 @@ public class SystemController {
     @PostMapping("/register")
     public ResponseEntity<?> registerVisitor(@RequestBody RegisterVisitorInput input) {
 
-        RegisterVisitorOutput result = systemService.registerVisitor(input);
+        RegisterVisitorOutput output = systemService.registerVisitor(input);
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
     @GetMapping("/register")
@@ -62,9 +62,9 @@ public class SystemController {
                 .roomNo(roomNo)
                 .build();
 
-        RegisterReportOutput result = systemService.registerReport(input);
+        RegisterReportOutput output = systemService.registerReport(input);
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
 }
