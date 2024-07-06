@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.services;
+package com.tinqinacademy.hotel.services.configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
