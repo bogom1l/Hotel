@@ -29,7 +29,7 @@ public class SystemController {
             @ApiResponse(responseCode = "201", description = "Visitor registered successfully"),
             @ApiResponse(responseCode = "400", description = "Error registering visitor")
     })
-    @PostMapping("/register")
+    @PostMapping("/register") // POST /system/register
     public ResponseEntity<?> registerVisitor(@RequestBody RegisterVisitorInput input) {
 
         RegisterVisitorOutput output = systemService.registerVisitor(input);
@@ -37,7 +37,12 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
-    @GetMapping("/register")
+    @Operation(summary = "Provides a room report", description = "Generates and returns a report based on various criteria")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room report generated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters")
+    })
+    @GetMapping("/register") // GET system/register
     public ResponseEntity<?> getRoomReport(@RequestParam String startDate,
                                            @RequestParam String endDate,
                                            @RequestParam String firstName,
@@ -64,7 +69,7 @@ public class SystemController {
 
         RegisterReportOutput output = systemService.registerReport(input);
 
-        return new ResponseEntity<>(output, HttpStatus.CREATED);
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
 }

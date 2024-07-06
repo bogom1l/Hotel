@@ -30,8 +30,12 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    // GET /hotel/rooms
-    @GetMapping("/rooms")
+    @Operation(summary = "Get all rooms", description = "Gets rooms' info for analyzing purposes")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rooms retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "No rooms found")
+    })
+    @GetMapping("/rooms") // GET /hotel/rooms
     public ResponseEntity<?> getRooms(@RequestParam LocalDate startDate,
                                       @RequestParam LocalDate endDate,
                                       @RequestParam Integer bedCount,
@@ -52,8 +56,12 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    // GET /hotel/{roomId}
-    @GetMapping("/{roomId}")
+    @Operation(summary = "Get room info", description = "Gets the room info specified by roomId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room info retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Room not found")
+    })
+    @GetMapping("/{roomId}") // GET /hotel/{roomId}
     public ResponseEntity<?> getRoomInfo(@PathVariable String roomId) {
 
         RoomInfoInput input = RoomInfoInput.builder()
@@ -65,15 +73,14 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    // POST /hotel/{roomId}
-    @Operation(summary = "Books a room", description = "Books the room specified")
+    @Operation(summary = "Books a room", description = "Books the room specified by roomId")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Room booked successfully"),
-            @ApiResponse(responseCode = "400", description = "Already booked"),
-            @ApiResponse(responseCode = "404", description = "Error not found"),
+            @ApiResponse(responseCode = "201", description = "Room booked successfully"),
+            @ApiResponse(responseCode = "400", description = "Room already booked or bad request"),
+            @ApiResponse(responseCode = "404", description = "Room not found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
-    @PostMapping("/{roomId}")
+    @PostMapping("/{roomId}") // POST /hotel/{roomId}
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
                                       @RequestBody BookRoomInput input) {
 
@@ -83,11 +90,15 @@ public class HotelController {
 
         BookRoomOutput output = hotelService.bookRoom(updatedInput);
 
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
-    // DELETE /hotel/{bookingId}
-    @DeleteMapping("/{bookingId}")
+    @Operation(summary = "Deletes a booking", description = "Deletes a booking specified by bookingId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Booking deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Booking not found")
+    })
+    @DeleteMapping("/{bookingId}") // DELETE /hotel/{bookingId}
     public ResponseEntity<?> deleteBooking(@PathVariable String bookingId) {
 
         DeleteBookingInput input = DeleteBookingInput.builder()
@@ -96,7 +107,7 @@ public class HotelController {
 
         DeleteBookingOutput output = hotelService.deleteBooking(input);
 
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
     }
 
 }
