@@ -1,24 +1,18 @@
 package com.tinqinacademy.hotel.services.contracts;
 
-import com.tinqinacademy.hotel.model.input.*;
-import com.tinqinacademy.hotel.model.output.BookRoomOutput;
-import com.tinqinacademy.hotel.model.output.DeleteBookingOutput;
-import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
-import com.tinqinacademy.hotel.model.output.RoomOutput;
+import com.tinqinacademy.hotel.model.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingInput;
+import com.tinqinacademy.hotel.model.getroominfo.RoomInfoInput;
+import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
+import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
+import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
 
 import java.util.List;
 
 public interface HotelService {
 
     BookRoomOutput bookRoom(BookRoomInput input);
-
-    Boolean isAvailable();
-
-    RoomOutput addRoom(RoomInput input);
-
-    String removeRoom();
-
-    String editRoom();
 
     List<String> getRooms(GetRoomInput input);
 

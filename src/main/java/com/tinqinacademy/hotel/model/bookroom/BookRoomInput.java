@@ -1,5 +1,6 @@
-package com.tinqinacademy.hotel.model.input;
+package com.tinqinacademy.hotel.model.bookroom;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -8,16 +9,20 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @ToString
-public class VisitorInput {
+public class BookRoomInput {
+
+    @JsonIgnore
+    private String roomId;
+
     private LocalDate startDate;
+
     private LocalDate endDate;
+
     private String firstName;
+
     private String lastName;
+
     private String phoneNo;
-    private String idCardNo;
-    private String idCardValidity; // TODO: LocalDate
-    private String idCardIssueAuthority;
-    private String idCardIssueDate; // TODO: LocalDate
 }

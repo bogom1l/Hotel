@@ -1,7 +1,12 @@
 package com.tinqinacademy.hotel.controllers;
 
-import com.tinqinacademy.hotel.model.input.*;
-import com.tinqinacademy.hotel.model.output.*;
+import com.tinqinacademy.hotel.model.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingInput;
+import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
+import com.tinqinacademy.hotel.model.getroominfo.RoomInfoInput;
+import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
+import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,53 +29,6 @@ public class HotelController {
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
-
-    @Operation(summary = "Checks a room availability", description = "Room must exist")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Room is available"),
-            @ApiResponse(responseCode = "400", description = "Room is not available")
-    })
-    @GetMapping("/check")
-    public ResponseEntity<?> checkRoom(){
-        Boolean result = hotelService.isAvailable();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @Operation(summary = "Adds a room", description = "Adding room")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Room is added successfully"),
-            @ApiResponse(responseCode = "400", description = "Room failed adding")
-    })
-    @PostMapping("/add")
-    public ResponseEntity<?> addRoom(@RequestBody RoomInput input){
-        RoomOutput output = hotelService.addRoom(input);
-        return new ResponseEntity<>(output, HttpStatus.CREATED);
-    }
-
-    @Operation(summary = "Remove a room", description = "Remove room")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Room is removed successfully"),
-            @ApiResponse(responseCode = "400", description = "Room failed removing")
-    })
-    @DeleteMapping("/remove")
-    public ResponseEntity<?> removeRoom(){
-        String result = hotelService.removeRoom();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @Operation(summary = "Edit a room", description = "Edit room")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Roomed edited successfully"),
-            @ApiResponse(responseCode = "400",description = "Room failed editing")
-    })
-    @PutMapping("/edit")
-    public ResponseEntity<?> editRoom(){
-        String result = hotelService.editRoom();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    // -----
-
 
     // GET /hotel/rooms
     @GetMapping("/rooms")

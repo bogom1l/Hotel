@@ -1,10 +1,10 @@
 package com.tinqinacademy.hotel.services;
 
-import com.tinqinacademy.hotel.model.input.RegisterReportInput;
-import com.tinqinacademy.hotel.model.input.RegisterVisitorInput;
-import com.tinqinacademy.hotel.model.output.VisitorReportOutput;
-import com.tinqinacademy.hotel.model.output.RegisterReportOutput;
-import com.tinqinacademy.hotel.model.output.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.model.getroomreport.RegisterReportInput;
+import com.tinqinacademy.hotel.model.registervisitor.RegisterVisitorInput;
+import com.tinqinacademy.hotel.model.getroomreport.VisitorReportOutput;
+import com.tinqinacademy.hotel.model.getroomreport.RegisterReportOutput;
+import com.tinqinacademy.hotel.model.registervisitor.RegisterVisitorOutput;
 import com.tinqinacademy.hotel.services.contracts.SystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

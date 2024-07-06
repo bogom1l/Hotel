@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.model.output;
+package com.tinqinacademy.hotel.model.getroominfo;
 
 import com.tinqinacademy.hotel.model.enums.BathroomType;
 import com.tinqinacademy.hotel.model.enums.BedSize;

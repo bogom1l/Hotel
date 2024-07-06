@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.model.output;
+package com.tinqinacademy.hotel.model.registervisitor;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @ToString
-public class VisitorReportOutput {
+public class VisitorInput {
     private LocalDate startDate;
     private LocalDate endDate;
     private String firstName;

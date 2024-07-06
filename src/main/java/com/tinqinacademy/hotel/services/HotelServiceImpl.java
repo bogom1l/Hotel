@@ -1,12 +1,14 @@
 package com.tinqinacademy.hotel.services;
 
+import com.tinqinacademy.hotel.model.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingInput;
 import com.tinqinacademy.hotel.model.enums.BathroomType;
 import com.tinqinacademy.hotel.model.enums.BedSize;
-import com.tinqinacademy.hotel.model.input.*;
-import com.tinqinacademy.hotel.model.output.BookRoomOutput;
-import com.tinqinacademy.hotel.model.output.DeleteBookingOutput;
-import com.tinqinacademy.hotel.model.output.RoomInfoOutput;
-import com.tinqinacademy.hotel.model.output.RoomOutput;
+import com.tinqinacademy.hotel.model.getroominfo.RoomInfoInput;
+import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
+import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
+import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,39 +22,6 @@ import java.util.Random;
 @Slf4j
 @Service
 public class HotelServiceImpl implements HotelService {
-
-    @Override
-    public Boolean isAvailable() {
-        return true;
-    }
-
-    @Override
-    public RoomOutput addRoom(RoomInput input) {
-        log.info("Start addRoom input: {}", input);
-
-        RoomOutput output = RoomOutput.builder()
-                .id(input.getId())
-                .roomNumber(input.getRoomNumber())
-                .bedCount(input.getBedCount())
-                .bedSize(BedSize.getByCode(input.getBedSize()))
-                .floor(input.getFloor())
-                .price(input.getPrice())
-                .bathroomType(BathroomType.getByCode(input.getBathroomType()))
-                .build();
-
-        log.info("End addRoom output: {}", output);
-        return output;
-    }
-
-    @Override
-    public String removeRoom() {
-        return "You removed a room.";
-    }
-
-    @Override
-    public String editRoom() {
-        return "You edited a room";
-    }
 
     @Override
     public List<String> getRooms(GetRoomInput input) {
@@ -69,7 +38,7 @@ public class HotelServiceImpl implements HotelService {
         log.info("getRoomInfo called with input: {}", input);
 
         Random random = new Random();
-        List<LocalDate> sampleDates = GenerateSampleDates();
+        List<LocalDate> sampleDates = generateSampleDates();
 
         RoomInfoOutput output = RoomInfoOutput.builder() // with sample random data
                 .id(input.getRoomId())
@@ -85,7 +54,7 @@ public class HotelServiceImpl implements HotelService {
         return output;
     }
 
-    private List<LocalDate> GenerateSampleDates(){
+    private List<LocalDate> generateSampleDates(){
         List<LocalDate> sampleDates = new ArrayList<>();
         sampleDates.add(LocalDate.now());
         sampleDates.add(LocalDate.now().plusDays(1));
