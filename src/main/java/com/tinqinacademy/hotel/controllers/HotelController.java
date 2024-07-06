@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RequestMapping("/hotel")
 @RestController
@@ -37,7 +36,7 @@ public class HotelController {
                                       @RequestParam LocalDate endDate,
                                       @RequestParam Integer bedCount,
                                       @RequestParam String bedSize,
-                                      @RequestParam String bathroomType){
+                                      @RequestParam String bathroomType) {
         GetRoomInput input = GetRoomInput.builder()
                 .startDate(startDate)
                 .endDate(endDate)
@@ -55,7 +54,7 @@ public class HotelController {
 
     // GET /hotel/{roomId}
     @GetMapping("/{roomId}")
-    public ResponseEntity<?> getRoomInfo(@PathVariable String roomId){
+    public ResponseEntity<?> getRoomInfo(@PathVariable String roomId) {
 
         RoomInfoInput input = RoomInfoInput.builder()
                 .roomId(roomId)
@@ -76,7 +75,7 @@ public class HotelController {
     })
     @PostMapping("/{roomId}")
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
-                                      @RequestBody BookRoomInput input){
+                                      @RequestBody BookRoomInput input) {
 
         BookRoomInput updatedInput = input.toBuilder()
                 .roomId(roomId)
@@ -89,7 +88,7 @@ public class HotelController {
 
     // DELETE /hotel/{bookingId}
     @DeleteMapping("/{bookingId}")
-    public ResponseEntity<?> deleteBooking(@PathVariable String bookingId){
+    public ResponseEntity<?> deleteBooking(@PathVariable String bookingId) {
 
         DeleteBookingInput input = DeleteBookingInput.builder()
                 .bookingId(bookingId)
@@ -99,7 +98,5 @@ public class HotelController {
 
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
-
-
 
 }

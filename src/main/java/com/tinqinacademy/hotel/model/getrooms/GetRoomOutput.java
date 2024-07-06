@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.model.getrooms;
 
 import lombok.*;
+
 import java.util.List;
 
 @Getter

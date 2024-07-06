@@ -1,14 +1,14 @@
 package com.tinqinacademy.hotel.services;
 
 import com.tinqinacademy.hotel.model.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingInput;
+import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
 import com.tinqinacademy.hotel.model.enums.BathroomType;
 import com.tinqinacademy.hotel.model.enums.BedSize;
 import com.tinqinacademy.hotel.model.getroominfo.RoomInfoInput;
-import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
-import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
-import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
 import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
+import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.model.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class HotelServiceImpl implements HotelService {
         Random random = new Random();
         List<LocalDate> sampleDates = generateSampleDates();
 
-        RoomInfoOutput output = RoomInfoOutput.builder() // with sample random data
+        RoomInfoOutput output = RoomInfoOutput.builder() // sample random data
                 .id(input.getRoomId())
                 .price(BigDecimal.valueOf(random.nextDouble(50_000) + 1))
                 .floor(random.nextInt(10) + 1)
@@ -57,7 +57,7 @@ public class HotelServiceImpl implements HotelService {
         return output;
     }
 
-    private List<LocalDate> generateSampleDates(){
+    private List<LocalDate> generateSampleDates() {
         List<LocalDate> sampleDates = new ArrayList<>();
         sampleDates.add(LocalDate.now());
         sampleDates.add(LocalDate.now().plusDays(1));
