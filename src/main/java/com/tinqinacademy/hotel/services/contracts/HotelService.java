@@ -1,13 +1,13 @@
 package com.tinqinacademy.hotel.services.contracts;
 
-import com.tinqinacademy.hotel.model.bookroom.BookRoomInput;
-import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
-import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingInput;
-import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
-import com.tinqinacademy.hotel.model.getroominfo.RoomInfoInput;
-import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
-import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
-import com.tinqinacademy.hotel.model.getrooms.GetRoomOutput;
+import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.model.operations.deletebooking.DeleteBookingInput;
+import com.tinqinacademy.hotel.model.operations.deletebooking.DeleteBookingOutput;
+import com.tinqinacademy.hotel.model.operations.getroominfo.RoomInfoInput;
+import com.tinqinacademy.hotel.model.operations.getroominfo.RoomInfoOutput;
+import com.tinqinacademy.hotel.model.operations.getrooms.GetRoomInput;
+import com.tinqinacademy.hotel.model.operations.getrooms.GetRoomOutput;
 
 public interface HotelService {
 

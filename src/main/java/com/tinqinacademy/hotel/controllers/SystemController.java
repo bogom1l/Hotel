@@ -1,9 +1,9 @@
 package com.tinqinacademy.hotel.controllers;
 
-import com.tinqinacademy.hotel.model.getroomreport.RegisterReportInput;
-import com.tinqinacademy.hotel.model.getroomreport.RegisterReportOutput;
-import com.tinqinacademy.hotel.model.registervisitor.RegisterVisitorInput;
-import com.tinqinacademy.hotel.model.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
+import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
+import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorInput;
+import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorOutput;
 import com.tinqinacademy.hotel.services.contracts.SystemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -70,6 +70,13 @@ public class SystemController {
         RegisterReportOutput output = systemService.registerReport(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> createRoom(){
+
+
+
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
 }

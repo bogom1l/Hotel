@@ -1,15 +1,15 @@
 package com.tinqinacademy.hotel.services;
 
-import com.tinqinacademy.hotel.model.bookroom.BookRoomInput;
-import com.tinqinacademy.hotel.model.bookroom.BookRoomOutput;
-import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingInput;
-import com.tinqinacademy.hotel.model.deletebooking.DeleteBookingOutput;
+import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.model.operations.deletebooking.DeleteBookingInput;
+import com.tinqinacademy.hotel.model.operations.deletebooking.DeleteBookingOutput;
 import com.tinqinacademy.hotel.model.enums.BathroomType;
 import com.tinqinacademy.hotel.model.enums.BedSize;
-import com.tinqinacademy.hotel.model.getroominfo.RoomInfoInput;
-import com.tinqinacademy.hotel.model.getroominfo.RoomInfoOutput;
-import com.tinqinacademy.hotel.model.getrooms.GetRoomInput;
-import com.tinqinacademy.hotel.model.getrooms.GetRoomOutput;
+import com.tinqinacademy.hotel.model.operations.getroominfo.RoomInfoInput;
+import com.tinqinacademy.hotel.model.operations.getroominfo.RoomInfoOutput;
+import com.tinqinacademy.hotel.model.operations.getrooms.GetRoomInput;
+import com.tinqinacademy.hotel.model.operations.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.services.contracts.HotelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
