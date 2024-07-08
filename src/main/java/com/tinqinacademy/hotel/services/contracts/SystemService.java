@@ -6,6 +6,8 @@ import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInpu
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorInput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomOutput;
 
 public interface SystemService {
 
@@ -14,4 +16,6 @@ public interface SystemService {
     RegisterReportOutput registerReport(RegisterReportInput input);
 
     CreateRoomOutput createRoom(CreateRoomInput input);
+
+    UpdateRoomOutput updateRoom(UpdateRoomInput input);
 }

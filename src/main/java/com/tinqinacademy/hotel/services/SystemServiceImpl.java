@@ -7,9 +7,13 @@ import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutp
 import com.tinqinacademy.hotel.model.operations.getroomreport.VisitorReportOutput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorInput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.services.contracts.SystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -85,6 +89,18 @@ public class SystemServiceImpl implements SystemService {
                 .build();
 
         log.info("End createRoom with output: {}", output);
+        return output;
+    }
+
+    @Override
+    public UpdateRoomOutput updateRoom(UpdateRoomInput input) {
+        log.info("Start updateRoom with input: {}", input);
+
+        UpdateRoomOutput output = UpdateRoomOutput.builder()
+                .id(input.getRoomId())
+                .build();
+
+        log.info("End updateRoom with output: {}", output);
         return output;
     }
 }

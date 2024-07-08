@@ -6,6 +6,8 @@ import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInpu
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorInput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.services.contracts.SystemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -81,10 +83,23 @@ public class SystemController {
     })
     @PostMapping("/room") // POST /system/room
     public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input){
-
         CreateRoomOutput output = systemService.createRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
+
+    @PutMapping("/room/{roomId}") // POST /system/room/{roomId}
+    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
+                                        @RequestBody UpdateRoomInput input){
+
+        UpdateRoomInput updatedInput = input.toBuilder()
+                .roomId(roomId)
+                .build();
+
+        UpdateRoomOutput output = systemService.updateRoom(updatedInput);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
 
 }
