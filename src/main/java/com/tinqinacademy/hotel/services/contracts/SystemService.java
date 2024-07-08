@@ -2,6 +2,8 @@ package com.tinqinacademy.hotel.services.contracts;
 
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.model.operations.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.model.operations.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.partialupdateroom.PartialUpdateRoomInput;
@@ -22,4 +24,6 @@ public interface SystemService {
     UpdateRoomOutput updateRoom(UpdateRoomInput input);
 
     PartialUpdateRoomOutput partialUpdateRoom(PartialUpdateRoomInput input);
+
+    DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 }

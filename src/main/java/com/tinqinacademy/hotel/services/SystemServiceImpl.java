@@ -2,6 +2,8 @@ package com.tinqinacademy.hotel.services;
 
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.model.operations.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.model.operations.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.VisitorReportOutput;
@@ -115,6 +117,17 @@ public class SystemServiceImpl implements SystemService {
                 .build();
 
         log.info("End partialUpdateRoom with output: {}", output);
+        return output;
+    }
+
+    @Override
+    public DeleteRoomOutput deleteRoom(DeleteRoomInput input) {
+        log.info("Start deleteRoom with input: {}", input);
+
+        DeleteRoomOutput output = DeleteRoomOutput.builder()
+                .build();
+
+        log.info("End deleteRoom with output: {}", output);
         return output;
     }
 }

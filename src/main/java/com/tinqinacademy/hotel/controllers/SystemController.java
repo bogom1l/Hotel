@@ -2,6 +2,8 @@ package com.tinqinacademy.hotel.controllers;
 
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.model.operations.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.model.operations.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.partialupdateroom.PartialUpdateRoomInput;
@@ -112,13 +114,30 @@ public class SystemController {
             @ApiResponse(responseCode = "2010", description = "Room updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request parameters")
     })
-    @PatchMapping("/system/room/{roomId}") // PATCH /system/room/{roomId}
+    @PatchMapping("/room/{roomId}") // PATCH /system/room/{roomId}
     public ResponseEntity<?> partialUpdateRoom(@RequestBody PartialUpdateRoomInput input){
 
         //TODO: maybe same changes as the method above
         PartialUpdateRoomOutput output = systemService.partialUpdateRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Delete a room", description = "Admin deletes a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Room deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters")
+    })
+    @DeleteMapping("/room/{roomId}")
+    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id){
+
+        DeleteRoomInput input = DeleteRoomInput.builder()
+                .id(id)
+                .build();
+
+        DeleteRoomOutput output = systemService.deleteRoom(input);
+
+        return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
     }
 
 
