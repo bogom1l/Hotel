@@ -12,6 +12,7 @@ import com.tinqinacademy.hotel.services.contracts.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,7 +83,7 @@ public class HotelController {
     })
     @PostMapping("/{roomId}") // POST /hotel/{roomId}
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
-                                      @RequestBody BookRoomInput input) {
+                                      @RequestBody @Valid BookRoomInput input) {
 
         BookRoomInput updatedInput = input.toBuilder()
                 .roomId(roomId)
