@@ -5,6 +5,8 @@ import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.VisitorReportOutput;
+import com.tinqinacademy.hotel.model.operations.partialupdateroom.PartialUpdateRoomInput;
+import com.tinqinacademy.hotel.model.operations.partialupdateroom.PartialUpdateRoomOutput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorInput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorOutput;
 import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomInput;
@@ -97,10 +99,22 @@ public class SystemServiceImpl implements SystemService {
         log.info("Start updateRoom with input: {}", input);
 
         UpdateRoomOutput output = UpdateRoomOutput.builder()
-                .id(input.getRoomId())
+                .id("1")//.id(input.getRoomId())
                 .build();
 
         log.info("End updateRoom with output: {}", output);
+        return output;
+    }
+
+    @Override
+    public PartialUpdateRoomOutput partialUpdateRoom(PartialUpdateRoomInput input) {
+        log.info("Start partialUpdateRoom with input: {}", input);
+
+        PartialUpdateRoomOutput output = PartialUpdateRoomOutput.builder()
+                .id("1")//.id(input.getRoomId())
+                .build();
+
+        log.info("End partialUpdateRoom with output: {}", output);
         return output;
     }
 }

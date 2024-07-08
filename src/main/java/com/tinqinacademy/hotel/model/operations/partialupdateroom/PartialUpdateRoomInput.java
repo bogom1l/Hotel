@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.model.operations.updateroom;
+package com.tinqinacademy.hotel.model.operations.partialupdateroom;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @ToString
-public class UpdateRoomInput {
+public class PartialUpdateRoomInput {
     //private String roomId;
     private Integer bedCount;
     private String bedSize;

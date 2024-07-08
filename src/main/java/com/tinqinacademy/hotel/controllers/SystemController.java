@@ -4,6 +4,8 @@ import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
+import com.tinqinacademy.hotel.model.operations.partialupdateroom.PartialUpdateRoomInput;
+import com.tinqinacademy.hotel.model.operations.partialupdateroom.PartialUpdateRoomOutput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorInput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorOutput;
 import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomInput;
@@ -88,15 +90,33 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Update a room", description = "Admin updates a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "2010", description = "Room updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters")
+    })
     @PutMapping("/room/{roomId}") // POST /system/room/{roomId}
-    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
+    public ResponseEntity<?> updateRoom(//@PathVariable String roomId,
                                         @RequestBody UpdateRoomInput input){
+//        UpdateRoomInput updatedInput = input.toBuilder()
+//                .roomId(roomId)
+//                .build();
 
-        UpdateRoomInput updatedInput = input.toBuilder()
-                .roomId(roomId)
-                .build();
+        UpdateRoomOutput output = systemService.updateRoom(input); //updatedInput
 
-        UpdateRoomOutput output = systemService.updateRoom(updatedInput);
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Partially update a room", description = "Admin partially updates a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "2010", description = "Room updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters")
+    })
+    @PatchMapping("/system/room/{roomId}") // PATCH /system/room/{roomId}
+    public ResponseEntity<?> partialUpdateRoom(@RequestBody PartialUpdateRoomInput input){
+
+        //TODO: maybe same changes as the method above
+        PartialUpdateRoomOutput output = systemService.partialUpdateRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
