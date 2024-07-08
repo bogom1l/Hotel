@@ -1,5 +1,7 @@
 package com.tinqinacademy.hotel.services;
 
+import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.VisitorReportOutput;
@@ -74,4 +76,15 @@ public class SystemServiceImpl implements SystemService {
         return sampleVisitorReports;
     }
 
+    @Override
+    public CreateRoomOutput createRoom(CreateRoomInput input) {
+        log.info("Start createRoom with input: {}", input);
+
+        CreateRoomOutput output = CreateRoomOutput.builder()
+                .id("1")
+                .build();
+
+        log.info("End createRoom with output: {}", output);
+        return output;
+    }
 }

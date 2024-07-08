@@ -1,5 +1,7 @@
 package com.tinqinacademy.hotel.controllers;
 
+import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportInput;
 import com.tinqinacademy.hotel.model.operations.getroomreport.RegisterReportOutput;
 import com.tinqinacademy.hotel.model.operations.registervisitor.RegisterVisitorInput;
@@ -72,11 +74,17 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createRoom(){
+    @Operation(summary = "Ceate a room", description = "Admin creates a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "2010", description = "Room created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters")
+    })
+    @PostMapping("/room") // POST /system/room
+    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input){
 
+        CreateRoomOutput output = systemService.createRoom(input);
 
-
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
 }
