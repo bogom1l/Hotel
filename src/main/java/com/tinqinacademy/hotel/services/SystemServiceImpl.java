@@ -16,8 +16,6 @@ import com.tinqinacademy.hotel.model.operations.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.services.contracts.SystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -101,7 +99,7 @@ public class SystemServiceImpl implements SystemService {
         log.info("Start updateRoom with input: {}", input);
 
         UpdateRoomOutput output = UpdateRoomOutput.builder()
-                .id("1")//.id(input.getRoomId())
+                .id(input.getRoomId())
                 .build();
 
         log.info("End updateRoom with output: {}", output);
@@ -113,7 +111,7 @@ public class SystemServiceImpl implements SystemService {
         log.info("Start partialUpdateRoom with input: {}", input);
 
         PartialUpdateRoomOutput output = PartialUpdateRoomOutput.builder()
-                .id("1")//.id(input.getRoomId())
+                .id(input.getRoomId())
                 .build();
 
         log.info("End partialUpdateRoom with output: {}", output);

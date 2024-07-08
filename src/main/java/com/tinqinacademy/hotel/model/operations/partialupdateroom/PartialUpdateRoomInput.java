@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.model.operations.partialupdateroom;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -11,7 +12,10 @@ import java.math.BigDecimal;
 @Builder(toBuilder = true)
 @ToString
 public class PartialUpdateRoomInput {
-    //private String roomId;
+
+    @JsonIgnore
+    private String roomId;
+
     private Integer bedCount;
     private String bedSize;
     private String bathroomType;
