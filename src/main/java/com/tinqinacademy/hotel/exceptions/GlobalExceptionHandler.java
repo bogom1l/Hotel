@@ -3,6 +3,7 @@ package com.tinqinacademy.hotel.exceptions;
 import com.tinqinacademy.hotel.services.ErrorServiceImpl;
 import com.tinqinacademy.hotel.model.error.ErrorWrapper;
 import com.tinqinacademy.hotel.model.error.HotelException;
+import com.tinqinacademy.hotel.services.contracts.ErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final ErrorServiceImpl errorService;
+    private final ErrorService errorService;
 
     @ExceptionHandler(HotelException.class)
     public ResponseEntity<?> handleHotelException(HotelException ex){
