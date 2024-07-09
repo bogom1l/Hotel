@@ -16,6 +16,7 @@ import com.tinqinacademy.hotel.services.contracts.SystemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class SystemController {
             @ApiResponse(responseCode = "400", description = "Error registering visitor")
     })
     @PostMapping("/register") // POST /system/register
-    public ResponseEntity<?> registerVisitor(@RequestBody RegisterVisitorInput input) {
+    public ResponseEntity<?> registerVisitor(@RequestBody @Valid RegisterVisitorInput input) {
         RegisterVisitorOutput output = systemService.registerVisitor(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
@@ -85,7 +86,7 @@ public class SystemController {
             @ApiResponse(responseCode = "400", description = "Invalid request parameters")
     })
     @PostMapping("/room") // POST /system/room
-    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
+    public ResponseEntity<?> createRoom(@RequestBody @Valid CreateRoomInput input) {
         CreateRoomOutput output = systemService.createRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
@@ -98,7 +99,7 @@ public class SystemController {
     })
     @PutMapping("/room/{roomId}") // POST /system/room/{roomId}
     public ResponseEntity<?> updateRoom(@PathVariable String roomId,
-                                        @RequestBody UpdateRoomInput input) {
+                                        @RequestBody @Valid UpdateRoomInput input) {
         UpdateRoomInput updatedInput = input.toBuilder()
                 .roomId(roomId)
                 .build();
@@ -115,7 +116,7 @@ public class SystemController {
     })
     @PatchMapping("/room/{roomId}") // PATCH /system/room/{roomId}
     public ResponseEntity<?> partialUpdateRoom(@PathVariable String roomId,
-                                               @RequestBody PartialUpdateRoomInput input) {
+                                               @RequestBody @Valid PartialUpdateRoomInput input) {
         PartialUpdateRoomInput updatedInput = input.toBuilder()
                 .roomId(roomId)
                 .build();

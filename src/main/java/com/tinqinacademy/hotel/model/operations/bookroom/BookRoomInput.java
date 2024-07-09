@@ -30,6 +30,6 @@ public class BookRoomInput {
     @NotBlank(message = "Last name is mandatory")
     private String lastName;
 
-    @NotBlank //TODO
+    @NotBlank(message = "Phone number is mandatory")
     private String phoneNo;
 }
