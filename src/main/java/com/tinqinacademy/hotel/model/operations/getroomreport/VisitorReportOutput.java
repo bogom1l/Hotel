@@ -17,7 +17,7 @@ public class VisitorReportOutput {
     private String lastName;
     private String phoneNo;
     private String idCardNo;
-    private String idCardValidity; // TODO: LocalDate
+    private String idCardValidity; // TODO: ? LocalDate
     private String idCardIssueAuthority;
-    private String idCardIssueDate; // TODO: LocalDate
+    private String idCardIssueDate; // TODO: ? LocalDate
 }

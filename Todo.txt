@@ -1,5 +1,9 @@
-Todo: ✔️
+Todo:
 
--validation
- *validation factory
+✔️ logging in services(log.info)
+✔️ @Operation, @ApiResponses in controllers (for Swagger)
+
+✔️ validation in models (@NotNull/@NotEmpty/@NotBlank, @Min/Max, ..., @Valid)
+✔️ exception handler
+    *validation factory
 

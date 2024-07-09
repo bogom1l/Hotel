@@ -19,10 +19,10 @@ public class CreateRoomInput {
     private Integer bedCount;
 
     @NotBlank(message = "Bed size is mandatory")
-    private String bedSize; // Enum BedSize
+    private String bedSize; // TODO: ? Enum BedSize
 
     @NotBlank(message = "Bathroom type is mandatory")
-    private String bathroomType; // Enum BathRoomType
+    private String bathroomType; // TODO: ? Enum BathRoomType
 
     @NotNull(message = "Floor is mandatory")
     @Min(value = 1, message = "Floor should be at least 0")

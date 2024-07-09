@@ -1,11 +1,11 @@
 package com.tinqinacademy.hotel.services;
 
+import com.tinqinacademy.hotel.model.enums.BathroomType;
+import com.tinqinacademy.hotel.model.enums.BedSize;
 import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.model.operations.deletebooking.DeleteBookingInput;
 import com.tinqinacademy.hotel.model.operations.deletebooking.DeleteBookingOutput;
-import com.tinqinacademy.hotel.model.enums.BathroomType;
-import com.tinqinacademy.hotel.model.enums.BedSize;
 import com.tinqinacademy.hotel.model.operations.getroominfo.RoomInfoInput;
 import com.tinqinacademy.hotel.model.operations.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.model.operations.getrooms.GetRoomInput;

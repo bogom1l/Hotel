@@ -14,7 +14,7 @@ import java.util.List;
 public class ErrorServiceImpl implements ErrorService {
 
     @Override
-    public ErrorWrapper handleErrors(MethodArgumentNotValidException ex){
+    public ErrorWrapper handleErrors(MethodArgumentNotValidException ex) {
         List<Error> errors = new ArrayList<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.add(

@@ -9,6 +9,5 @@ import lombok.*;
 @Builder
 @ToString
 public class DeleteBookingInput {
-
     private String bookingId;
 }

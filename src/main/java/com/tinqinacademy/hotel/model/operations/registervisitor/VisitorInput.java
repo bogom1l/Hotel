@@ -33,11 +33,11 @@ public class VisitorInput {
     private String idCardNo;
 
     @NotBlank(message = "ID Card validity is mandatory")
-    private String idCardValidity; // TODO: LocalDate and @NotNull
+    private String idCardValidity; // TODO: ? LocalDate and @NotNull
 
     @NotBlank(message = "ID Card issue authority is mandatory")
     private String idCardIssueAuthority;
 
     @NotBlank(message = "ID Card issue date is mandatory")
-    private String idCardIssueDate; // TODO: LocalDate and @NotNull
+    private String idCardIssueDate; // TODO: ? LocalDate and @NotNull
 }

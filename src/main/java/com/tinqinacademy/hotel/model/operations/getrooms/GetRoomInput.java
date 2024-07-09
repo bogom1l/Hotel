@@ -15,6 +15,6 @@ public class GetRoomInput {
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer bedCount;
-    private String bedSize; // TODO: enum?
-    private String bathroomType; // TODO: enum?
+    private String bedSize; // TODO: ? Enum BedSize
+    private String bathroomType; // TODO: ? Enum BathRoomType
 }

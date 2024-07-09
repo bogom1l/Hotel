@@ -92,8 +92,9 @@ public class SystemServiceImpl implements SystemService {
                 .id("1")
                 .build();
 
-        if(new Random().nextBoolean()){
-            throw new HotelException("Random generated HotelError - bad request - error creating room");
+        // randomly sometimes throw an error just for testing purposes
+        if (new Random().nextBoolean()) {
+            throw new HotelException("Random generated HotelError for testing purposes - bad request - error creating room");
         }
 
         log.info("End createRoom with output: {}", output);
