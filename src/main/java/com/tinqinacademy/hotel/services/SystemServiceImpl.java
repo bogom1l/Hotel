@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.services;
 
+import com.tinqinacademy.hotel.model.error.HotelException;
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.model.operations.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.model.operations.deleteroom.DeleteRoomInput;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -89,6 +91,10 @@ public class SystemServiceImpl implements SystemService {
         CreateRoomOutput output = CreateRoomOutput.builder()
                 .id("1")
                 .build();
+
+        if(new Random().nextBoolean()){
+            throw new HotelException("Random generated HotelError - bad request - error creating room");
+        }
 
         log.info("End createRoom with output: {}", output);
         return output;
