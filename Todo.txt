@@ -1,9 +1,22 @@
 Todo:
 
+✔️ reorder packages
 ✔️ logging in services(log.info)
 ✔️ @Operation, @ApiResponses in controllers (for Swagger)
 
 ✔️ validation in models (@NotNull/@NotEmpty/@NotBlank, @Min/Max, ..., @Valid)
-✔️ exception handler
-    *validation factory
+✔️ exception handler  (*validation factory)
+- 1 method that handles all different exceptions
+- da napravim custom validator kato @Min/@Max
+
+
+da razdelim proekta na 5-6 modula:
+-api (vzaimodeistvie s usera) [presentation layer]  2)
+-core (biznes logika - services)  3)
+-persistence (s bazata danni)  4)
+-domain -trq ima pom.xml i 1 prazen class  4)
+-rest (controllerite)  1)
+ *trqbva da opravim dependencies
+ *pochvame ot persistence -> core -> ...
+
 
