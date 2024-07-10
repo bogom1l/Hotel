@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>persistence</artifactId>
+    <artifactId>core</artifactId>
     <version>${revision}</version>
 
     <dependencies>

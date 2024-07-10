@@ -6,10 +6,14 @@
     <parent>
         <groupId>com.tinqinacademy</groupId>
         <artifactId>hotel</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>domain</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
+
+    <dependencies>
+        <!-- TODO -->
+    </dependencies>
 
 </project>

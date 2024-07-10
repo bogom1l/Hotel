@@ -7,8 +7,7 @@ Todo:
 ✔️ validation in models (@NotNull/@NotEmpty/@NotBlank, @Min/Max, ..., @Valid)
 ✔️ exception handler  (*validation factory)
 - 1 method that handles all different exceptions
-- da napravim custom validator kato @Min/@Max
-- ?exceptionhandler module
+- custom validator kato @Min/@Max
 
 da razdelim proekta na moduli:
 -api (presentation layer - vzaimodeistvie s usera)  2)
@@ -26,4 +25,6 @@ da razdelim proekta na moduli:
  i v glavniq pom v <modules> trq slojim vseki child module
 
 
- da izkaram  <version>0.0.1-SNAPSHOT</version> da e navsqkude edna versiq
+ ✔️ da izkaram  <version>0.0.1-SNAPSHOT</version> da e navsqkude edna versiq
+-flatten
+

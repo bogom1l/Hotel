@@ -9,35 +9,29 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-
-	<groupId>com.tinqinacademy</groupId>
-	<artifactId>hotel</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<properties>
+		<revision>0.0.1-SNAPSHOT</revision> <!-- TODO -->
+		<java.version>21</java.version>
+	</properties>
 
 	<name>hotel</name>
 	<description>my project</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
+	<groupId>com.tinqinacademy</groupId>
+	<artifactId>hotel</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+
 	<modules>
 		<module>persistence</module>
 		<module>domain</module>
+		<module>core</module>
+		<!-- TODO -->
 	</modules>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-	<properties>
-		<java.version>21</java.version>
-	</properties>
+
+
+
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -48,6 +42,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,7 +59,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-
 
 	</dependencies>
 
