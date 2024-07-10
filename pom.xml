@@ -8,11 +8,15 @@
 		<version>3.3.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
+
 	<groupId>com.tinqinacademy</groupId>
 	<artifactId>hotel</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
 	<name>hotel</name>
-	<description>Demo project for Spring Boot</description>
+	<description>my project</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -20,6 +24,10 @@
 	<developers>
 		<developer/>
 	</developers>
+	<modules>
+		<module>persistence</module>
+		<module>domain</module>
+	</modules>
 	<scm>
 		<connection/>
 		<developerConnection/>

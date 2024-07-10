@@ -8,15 +8,22 @@ Todo:
 ✔️ exception handler  (*validation factory)
 - 1 method that handles all different exceptions
 - da napravim custom validator kato @Min/@Max
+- ?exceptionhandler module
 
-
-da razdelim proekta na 5-6 modula:
--api (vzaimodeistvie s usera) [presentation layer]  2)
--core (biznes logika - services)  3)
--persistence (s bazata danni)  4)
+da razdelim proekta na moduli:
+-api (presentation layer - vzaimodeistvie s usera)  2)
+-core (service layer - biznes logika)  3)
+-persistence (repository layer - bazata danni)  4)
 -domain -trq ima pom.xml i 1 prazen class  4)
 -rest (controllerite)  1)
  *trqbva da opravim dependencies
  *pochvame ot persistence -> core -> ...
+  * https://www.baeldung.com/maven-multi-module
+  * Maven -> hotel -> package -> Run Maven Build
+ **purvite 2-3 modula da napravq chrez intellij avtomatichno generirane
+   a poslednite ruchno
+ ***dependency-ta sa primerno ot persistence kum core
+ i v glavniq pom v <modules> trq slojim vseki child module
 
 
+ da izkaram  <version>0.0.1-SNAPSHOT</version> da e navsqkude edna versiq

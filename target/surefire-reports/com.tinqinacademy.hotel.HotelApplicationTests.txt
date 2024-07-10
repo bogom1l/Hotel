@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.tinqinacademy.hotel.HotelApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.883 s -- in com.tinqinacademy.hotel.HotelApplicationTests
