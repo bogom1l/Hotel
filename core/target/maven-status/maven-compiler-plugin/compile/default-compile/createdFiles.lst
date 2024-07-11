@@ -1,0 +1,8 @@
+com\tinqinacademy\hotel\core\configurations\GlobalExceptionHandler.class
+com\tinqinacademy\hotel\core\contracts\SystemService.class
+com\tinqinacademy\hotel\core\configurations\ApplicationBeanConfiguration.class
+com\tinqinacademy\hotel\core\contracts\ErrorService.class
+com\tinqinacademy\hotel\core\ErrorServiceImpl.class
+com\tinqinacademy\hotel\core\HotelServiceImpl.class
+com\tinqinacademy\hotel\core\SystemServiceImpl.class
+com\tinqinacademy\hotel\core\contracts\HotelService.class

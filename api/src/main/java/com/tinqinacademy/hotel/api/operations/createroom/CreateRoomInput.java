@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.createroom;
 
+import com.tinqinacademy.hotel.api.error.RoomNumberValidation;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -19,17 +20,18 @@ public class CreateRoomInput {
     private Integer bedCount;
 
     @NotBlank(message = "Bed size is mandatory")
-    private String bedSize; // TODO: ? Enum BedSize
+    private String bedSize; // Enum BedSize
 
     @NotBlank(message = "Bathroom type is mandatory")
-    private String bathroomType; // TODO: ? Enum BathRoomType
+    private String bathroomType; // Enum BathRoomType
 
     @NotNull(message = "Floor is mandatory")
     @Min(value = 1, message = "Floor should be at least 0")
     @Max(value = 15, message = "Floor should be maximum 10")
     private Integer floor;
 
-    @NotBlank(message = "Floor is mandatory")
+    @RoomNumberValidation // TODO
+    @NotBlank(message = "Room number is mandatory")
     private String roomNo;
 
     @NotNull(message = "Price is mandatory")

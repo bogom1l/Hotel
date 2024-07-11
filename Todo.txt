@@ -7,7 +7,7 @@ Todo:
 ✔️ validation in models (@NotNull/@NotEmpty/@NotBlank, @Min/Max, ..., @Valid)
 ✔️ exception handler  (*validation factory)
 ❌ 1 method that handles all different exceptions
-❌ custom validator kato @Min/@Max
+
 
 ✔️ Multi-module project:
     -api (presentation layer - vzaimodeistvie s usera chrez modelite - input/output models)  [2]
@@ -19,6 +19,9 @@ Todo:
       * ${revision : da izkaram <version>0.0.1-SNAPSHOT</version> da e navsqkude edna versiq
       * moved <build> from main pom.xml to rest pom.xml
       ** Maven -> hotel -> package -> Run Maven Build
+      ** mvn clean install -U
 
+✔️ no hardcoded version in child poms, all versions should be in the main pom should in the properties
 ✔️ flatten -> maven package
 
+❌ custom validator like @Min/@Max - for example: RoomNumberValidator
