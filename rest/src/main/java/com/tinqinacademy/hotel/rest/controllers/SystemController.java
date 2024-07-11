@@ -45,9 +45,29 @@ public class SystemController {
     @Operation(summary = "Provides a room report", description = "Generates and returns a report based on various criteria")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Room report generated successfully"), @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
     @GetMapping("/register") // GET system/register
-    public ResponseEntity<?> getRoomReport(@RequestParam String startDate, @RequestParam String endDate, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNo, @RequestParam String idCardNo, @RequestParam String idCardValidity, @RequestParam String idCardIssueAuthority, @RequestParam String idCardIssueDate, @RequestParam String roomNo) {
+    public ResponseEntity<?> getRoomReport(@RequestParam String startDate,
+                                           @RequestParam String endDate,
+                                           @RequestParam String firstName,
+                                           @RequestParam String lastName,
+                                           @RequestParam String phoneNo,
+                                           @RequestParam String idCardNo,
+                                           @RequestParam String idCardValidity,
+                                           @RequestParam String idCardIssueAuthority,
+                                           @RequestParam String idCardIssueDate,
+                                           @RequestParam String roomNo) {
 
-        RegisterReportInput input = RegisterReportInput.builder().startDate(startDate).endDate(endDate).fistName(firstName).lastName(lastName).phoneNo(phoneNo).idCardNo(idCardNo).idCardValidity(idCardValidity).idCardIssueAuthority(idCardIssueAuthority).idCardIssueDate(idCardIssueDate).roomNo(roomNo).build();
+        RegisterReportInput input = RegisterReportInput.builder()
+                .startDate(startDate).
+                endDate(endDate)
+                .fistName(firstName)
+                .lastName(lastName)
+                .phoneNo(phoneNo)
+                .idCardNo(idCardNo)
+                .idCardValidity(idCardValidity).
+                idCardIssueAuthority(idCardIssueAuthority)
+                .idCardIssueDate(idCardIssueDate)
+                .roomNo(roomNo)
+                .build();
 
         RegisterReportOutput output = systemService.registerReport(input);
 
@@ -65,7 +85,7 @@ public class SystemController {
 
     @Operation(summary = "Update a room", description = "Admin updates a room")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Room updated successfully"), @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
-    @PutMapping("/room/{roomId}") // POST /system/room/{roomId}
+    @PutMapping("/room/{roomId}") // PUT /system/room/{roomId}
     public ResponseEntity<?> updateRoom(@PathVariable String roomId, @RequestBody @Valid UpdateRoomInput input) {
         UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
@@ -77,7 +97,8 @@ public class SystemController {
     @Operation(summary = "Partially update a room", description = "Admin partially updates a room")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Room updated successfully"), @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
     @PatchMapping("/room/{roomId}") // PATCH /system/room/{roomId}
-    public ResponseEntity<?> partialUpdateRoom(@PathVariable String roomId, @RequestBody @Valid PartialUpdateRoomInput input) {
+    public ResponseEntity<?> partialUpdateRoom(@PathVariable String roomId,
+                                               @RequestBody @Valid PartialUpdateRoomInput input) {
         PartialUpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         PartialUpdateRoomOutput output = systemService.partialUpdateRoom(updatedInput);

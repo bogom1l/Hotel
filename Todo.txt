@@ -5,9 +5,8 @@ Todo:
 ✔️ @Operation, @ApiResponses in controllers (for Swagger)
 
 ✔️ validation in models (@NotNull/@NotEmpty/@NotBlank, @Min/Max, ..., @Valid)
-✔️ exception handler  (*validation factory)
+✔️ exception handler (*validation factory)
 ❌ 1 method that handles all different exceptions
-
 
 ✔️ Multi-module project:
     -api (presentation layer - vzaimodeistvie s usera chrez modelite - input/output models)  [2]
@@ -24,4 +23,9 @@ Todo:
 ✔️ no hardcoded version in child poms, all versions should be in the main pom should in the properties
 ✔️ flatten -> maven package
 
-❌ custom validator like @Min/@Max - for example: RoomNumberValidator
+✔️ custom validation like @Min/@Max - for example: RoomNumberValidator
+   - POST system/room ✔
+   - PUT system/room/{roomId} ✔
+   - PATCH system/room/{roomId} ✔
+
+

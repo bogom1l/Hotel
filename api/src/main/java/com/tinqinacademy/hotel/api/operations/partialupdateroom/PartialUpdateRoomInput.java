@@ -1,10 +1,8 @@
 package com.tinqinacademy.hotel.api.operations.partialupdateroom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import com.tinqinacademy.hotel.api.customvalidation.RoomNumberValidation;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -25,10 +23,10 @@ public class PartialUpdateRoomInput {
     @Max(value = 4, message = "Bed count should be maximum 4")
     private Integer bedCount;
 
-    @NotNull(message = "Bed size is mandatory")
+    @NotBlank(message = "Bed size is mandatory")
     private String bedSize;
 
-    @NotNull(message = "Bathroom type is mandatory")
+    @NotBlank(message = "Bathroom type is mandatory")
     private String bathroomType;
 
     @NotNull(message = "Floor is mandatory")
@@ -36,7 +34,8 @@ public class PartialUpdateRoomInput {
     @Max(value = 15, message = "Floor should be maximum 15")
     private Integer floor;
 
-    @NotNull(message = "Room number is mandatory")
+    @NotBlank(message = "Room number is mandatory")
+    @RoomNumberValidation // Custom validation
     private String roomNo;
 
     @NotNull(message = "Price is mandatory")

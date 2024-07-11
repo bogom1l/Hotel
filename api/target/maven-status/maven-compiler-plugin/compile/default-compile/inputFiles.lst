@@ -1,10 +1,10 @@
+C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\customvalidation\RoomNumberValidation.java
+C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\customvalidation\RoomNumberValidator.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\enums\BathroomType.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\enums\BedSize.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\error\Error.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\error\ErrorWrapper.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\error\HotelException.java
-C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\error\RoomNumberValidation.java
-C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\error\RoomNumberValidator.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\operations\bookroom\BookRoomInput.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\operations\bookroom\BookRoomOutput.java
 C:\Users\TinqinGuest\Documents\GitHub\Hotel\api\src\main\java\com\tinqinacademy\hotel\api\operations\createroom\CreateRoomInput.java

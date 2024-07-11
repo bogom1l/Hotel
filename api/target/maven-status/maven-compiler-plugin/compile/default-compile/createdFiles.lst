@@ -36,7 +36,6 @@ com\tinqinacademy\hotel\api\enums\BedSize.class
 com\tinqinacademy\hotel\api\operations\bookroom\BookRoomOutput.class
 com\tinqinacademy\hotel\api\operations\partialupdateroom\PartialUpdateRoomInput.class
 com\tinqinacademy\hotel\api\operations\updateroom\UpdateRoomOutput.class
-com\tinqinacademy\hotel\api\error\RoomNumberValidator.class
 com\tinqinacademy\hotel\api\operations\updateroom\UpdateRoomOutput$UpdateRoomOutputBuilder.class
 com\tinqinacademy\hotel\api\operations\getroomreport\VisitorReportOutput.class
 com\tinqinacademy\hotel\api\operations\bookroom\BookRoomOutput$BookRoomOutputBuilder.class
@@ -47,7 +46,6 @@ com\tinqinacademy\hotel\api\operations\getroomreport\VisitorReportOutput$Visitor
 com\tinqinacademy\hotel\api\operations\partialupdateroom\PartialUpdateRoomOutput.class
 com\tinqinacademy\hotel\api\operations\partialupdateroom\PartialUpdateRoomOutput$PartialUpdateRoomOutputBuilder.class
 com\tinqinacademy\hotel\api\operations\deleteroom\DeleteRoomOutput.class
-com\tinqinacademy\hotel\api\error\RoomNumberValidation.class
 com\tinqinacademy\hotel\api\operations\deletebooking\DeleteBookingOutput.class
 com\tinqinacademy\hotel\api\operations\getrooms\GetRoomInput$GetRoomInputBuilder.class
 com\tinqinacademy\hotel\api\operations\registervisitor\RegisterVisitorOutput.class
