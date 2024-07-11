@@ -4,12 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum BedSize {
-    SINGLE("single"),
-    SMALL_DOUBLE("smallDouble"),
-    DOUBLE("double"),
-    KING_SIZE("kingSize"),
-    QUEEN_SIZE("queensSize"),
-    UNKNOWN("");
+    SINGLE("single"), SMALL_DOUBLE("smallDouble"), DOUBLE("double"), KING_SIZE("kingSize"), QUEEN_SIZE("queensSize"), UNKNOWN("");
 
     private final String code;
 

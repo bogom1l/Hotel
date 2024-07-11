@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum BathroomType {
-    PRIVATE("private"),
-    SHARED("shared"),
-    UNKNOWN("");
+    PRIVATE("private"), SHARED("shared"), UNKNOWN("");
 
     private final String code;
 

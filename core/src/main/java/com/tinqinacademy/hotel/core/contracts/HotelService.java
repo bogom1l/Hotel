@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotel.core.contracts;
 
-//import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.deletebooking.DeleteBookingInput;

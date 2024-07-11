@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotel.api.operations.registervisitor;
 
-
 import lombok.*;
 
 @Getter

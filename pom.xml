@@ -65,7 +65,4 @@
 	</dependencies>
 
 
-	<!--TODO move <build> to rest pom-->
-
-
 </project>

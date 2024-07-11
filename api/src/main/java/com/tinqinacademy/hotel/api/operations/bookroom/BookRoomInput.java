@@ -1,4 +1,3 @@
-//package com.tinqinacademy.hotel.model.operations.bookroom;
 package com.tinqinacademy.hotel.api.operations.bookroom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

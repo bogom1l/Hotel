@@ -1,8 +1,8 @@
 package com.tinqinacademy.hotel.core;
 
-//import com.tinqinacademy.hotel.model.enums.BathroomType;
-//import com.tinqinacademy.hotel.model.enums.BedSize;
-//import com.tinqinacademy.hotel.model.operations.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.enums.BathroomType;
+import com.tinqinacademy.hotel.api.enums.BedSize;
+import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.deletebooking.DeleteBookingInput;
 import com.tinqinacademy.hotel.api.operations.deletebooking.DeleteBookingOutput;
@@ -10,14 +10,9 @@ import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoInput;
 import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomOutput;
-//import com.tinqinacademy.hotel.services.contracts.HotelService;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-// com.tinqinacademy.hotel.api.enums;
-import com.tinqinacademy.hotel.api.enums.BathroomType;
-import com.tinqinacademy.hotel.api.enums.BedSize;
-import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -33,9 +28,7 @@ public class HotelServiceImpl implements HotelService {
     public GetRoomOutput getRooms(GetRoomInput input) {
         log.info("Start getRooms with input: {}", input);
 
-        GetRoomOutput output = GetRoomOutput.builder()
-                .ids(List.of("1", "2", "3", "63"))
-                .build();
+        GetRoomOutput output = GetRoomOutput.builder().ids(List.of("1", "2", "3", "63")).build();
 
         log.info("End getRooms with output: {}", output);
         return output;
@@ -49,14 +42,7 @@ public class HotelServiceImpl implements HotelService {
         List<LocalDate> sampleDates = generateSampleDates();
 
         RoomInfoOutput output = RoomInfoOutput.builder() // sample random data
-                .id(input.getRoomId())
-                .price(BigDecimal.valueOf(random.nextDouble(50_000) + 1))
-                .floor(random.nextInt(10) + 1)
-                .bedSize(BedSize.DOUBLE)
-                .bathroomType(BathroomType.PRIVATE)
-                .bedCount(random.nextInt(5) + 1)
-                .datesOccupied(sampleDates)
-                .build();
+                .id(input.getRoomId()).price(BigDecimal.valueOf(random.nextDouble(50_000) + 1)).floor(random.nextInt(10) + 1).bedSize(BedSize.DOUBLE).bathroomType(BathroomType.PRIVATE).bedCount(random.nextInt(5) + 1).datesOccupied(sampleDates).build();
 
         log.info("End getRoomInfo with output: {}", output);
         return output;

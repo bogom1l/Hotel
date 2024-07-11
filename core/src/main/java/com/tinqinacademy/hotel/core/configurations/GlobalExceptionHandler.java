@@ -1,8 +1,5 @@
 package com.tinqinacademy.hotel.core.configurations;
 
-//import com.tinqinacademy.hotel.model.error.ErrorWrapper;
-//import com.tinqinacademy.hotel.model.error.HotelException;
-//import com.tinqinacademy.hotel.services.contracts.ErrorService;
 import com.tinqinacademy.hotel.api.error.ErrorWrapper;
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.ErrorService;

@@ -1,7 +1,5 @@
 package com.tinqinacademy.hotel.api.operations.getroominfo;
 
-//import com.tinqinacademy.hotel.model.enums.BathroomType;
-//import com.tinqinacademy.hotel.model.enums.BedSize;
 import com.tinqinacademy.hotel.api.enums.BathroomType;
 import com.tinqinacademy.hotel.api.enums.BedSize;
 import lombok.*;
