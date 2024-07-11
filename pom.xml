@@ -64,6 +64,8 @@
 
 	</dependencies>
 
+
+	<!--TODO move <build> to rest pom-->
 	<build>
 		<plugins>
 			<plugin>

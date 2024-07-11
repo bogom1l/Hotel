@@ -25,3 +25,4 @@ da razdelim proekta na moduli:
  ✔️ da izkaram <version>0.0.1-SNAPSHOT</version> da e navsqkude edna versiq
 -flatten
 
+<!--TODO move <build> from main pom.xml to rest pom.xml-->
