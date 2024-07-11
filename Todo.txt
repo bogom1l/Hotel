@@ -20,6 +20,5 @@ Todo:
       * moved <build> from main pom.xml to rest pom.xml
       ** Maven -> hotel -> package -> Run Maven Build
 
-      
- -flatten
+✔️ flatten -> maven package
 
