@@ -25,6 +25,8 @@
 		<module>persistence</module>
 		<module>domain</module>
 		<module>core</module>
+		<module>api</module>
+		<module>rest</module>
 		<!-- TODO -->
 	</modules>
 
