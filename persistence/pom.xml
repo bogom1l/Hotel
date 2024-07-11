@@ -16,7 +16,7 @@
         <!-- TODO -->
         <dependency>
             <groupId>com.tinqinacademy</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>domain</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

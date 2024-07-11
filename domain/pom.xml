@@ -14,11 +14,7 @@
 
     <dependencies>
         <!-- TODO -->
-        <dependency>
-            <groupId>com.tinqinacademy</groupId>
-            <artifactId>core</artifactId>
-            <version>${revision}</version>
-        </dependency>
+
     </dependencies>
 
 </project>
