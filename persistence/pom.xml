@@ -13,7 +13,6 @@
     <version>${revision}</version>
 
     <dependencies>
-        <!-- TODO -->
         <dependency>
             <groupId>com.tinqinacademy</groupId>
             <artifactId>domain</artifactId>
