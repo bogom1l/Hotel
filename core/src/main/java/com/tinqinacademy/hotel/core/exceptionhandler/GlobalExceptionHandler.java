@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.configurations;
+package com.tinqinacademy.hotel.core.exceptionhandler;
 
 import com.tinqinacademy.hotel.api.error.ErrorWrapper;
 import com.tinqinacademy.hotel.api.error.HotelException;

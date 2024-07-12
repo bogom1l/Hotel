@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.configurations;
+package com.tinqinacademy.hotel.api.configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -14,6 +14,7 @@ public class ApplicationBeanConfiguration {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
 }

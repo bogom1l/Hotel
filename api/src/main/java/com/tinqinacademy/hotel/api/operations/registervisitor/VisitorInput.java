@@ -32,8 +32,8 @@ public class VisitorInput {
     @NotBlank(message = "ID Card number is mandatory")
     private String idCardNo;
 
-    @NotBlank(message = "ID Card validity is mandatory")
-    private String idCardValidity; // TODO: ? LocalDate and @NotNull
+    @NotNull(message = "ID Card validity is mandatory")
+    private LocalDate idCardValidity;
 
     @NotBlank(message = "ID Card issue authority is mandatory")
     private String idCardIssueAuthority;
