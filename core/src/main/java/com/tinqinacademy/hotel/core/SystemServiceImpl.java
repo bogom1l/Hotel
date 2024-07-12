@@ -43,7 +43,9 @@ public class SystemServiceImpl implements SystemService {
 
         List<VisitorReportOutput> sampleVisitorReports = generateSampleVisitorReports();
 
-        RegisterReportOutput output = RegisterReportOutput.builder().visitors(sampleVisitorReports).build();
+        RegisterReportOutput output = RegisterReportOutput.builder()
+                .visitors(sampleVisitorReports)
+                .build();
 
         log.info("End registerReport with output: {}", output);
         return output;
@@ -52,9 +54,26 @@ public class SystemServiceImpl implements SystemService {
     private List<VisitorReportOutput> generateSampleVisitorReports() {
         List<VisitorReportOutput> sampleVisitorReports = new ArrayList<>();
 
-        VisitorReportOutput v1 = VisitorReportOutput.builder().firstName("firstname1").lastName("lastname1").startDate(LocalDate.parse("2024-11-02")).endDate(LocalDate.parse("2024-05-05")).phoneNo("+359123123").idCardNo("1").idCardValidity("2").idCardIssueAuthority("3").idCardIssueDate("4").build();
+        VisitorReportOutput v1 = VisitorReportOutput.builder()
+                .firstName("firstname1").lastName("lastname1")
+                .startDate(LocalDate.parse("2024-11-02"))
+                .endDate(LocalDate.parse("2024-05-05"))
+                .phoneNo("+359123123")
+                .idCardNo("1")
+                .idCardValidity("2")
+                .idCardIssueAuthority("3")
+                .idCardIssueDate("4")
+                .build();
 
-        VisitorReportOutput v2 = VisitorReportOutput.builder().firstName("fn2").lastName("ln2").startDate(LocalDate.parse("2022-12-01")).endDate(LocalDate.parse("2023-02-02")).phoneNo("+3591444").idCardNo("44").idCardValidity("55").idCardIssueAuthority("66").idCardIssueDate("77").build();
+        VisitorReportOutput v2 = VisitorReportOutput.builder()
+                .firstName("fn2").lastName("ln2")
+                .startDate(LocalDate.parse("2022-12-01"))
+                .endDate(LocalDate.parse("2023-02-02"))
+                .phoneNo("+3591444").idCardNo("44")
+                .idCardValidity("55")
+                .idCardIssueAuthority("66")
+                .idCardIssueDate("77")
+                .build();
 
         sampleVisitorReports.add(v1);
         sampleVisitorReports.add(v2);
@@ -66,7 +85,9 @@ public class SystemServiceImpl implements SystemService {
     public CreateRoomOutput createRoom(CreateRoomInput input) {
         log.info("Start createRoom with input: {}", input);
 
-        CreateRoomOutput output = CreateRoomOutput.builder().id("1").build();
+        CreateRoomOutput output = CreateRoomOutput.builder()
+                .id("1")
+                .build();
 
         // randomly sometimes throw an error just for testing purposes
         if (new Random().nextBoolean()) {
@@ -81,7 +102,9 @@ public class SystemServiceImpl implements SystemService {
     public UpdateRoomOutput updateRoom(UpdateRoomInput input) {
         log.info("Start updateRoom with input: {}", input);
 
-        UpdateRoomOutput output = UpdateRoomOutput.builder().id(input.getRoomId()).build();
+        UpdateRoomOutput output = UpdateRoomOutput.builder()
+                .id(input.getRoomId())
+                .build();
 
         log.info("End updateRoom with output: {}", output);
         return output;
@@ -91,7 +114,9 @@ public class SystemServiceImpl implements SystemService {
     public PartialUpdateRoomOutput partialUpdateRoom(PartialUpdateRoomInput input) {
         log.info("Start partialUpdateRoom with input: {}", input);
 
-        PartialUpdateRoomOutput output = PartialUpdateRoomOutput.builder().id(input.getRoomId()).build();
+        PartialUpdateRoomOutput output = PartialUpdateRoomOutput.builder()
+                .id(input.getRoomId())
+                .build();
 
         log.info("End partialUpdateRoom with output: {}", output);
         return output;

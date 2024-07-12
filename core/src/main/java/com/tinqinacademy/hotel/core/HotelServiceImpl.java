@@ -28,7 +28,9 @@ public class HotelServiceImpl implements HotelService {
     public GetRoomOutput getRooms(GetRoomInput input) {
         log.info("Start getRooms with input: {}", input);
 
-        GetRoomOutput output = GetRoomOutput.builder().ids(List.of("1", "2", "3", "63")).build();
+        GetRoomOutput output = GetRoomOutput.builder()
+                .ids(List.of("1", "2", "3", "63"))
+                .build();
 
         log.info("End getRooms with output: {}", output);
         return output;
@@ -42,7 +44,14 @@ public class HotelServiceImpl implements HotelService {
         List<LocalDate> sampleDates = generateSampleDates();
 
         RoomInfoOutput output = RoomInfoOutput.builder() // sample random data
-                .id(input.getRoomId()).price(BigDecimal.valueOf(random.nextDouble(50_000) + 1)).floor(random.nextInt(10) + 1).bedSize(BedSize.DOUBLE).bathroomType(BathroomType.PRIVATE).bedCount(random.nextInt(5) + 1).datesOccupied(sampleDates).build();
+                .id(input.getRoomId())
+                .price(BigDecimal.valueOf(random.nextDouble(50_000) + 1))
+                .floor(random.nextInt(10) + 1)
+                .bedSize(BedSize.DOUBLE)
+                .bathroomType(BathroomType.PRIVATE)
+                .bedCount(random.nextInt(5) + 1)
+                .datesOccupied(sampleDates)
+                .build();
 
         log.info("End getRoomInfo with output: {}", output);
         return output;

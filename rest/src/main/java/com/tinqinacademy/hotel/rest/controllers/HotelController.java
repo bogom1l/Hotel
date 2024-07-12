@@ -31,12 +31,18 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @Operation(summary = "Get all rooms", description = "Gets rooms' info for analyzing purposes")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Rooms retrieved successfully"), @ApiResponse(responseCode = "404", description = "No rooms found")})
+    @Operation(summary = "Check room availability for a certain period", description = "Access level: PUBLIC")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room is available"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
     @GetMapping("/rooms") // GET /hotel/rooms
-    public ResponseEntity<?> getRooms(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate, @RequestParam Integer bedCount, @RequestParam String bedSize, @RequestParam String bathroomType) {
+    public ResponseEntity<?> getRooms(@RequestParam LocalDate startDate,
+                                      @RequestParam LocalDate endDate,
+                                      @RequestParam Integer bedCount,
+                                      @RequestParam String bedSize,
+                                      @RequestParam String bathroomType) {
         GetRoomInput input = GetRoomInput.builder().startDate(startDate).endDate(endDate).bedCount(bedCount).bedSize(bedSize)
-                // TODO: maybe it shouldn't work when i give it wrong enum data
+                // TODO: ? maybe it shouldn't work when i give it wrong enum data
                 //  .bedSize(BedSize.getByCode(bedSize).toString())
                 .bathroomType(bathroomType) // TODO: same here
                 .build();
@@ -46,8 +52,10 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    @Operation(summary = "Get room info", description = "Gets the room info specified by roomId")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Room info retrieved successfully"), @ApiResponse(responseCode = "404", description = "Room not found")})
+    @Operation(summary = "Get room info by id", description = "Access level: PUBLIC")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room info retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
     @GetMapping("/{roomId}") // GET /hotel/{roomId}
     public ResponseEntity<?> getRoomInfo(@PathVariable String roomId) {
 
@@ -58,10 +66,15 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    @Operation(summary = "Books a room", description = "Books the room specified by roomId")
-    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Room booked successfully"), @ApiResponse(responseCode = "400", description = "Room already booked or bad request"), @ApiResponse(responseCode = "404", description = "Room not found"), @ApiResponse(responseCode = "500", description = "Internal Server Error")})
+    @Operation(summary = "Book a room", description = "Access level: REGISTERED")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Room booked successfully"),
+            @ApiResponse(responseCode = "400", description = "Room already booked or bad request"),
+            @ApiResponse(responseCode = "404", description = "Room not found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")})
     @PostMapping("/{roomId}") // POST /hotel/{roomId}
-    public ResponseEntity<?> bookRoom(@PathVariable String roomId, @RequestBody @Valid BookRoomInput input) {
+    public ResponseEntity<?> bookRoom(@PathVariable String roomId,
+                                      @RequestBody @Valid BookRoomInput input) {
 
         BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
@@ -70,8 +83,10 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Deletes a booking", description = "Deletes a booking specified by bookingId")
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Booking deleted successfully"), @ApiResponse(responseCode = "404", description = "Booking not found")})
+    @Operation(summary = "Unbook a room", description = "Access level: REGISTERED")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
+            @ApiResponse(responseCode = "404", description = "Room booking not found")})
     @DeleteMapping("/{bookingId}") // DELETE /hotel/{bookingId}
     public ResponseEntity<?> deleteBooking(@PathVariable String bookingId) {
 
