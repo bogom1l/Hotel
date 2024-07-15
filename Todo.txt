@@ -29,7 +29,7 @@ Todo:
 
 ----------------
 
-✔️ replacement of request mapping - @GetMapping(RestApiRoutes.GET_ROOM_INFO)
+✔️ replacement of request mapping routes - @GetMapping(RestApiRoutes.GET_ROOM_INFO)
 
 ✔️ reorder dependencies in poms
 
