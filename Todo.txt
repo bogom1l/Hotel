@@ -29,11 +29,7 @@ Todo:
 
 ----------------
 
-✔️ v @Operation summary i description da sa ednakvi
-
 ✔️ replacement of request mapping - @GetMapping(RestApiRoutes.GET_ROOM_INFO)
 
-✔️ mestim dependecytata ot glavniq pom vuv vseki modul koeto kudeto se polzva samo
-
-mvn clean install -U
+✔️ reorder dependencies in poms
 
