@@ -33,3 +33,6 @@ Todo:
 
 ✔️ reorder dependencies in poms
 
+✔️ add flattenpoms in .gitignore
+    **/*.flattened-pom.xml
+    git rm --cached **/*.flattened-pom.xml
