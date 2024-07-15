@@ -6,7 +6,6 @@ Todo:
 
 ✔️ validation in models (@NotNull/@NotEmpty/@NotBlank, @Min/Max, ..., @Valid)
 ✔️ exception handler (*validation factory)
-❌ 1 method that handles all different exceptions
 
 ✔️ Multi-module project:
     -api (presentation layer - vzaimodeistvie s usera chrez modelite - input/output models)  [2]
@@ -28,4 +27,13 @@ Todo:
    - PUT system/room/{roomId} ✔
    - PATCH system/room/{roomId} ✔
 
+----------------
+
+✔️ v @Operation summary i description da sa ednakvi
+
+✔️ replacement of request mapping - @GetMapping(RestApiRoutes.GET_ROOM_INFO)
+
+✔️ mestim dependecytata ot glavniq pom vuv vseki modul koeto kudeto se polzva samo
+
+mvn clean install -U
 

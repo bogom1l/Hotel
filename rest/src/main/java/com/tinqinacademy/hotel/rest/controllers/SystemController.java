@@ -13,6 +13,7 @@ import com.tinqinacademy.hotel.api.operations.registervisitor.RegisterVisitorOut
 import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.core.contracts.SystemService;
+import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -33,22 +34,24 @@ public class SystemController {
         this.systemService = systemService;
     }
 
-    @Operation(summary = "Register a visitor as room renter", description = "Access level: ADMIN")
+    @Operation(summary = "Register a visitor as room renter",
+            description = "Register a visitor as room renter")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Visitor registered successfully"),
             @ApiResponse(responseCode = "400", description = "Error registering visitor")})
-    @PostMapping("/register") // POST /system/register
+    @PostMapping(RestApiRoutes.REGISTER_VISITOR) // POST /system/register
     public ResponseEntity<?> registerVisitor(@RequestBody @Valid RegisterVisitorInput input) {
         RegisterVisitorOutput output = systemService.registerVisitor(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Provides a room report based on various criteria", description = "Access level: ADMIN")
+    @Operation(summary = "Provides a room report based on various criteria",
+            description = "Provides a room report based on various criteria")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Room report generated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
-    @GetMapping("/register") // GET system/register
+    @GetMapping(RestApiRoutes.GET_ROOM_REPORT) // GET system/register
     public ResponseEntity<?> getRoomReport(@RequestParam String startDate,
                                            @RequestParam String endDate,
                                            @RequestParam String firstName,
@@ -78,22 +81,22 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    @Operation(summary = "Create a room", description = "Access level: ADMIN")
+    @Operation(summary = "Create a room", description = "Create a room")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Room created successfully"),
             @ApiResponse(responseCode = "400", description = "Error creating room")})
-    @PostMapping("/room") // POST /system/room
+    @PostMapping(RestApiRoutes.CREATE_ROOM) // POST /system/room
     public ResponseEntity<?> createRoom(@RequestBody @Valid CreateRoomInput input) {
         CreateRoomOutput output = systemService.createRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Update a room", description = "Access level: ADMIN")
+    @Operation(summary = "Update a room", description = "Update a room")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Room updated successfully"),
             @ApiResponse(responseCode = "400", description = "Error updating room")})
-    @PutMapping("/room/{roomId}") // PUT /system/room/{roomId}
+    @PutMapping(RestApiRoutes.UPDATE_ROOM) // PUT /system/room/{roomId}
     public ResponseEntity<?> updateRoom(@PathVariable String roomId,
                                         @RequestBody @Valid UpdateRoomInput input) {
         UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
@@ -103,11 +106,11 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    @Operation(summary = "Update partially a room", description = "Access level: ADMIN")
+    @Operation(summary = "Update partially a room", description = "Update partially a room")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Room updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
-    @PatchMapping("/room/{roomId}") // PATCH /system/room/{roomId}
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_ROOM) // PATCH /system/room/{roomId}
     public ResponseEntity<?> partialUpdateRoom(@PathVariable String roomId,
                                                @RequestBody @Valid PartialUpdateRoomInput input) {
         PartialUpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
@@ -117,11 +120,11 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete a room", description = "Access level: ADMIN")
+    @Operation(summary = "Delete a room", description = "Delete a room")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Room deleted successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
-    @DeleteMapping("/room/{roomId}")
+    @DeleteMapping(RestApiRoutes.DELETE_ROOM) // DELETE /system/room/{roomId}
     public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
         DeleteRoomInput input = DeleteRoomInput.builder().id(id).build();
 
