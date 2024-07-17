@@ -1,0 +1,49 @@
+
+TABLE Rooms:
+-id - UUID - NotNull - PK
+-price - numeric(10, 2) - NotNull
+-floor - integer - NotNull
+-room_number - varchar(10) - NotNull
+-bathroom_type - enum - NotNull
+
+TABLE Beds:
+-id - UUID - NotNull - PK
+-bed_size - varchar(20) - NotNull
+-capacity - integer - NotNull
+
+TABLE RoomsBeds:
+-bed_id - PK - FK - NotNull
+-room_id - PK - FK - NotNull
+
+TABLE Bookings:
+-id - UUID - NotNull - PK
+-room_id - UUID - NotNull - FK
+-user_id - UUID - NotNull - FK
+-start_date - LocalDate - NotNull
+-end_date - LocalDate - NotNull
+-total_price - numeric - NotNull
+
+TABLE Guests:
+-id - UUID - NotNull - PK
+-first_name - varchar(20) - NotNull
+-last_name - varchar(20) - NotNull
+-phone_number - varchar(15) - NotNull
+-ID_card_number - varchar(10) - NotNull
+-ID_card_validity - LocalDate - NotNull
+-ID_card_issue_authority - varchar(20) - NotNull
+-ID_card_issue_date - LocalDate - NotNull
+-birthdate - LocalDate - NotNull
+
+TABLE BookingsGuests:
+-guest_id - PK - FK - NotNull
+-booking_id - PK - FK - NotNull
+
+TABLE Users:
+-id - UUID - NotNull - PK
+-email - varchar(20) - NotNull
+-password - varchar(20) - NotNull
+-fist_name - varchar(20) - NotNull
+-last_name - varchar(20) - NotNull
+-phone_number - varchar(20) - NotNull
+-birthdate - LocalDate - NotNull
+

@@ -44,6 +44,8 @@ Todo:
 ✔️ application.properties connection docker postgre
 
 
-create entities:
- -skicirane
+create sql tables based on "db_scheme.txt"
 
+-fix models in api module (based on database entities)
+
+-new endpoint: updateBooking + good logic for it
