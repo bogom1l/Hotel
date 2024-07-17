@@ -18,6 +18,14 @@
             <artifactId>domain</artifactId>
             <version>${revision}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgre.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

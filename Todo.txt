@@ -37,7 +37,13 @@ Todo:
     **/*.flattened-pom.xml
     git rm --cached **/*.flattened-pom.xml
 
+
 ✔️ <groupId>com.tinqinacademy.hotel</groupId>
 
-skicirame entity-ta
-entity-ta da napravim
+✔️ dependency for postgre in persistence pom
+✔️ application.properties connection docker postgre
+
+
+create entities:
+ -skicirane
+
