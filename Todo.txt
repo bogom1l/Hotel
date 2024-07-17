@@ -36,3 +36,8 @@ Todo:
 ✔️ add flattenpoms in .gitignore
     **/*.flattened-pom.xml
     git rm --cached **/*.flattened-pom.xml
+
+✔️ <groupId>com.tinqinacademy.hotel</groupId>
+
+skicirame entity-ta
+entity-ta da napravim
