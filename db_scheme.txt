@@ -47,3 +47,73 @@ TABLE Users:
 -phone_number - varchar(20) - NotNull
 -birthdate - LocalDate - NotNull
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+--hotel db sql query
+
+CREATE TYPE bathroom_type_enum AS ENUM ('private', 'shared');
+
+CREATE TABLE rooms (
+    id UUID NOT NULL PRIMARY KEY,
+	price NUMERIC(10, 2) NOT NULL,
+	floor INTEGER NOT NULL,
+	room_number VARCHAR(10) NOT NULL,
+	bathroom_type bathroom_type_enum NOT NULL
+);
+
+CREATE TABLE beds (
+    id UUID NOT NULL PRIMARY KEY,
+    bed_size VARCHAR(20) NOT NULL,
+    capacity INTEGER NOT NULL
+);
+
+CREATE TABLE rooms_beds (
+    bed_id UUID NOT NULL,
+    room_id UUID NOT NULL,
+    PRIMARY KEY (bed_id, room_id),
+    FOREIGN KEY (bed_id) REFERENCES beds(id),
+    FOREIGN KEY (room_id) REFERENCES rooms(id)
+);
+
+CREATE TABLE users (
+    id UUID NOT NULL PRIMARY KEY,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(20) NOT NULL, -- TODO? "password"
+    first_name VARCHAR(20) NOT NULL,
+    last_name VARCHAR(20) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    birthdate DATE NOT NULL
+);
+
+CREATE TABLE bookings (
+    id UUID NOT NULL PRIMARY KEY,
+    room_id UUID NOT NULL,
+    user_id UUID NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    total_price NUMERIC NOT NULL,
+    FOREIGN KEY (room_id) REFERENCES rooms(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE guests (
+    id UUID NOT NULL PRIMARY KEY,
+    first_name VARCHAR(20) NOT NULL,
+    last_name VARCHAR(20) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL,
+    ID_card_number VARCHAR(10) NOT NULL,
+    ID_card_validity DATE NOT NULL,
+    ID_card_issue_authority VARCHAR(20) NOT NULL,
+    ID_card_issue_date DATE NOT NULL,
+    birthdate DATE NOT NULL
+);
+
+CREATE TABLE bookings_guests (
+    guest_id UUID NOT NULL,
+    booking_id UUID NOT NULL,
+    PRIMARY KEY (guest_id, booking_id),
+    FOREIGN KEY (guest_id) REFERENCES guests(id),
+    FOREIGN KEY (booking_id) REFERENCES bookings(id)
+);
+
+

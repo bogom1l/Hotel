@@ -27,7 +27,7 @@ Todo:
    - PUT system/room/{roomId} ✔
    - PATCH system/room/{roomId} ✔
 
-----------------
+------------------------------------------------------------------------------------------
 
 ✔️ replacement of request mapping routes - @GetMapping(RestApiRoutes.GET_ROOM_INFO)
 
@@ -43,8 +43,9 @@ Todo:
 ✔️ dependency for postgre in persistence pom
 ✔️ application.properties connection docker postgre
 
+------------------------------------------------------------------------------------------
 
-create sql tables based on "db_scheme.txt"
+✔️ create sql tables - "db_scheme.txt"
 
 -fix models in api module (based on database entities)
 
