@@ -51,6 +51,9 @@ TABLE Users:
 
 --hotel db sql query
 
+
+--hotel db sql query
+
 CREATE TYPE bathroom_type_enum AS ENUM ('private', 'shared');
 
 CREATE TABLE rooms (
@@ -61,9 +64,12 @@ CREATE TABLE rooms (
 	bathroom_type bathroom_type_enum NOT NULL
 );
 
+
+CREATE TYPE bed_size_enum AS ENUM ('single', 'smallDouble', 'double', 'kingSize', 'queenSize');
+
 CREATE TABLE beds (
     id UUID NOT NULL PRIMARY KEY,
-    bed_size VARCHAR(20) NOT NULL,
+    bed_size bed_size_enum NOT NULL,
     capacity INTEGER NOT NULL
 );
 
@@ -115,5 +121,4 @@ CREATE TABLE bookings_guests (
     FOREIGN KEY (guest_id) REFERENCES guests(id),
     FOREIGN KEY (booking_id) REFERENCES bookings(id)
 );
-
 
