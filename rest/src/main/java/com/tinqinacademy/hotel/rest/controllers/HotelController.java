@@ -9,6 +9,7 @@ import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
+import com.tinqinacademy.hotel.persistence.models.Bed;
 import com.tinqinacademy.hotel.persistence.models.User;
 import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
@@ -23,18 +24,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 // @RequestMapping("/hotel")
 @RestController
 public class HotelController {
 
     private final HotelService hotelService;
-    private final UserRepository userRepository;
-
     @Autowired
-    public HotelController(HotelService hotelService, UserRepository userRepository) {
+    public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
-        this.userRepository = userRepository;
     }
 
     @Operation(summary = "Check room availability for a certain period",
@@ -106,8 +105,34 @@ public class HotelController {
 
     @GetMapping("/getallusers")
     public ResponseEntity<?> getAllUsers(){
-        List<User> users = userRepository.findAll();
+        List<User> users = hotelService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    @GetMapping("/getallbeds")
+    public ResponseEntity<?> getAllBeds(){
+        List<Bed> beds = hotelService.findAllBeds();
+        return new ResponseEntity<>(beds, HttpStatus.OK);
+    }
+
+    @PostMapping("/addbed")
+    public ResponseEntity<?> addBed(@RequestBody Bed input){
+        try {
+            Bed bed = Bed.builder()
+                    .id(UUID.randomUUID())
+                    .capacity(input.getCapacity())
+                    .bedSize(input.getBedSize())
+                    .build();
+
+            hotelService.addBed(bed);
+            return new ResponseEntity<>(null, HttpStatus.CREATED);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage()+"\n"+e.getCause());
+        }
+
+    }
+
+
 
 }
