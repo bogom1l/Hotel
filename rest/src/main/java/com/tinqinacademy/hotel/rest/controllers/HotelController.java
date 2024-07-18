@@ -9,9 +9,6 @@ import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
-import com.tinqinacademy.hotel.persistence.models.Bed;
-import com.tinqinacademy.hotel.persistence.models.User;
-import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,14 +20,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
 
 // @RequestMapping("/hotel")
 @RestController
 public class HotelController {
 
     private final HotelService hotelService;
+
     @Autowired
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
@@ -102,7 +98,6 @@ public class HotelController {
 
         return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
     }
-
 
 
 }

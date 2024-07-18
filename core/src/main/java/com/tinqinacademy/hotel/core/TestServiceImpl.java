@@ -1,8 +1,8 @@
 package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.core.contracts.TestService;
-import com.tinqinacademy.hotel.persistence.models.Bed;
-import com.tinqinacademy.hotel.persistence.models.User;
+import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.repository.contracts.BedRepository;
 import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<User> findAllUsers(){
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public List<Bed> findAllBeds(){
+    public List<Bed> findAllBeds() {
         return bedRepository.findAll();
     }
 

@@ -8,10 +8,6 @@ import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoInput;
 import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomOutput;
-import com.tinqinacademy.hotel.persistence.models.Bed;
-import com.tinqinacademy.hotel.persistence.models.User;
-
-import java.util.List;
 
 public interface HotelService {
 

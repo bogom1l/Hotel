@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.models;
+package com.tinqinacademy.hotel.persistence.model;
 
 import lombok.*;
 

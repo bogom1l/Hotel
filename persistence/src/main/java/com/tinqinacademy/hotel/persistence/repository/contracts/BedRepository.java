@@ -1,6 +1,6 @@
 package com.tinqinacademy.hotel.persistence.repository.contracts;
 
-import com.tinqinacademy.hotel.persistence.models.Bed;
+import com.tinqinacademy.hotel.persistence.model.Bed;
 
 import java.util.List;
 

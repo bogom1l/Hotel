@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.persistence.repository;
 
-import com.tinqinacademy.hotel.persistence.models.Bed;
-import com.tinqinacademy.hotel.persistence.models.enums.BedSize;
+import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.repository.contracts.BedRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,7 +29,7 @@ public class BedRepositoryImpl implements BedRepository {
         return jdbcTemplate.query(query, (rs, rowNum) -> {
             return Bed.builder()
                     .id(UUID.fromString(rs.getString("id")))
-                     .capacity(Integer.valueOf(rs.getString("capacity")))
+                    .capacity(Integer.valueOf(rs.getString("capacity")))
                     // .capacity(rs.getInt("capacity"))
                     .bedSize(BedSize.getByCode(rs.getString("bed_size")))
                     // .bedSize(BedSize.valueOf(rs.getString("bed_size")))

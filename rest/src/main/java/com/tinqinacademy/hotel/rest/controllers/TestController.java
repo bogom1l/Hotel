@@ -1,8 +1,8 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 import com.tinqinacademy.hotel.core.contracts.TestService;
-import com.tinqinacademy.hotel.persistence.models.Bed;
-import com.tinqinacademy.hotel.persistence.models.User;
+import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,12 @@ public class TestController {
 
     @GetMapping("/getallusers")
     public ResponseEntity<?> getAllUsers() {
-        List<User> users = testService.findAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        try {
+            List<User> users = testService.findAllUsers();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage() + "\n" + e.getCause());
+        }
     }
 
     @GetMapping("/getallbeds")

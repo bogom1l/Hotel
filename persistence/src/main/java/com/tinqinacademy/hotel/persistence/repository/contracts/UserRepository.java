@@ -1,6 +1,6 @@
 package com.tinqinacademy.hotel.persistence.repository.contracts;
 
-import com.tinqinacademy.hotel.persistence.models.User;
+import com.tinqinacademy.hotel.persistence.model.User;
 
 import java.util.List;
 

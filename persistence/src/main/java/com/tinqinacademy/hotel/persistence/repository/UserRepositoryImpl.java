@@ -1,6 +1,6 @@
 package com.tinqinacademy.hotel.persistence.repository;
 
-import com.tinqinacademy.hotel.persistence.models.User;
+import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

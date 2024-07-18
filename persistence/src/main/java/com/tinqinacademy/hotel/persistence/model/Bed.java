@@ -1,6 +1,6 @@
-package com.tinqinacademy.hotel.persistence.models;
+package com.tinqinacademy.hotel.persistence.model;
 
-import com.tinqinacademy.hotel.persistence.models.enums.BedSize;
+import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import lombok.*;
 
 import java.util.UUID;

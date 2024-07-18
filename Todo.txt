@@ -53,5 +53,5 @@ All crud operations for all tables
 Room will have List<Bed>
 logger
 
-?Generic Repository s crud operacii i ostanalite repository-ta go injectvat i polzvat metodite mu
+?Generic Repository with the crud operations and each other repository should inject the generic one and use its methods?
 
