@@ -100,19 +100,4 @@ public class HotelServiceImpl implements HotelService {
         return output;
     }
 
-    @Override
-    public List<User> findAllUsers(){
-        return userRepository.findAll();
-    }
-
-    @Override
-    public List<Bed> findAllBeds(){
-        return bedRepository.findAll();
-    }
-
-    @Override
-    public void addBed(Bed bed) {
-        bedRepository.save(bed);
-    }
-
 }

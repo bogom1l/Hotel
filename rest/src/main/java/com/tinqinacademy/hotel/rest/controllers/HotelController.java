@@ -103,36 +103,6 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/getallusers")
-    public ResponseEntity<?> getAllUsers(){
-        List<User> users = hotelService.findAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/getallbeds")
-    public ResponseEntity<?> getAllBeds(){
-        List<Bed> beds = hotelService.findAllBeds();
-        return new ResponseEntity<>(beds, HttpStatus.OK);
-    }
-
-    @PostMapping("/addbed")
-    public ResponseEntity<?> addBed(@RequestBody Bed input){
-        try {
-            Bed bed = Bed.builder()
-                    .id(UUID.randomUUID())
-                    .capacity(input.getCapacity())
-                    .bedSize(input.getBedSize())
-                    .build();
-
-            hotelService.addBed(bed);
-            return new ResponseEntity<>(null, HttpStatus.CREATED);
-        }
-        catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage()+"\n"+e.getCause());
-        }
-
-    }
-
 
 
 }

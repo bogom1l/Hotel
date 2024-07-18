@@ -23,9 +23,4 @@ public interface HotelService {
 
     DeleteBookingOutput deleteBooking(DeleteBookingInput input);
 
-    List<User> findAllUsers();
-
-    List<Bed> findAllBeds();
-
-    void addBed(Bed bed);
 }
