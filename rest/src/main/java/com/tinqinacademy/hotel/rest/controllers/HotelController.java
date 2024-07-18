@@ -9,6 +9,8 @@ import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
+import com.tinqinacademy.hotel.persistence.models.User;
+import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,16 +22,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 // @RequestMapping("/hotel")
 @RestController
 public class HotelController {
 
     private final HotelService hotelService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public HotelController(HotelService hotelService) {
+    public HotelController(HotelService hotelService, UserRepository userRepository) {
         this.hotelService = hotelService;
+        this.userRepository = userRepository;
     }
 
     @Operation(summary = "Check room availability for a certain period",
@@ -97,6 +102,12 @@ public class HotelController {
         DeleteBookingOutput output = hotelService.deleteBooking(input);
 
         return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/getallusers")
+    public ResponseEntity<?> getAllUsers(){
+        List<User> users = userRepository.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 }
