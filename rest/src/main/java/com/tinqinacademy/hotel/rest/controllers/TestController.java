@@ -70,7 +70,7 @@ public class TestController {
 
     // Room
 
-    @PostMapping("/saveroom")
+    @PostMapping("/saveRoom")
     public ResponseEntity<?> saveRoom(@RequestBody Room input){
         Room newRoom = testService.saveRoom(input);
         return new ResponseEntity<>(newRoom, HttpStatus.CREATED);
@@ -84,6 +84,12 @@ public class TestController {
     public ResponseEntity<?> getAllUsers() {
         List<User> users = testService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAllRooms")
+    public ResponseEntity<?> deleteAllRooms() {
+        testService.deleteAllRooms();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Repository
 public class RoomRepositoryImpl implements RoomRepository {
@@ -32,12 +33,10 @@ public class RoomRepositoryImpl implements RoomRepository {
     }
 
     private List<Bed> selectRandomBeds(List<Bed> allBeds) {
-        Random random = new Random();
-        int numberOfBeds = random.nextInt(allBeds.size()) + 1; // Random number between 1 and the total number of available beds
+        int numberOfBeds = ThreadLocalRandom.current().nextInt(1, 4);
         Collections.shuffle(allBeds); // Shuffle the list to get a random selection
-        return allBeds.subList(0, numberOfBeds); // Select the first numberOfBeds beds
+        return allBeds.subList(0, numberOfBeds);
     }
-
 
     @Override
     public Room save(Room room) {
@@ -45,9 +44,7 @@ public class RoomRepositoryImpl implements RoomRepository {
         List<Bed> allBeds = fetchAllBeds();
         List<Bed> randomBeds = selectRandomBeds(allBeds);
 
-        if(!randomBeds.isEmpty()) {
-            room.setBeds(randomBeds);
-        }
+        room.setBeds(randomBeds); // there should already be beds, so no need to check if randomBeds.isEmpty() (for now)
 
         String query = "INSERT INTO rooms (id, price, floor, room_number, bathroom_type) VALUES (?, ?, ?, ?, ?::bathroom_type_enum)";
         jdbcTemplate.update(query, room.getId(), room.getPrice(), room.getFloor(), room.getRoomNumber(), room.getBathroomType().toString());
@@ -110,11 +107,16 @@ public class RoomRepositoryImpl implements RoomRepository {
 
     @Override
     public long count() {
-        return 0;
+        String query = "SELECT COUNT(*) FROM rooms";
+        return jdbcTemplate.queryForObject(query, Long.class);
     }
 
     @Override
     public void deleteAll() {
+        String deleteAllFromRoomsBedQuery = "DELETE FROM rooms_beds";
+        jdbcTemplate.update(deleteAllFromRoomsBedQuery);
 
+        String deleteAllFromRoomsQuery = "DELETE FROM rooms";
+        jdbcTemplate.update(deleteAllFromRoomsQuery);
     }
 }

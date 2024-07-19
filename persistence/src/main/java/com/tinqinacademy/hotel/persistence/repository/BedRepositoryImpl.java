@@ -43,6 +43,7 @@ public class BedRepositoryImpl implements BedRepository {
         String query = "SELECT * FROM beds WHERE id = ?";
         List<Bed> beds = jdbcTemplate.query(query, new Object[]{id}, bedRowMapper());
         // "new Object[]{id}" is probably some legacy thing and that's how it should be done.
+        // i think it returns array of ids and the variable is: List<Bed> {bed_id1, bed_id2, ...}
         return beds.isEmpty() ? Optional.empty() : Optional.of(beds.getFirst());
     }
 

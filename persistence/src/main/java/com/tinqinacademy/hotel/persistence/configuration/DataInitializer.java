@@ -16,19 +16,21 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 
 /**
- Database Seeder
+    Database Seeder
  */
 @Slf4j
 @Component
 @Order(1)
 public class DataInitializer implements ApplicationRunner {
-    
+
     private final JdbcTemplate jdbcTemplate;
     private final BedRepository bedRepository;
     private final RoomRepository roomRepository;
@@ -42,11 +44,10 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        initializeBeds();
-        // TODO: initializeRooms();
+        initializeBeds();  // generate beds, each with its unique bedSize
+        initializeRooms(); // generate 3 random rooms on the start of application (something like seed) (if there are no rooms already)
     }
 
-    // generate beds, each with its unique bedSize
     private void initializeBeds() {
         log.info("Started DataInitializer for beds.");
 
@@ -81,33 +82,59 @@ public class DataInitializer implements ApplicationRunner {
         log.info("Ended DataInitializer for beds.");
     }
 
-    // generate random rooms on the start of application (something like seed)
     private void initializeRooms() {
-        long count = roomRepository.count();
+        log.info("Started DataInitializer for rooms.");
 
-        if (count == 0) {
-            List<Bed> allBeds = bedRepository.findAll();
-            List<Bed> randomBeds = generateRandomBeds(allBeds);
+        String query = "SELECT COUNT(*) FROM rooms";
+        Integer roomsCount = jdbcTemplate.queryForObject(query, Integer.class);
 
-            saveRoom(BigDecimal.valueOf(100.00), 1, "101", BathroomType.PRIVATE, randomBeds);
-            saveRoom(BigDecimal.valueOf(150.00), 2, "201", BathroomType.SHARED, randomBeds);
-
-            // Add more rooms as needed
+        // if there are any rooms -> exit method
+        if (roomsCount != null && roomsCount != 0) {
+            return;
         }
+        // else -> there are no beds => generate 3 random rooms:
+
+        List<Bed> allBeds = bedRepository.findAll();
+
+        List<BathroomType> validBathroomTypes = Arrays.stream(BathroomType.values())
+                .filter(type -> !type.getCode().isEmpty())
+                .toList();
+
+        for (int i = 0; i < 3; i++) {
+            // Randomly generate room details
+            BigDecimal randomPrice = BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(80.00, 800.00));
+            Integer randomFloor = ThreadLocalRandom.current().nextInt(1, 6);
+            String randomRoomNumber = String.format("%03d", ThreadLocalRandom.current().nextInt(1, 1000)); // Room number as "001", "042", etc.
+
+            //TODO BathroomType randomBathroomType = BathroomType.values()[ThreadLocalRandom.current().nextInt(BathroomType.values().length)];
+
+            BathroomType randomBathroomType = validBathroomTypes.get(
+                    ThreadLocalRandom.current().nextInt(validBathroomTypes.size())
+            );
+
+            //TODO List<Bed> randomBeds = generateRandomBeds(allBeds);
+
+            saveRoom(randomPrice, randomFloor, randomRoomNumber, randomBathroomType); //TODO, randomBeds);
+        }
+
+        log.info("Ended DataInitializer for rooms.");
     }
-    private void saveRoom(BigDecimal price, int floor, String roomNumber, BathroomType bathroomType, List<Bed> beds) {
+
+    private void saveRoom(BigDecimal price, int floor, String roomNumber, BathroomType bathroomType){//TODO, List<Bed> beds) {
         Room room = Room.builder()
                 .id(UUID.randomUUID())
                 .price(price)
                 .floor(floor)
                 .roomNumber(roomNumber)
                 .bathroomType(bathroomType)
-                .beds(beds)
+                //TODO .beds(beds)
                 .build();
 
         roomRepository.save(room);
     }
 
+    //TODO
+    /*
     private List<Bed> generateRandomBeds(List<Bed> allBeds) {
         // select between 1 and (4 or allBeds.size())
         int numBeds = ThreadLocalRandom.current().nextInt(1, Math.min(4, allBeds.size()) + 1);
@@ -119,7 +146,7 @@ public class DataInitializer implements ApplicationRunner {
         }
         return randomBeds;
     }
-
+*/
     /*
     private void initializeRooms() {
         String query = "SELECT COUNT(*) FROM rooms";

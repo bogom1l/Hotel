@@ -2,7 +2,9 @@ package com.tinqinacademy.hotel.persistence.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
+@Getter
 public enum BathroomType {
     PRIVATE("private"), SHARED("shared"), UNKNOWN("");
 
