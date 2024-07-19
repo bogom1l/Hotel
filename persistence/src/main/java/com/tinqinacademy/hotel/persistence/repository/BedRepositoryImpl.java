@@ -35,7 +35,6 @@ public class BedRepositoryImpl implements BedRepository {
                 .capacity(rs.getInt("capacity"))
                 // .capacity(Integer.valueOf(rs.getString("capacity")))
                 .bedSize(BedSize.getByCode(rs.getString("bed_size")))
-                // .bedSize(BedSize.valueOf(rs.getString("bed_size")))
                 .build();
     }
 
@@ -43,6 +42,7 @@ public class BedRepositoryImpl implements BedRepository {
     public Optional<Bed> findById(UUID id) {
         String query = "SELECT * FROM beds WHERE id = ?";
         List<Bed> beds = jdbcTemplate.query(query, new Object[]{id}, bedRowMapper());
+        // "new Object[]{id}" is probably some legacy thing and that's how it should be done.
         return beds.isEmpty() ? Optional.empty() : Optional.of(beds.getFirst());
     }
 

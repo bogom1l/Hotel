@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.core.contracts;
 
 import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.User;
 
 import java.util.List;
@@ -13,12 +14,27 @@ public interface TestService {
     Bed saveBed(Bed bed);
     Optional<Bed> findByIdBed(UUID id);
     Bed updateBed(Bed bed);
-    void deleteByIdBed(UUID id);
+    void deleteBed(UUID id);
     List<Bed> findAllBeds();
     long countBeds();
-    void deleteAll();
+    void deleteAllBeds();
+
+    // Room
+    Room saveRoom(Room room);
+    Optional<Room> findByIdRoom(UUID id);
+    Room updateRoom(Room room);
+    void deleteRoom(UUID id);
+    List<Room> findAllRooms();
+    long countRooms();
+    void deleteAllRooms();
 
     // User
+    User saveUser(User user);
+    Optional<User> findByIdUser(UUID id);
+    User updateUser(User user);
+    void deleteUser(UUID id);
     List<User> findAllUsers();
+    long countUsers();
+    void deleteAllUsers();
 
 }

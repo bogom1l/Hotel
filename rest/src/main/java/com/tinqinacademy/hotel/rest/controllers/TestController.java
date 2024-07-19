@@ -3,6 +3,7 @@ package com.tinqinacademy.hotel.rest.controllers;
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
 import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,22 +24,11 @@ public class TestController {
         this.testService = testService;
     }
 
-    @GetMapping("/getAllUsers")
-    public ResponseEntity<?> getAllUsers() {
-        List<User> users = testService.findAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
+    // Bed
 
     @PostMapping("/saveBed")
     public ResponseEntity<?> saveBed(@RequestBody Bed input) {
-        Bed bed = Bed.builder()
-                .id(UUID.randomUUID())
-                .capacity(input.getCapacity())
-                .bedSize(input.getBedSize())
-                .build();
-
-        Bed newBed = testService.saveBed(bed);
+        Bed newBed = testService.saveBed(input);
         return new ResponseEntity<>(newBed, HttpStatus.CREATED);
     }
 
@@ -56,13 +46,13 @@ public class TestController {
 
     @DeleteMapping("/deleteBed/{id}")
     public ResponseEntity<?> deleteBed(@PathVariable UUID id) {
-        testService.deleteByIdBed(id);
+        testService.deleteBed(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteAllBeds")
     public ResponseEntity<?> deleteAllBeds() {
-        testService.deleteAll();
+        testService.deleteAllBeds();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
@@ -77,5 +67,24 @@ public class TestController {
         long count = testService.countBeds();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
+
+    // Room
+
+    @PostMapping("/saveroom")
+    public ResponseEntity<?> saveRoom(@RequestBody Room input){
+        Room newRoom = testService.saveRoom(input);
+        return new ResponseEntity<>(newRoom, HttpStatus.CREATED);
+    }
+
+
+
+    // User
+
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<?> getAllUsers() {
+        List<User> users = testService.findAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
 
 }

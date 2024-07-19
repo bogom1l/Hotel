@@ -50,7 +50,7 @@ Todo:
 
 
 All crud operations for all tables
-Room will have List<Bed>
+Room will have List<Bed> - hint: mapping table java jdbc and how to populate it
 logger
 
 ?Generic Repository with the crud operations and each other repository should inject the generic one and use its methods?
