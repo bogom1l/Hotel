@@ -23,19 +23,14 @@ public class TestController {
         this.testService = testService;
     }
 
-    @GetMapping("/getallusers")
+    @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers() {
         List<User> users = testService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/getallbeds")
-    public ResponseEntity<?> getAllBeds() {
-        List<Bed> beds = testService.findAllBeds();
-        return new ResponseEntity<>(beds, HttpStatus.OK);
-    }
 
-    @PostMapping("/savebed")
+    @PostMapping("/saveBed")
     public ResponseEntity<?> saveBed(@RequestBody Bed input) {
         Bed bed = Bed.builder()
                 .id(UUID.randomUUID())
@@ -47,30 +42,40 @@ public class TestController {
         return new ResponseEntity<>(newBed, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findbyidbed/{id}")
+    @GetMapping("/findByIdBed/{id}")
     public ResponseEntity<?> findByIdBed(@PathVariable UUID id) {
         Bed bed = testService.findByIdBed(id).orElseThrow(() -> new HotelException("no bed on this id"));
         return new ResponseEntity<>(bed, HttpStatus.OK);
     }
 
-    @PutMapping("/updatebed")
+    @PutMapping("/updateBed")
     public ResponseEntity<?> updateBed(@RequestBody Bed input) {
         Bed updatedBed = testService.updateBed(input);
         return new ResponseEntity<>(updatedBed, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deletebed/{id}")
+    @DeleteMapping("/deleteBed/{id}")
     public ResponseEntity<?> deleteBed(@PathVariable UUID id) {
         testService.deleteByIdBed(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteAllBed")
-    public ResponseEntity<?> deleteAllBed() {
+    @DeleteMapping("/deleteAllBeds")
+    public ResponseEntity<?> deleteAllBeds() {
         testService.deleteAll();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    // TODO: findAllBeds, countBeds
+    @GetMapping("/findAllBeds")
+    public ResponseEntity<?> findAllBeds() {
+        List<Bed> beds = testService.findAllBeds();
+        return new ResponseEntity<>(beds, HttpStatus.OK);
+    }
+
+    @GetMapping("/countBed")
+    public ResponseEntity<?> countBed(){
+        long count = testService.countBeds();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 
 }
