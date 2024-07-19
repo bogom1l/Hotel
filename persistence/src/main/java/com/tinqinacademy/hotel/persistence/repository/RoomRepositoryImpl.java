@@ -68,7 +68,6 @@ public class RoomRepositoryImpl implements RoomRepository {
                 .floor(rs.getInt("floor"))
                 .roomNumber(rs.getString("room_number"))
                 .bathroomType(BathroomType.getByCode(rs.getString("bathroom_type")))
-                //.beds(List.of()) // TODO ??
                 .beds(fetchBedsForRoom(UUID.fromString(rs.getString("id"))))
                 .build();
     }
@@ -92,17 +91,17 @@ public class RoomRepositoryImpl implements RoomRepository {
 
     @Override
     public Room update(Room entity) {
-        return null;
+        return null; //TODO
     }
 
     @Override
     public void deleteById(UUID id) {
-
+        //TODO
     }
 
     @Override
     public List<Room> findAll() {
-        return List.of();
+        return List.of(); //TODO
     }
 
     @Override

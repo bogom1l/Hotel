@@ -76,12 +76,24 @@ public class TestController {
         return new ResponseEntity<>(newRoom, HttpStatus.CREATED);
     }
 
+    @GetMapping("/findAllRooms")
+    public ResponseEntity<?> findAllRooms() {
+        List<Room> rooms = testService.findAllRooms();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByIdRoom/{id}")
+    public ResponseEntity<?> findByIdRoom(@PathVariable UUID id) {
+        Room room = testService.findByIdRoom(id).orElseThrow(() -> new HotelException("no room on this id"));
+        return new ResponseEntity<>(room, HttpStatus.OK);
+    }
+
 
 
     // User
 
-    @GetMapping("/getAllUsers")
-    public ResponseEntity<?> getAllUsers() {
+    @GetMapping("/findAllUsers")
+    public ResponseEntity<?> findAllUsers() {
         List<User> users = testService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
