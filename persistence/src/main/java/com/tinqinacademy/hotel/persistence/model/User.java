@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.persistence.model;
 
+import com.tinqinacademy.hotel.persistence.model.contracts.Entity;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class User {
+public class User implements Entity {
 
     private UUID id;
     private String email;

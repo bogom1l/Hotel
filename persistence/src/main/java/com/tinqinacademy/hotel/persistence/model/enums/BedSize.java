@@ -2,16 +2,19 @@ package com.tinqinacademy.hotel.persistence.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
+@Getter
 public enum BedSize {
     SINGLE("single", 1),
     SMALL_DOUBLE("smallDouble", 2),
     DOUBLE("double", 2),
     KING_SIZE("kingSize", 3),
-    QUEEN_SIZE("queensSize", 3),
+    QUEEN_SIZE("queenSize", 3),
     UNKNOWN("", 0);
 
     private final String code;
+
     private final Integer capacity;
 
     BedSize(String code, Integer capacity) {
@@ -33,4 +36,6 @@ public enum BedSize {
     public String toString() {
         return this.code;
     }
+
+
 }

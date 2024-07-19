@@ -1,11 +1,7 @@
 package com.tinqinacademy.hotel.persistence.repository.contracts;
 
 import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.repository.GenericRepository;
 
-import java.util.List;
-
-public interface BedRepository {
-    List<Bed> findAll();
-
-    void save(Bed bed);
+public interface BedRepository extends GenericRepository<Bed> {
 }
