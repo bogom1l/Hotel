@@ -55,8 +55,11 @@ public class BedRepositoryImpl implements BedRepository {
 
     @Override
     public void deleteById(UUID id) {
-        String query = "DELETE FROM beds WHERE id = ?";
-        jdbcTemplate.update(query, id);
+        String deleteFromRoomsBedsQuery = "DELETE FROM rooms_beds WHERE bed_id = ?";
+        jdbcTemplate.update(deleteFromRoomsBedsQuery, id);
+
+        String deleteFromBedsQuery = "DELETE FROM beds WHERE id = ?";
+        jdbcTemplate.update(deleteFromBedsQuery, id);
     }
 
     @Override
@@ -73,8 +76,13 @@ public class BedRepositoryImpl implements BedRepository {
 
     @Override
     public void deleteAll() {
-        String query = "DELETE FROM beds";
-        jdbcTemplate.update(query);
+        // Delete all bed associations from the rooms_beds table first
+        String deleteAllFromRoomsBedsQuery = "DELETE FROM rooms_beds";
+        jdbcTemplate.update(deleteAllFromRoomsBedsQuery);
+
+        // Then delete all beds
+        String deleteAllFromBedsQuery = "DELETE FROM beds";
+        jdbcTemplate.update(deleteAllFromBedsQuery);
     }
 
 }

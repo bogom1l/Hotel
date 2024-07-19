@@ -11,9 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class RoomRepositoryImpl implements RoomRepository {
@@ -24,10 +22,36 @@ public class RoomRepositoryImpl implements RoomRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    private List<Bed> fetchAllBeds() {
+        String query = "SELECT * FROM beds";
+        return jdbcTemplate.query(query, (rs, rowNum) -> Bed.builder()
+                .id(UUID.fromString(rs.getString("id")))
+                .capacity(rs.getInt("capacity"))
+                .bedSize(BedSize.getByCode(rs.getString("bed_size")))
+                .build());
+    }
+
+    private List<Bed> selectRandomBeds(List<Bed> allBeds) {
+        Random random = new Random();
+        int numberOfBeds = random.nextInt(allBeds.size()) + 1; // Random number between 1 and the total number of available beds
+        Collections.shuffle(allBeds); // Shuffle the list to get a random selection
+        return allBeds.subList(0, numberOfBeds); // Select the first numberOfBeds beds
+    }
+
+
     @Override
     public Room save(Room room) {
+
+        List<Bed> allBeds = fetchAllBeds();
+        List<Bed> randomBeds = selectRandomBeds(allBeds);
+
+        if(!randomBeds.isEmpty()) {
+            room.setBeds(randomBeds);
+        }
+
         String query = "INSERT INTO rooms (id, price, floor, room_number, bathroom_type) VALUES (?, ?, ?, ?, ?::bathroom_type_enum)";
         jdbcTemplate.update(query, room.getId(), room.getPrice(), room.getFloor(), room.getRoomNumber(), room.getBathroomType().toString());
+
         saveInRoomsBedsTable(room.getId(), room.getBeds()); // And insert the beds in the room
 
         return room;

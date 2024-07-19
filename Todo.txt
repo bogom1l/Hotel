@@ -46,12 +46,15 @@ Todo:
 ------------------------------------------------------------------------------------------
 
 ✔️ create sql tables - "db_scheme.txt"
+
 -new endpoint: updateBooking + good logic for it
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 All crud operations for all tables
 Room will have List<Bed> - hint: mapping table java jdbc and how to populate it
-logger
+clear all TODOs
 
-?Generic Repository with the crud operations and each other repository should inject the generic one and use its methods?
+add logger everywhere
 
+ADD SAMPLE DATA WHEN STARTING APP (one time) and have a button than clears all tables
