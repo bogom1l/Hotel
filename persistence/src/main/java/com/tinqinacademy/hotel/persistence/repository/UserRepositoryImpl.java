@@ -61,5 +61,10 @@ public class UserRepositoryImpl implements UserRepository {
         return 0;
     }
 
+    @Override
+    public void deleteAll() {
+
+    }
+
 
 }

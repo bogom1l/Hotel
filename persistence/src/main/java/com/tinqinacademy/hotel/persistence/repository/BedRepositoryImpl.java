@@ -49,7 +49,7 @@ public class BedRepositoryImpl implements BedRepository {
     @Override
     public Bed update(Bed bed) {
         String query = "UPDATE beds SET capacity = ?, bed_size = ?::bed_size_enum WHERE id = ?";
-        jdbcTemplate.update(query, bed.getCapacity(), bed.getBedSize(), bed.getId());
+        jdbcTemplate.update(query, bed.getCapacity(), bed.getBedSize().toString(), bed.getId());
         return bed;
     }
 
@@ -69,6 +69,12 @@ public class BedRepositoryImpl implements BedRepository {
     public long count() {
         String query = "SELECT COUNT(*) FROM beds";
         return jdbcTemplate.queryForObject(query, Long.class);
+    }
+
+    @Override
+    public void deleteAll() {
+        String query = "DELETE FROM beds";
+        jdbcTemplate.update(query);
     }
 
 }

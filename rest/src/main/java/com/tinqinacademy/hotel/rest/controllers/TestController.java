@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
+import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
 import com.tinqinacademy.hotel.persistence.model.Bed;
 import com.tinqinacademy.hotel.persistence.model.User;
@@ -24,39 +25,52 @@ public class TestController {
 
     @GetMapping("/getallusers")
     public ResponseEntity<?> getAllUsers() {
-        try {
-            List<User> users = testService.findAllUsers();
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage() + "\n" + e.getCause());
-        }
+        List<User> users = testService.findAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/getallbeds")
     public ResponseEntity<?> getAllBeds() {
-        try {
-            List<Bed> beds = testService.findAllBeds();
-            return new ResponseEntity<>(beds, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage() + "\n" + e.getCause());
-        }
+        List<Bed> beds = testService.findAllBeds();
+        return new ResponseEntity<>(beds, HttpStatus.OK);
     }
 
-    @PostMapping("/addbed")
-    public ResponseEntity<?> addBed(@RequestBody Bed input) {
-        try {
-            Bed bed = Bed.builder()
-                    .id(UUID.randomUUID())
-                    .capacity(input.getCapacity())
-                    .bedSize(input.getBedSize())
-                    .build();
+    @PostMapping("/savebed")
+    public ResponseEntity<?> saveBed(@RequestBody Bed input) {
+        Bed bed = Bed.builder()
+                .id(UUID.randomUUID())
+                .capacity(input.getCapacity())
+                .bedSize(input.getBedSize())
+                .build();
 
-            testService.addBed(bed);
-            return new ResponseEntity<>(null, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage() + "\n" + e.getCause());
-        }
-
+        Bed newBed = testService.saveBed(bed);
+        return new ResponseEntity<>(newBed, HttpStatus.CREATED);
     }
+
+    @GetMapping("/findbyidbed/{id}")
+    public ResponseEntity<?> findByIdBed(@PathVariable UUID id) {
+        Bed bed = testService.findByIdBed(id).orElseThrow(() -> new HotelException("no bed on this id"));
+        return new ResponseEntity<>(bed, HttpStatus.OK);
+    }
+
+    @PutMapping("/updatebed")
+    public ResponseEntity<?> updateBed(@RequestBody Bed input) {
+        Bed updatedBed = testService.updateBed(input);
+        return new ResponseEntity<>(updatedBed, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deletebed/{id}")
+    public ResponseEntity<?> deleteBed(@PathVariable UUID id) {
+        testService.deleteByIdBed(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAllBed")
+    public ResponseEntity<?> deleteAllBed() {
+        testService.deleteAll();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    // TODO: findAllBeds, countBeds
 
 }

@@ -13,5 +13,6 @@ public interface GenericRepository<T extends Entity> {
     void deleteById(UUID id);            // D
     List<T> findAll();
     long count();
+    void deleteAll();
     // boolean existsById(UUID id);
 }
