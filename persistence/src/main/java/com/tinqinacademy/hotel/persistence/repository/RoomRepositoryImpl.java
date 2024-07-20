@@ -9,9 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Repository
@@ -41,24 +42,36 @@ public class RoomRepositoryImpl implements RoomRepository {
     @Override
     public Room save(Room room) {
 
-        List<Bed> allBeds = fetchAllBeds();
-        List<Bed> randomBeds = selectRandomBeds(allBeds);
-
-        room.setBeds(randomBeds); // there should already be beds, so no need to check if randomBeds.isEmpty() (for now)
-
         String query = "INSERT INTO rooms (id, price, floor, room_number, bathroom_type) VALUES (?, ?, ?, ?, ?::bathroom_type_enum)";
         jdbcTemplate.update(query, room.getId(), room.getPrice(), room.getFloor(), room.getRoomNumber(), room.getBathroomType().toString());
 
-        saveInRoomsBedsTable(room.getId(), room.getBeds()); // And insert the beds in the room
+        // save the beds and associate them with the newly created room
+        // if the new room has any added beds, add them to the beds and rooms_beds tables
+        if (room.getBeds() != null) {
+            for (Bed bed : room.getBeds()) {
+                saveBed(bed); // Ensure the bed is saved
+                saveInRoomsBedsTable(room.getId(), bed.getId());
+            }
+        } else { // else: select random beds from the existing ones and add them to the room
+            List<Bed> allBeds = fetchAllBeds(); // there should already be beds, so no need to check if allBeds.isEmpty() (for now)
+            List<Bed> randomBeds = selectRandomBeds(allBeds);
+            room.setBeds(randomBeds);
+            for (Bed bed : room.getBeds()) {
+                saveInRoomsBedsTable(room.getId(), bed.getId());
+            }
+        }
 
         return room;
     }
 
-    private void saveInRoomsBedsTable(UUID roomId, List<Bed> beds) {
+    private void saveBed(Bed bed) {
+        String bedQuery = "INSERT INTO beds (id, capacity, bed_size) VALUES (?, ?, ?::bed_size_enum)";
+        jdbcTemplate.update(bedQuery, bed.getId(), bed.getCapacity(), bed.getBedSize().toString());
+    }
+
+    private void saveInRoomsBedsTable(UUID roomId, UUID bedId) {
         String query = "INSERT INTO rooms_beds (room_id, bed_id) VALUES (?, ?)";
-        for (Bed bed : beds) {
-            jdbcTemplate.update(query, roomId, bed.getId());
-        }
+        jdbcTemplate.update(query, roomId, bedId);
     }
 
     private RowMapper<Room> roomRowMapper() {
