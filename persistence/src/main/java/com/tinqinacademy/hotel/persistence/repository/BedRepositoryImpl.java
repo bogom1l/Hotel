@@ -24,8 +24,7 @@ public class BedRepositoryImpl implements BedRepository {
     public Bed save(Bed bed) {
         String query = "INSERT INTO beds (id, capacity, bed_size) VALUES (?, ?, ?::bed_size_enum)";
         jdbcTemplate.update(query, bed.getId(), bed.getCapacity(), bed.getBedSize().toString());
-        // String query = "INSERT INTO beds (id, capacity, bed_size) VALUES (?, ?, ?)";
-        // jdbcTemplate.update(query, bed.getId().toString(), bed.getCapacity(), bed.getBedSize().toString());
+        // TODO: should throw Exception if the BedSize's code and capacity don't match
         return bed;
     }
 
@@ -43,7 +42,7 @@ public class BedRepositoryImpl implements BedRepository {
         String query = "SELECT * FROM beds WHERE id = ?";
         List<Bed> beds = jdbcTemplate.query(query, new Object[]{id}, bedRowMapper());
         // "new Object[]{id}" is probably some legacy thing and that's how it should be done.
-        // i think it returns array of ids and the variable is: List<Bed> {bed_id1, bed_id2, ...}
+        // i think it returns array of ids and the variable becomes: List<Bed> {bed_id1, bed_id2, ...}
         return beds.isEmpty() ? Optional.empty() : Optional.of(beds.getFirst());
     }
 

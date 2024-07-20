@@ -67,6 +67,7 @@ public class RoomRepositoryImpl implements RoomRepository {
     private void saveBed(Bed bed) {
         String bedQuery = "INSERT INTO beds (id, capacity, bed_size) VALUES (?, ?, ?::bed_size_enum)";
         jdbcTemplate.update(bedQuery, bed.getId(), bed.getCapacity(), bed.getBedSize().toString());
+        // TODO: should throw Exception if the BedSize's code and capacity don't match
     }
 
     private void saveInRoomsBedsTable(UUID roomId, UUID bedId) {

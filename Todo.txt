@@ -51,10 +51,8 @@ Todo:
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-All crud operations for all tables
-Room will have List<Bed> - hint: mapping table java jdbc and how to populate it
-clear all TODOs
-
-add logger everywhere
-
-ADD SAMPLE DATA WHEN STARTING APP (one time) and have a button than clears all tables
+❌ All crud operations for all tables
+    ✔️ Room will have List<Bed> - hint: mapping table java jdbc and how to populate it
+    - ADD SAMPLE DATA WHEN STARTING APP (one time) and have a button than clears all tables
+    - add logger everywhere
+    - clear all TODOs
