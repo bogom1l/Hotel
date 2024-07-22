@@ -104,18 +104,30 @@ public class RoomRepositoryImpl implements RoomRepository {
     }
 
     @Override
-    public Room update(Room entity) {
-        return null; //TODO
+    public Room update(Room room) {
+        String query =
+                "UPDATE rooms SET price = ?, floor = ?, room_number = ?, bathroom_type = ?::bathroom_type_enum WHERE id = ?";
+        jdbcTemplate.update(query,
+                room.getPrice(), room.getFloor(), room.getRoomNumber(), room.getBathroomType().toString(), room.getId());
+        return room;
+        //TODO: logic similar to the saveBed()
     }
 
     @Override
     public void deleteById(UUID id) {
-        //TODO
+        String deleteFromRoomsBedsQuery = "DELETE FROM rooms_beds WHERE room_id = ?";
+        jdbcTemplate.update(deleteFromRoomsBedsQuery, id);
+
+        String deleteFromRoomsQuery = "DELETE FROM rooms WHERE id = ?";
+        jdbcTemplate.update(deleteFromRoomsQuery, id);
+
+        //TODO: validations if the room id doesn't exist
     }
 
     @Override
     public List<Room> findAll() {
-        return List.of(); //TODO
+        String query = "SELECT * FROM rooms";
+        return jdbcTemplate.query(query, roomRowMapper());
     }
 
     @Override

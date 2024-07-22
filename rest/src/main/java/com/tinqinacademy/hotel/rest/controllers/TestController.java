@@ -62,8 +62,8 @@ public class TestController {
         return new ResponseEntity<>(beds, HttpStatus.OK);
     }
 
-    @GetMapping("/countBed")
-    public ResponseEntity<?> countBed(){
+    @GetMapping("/countsBed")
+    public ResponseEntity<?> countBed() {
         long count = testService.countBeds();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
@@ -71,15 +71,9 @@ public class TestController {
     // Room
 
     @PostMapping("/saveRoom")
-    public ResponseEntity<?> saveRoom(@RequestBody Room input){
+    public ResponseEntity<?> saveRoom(@RequestBody Room input) {
         Room newRoom = testService.saveRoom(input);
         return new ResponseEntity<>(newRoom, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/findAllRooms")
-    public ResponseEntity<?> findAllRooms() {
-        List<Room> rooms = testService.findAllRooms();
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
     @GetMapping("/findByIdRoom/{id}")
@@ -88,7 +82,35 @@ public class TestController {
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
+    @PutMapping("/updateRoom")
+    public ResponseEntity<?> updateRoom(@RequestBody Room input) {
+        Room updatedRoom = testService.updateRoom(input);
+        return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
+    }
 
+    @DeleteMapping("/deleteRoom/{id}")
+    public ResponseEntity<?> deleteRoom(@PathVariable UUID id) {
+        testService.deleteRoom(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAllRooms")
+    public ResponseEntity<?> deleteAllRooms() {
+        testService.deleteAllRooms();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/findAllRooms")
+    public ResponseEntity<?> findAllRooms() {
+        List<Room> rooms = testService.findAllRooms();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+
+    @GetMapping("/countsRoom")
+    public ResponseEntity<?> countsRoom() {
+        long count = testService.countRooms();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 
     // User
 
@@ -96,12 +118,6 @@ public class TestController {
     public ResponseEntity<?> findAllUsers() {
         List<User> users = testService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/deleteAllRooms")
-    public ResponseEntity<?> deleteAllRooms() {
-        testService.deleteAllRooms();
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
 
