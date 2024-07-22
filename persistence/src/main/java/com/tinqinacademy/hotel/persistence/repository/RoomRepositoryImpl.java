@@ -109,8 +109,24 @@ public class RoomRepositoryImpl implements RoomRepository {
                 "UPDATE rooms SET price = ?, floor = ?, room_number = ?, bathroom_type = ?::bathroom_type_enum WHERE id = ?";
         jdbcTemplate.update(query,
                 room.getPrice(), room.getFloor(), room.getRoomNumber(), room.getBathroomType().toString(), room.getId());
+
+        // Fetch the current beds associated with the room
+        List<Bed> currentBeds = fetchBedsForRoom(room.getId());
+
+        // If the beds are modified, update the rooms_beds table
+        if (room.getBeds() != null && !room.getBeds().equals(currentBeds)) {
+            // Delete the existing associations in the rooms_beds table
+            String deleteBedsQuery = "DELETE FROM rooms_beds WHERE room_id = ?";
+            jdbcTemplate.update(deleteBedsQuery, room.getId());
+
+            // Save the new beds if necessary and create the new associations
+            for (Bed bed : room.getBeds()) {
+                saveBed(bed); // Ensure the bed is saved
+                saveInRoomsBedsTable(room.getId(), bed.getId());
+            }
+        }
+
         return findById(room.getId()).orElse(null);
-        //TODO: logic similar to the saveBed()
     }
 
     @Override

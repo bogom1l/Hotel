@@ -51,12 +51,8 @@ Todo:
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- All crud operations for all tables
-    ✔️ add data seeding when starting app (one time)
-    ✔️ endpoint for clearing all tables
-    ❌ add logger everywhere
+✔️ All crud operations for all tables
+    ✔ add data seeding when starting app (one time) [+ add logger everywhere]
+    ✔ endpoint for clearing all tables
 
-Room repository: update()
-
-- implementiram nqkoi ot endpointite ot snimkite v discord (?s input/output modeli?)
-
+- Implement some of the endpoints from the discord image table (?use input/output models?)
