@@ -57,28 +57,36 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User update(User entity) {
-        return null;
+    public User update(User user) {
+        String query = "UPDATE users SET email = ?, password = ?, first_name = ?, last_name = ?, phone_number = ?, birthdate = ? WHERE id = ?";
+        jdbcTemplate.update(query, user.getEmail(), user.getPassword(), user.getFirstName(),
+                user.getLastName(), user.getPhoneNumber(), user.getBirthdate(), user.getId());
+
+        return user;
     }
 
     @Override
     public void deleteById(UUID id) {
-
+        String query = "DELETE FROM users WHERE id = ?";
+        jdbcTemplate.update(query, id);
     }
 
     @Override
     public List<User> findAll() {
-        return List.of();
+        String query = "SELECT * FROM users";
+        return jdbcTemplate.query(query, userRowMapper());
     }
 
     @Override
     public long count() {
-        return 0;
+        String query = "SELECT count(*) FROM users";
+        return jdbcTemplate.queryForObject(query, Long.class);
     }
 
     @Override
     public void deleteAll() {
-
+        String query = "DELETE FROM users";
+        jdbcTemplate.update(query);
     }
 }
 

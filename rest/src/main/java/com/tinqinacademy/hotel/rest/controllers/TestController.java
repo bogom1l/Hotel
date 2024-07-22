@@ -132,5 +132,29 @@ public class TestController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @PutMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody User user){
+        User updateUser = testService.updateUser(user);
+        return new ResponseEntity<>(updateUser, HttpStatus.OK);
+    }
+
+    //delete by id, delete all, count
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
+        testService.deleteUser(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAllUsers")
+    public ResponseEntity<?> deleteAllUsers() {
+        testService.deleteAllUsers();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/countsUser")
+    public ResponseEntity<?> countsUser() {
+        long count = testService.countUsers();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 
 }
