@@ -114,6 +114,18 @@ public class TestController {
 
     // User
 
+    @PostMapping("/saveUser")
+    public ResponseEntity<?> saveUser(@RequestBody User input) {
+        User user = testService.saveUser(input);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByIdUser/{id}")
+    public ResponseEntity<?> findByIdUser(@PathVariable UUID id) {
+        User user = testService.findByIdUser(id).orElseThrow(() -> new HotelException("no room on this id"));
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @GetMapping("/findAllUsers")
     public ResponseEntity<?> findAllUsers() {
         List<User> users = testService.findAllUsers();
