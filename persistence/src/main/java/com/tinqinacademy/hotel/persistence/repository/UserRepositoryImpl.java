@@ -28,7 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.getId(), user.getEmail(), user.getPassword(), user.getFirstName(),
                 user.getLastName(), user.getPhoneNumber(), user.getBirthdate());
 
-        return user;
+        return findById(user.getId()).orElse(null);
     }
 
     private RowMapper<User> userRowMapper() {
@@ -62,7 +62,7 @@ public class UserRepositoryImpl implements UserRepository {
         jdbcTemplate.update(query, user.getEmail(), user.getPassword(), user.getFirstName(),
                 user.getLastName(), user.getPhoneNumber(), user.getBirthdate(), user.getId());
 
-        return user;
+        return findById(user.getId()).orElse(null);
     }
 
     @Override

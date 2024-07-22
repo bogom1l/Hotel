@@ -24,8 +24,8 @@ public class BedRepositoryImpl implements BedRepository {
     public Bed save(Bed bed) {
         String query = "INSERT INTO beds (id, capacity, bed_size) VALUES (?, ?, ?::bed_size_enum)";
         jdbcTemplate.update(query, bed.getId(), bed.getCapacity(), bed.getBedSize().toString());
-        // TODO: should throw Exception if the BedSize's code and capacity don't match
-        return bed;
+        //...should throw Exception if the BedSize's code and capacity don't match...
+        return findById(bed.getId()).orElse(null);
     }
 
     private RowMapper<Bed> bedRowMapper() {
@@ -50,7 +50,7 @@ public class BedRepositoryImpl implements BedRepository {
     public Bed update(Bed bed) {
         String query = "UPDATE beds SET capacity = ?, bed_size = ?::bed_size_enum WHERE id = ?";
         jdbcTemplate.update(query, bed.getCapacity(), bed.getBedSize().toString(), bed.getId());
-        return bed;
+        return findById(bed.getId()).orElse(null);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class GuestRepositoryImpl implements GuestRepository {
                 entity.getPhoneNumber(), entity.getIdCardNumber(), entity.getIdCardValidity(),
                 entity.getIdCardIssueAuthority(), entity.getIdCardIssueDate(), entity.getBirthdate());
 
-        return entity;
+        return findById(entity.getId()).orElse(null);
     }
 
     private RowMapper<Guest> guestRowMapper() {
@@ -65,7 +65,7 @@ public class GuestRepositoryImpl implements GuestRepository {
                 entity.getIdCardNumber(), entity.getIdCardValidity(), entity.getIdCardIssueAuthority(),
                 entity.getIdCardIssueDate(), entity.getBirthdate(), entity.getId());
 
-        return entity;
+        return findById(entity.getId()).orElse(null);
     }
 
     @Override

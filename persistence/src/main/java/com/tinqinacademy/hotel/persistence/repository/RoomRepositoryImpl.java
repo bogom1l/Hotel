@@ -61,7 +61,7 @@ public class RoomRepositoryImpl implements RoomRepository {
             }
         }
 
-        return room;
+        return findById(room.getId()).orElse(null);
     }
 
     private void saveBed(Bed bed) {
@@ -109,7 +109,7 @@ public class RoomRepositoryImpl implements RoomRepository {
                 "UPDATE rooms SET price = ?, floor = ?, room_number = ?, bathroom_type = ?::bathroom_type_enum WHERE id = ?";
         jdbcTemplate.update(query,
                 room.getPrice(), room.getFloor(), room.getRoomNumber(), room.getBathroomType().toString(), room.getId());
-        return room;
+        return findById(room.getId()).orElse(null);
         //TODO: logic similar to the saveBed()
     }
 
@@ -121,7 +121,7 @@ public class RoomRepositoryImpl implements RoomRepository {
         String deleteFromRoomsQuery = "DELETE FROM rooms WHERE id = ?";
         jdbcTemplate.update(deleteFromRoomsQuery, id);
 
-        //TODO: validations if the room id doesn't exist
+        //...validations if the room id doesn't exist...
     }
 
     @Override

@@ -233,7 +233,7 @@ public class TestController {
 
     @DeleteMapping("/booking/deleteAllBookings")
     public ResponseEntity<?> deleteAllBookings() {
-        testService.deleteAllBooking();
+        testService.deleteAllBookings();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
@@ -241,6 +241,17 @@ public class TestController {
     public ResponseEntity<?> countsBooking() {
         long count = testService.countBookings();
         return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/DELETE_ALL_TABLES_DATA")
+    public ResponseEntity<?> DELETE_ALL_TABLES_DATA(){
+        testService.deleteAllBookings();
+        testService.deleteAllGuests();
+        testService.deleteAllUsers();
+        testService.deleteAllRooms();
+        testService.deleteAllBeds();
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
 }

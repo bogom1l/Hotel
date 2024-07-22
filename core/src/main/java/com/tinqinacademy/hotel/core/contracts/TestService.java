@@ -51,5 +51,5 @@ public interface TestService {
     void deleteBooking(UUID id);
     List<Booking> findAllBookings();
     long countBookings();
-    void deleteAllBooking();
+    void deleteAllBookings();
 }

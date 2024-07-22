@@ -211,7 +211,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void deleteAllBooking() {
+    public void deleteAllBookings() {
         bookingRepository.deleteAll();
     }
 
