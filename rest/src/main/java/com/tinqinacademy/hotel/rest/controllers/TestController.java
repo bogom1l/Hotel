@@ -24,43 +24,43 @@ public class TestController {
 
     // Bed
 
-    @PostMapping("/saveBed")
+    @PostMapping("/bed/saveBed")
     public ResponseEntity<?> saveBed(@RequestBody Bed input) {
         Bed newBed = testService.saveBed(input);
         return new ResponseEntity<>(newBed, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findByIdBed/{id}")
+    @GetMapping("/bed/findByIdBed/{id}")
     public ResponseEntity<?> findByIdBed(@PathVariable UUID id) {
         Bed bed = testService.findByIdBed(id).orElseThrow(() -> new HotelException("no bed on this id"));
         return new ResponseEntity<>(bed, HttpStatus.OK);
     }
 
-    @PutMapping("/updateBed")
+    @PutMapping("/bed/updateBed")
     public ResponseEntity<?> updateBed(@RequestBody Bed input) {
         Bed updatedBed = testService.updateBed(input);
         return new ResponseEntity<>(updatedBed, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteBed/{id}")
+    @DeleteMapping("/bed/deleteBed/{id}")
     public ResponseEntity<?> deleteBed(@PathVariable UUID id) {
         testService.deleteBed(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteAllBeds")
+    @DeleteMapping("/bed/deleteAllBeds")
     public ResponseEntity<?> deleteAllBeds() {
         testService.deleteAllBeds();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/findAllBeds")
+    @GetMapping("/bed/findAllBeds")
     public ResponseEntity<?> findAllBeds() {
         List<Bed> beds = testService.findAllBeds();
         return new ResponseEntity<>(beds, HttpStatus.OK);
     }
 
-    @GetMapping("/countsBed")
+    @GetMapping("/bed/countsBed")
     public ResponseEntity<?> countBed() {
         long count = testService.countBeds();
         return new ResponseEntity<>(count, HttpStatus.OK);
@@ -68,43 +68,43 @@ public class TestController {
 
     // Room
 
-    @PostMapping("/saveRoom")
+    @PostMapping("/room/saveRoom")
     public ResponseEntity<?> saveRoom(@RequestBody Room input) {
         Room newRoom = testService.saveRoom(input);
         return new ResponseEntity<>(newRoom, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findByIdRoom/{id}")
+    @GetMapping("/room/findByIdRoom/{id}")
     public ResponseEntity<?> findByIdRoom(@PathVariable UUID id) {
         Room room = testService.findByIdRoom(id).orElseThrow(() -> new HotelException("no room on this id"));
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
-    @PutMapping("/updateRoom")
+    @PutMapping("/room/updateRoom")
     public ResponseEntity<?> updateRoom(@RequestBody Room input) {
         Room updatedRoom = testService.updateRoom(input);
         return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteRoom/{id}")
+    @DeleteMapping("/room/deleteRoom/{id}")
     public ResponseEntity<?> deleteRoom(@PathVariable UUID id) {
         testService.deleteRoom(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteAllRooms")
+    @DeleteMapping("/room/deleteAllRooms")
     public ResponseEntity<?> deleteAllRooms() {
         testService.deleteAllRooms();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/findAllRooms")
+    @GetMapping("/room/findAllRooms")
     public ResponseEntity<?> findAllRooms() {
         List<Room> rooms = testService.findAllRooms();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/countsRoom")
+    @GetMapping("/room/countsRoom")
     public ResponseEntity<?> countsRoom() {
         long count = testService.countRooms();
         return new ResponseEntity<>(count, HttpStatus.OK);
@@ -112,43 +112,43 @@ public class TestController {
 
     // User
 
-    @PostMapping("/saveUser")
+    @PostMapping("/user/saveUser")
     public ResponseEntity<?> saveUser(@RequestBody User input) {
         User user = testService.saveUser(input);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findByIdUser/{id}")
+    @GetMapping("/user/findByIdUser/{id}")
     public ResponseEntity<?> findByIdUser(@PathVariable UUID id) {
         User user = testService.findByIdUser(id).orElseThrow(() -> new HotelException("no room on this id"));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllUsers")
+    @GetMapping("/user/findAllUsers")
     public ResponseEntity<?> findAllUsers() {
         List<User> users = testService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PutMapping("/updateUser")
+    @PutMapping("/user/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         User updateUser = testService.updateUser(user);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteUser/{id}")
+    @DeleteMapping("/user/deleteUser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
         testService.deleteUser(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteAllUsers")
+    @DeleteMapping("/user/deleteAllUsers")
     public ResponseEntity<?> deleteAllUsers() {
         testService.deleteAllUsers();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/countsUser")
+    @GetMapping("/user/countsUser")
     public ResponseEntity<?> countsUser() {
         long count = testService.countUsers();
         return new ResponseEntity<>(count, HttpStatus.OK);
@@ -156,43 +156,43 @@ public class TestController {
 
     // Guest
 
-    @PostMapping("/saveGuest")
+    @PostMapping("/guest/saveGuest")
     public ResponseEntity<?> saveGuest(@RequestBody Guest input) {
         Guest newGuest = testService.saveGuest(input);
         return new ResponseEntity<>(newGuest, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findByIdGuest/{id}")
+    @GetMapping("/guest/findByIdGuest/{id}")
     public ResponseEntity<?> findByIdGuest(@PathVariable UUID id) {
         Guest guest = testService.findByIdGuest(id).orElseThrow(() -> new HotelException("no guest with that id found"));
         return new ResponseEntity<>(guest, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllGuests")
+    @GetMapping("/guest/findAllGuests")
     public ResponseEntity<?> findAllGuests() {
         List<Guest> guests = testService.findAllGuests();
         return new ResponseEntity<>(guests, HttpStatus.OK);
     }
 
-    @PutMapping("/updateGuest")
+    @PutMapping("/guest/updateGuest")
     public ResponseEntity<?> updateGuest(@RequestBody Guest input) {
         Guest guest = testService.updateGuest(input);
         return new ResponseEntity<>(guest, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteGuest/{id}")
+    @DeleteMapping("/guest/deleteGuest/{id}")
     public ResponseEntity<?> deleteGuest(@PathVariable UUID id) {
         testService.deleteGuest(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteAllGuests")
+    @DeleteMapping("/guest/deleteAllGuests")
     public ResponseEntity<?> deleteAllGuests() {
         testService.deleteAllGuests();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/countGuests")
+    @GetMapping("/guest/countGuests")
     public ResponseEntity<?> countGuests() {
         long count = testService.countGuests();
         return new ResponseEntity<>(count, HttpStatus.OK);
@@ -200,13 +200,13 @@ public class TestController {
 
     // Booking
 
-    @PostMapping("/saveBooking")
+    @PostMapping("/booking/saveBooking")
     public ResponseEntity<?> saveBooking(@RequestBody Booking input) {
         Booking newBooking = testService.saveBooking(input);
         return new ResponseEntity<>(newBooking, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findByIdBooking/{id}")
+    @GetMapping("/booking/findByIdBooking/{id}")
     public ResponseEntity<?> findByIdBooking(@PathVariable UUID id) {
         Booking booking = testService.findByIdBooking(id).orElseThrow(() -> new HotelException("no booking with that id found"));
         return new ResponseEntity<>(booking, HttpStatus.OK);
