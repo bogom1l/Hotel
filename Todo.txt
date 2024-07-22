@@ -51,12 +51,15 @@ Todo:
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-❌ All crud operations for all tables
+- All crud operations for all tables
     ✔️ Room will have List<Bed> - hint: mapping table java jdbc and how to populate it
-    - ADD SAMPLE DATA WHEN STARTING APP (one time) and have a button than clears all tables
-    - add logger everywhere
-    - clear all TODOs
+    ✔️❌ ADD SAMPLE DATA WHEN STARTING APP (one time) and have a button than clears all tables
+    ❌ add logger everywhere
+    ❌ clear all TODOs
 
-
-kato napravq repositorytata da implementiram nqkoi ot endpointite ot snimkite v discord (?s input/output modeli?)
+- dovurshvam metodite v booking repository
     -add RETURNING and rowmapping to return the added object, not the received...
+     =>  return findById(entity.getId()).orElse(null);
+
+- implementiram nqkoi ot endpointite ot snimkite v discord (?s input/output modeli?)
+

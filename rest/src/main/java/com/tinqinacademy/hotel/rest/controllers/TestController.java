@@ -131,7 +131,7 @@ public class TestController {
     }
 
     @PutMapping("/updateUser")
-    public ResponseEntity<?> updateUser(@RequestBody User user){
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
         User updateUser = testService.updateUser(user);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
@@ -157,43 +157,43 @@ public class TestController {
     // Guest
 
     @PostMapping("/saveGuest")
-    public ResponseEntity<?> saveGuest(@RequestBody Guest input){
+    public ResponseEntity<?> saveGuest(@RequestBody Guest input) {
         Guest newGuest = testService.saveGuest(input);
         return new ResponseEntity<>(newGuest, HttpStatus.CREATED);
     }
 
     @GetMapping("/findByIdGuest/{id}")
-    public ResponseEntity<?> findByIdGuest(@PathVariable UUID id){
+    public ResponseEntity<?> findByIdGuest(@PathVariable UUID id) {
         Guest guest = testService.findByIdGuest(id).orElseThrow(() -> new HotelException("no guest with that id found"));
         return new ResponseEntity<>(guest, HttpStatus.OK);
     }
 
     @GetMapping("/findAllGuests")
-    public ResponseEntity<?> findAllGuests(){
+    public ResponseEntity<?> findAllGuests() {
         List<Guest> guests = testService.findAllGuests();
         return new ResponseEntity<>(guests, HttpStatus.OK);
     }
 
     @PutMapping("/updateGuest")
-    public ResponseEntity<?> updateGuest(@RequestBody Guest input){
+    public ResponseEntity<?> updateGuest(@RequestBody Guest input) {
         Guest guest = testService.updateGuest(input);
         return new ResponseEntity<>(guest, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteGuest/{id}")
-    public ResponseEntity<?> deleteGuest(@PathVariable UUID id){
+    public ResponseEntity<?> deleteGuest(@PathVariable UUID id) {
         testService.deleteGuest(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteAllGuests")
-    public ResponseEntity<?> deleteAllGuests(){
+    public ResponseEntity<?> deleteAllGuests() {
         testService.deleteAllGuests();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/countGuests")
-    public ResponseEntity<?> countGuests(){
+    public ResponseEntity<?> countGuests() {
         long count = testService.countGuests();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
@@ -201,9 +201,15 @@ public class TestController {
     // Booking
 
     @PostMapping("/saveBooking")
-    public ResponseEntity<?> saveBooking(@RequestBody Booking input){
+    public ResponseEntity<?> saveBooking(@RequestBody Booking input) {
         Booking newBooking = testService.saveBooking(input);
         return new ResponseEntity<>(newBooking, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByIdBooking/{id}")
+    public ResponseEntity<?> findByIdBooking(@PathVariable UUID id) {
+        Booking booking = testService.findByIdBooking(id).orElseThrow(() -> new HotelException("no booking with that id found"));
+        return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
 

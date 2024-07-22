@@ -4,11 +4,12 @@ import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.repository.contracts.BookingRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 @Repository
 public class BookingRepositoryImpl implements BookingRepository {
@@ -34,8 +35,7 @@ public class BookingRepositoryImpl implements BookingRepository {
             }
         }
 
-        return booking; // it doesn't return the newly created booking, it only returns the input booking.
-                        // and this problem is in all repositories SAVE methods. TODO
+        return findById(booking.getId()).orElse(null);
     }
 
     private boolean guestExists(UUID guestId) {
@@ -58,12 +58,53 @@ public class BookingRepositoryImpl implements BookingRepository {
 
     @Override
     public Optional<Booking> findById(UUID id) {
-        return Optional.empty();
+        String query = "SELECT * FROM bookings WHERE id = ?";
+        return jdbcTemplate.query(query, new Object[]{id}, rs -> {
+            if (rs.next()) {
+                return Optional.of(bookingRowMapper(rs));
+            } else {
+                return Optional.empty();
+            }
+        });
+    }
+
+    private Booking bookingRowMapper(ResultSet rs) throws SQLException {
+        UUID bookingId = UUID.fromString(rs.getString("id"));
+        return Booking.builder()
+                .id(bookingId)
+                .roomId(UUID.fromString(rs.getString("room_id")))
+                .userId(UUID.fromString(rs.getString("user_id")))
+                .startDate(rs.getDate("start_date").toLocalDate())
+                .endDate(rs.getDate("end_date").toLocalDate())
+                .totalPrice(rs.getBigDecimal("total_price"))
+                .guests(fetchGuestsForBooking(bookingId))
+                .build();
+    }
+
+    private Set<Guest> fetchGuestsForBooking(UUID bookingId) {
+        String query = "SELECT g.* FROM guests g JOIN bookings_guests bg ON g.id = bg.guest_id WHERE bg.booking_id = ?";
+        return new HashSet<>(jdbcTemplate.query(query, new Object[]{bookingId}, guestRowMapper()));
+    }
+
+    private RowMapper<Guest> guestRowMapper() {
+        return (rs, rowNum) -> Guest.builder()
+                .id(UUID.fromString(rs.getString("id")))
+                .firstName(rs.getString("first_name"))
+                .lastName(rs.getString("last_name"))
+                .phoneNumber(rs.getString("phone_number"))
+                .idCardNumber(rs.getString("id_card_number"))
+                .idCardValidity(rs.getDate("id_card_validity").toLocalDate())
+                .idCardIssueAuthority(rs.getString("id_card_issue_authority"))
+                .idCardIssueDate(rs.getDate("id_card_issue_date").toLocalDate())
+                .birthdate(rs.getDate("birthdate").toLocalDate())
+                .build();
     }
 
     @Override
-    public Booking update(Booking entity) {
-        return null;
+    public Booking update(Booking booking) {
+
+
+        return findById(booking.getId()).orElse(null);
     }
 
     @Override
