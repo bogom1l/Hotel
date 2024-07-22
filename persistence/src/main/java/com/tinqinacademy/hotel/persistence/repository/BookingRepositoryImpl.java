@@ -103,27 +103,58 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public Booking update(Booking booking) {
 
+        String query = "UPDATE bookings SET room_id = ?, user_id = ?, start_date = ?, end_date = ?, total_price = ? WHERE id = ?";
+        jdbcTemplate.update(query, booking.getRoomId(), booking.getUserId(), booking.getStartDate(),
+                booking.getEndDate(), booking.getTotalPrice(), booking.getId());
+
+        // Update the guests in the booking
+        // First delete the existing guest associations
+        deleteGuestsInBooking(booking.getId());
+        // Then save the new guest associations
+        if (booking.getGuests() != null) {
+            for (Guest guest : booking.getGuests()) {
+                if (!guestExists(guest.getId())) {
+                    saveGuest(guest);
+                }
+                saveInBookingGuests(booking.getId(), guest.getId());
+            }
+        }
 
         return findById(booking.getId()).orElse(null);
     }
 
+    private void deleteGuestsInBooking(UUID bookingId) {
+        String query = "DELETE FROM bookings_guests WHERE booking_id = ?";
+        jdbcTemplate.update(query, bookingId);
+    }
+
     @Override
     public void deleteById(UUID id) {
+        String deleteBookingGuestsQuery = "DELETE FROM bookings_guests WHERE booking_id = ?";
+        jdbcTemplate.update(deleteBookingGuestsQuery, id);
 
+        String deleteAllBookingsQuery = "DELETE FROM bookings WHERE id = ?";
+        jdbcTemplate.update(deleteAllBookingsQuery, id);
     }
 
     @Override
     public List<Booking> findAll() {
-        return List.of();
+        String query = "SELECT * FROM bookings";
+        return jdbcTemplate.query(query, (rs, rowNum) -> bookingRowMapper(rs));
     }
 
     @Override
     public long count() {
-        return 0;
+        String query = "SELECT COUNT(*) FROM bookings";
+        return jdbcTemplate.queryForObject(query, Long.class);
     }
 
     @Override
     public void deleteAll() {
+        String deleteGuestBookingsQuery = "DELETE FROM bookings_guests";
+        jdbcTemplate.update(deleteGuestBookingsQuery);
 
+        String deleteAllBookingsQuery = "DELETE FROM bookings";
+        jdbcTemplate.update(deleteAllBookingsQuery);
     }
 }

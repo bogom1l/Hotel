@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.UUID;
 
@@ -212,5 +213,34 @@ public class TestController {
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
+    @PutMapping("/booking/updateBooking")
+    public ResponseEntity<?> updateBooking(@RequestBody Booking input) {
+        Booking updatedBooking = testService.updateBooking(input);
+        return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
+    }
+
+    @GetMapping("/booking/findAllBookings")
+    public ResponseEntity<?> findAll() {
+        List<Booking> bookings = testService.findAllBookings();
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/booking/deleteBooking/{id}")
+    public ResponseEntity<?> deleteBooking(@PathVariable UUID id) {
+        testService.deleteBooking(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/booking/deleteAllBookings")
+    public ResponseEntity<?> deleteAllBookings() {
+        testService.deleteAllBooking();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/booking/countsBooking")
+    public ResponseEntity<?> countsBooking() {
+        long count = testService.countBookings();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 
 }

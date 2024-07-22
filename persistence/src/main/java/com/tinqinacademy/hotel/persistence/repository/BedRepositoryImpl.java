@@ -76,11 +76,9 @@ public class BedRepositoryImpl implements BedRepository {
 
     @Override
     public void deleteAll() {
-        // Delete all bed associations from the rooms_beds table first
         String deleteAllFromRoomsBedsQuery = "DELETE FROM rooms_beds";
         jdbcTemplate.update(deleteAllFromRoomsBedsQuery);
 
-        // Then delete all beds
         String deleteAllFromBedsQuery = "DELETE FROM beds";
         jdbcTemplate.update(deleteAllFromBedsQuery);
     }
