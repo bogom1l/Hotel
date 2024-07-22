@@ -1,9 +1,6 @@
 package com.tinqinacademy.hotel.core.contracts;
 
-import com.tinqinacademy.hotel.persistence.model.Bed;
-import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.User;
-import com.tinqinacademy.hotel.persistence.model.Guest;
+import com.tinqinacademy.hotel.persistence.model.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,5 +45,11 @@ public interface TestService {
     void deleteAllGuests();
 
     // Booking
-    // TODO
+    Booking saveBooking(Booking booking);
+    Optional<Booking> findByIdBooking(UUID id);
+    Booking updateBooking(Booking booking);
+    void deleteBooking(UUID id);
+    List<Booking> findAllBookings();
+    long countBookings();
+    void deleteAllBooking();
 }

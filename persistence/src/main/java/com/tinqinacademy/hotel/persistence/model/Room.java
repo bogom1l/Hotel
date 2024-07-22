@@ -21,5 +21,5 @@ public class Room implements Entity {
     private Integer floor;
     private String roomNumber;
     private BathroomType bathroomType;
-    private List<Bed> beds;  // TODO?:  = new ArrayList<>();
+    private List<Bed> beds; // TODO?:  = new ArrayList<>();
 }

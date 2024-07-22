@@ -2,10 +2,7 @@ package com.tinqinacademy.hotel.rest.controllers;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
-import com.tinqinacademy.hotel.persistence.model.Bed;
-import com.tinqinacademy.hotel.persistence.model.Guest;
-import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.User;
+import com.tinqinacademy.hotel.persistence.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -200,4 +197,14 @@ public class TestController {
         long count = testService.countGuests();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
+
+    // Booking
+
+    @PostMapping("/saveBooking")
+    public ResponseEntity<?> saveBooking(@RequestBody Booking input){
+        Booking newBooking = testService.saveBooking(input);
+        return new ResponseEntity<>(newBooking, HttpStatus.CREATED);
+    }
+
+
 }

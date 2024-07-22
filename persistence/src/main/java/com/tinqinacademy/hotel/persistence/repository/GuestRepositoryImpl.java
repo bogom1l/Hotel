@@ -1,7 +1,6 @@
 package com.tinqinacademy.hotel.persistence.repository;
 
 import com.tinqinacademy.hotel.persistence.model.Guest;
-import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.repository.contracts.GuestRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,6 +23,9 @@ public class GuestRepositoryImpl implements GuestRepository {
     public Guest save(Guest entity) {
         String query =
                 "INSERT into guests (id, first_name, last_name, phone_number, id_card_number, id_card_validity, id_card_issue_authority, id_card_issue_date, birthdate) VALUES (?, ?, ?, ?, ?, ?, ? ,? , ?)";
+
+        //TODO: add RETURNING and rowmap to return the added object, not the received...
+
         jdbcTemplate.update(query, entity.getId(), entity.getFirstName(), entity.getLastName(),
                 entity.getPhoneNumber(), entity.getIdCardNumber(), entity.getIdCardValidity(),
                 entity.getIdCardIssueAuthority(), entity.getIdCardIssueDate(), entity.getBirthdate());

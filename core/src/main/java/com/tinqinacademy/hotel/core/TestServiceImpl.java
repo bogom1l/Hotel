@@ -2,14 +2,8 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
-import com.tinqinacademy.hotel.persistence.model.Bed;
-import com.tinqinacademy.hotel.persistence.model.Guest;
-import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.User;
-import com.tinqinacademy.hotel.persistence.repository.contracts.BedRepository;
-import com.tinqinacademy.hotel.persistence.repository.contracts.GuestRepository;
-import com.tinqinacademy.hotel.persistence.repository.contracts.RoomRepository;
-import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
+import com.tinqinacademy.hotel.persistence.model.*;
+import com.tinqinacademy.hotel.persistence.repository.contracts.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +19,14 @@ public class TestServiceImpl implements TestService {
     private final BedRepository bedRepository;
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
+    private final BookingRepository bookingRepository;
 
-    public TestServiceImpl(UserRepository userRepository, BedRepository bedRepository, RoomRepository roomRepository, GuestRepository guestRepository) {
+    public TestServiceImpl(UserRepository userRepository, BedRepository bedRepository, RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository) {
         this.userRepository = userRepository;
         this.bedRepository = bedRepository;
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
+        this.bookingRepository = bookingRepository;
     }
 
     // Bed
@@ -182,8 +178,41 @@ public class TestServiceImpl implements TestService {
         guestRepository.deleteAll();
     }
 
-    // Booking TODO
+    // Booking
 
+    @Override
+    public Booking saveBooking(Booking booking) {
+        return bookingRepository.save(booking);
+    }
 
+    @Override
+    public Optional<Booking> findByIdBooking(UUID id) {
+        return bookingRepository.findById(id);
+    }
+
+    @Override
+    public Booking updateBooking(Booking booking) {
+        return bookingRepository.update(booking);
+    }
+
+    @Override
+    public void deleteBooking(UUID id) {
+        bookingRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Booking> findAllBookings() {
+        return bookingRepository.findAll();
+    }
+
+    @Override
+    public long countBookings() {
+        return bookingRepository.count();
+    }
+
+    @Override
+    public void deleteAllBooking() {
+        bookingRepository.deleteAll();
+    }
 
 }
