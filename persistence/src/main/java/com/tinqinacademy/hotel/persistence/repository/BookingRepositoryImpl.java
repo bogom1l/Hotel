@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -157,4 +158,13 @@ public class BookingRepositoryImpl implements BookingRepository {
         String deleteAllBookingsQuery = "DELETE FROM bookings";
         jdbcTemplate.update(deleteAllBookingsQuery);
     }
+
+    // - - - - - -
+    @Override
+    public List<Booking> findByRoomId(UUID roomId) {
+        String query = "SELECT * FROM bookings WHERE room_id = ?";
+        return jdbcTemplate.query(query, new Object[]{roomId}, (rs, rowNum) -> bookingRowMapper(rs));
+    }
+
+
 }

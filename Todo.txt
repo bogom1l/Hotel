@@ -56,3 +56,6 @@ Todo:
     ✔ endpoint for clearing all tables
 
 - Implement some of the endpoints from the discord image table (?use input/output models?)
+    ✔️ 2) Returns basic info for a room with the specified id
+
+

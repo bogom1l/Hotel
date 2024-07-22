@@ -3,12 +3,14 @@ package com.tinqinacademy.hotel.rest.controllers;
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
 import com.tinqinacademy.hotel.persistence.model.*;
+import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoInput;
+import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoOutput;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.UUID;
 
@@ -244,7 +246,7 @@ public class TestController {
     }
 
     @DeleteMapping("/DELETE_ALL_TABLES_DATA")
-    public ResponseEntity<?> DELETE_ALL_TABLES_DATA(){
+    public ResponseEntity<?> DELETE_ALL_TABLES_DATA() {
         testService.deleteAllBookings();
         testService.deleteAllGuests();
         testService.deleteAllUsers();
@@ -252,6 +254,21 @@ public class TestController {
         testService.deleteAllBeds();
 
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    // - - - - - - - - - - - - - - - - - -
+
+    @Operation(summary = "Returns basic info for a room with the specified id")
+    @GetMapping("/getRoomBasicInfo/{roomId}")
+    public ResponseEntity<?> getRoomBasicInfo(@PathVariable UUID roomId) {
+
+        GetRoomBasicInfoInput input = GetRoomBasicInfoInput.builder()
+                .roomId(roomId)
+                .build();
+
+        GetRoomBasicInfoOutput output = testService.getRoomBasicInfo(input);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
 }

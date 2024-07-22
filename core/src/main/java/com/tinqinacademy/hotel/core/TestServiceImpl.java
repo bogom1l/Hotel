@@ -1,15 +1,19 @@
 package com.tinqinacademy.hotel.core;
 
-import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
 import com.tinqinacademy.hotel.persistence.model.*;
+import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoInput;
+import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.repository.contracts.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -213,6 +217,43 @@ public class TestServiceImpl implements TestService {
     @Override
     public void deleteAllBookings() {
         bookingRepository.deleteAll();
+    }
+
+
+    // - - - - - - - - - - - - - - - - - -
+
+    @Override
+    public GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input) {
+
+        Room room = roomRepository.findById(input.getRoomId()).orElse(null);
+        if(room == null) {
+            return null;
+        }
+
+        List<Booking> bookings = bookingRepository.findByRoomId(input.getRoomId());
+
+        List<LocalDate> datesOccupied = new ArrayList<>();
+        for (Booking booking : bookings) {
+            LocalDate startDate = booking.getStartDate();
+            LocalDate endDate = booking.getEndDate();
+
+            while (!startDate.isAfter(endDate)) {
+                datesOccupied.add(startDate);
+                startDate = startDate.plusDays(1);
+            }
+        }
+
+        GetRoomBasicInfoOutput output = GetRoomBasicInfoOutput.builder()
+                .id(input.getRoomId())
+                .price(room.getPrice())
+                .floor(room.getFloor())
+                .bedSize(room.getBeds().getFirst().getBedSize())
+                .bathroomType(room.getBathroomType())
+                .bedCount(room.getBeds().size())
+                .datesOccupied(datesOccupied)
+                .build();
+
+        return output;
     }
 
 }

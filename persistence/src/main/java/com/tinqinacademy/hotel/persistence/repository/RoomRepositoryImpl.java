@@ -160,4 +160,8 @@ public class RoomRepositoryImpl implements RoomRepository {
         String deleteAllFromRoomsQuery = "DELETE FROM rooms";
         jdbcTemplate.update(deleteAllFromRoomsQuery);
     }
+
+    // - - - - - - -
+
+
 }
