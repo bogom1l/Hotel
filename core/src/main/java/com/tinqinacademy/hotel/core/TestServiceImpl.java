@@ -1,10 +1,13 @@
 package com.tinqinacademy.hotel.core;
 
+import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
 import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.repository.contracts.BedRepository;
+import com.tinqinacademy.hotel.persistence.repository.contracts.GuestRepository;
 import com.tinqinacademy.hotel.persistence.repository.contracts.RoomRepository;
 import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +24,13 @@ public class TestServiceImpl implements TestService {
     private final UserRepository userRepository;
     private final BedRepository bedRepository;
     private final RoomRepository roomRepository;
+    private final GuestRepository guestRepository;
 
-    public TestServiceImpl(UserRepository userRepository, BedRepository bedRepository, RoomRepository roomRepository) {
+    public TestServiceImpl(UserRepository userRepository, BedRepository bedRepository, RoomRepository roomRepository, GuestRepository guestRepository) {
         this.userRepository = userRepository;
         this.bedRepository = bedRepository;
         this.roomRepository = roomRepository;
+        this.guestRepository = guestRepository;
     }
 
     // Bed
@@ -139,6 +144,46 @@ public class TestServiceImpl implements TestService {
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }
+
+    // Guest
+
+    @Override
+    public Guest saveGuest(Guest guest) {
+        return guestRepository.save(guest);
+    }
+
+    @Override
+    public Optional<Guest> findByIdGuest(UUID id) {
+        return guestRepository.findById(id);
+    }
+
+    @Override
+    public Guest updateGuest(Guest guest) {
+        return guestRepository.update(guest);
+    }
+
+    @Override
+    public void deleteGuest(UUID id) {
+        guestRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Guest> findAllGuests() {
+        return guestRepository.findAll();
+    }
+
+    @Override
+    public long countGuests() {
+        return guestRepository.count();
+    }
+
+    @Override
+    public void deleteAllGuests() {
+        guestRepository.deleteAll();
+    }
+
+    // Booking TODO
+
 
 
 }

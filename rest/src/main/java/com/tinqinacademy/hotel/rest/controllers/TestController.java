@@ -3,6 +3,7 @@ package com.tinqinacademy.hotel.rest.controllers;
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
 import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,7 +139,6 @@ public class TestController {
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
-    //delete by id, delete all, count
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
         testService.deleteUser(id);
@@ -157,4 +157,47 @@ public class TestController {
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
+    // Guest
+
+    @PostMapping("/saveGuest")
+    public ResponseEntity<?> saveGuest(@RequestBody Guest input){
+        Guest newGuest = testService.saveGuest(input);
+        return new ResponseEntity<>(newGuest, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByIdGuest/{id}")
+    public ResponseEntity<?> findByIdGuest(@PathVariable UUID id){
+        Guest guest = testService.findByIdGuest(id).orElseThrow(() -> new HotelException("no guest with that id found"));
+        return new ResponseEntity<>(guest, HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllGuests")
+    public ResponseEntity<?> findAllGuests(){
+        List<Guest> guests = testService.findAllGuests();
+        return new ResponseEntity<>(guests, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateGuest")
+    public ResponseEntity<?> updateGuest(@RequestBody Guest input){
+        Guest guest = testService.updateGuest(input);
+        return new ResponseEntity<>(guest, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteGuest/{id}")
+    public ResponseEntity<?> deleteGuest(@PathVariable UUID id){
+        testService.deleteGuest(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAllGuests")
+    public ResponseEntity<?> deleteAllGuests(){
+        testService.deleteAllGuests();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/countGuests")
+    public ResponseEntity<?> countGuests(){
+        long count = testService.countGuests();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 }

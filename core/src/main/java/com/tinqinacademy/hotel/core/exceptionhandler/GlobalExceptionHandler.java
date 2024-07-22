@@ -30,4 +30,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors.getErrors(), errors.getErrorCode());
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleException(Exception ex) {
+        String message = ex.getMessage();
+        if(ex.getCause() != null){
+            message += "\nCause: " + ex.getCause();
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        //return ResponseEntity.badRequest().body(message);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.tinqinacademy.hotel.core.contracts;
 import com.tinqinacademy.hotel.persistence.model.Bed;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.User;
+import com.tinqinacademy.hotel.persistence.model.Guest;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,4 +38,15 @@ public interface TestService {
     long countUsers();
     void deleteAllUsers();
 
+    // Guest
+    Guest saveGuest(Guest guest);
+    Optional<Guest> findByIdGuest(UUID id);
+    Guest updateGuest(Guest guest);
+    void deleteGuest(UUID id);
+    List<Guest> findAllGuests();
+    long countGuests();
+    void deleteAllGuests();
+
+    // Booking
+    // TODO
 }
