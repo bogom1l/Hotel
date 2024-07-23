@@ -68,7 +68,3 @@ UUID generating should be in the db sql query, not in the code [will need to dro
 
 JPA
 * JpaRepository
-* main:
-   //TODO Entity Scan
-   //TODO Repositories Scan - Enable jpa repository
-
