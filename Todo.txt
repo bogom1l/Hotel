@@ -58,4 +58,17 @@ Todo:
 - Implement some of the endpoints from the discord image table (?use input/output models?)
     ✔️ 2) Returns basic info for a room with the specified id
 
+UUID generating should be in the db sql query, not in the code [will need to drop all tables probably]
+     (@JsonIgnore, and remove all .randomUUID generating in the code)
+
+------------------------------------------------------------------------------------------
+
+* use single quotes ' ' for the saved words in the queries
+* """select...."""  instead of  "select.."+"..."
+
+JPA
+* JpaRepository
+* main:
+   //TODO Entity Scan
+   //TODO Repositories Scan - Enable jpa repository
 

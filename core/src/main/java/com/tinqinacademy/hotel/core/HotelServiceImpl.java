@@ -11,8 +11,8 @@ import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoOutput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomInput;
 import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomOutput;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
-import com.tinqinacademy.hotel.persistence.repository.contracts.BedRepository;
-import com.tinqinacademy.hotel.persistence.repository.contracts.UserRepository;
+import com.tinqinacademy.hotel.persistence.repository.BedRepository;
+import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ import com.tinqinacademy.hotel.core.contracts.TestService;
 import com.tinqinacademy.hotel.persistence.model.*;
 import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoOutput;
-import com.tinqinacademy.hotel.persistence.repository.contracts.*;
+import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -32,7 +31,7 @@ public class TestServiceImpl implements TestService {
         this.guestRepository = guestRepository;
         this.bookingRepository = bookingRepository;
     }
-
+/*
     // Bed
 
     @Override
@@ -256,4 +255,5 @@ public class TestServiceImpl implements TestService {
         return output;
     }
 
+*/
 }

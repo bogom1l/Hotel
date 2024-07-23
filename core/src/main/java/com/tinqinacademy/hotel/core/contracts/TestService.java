@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public interface TestService {
 
+    /*
     // Bed
     Bed saveBed(Bed bed);
 
@@ -88,4 +89,6 @@ public interface TestService {
     // - - - - - - - - - - - - - - - - - -
 
     GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
+
+    */
 }

@@ -1,9 +1,9 @@
 package com.tinqinacademy.hotel.persistence.configuration;
 
+
 import com.tinqinacademy.hotel.persistence.model.*;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
-import com.tinqinacademy.hotel.persistence.repository.contracts.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * - random rooms if they do not already exist
  * - TODO ...
  */
+/*
 @Slf4j
 @Component
 @Order(1)
@@ -244,3 +245,5 @@ public class DataSeeder implements ApplicationRunner {
         bookingRepository.save(booking);
     }
 }
+
+*/

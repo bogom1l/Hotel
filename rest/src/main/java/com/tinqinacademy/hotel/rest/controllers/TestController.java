@@ -25,6 +25,7 @@ public class TestController {
         this.testService = testService;
     }
 
+    /*
     // Bed
 
     @PostMapping("/bed/saveBed")
@@ -271,4 +272,6 @@ public class TestController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
+
+     */
 }
