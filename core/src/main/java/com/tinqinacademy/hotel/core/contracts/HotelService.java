@@ -1,16 +1,13 @@
 package com.tinqinacademy.hotel.core.contracts;
 
-import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
-import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomOutput;
-import com.tinqinacademy.hotel.api.operations.deletebooking.DeleteBookingInput;
-import com.tinqinacademy.hotel.api.operations.deletebooking.DeleteBookingOutput;
-import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoInput;
-import com.tinqinacademy.hotel.api.operations.getroominfo.RoomInfoOutput;
-import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomInput;
-import com.tinqinacademy.hotel.api.operations.getrooms.GetRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoInput;
+import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoOutput;
 
 public interface HotelService {
 
+    /*
     BookRoomOutput bookRoom(BookRoomInput input);
 
     GetRoomOutput getRooms(GetRoomInput input);
@@ -18,5 +15,7 @@ public interface HotelService {
     RoomInfoOutput getRoomInfo(RoomInfoInput input);
 
     DeleteBookingOutput deleteBooking(DeleteBookingInput input);
-
+*/
+    CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input);
+    GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
 }

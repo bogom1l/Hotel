@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.getroombasicinfo;
+package com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo;
 
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
@@ -21,6 +21,5 @@ public class GetRoomBasicInfoOutput {
     private Integer floor;
     private BedSize bedSize;
     private BathroomType bathroomType;
-    private Integer bedCount;
     private List<LocalDate> datesOccupied;
 }

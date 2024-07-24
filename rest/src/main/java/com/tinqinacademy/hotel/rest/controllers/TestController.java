@@ -1,18 +1,8 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
-import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.TestService;
-import com.tinqinacademy.hotel.persistence.model.*;
-import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoInput;
-import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoOutput;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @RequestMapping("/test")
 @RestController

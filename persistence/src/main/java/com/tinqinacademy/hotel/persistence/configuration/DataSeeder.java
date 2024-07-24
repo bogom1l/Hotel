@@ -74,7 +74,7 @@ public class DataSeeder implements ApplicationRunner {
                 .bedSize(BedSize.DOUBLE)
                 .capacity(2)
                 .build();
-        
+
         Bed kingSizeBed = Bed.builder()
                 .bedSize(BedSize.KING_SIZE)
                 .capacity(2)

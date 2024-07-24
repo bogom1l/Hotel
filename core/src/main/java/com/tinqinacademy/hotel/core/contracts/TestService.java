@@ -1,13 +1,5 @@
 package com.tinqinacademy.hotel.core.contracts;
 
-import com.tinqinacademy.hotel.persistence.model.*;
-import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoInput;
-import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoOutput;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 public interface TestService {
 
     /*

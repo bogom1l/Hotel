@@ -38,6 +38,10 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>3.3.2</version> <!-- TODO ${jpa.version} -->
         </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
 
 
     </dependencies>

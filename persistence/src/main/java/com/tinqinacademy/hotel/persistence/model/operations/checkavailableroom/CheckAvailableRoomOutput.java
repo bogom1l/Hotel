@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.checkavailableroom;
+package com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom;
 
 import lombok.*;
 

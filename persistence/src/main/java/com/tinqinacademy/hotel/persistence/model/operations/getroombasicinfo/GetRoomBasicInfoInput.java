@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.getroombasicinfo;
+package com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo;
 
 import lombok.*;
 

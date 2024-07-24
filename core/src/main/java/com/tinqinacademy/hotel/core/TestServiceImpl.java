@@ -1,18 +1,9 @@
 package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.core.contracts.TestService;
-import com.tinqinacademy.hotel.persistence.model.*;
-import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoInput;
-import com.tinqinacademy.hotel.persistence.model.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @Service

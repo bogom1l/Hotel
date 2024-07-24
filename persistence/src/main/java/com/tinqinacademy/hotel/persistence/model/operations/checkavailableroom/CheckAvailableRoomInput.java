@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.checkavailableroom;
+package com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom;
 
 import lombok.*;
 
@@ -11,10 +11,8 @@ import java.time.LocalDate;
 @Builder
 @ToString
 public class CheckAvailableRoomInput {
-    private String id;
     private LocalDate startDate;
     private LocalDate endDate;
-    // private Integer bedCount;
     private String bedSize;
     private String bathroomType;
 }
