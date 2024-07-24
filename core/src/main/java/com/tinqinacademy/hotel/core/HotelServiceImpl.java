@@ -14,6 +14,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.C
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -210,6 +212,16 @@ public class HotelServiceImpl implements HotelService {
         bookingRepository.save(booking);
 
         return BookRoomOutput.builder().build();
+    }
+
+    @Override
+    public UnbookRoomOutput unbookRoom(UnbookRoomInput input) {
+
+        UUID bookingId = UUID.fromString(input.getBookingId());
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new HotelException("booking not found"));
+        bookingRepository.delete(booking);
+
+        return UnbookRoomOutput.builder().build();
     }
 
 

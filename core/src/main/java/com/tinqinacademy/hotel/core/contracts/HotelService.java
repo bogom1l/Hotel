@@ -6,6 +6,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.C
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomOutput;
 
 public interface HotelService {
 
@@ -23,4 +25,5 @@ public interface HotelService {
     GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
 
     BookRoomOutput bookRoom(BookRoomInput input);
+    UnbookRoomOutput unbookRoom(UnbookRoomInput input);
 }

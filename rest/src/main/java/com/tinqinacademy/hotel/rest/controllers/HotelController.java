@@ -7,6 +7,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.C
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -94,6 +96,16 @@ public class HotelController {
         BookRoomOutput output = hotelService.bookRoom(updatedInput);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Unbook a room")
+    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM) // DELETE /hotel/{bookingId}
+    public ResponseEntity<?> deleteBooking(@PathVariable String bookingId) {
+
+        UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
+        UnbookRoomOutput output = hotelService.unbookRoom(input);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
     /*
