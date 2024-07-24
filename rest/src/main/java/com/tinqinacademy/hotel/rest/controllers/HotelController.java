@@ -1,12 +1,15 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 import com.tinqinacademy.hotel.core.contracts.HotelService;
+import com.tinqinacademy.hotel.persistence.model.operations.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +51,7 @@ public class HotelController {
 //        return new ResponseEntity<>(output, HttpStatus.OK);
 //    }
 
-    @Operation(summary = "Check room availability for a certain period")
+    @Operation(summary = "TO_BE_REFACTORED - Check room availability for a certain period")
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY) // GET /hotel/rooms
     public ResponseEntity<?> checkAvailableRoom(@RequestParam LocalDate startDate,
                                                    @RequestParam LocalDate endDate,
@@ -69,7 +72,7 @@ public class HotelController {
     }
 
     @Operation(summary = "Returns basic info for a room with the specified id")
-    @GetMapping("/api/v1/hotel/{roomId}")
+    @GetMapping(RestApiRoutes.GET_ROOM_INFO)
     public ResponseEntity<?> getRoomBasicInfo(@PathVariable UUID roomId) {
 
         GetRoomBasicInfoInput input = GetRoomBasicInfoInput.builder()
@@ -79,6 +82,18 @@ public class HotelController {
         GetRoomBasicInfoOutput output = hotelService.getRoomBasicInfo(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Book a room")
+    @PostMapping(RestApiRoutes.BOOK_ROOM)
+    public ResponseEntity<?> bookRoom(@PathVariable String roomId,
+                                      @RequestBody @Valid BookRoomInput input) {
+
+        BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
+
+        BookRoomOutput output = hotelService.bookRoom(updatedInput);
+
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
     /*

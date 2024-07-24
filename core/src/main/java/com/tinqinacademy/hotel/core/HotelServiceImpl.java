@@ -2,9 +2,9 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
-import com.tinqinacademy.hotel.persistence.model.Bed;
-import com.tinqinacademy.hotel.persistence.model.Booking;
-import com.tinqinacademy.hotel.persistence.model.Room;
+import com.tinqinacademy.hotel.persistence.model.*;
+import com.tinqinacademy.hotel.persistence.model.operations.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
@@ -15,10 +15,9 @@ import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -107,6 +106,7 @@ public class HotelServiceImpl implements HotelService {
      */
     @Override
     public CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input) {
+
         log.info("Start checkAvailableRoom with input: {}", input);
 
         //TODO maybe needs refactoring
@@ -127,12 +127,13 @@ public class HotelServiceImpl implements HotelService {
         List<Room> roomsByBedAndBathroom = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
 
         // Filter out rooms that have conflicting bookings
-        List<Room> availableRooms = roomsByBedAndBathroom.stream()
-                .filter(room -> !bookingRepository.existsByRoomAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
-                        room, input.getEndDate(), input.getStartDate()))
-                .toList();
+//        List<Room> availableRooms = roomsByBedAndBathroom.stream()
+//                .filter(room -> !bookingRepository.existsByRoomAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+//                        room, input.getEndDate(), input.getStartDate()))
+//                .toList();
+        List<Room> availableRooms = new ArrayList<>(); //to be deleted
 
-        // Extract room IDs from available rooms
+                // Extract room IDs from available rooms
         List<String> availableRoomIds = availableRooms.stream()
                 .map(room -> room.getId().toString())
                 .collect(Collectors.toList());
@@ -149,15 +150,6 @@ public class HotelServiceImpl implements HotelService {
     public GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input) {
         UUID roomId = input.getRoomId();
         Room room = roomRepository.findByIdWithBeds(roomId).orElseThrow(() -> new HotelException("Room not found"));
-
-//        List<LocalDate> datesOccupied = bookingRepository.findAllByRoomId(roomId).stream()
-//                .flatMap(booking ->
-//                        booking
-//                                .getStartDate()
-//                                .datesUntil(booking.getEndDate().plusDays(1))
-//                                .toList().stream())
-//                .distinct()
-//                .collect(Collectors.toList());
 
         List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());
 
@@ -181,6 +173,38 @@ public class HotelServiceImpl implements HotelService {
                 .build();
     }
 
+    @Override
+    public BookRoomOutput bookRoom(BookRoomInput input) {
+        UUID roomId = UUID.fromString(input.getRoomId());
+        LocalDate startDate = input.getStartDate();
+        LocalDate endDate = input.getEndDate();
+
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new HotelException("room not found"));
+
+        List<Room> availableRooms = roomRepository.findAvailableRooms(startDate, endDate);
+
+        if (!availableRooms.contains(room)) {
+            throw new RuntimeException("Room is not available for the selected dates");
+        }
+
+        User user = userRepository.findByPhoneNumber(input.getPhoneNo())
+                .orElseThrow(() -> new HotelException("no user found"));
+
+        BigDecimal totalPrice = room.getPrice().add(BigDecimal.valueOf(50)); // Example price; should add logic
+
+        Booking booking = Booking.builder()
+                .room(room)
+                .user(user)
+                .startDate(startDate)
+                .endDate(endDate)
+                .totalPrice(totalPrice) // Set the total price based on your business logic
+                .guests(Set.of()) // Empty set, later will have endpoint for adding guests for certain booking
+                .build();
+
+        bookingRepository.save(booking);
+
+        return BookRoomOutput.builder().build();
+    }
 
 
 }
