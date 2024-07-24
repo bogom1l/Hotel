@@ -11,6 +11,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoo
 import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
-// @RequestMapping("/hotel")
 @RestController
 public class HotelController {
 
@@ -31,30 +32,12 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-//    @Operation(summary = "Check room availability for a certain period",
-//            description = "Check room availability for a certain period")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Room is available"),
-//            @ApiResponse(responseCode = "404", description = "Room not found")})
-//    @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY) // GET /hotel/rooms
-//    public ResponseEntity<?> checkRoomAvailability(@RequestParam LocalDate startDate,
-//                                                   @RequestParam LocalDate endDate,
-//                                                   @RequestParam Integer bedCount,
-//                                                   @RequestParam String bedSize,
-//                                                   @RequestParam String bathroomType) {
-//        GetRoomInput input = GetRoomInput.builder().startDate(startDate).endDate(endDate).bedCount(bedCount).bedSize(bedSize)
-//                // TODO: ? maybe it shouldn't work when i give it wrong enum data
-//                //  .bedSize(BedSize.getByCode(bedSize).toString())
-//                .bathroomType(bathroomType) // TODO: same here
-//                .build();
-//
-//        GetRoomOutput output = hotelService.getRooms(input);
-//
-//        return new ResponseEntity<>(output, HttpStatus.OK);
-//    }
-
-    @Operation(summary = "TO_BE_REFACTORED - Check room availability for a certain period")
-    @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY) // GET /hotel/rooms
+    @Operation(summary = "Check room availability for a certain period",
+            description = "Check room availability for a certain period")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room is available"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
+    @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
     public ResponseEntity<?> checkAvailableRoom(@RequestParam LocalDate startDate,
                                                 @RequestParam LocalDate endDate,
                                                 @RequestParam String bedSize,
@@ -63,9 +46,7 @@ public class HotelController {
                 .startDate(startDate)
                 .endDate(endDate)
                 .bedSize(bedSize)
-                // TODO: ? maybe it shouldn't work when i give it wrong enum data
-                //  .bedSize(BedSize.getByCode(bedSize).toString())
-                .bathroomType(bathroomType) // TODO: same here
+                .bathroomType(bathroomType)
                 .build();
 
         CheckAvailableRoomOutput output = hotelService.checkAvailableRoom(input);
@@ -73,52 +54,18 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    @Operation(summary = "Returns basic info for a room with the specified id")
+    @Operation(summary = "Returns basic info for a room with the specified id",
+            description = "Returns basic info for a room with the specified id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room info retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
     @GetMapping(RestApiRoutes.GET_ROOM_INFO)
     public ResponseEntity<?> getRoomBasicInfo(@PathVariable UUID roomId) {
-
         GetRoomBasicInfoInput input = GetRoomBasicInfoInput.builder()
                 .roomId(roomId)
                 .build();
 
         GetRoomBasicInfoOutput output = hotelService.getRoomBasicInfo(input);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
-    }
-
-    @Operation(summary = "Book a room")
-    @PostMapping(RestApiRoutes.BOOK_ROOM)
-    public ResponseEntity<?> bookRoom(@PathVariable String roomId,
-                                      @RequestBody @Valid BookRoomInput input) {
-
-        BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
-
-        BookRoomOutput output = hotelService.bookRoom(updatedInput);
-
-        return new ResponseEntity<>(output, HttpStatus.CREATED);
-    }
-
-    @Operation(summary = "Unbook a room")
-    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM) // DELETE /hotel/{bookingId}
-    public ResponseEntity<?> deleteBooking(@PathVariable String bookingId) {
-
-        UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
-        UnbookRoomOutput output = hotelService.unbookRoom(input);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
-    }
-
-    /*
-    @Operation(summary = "Get room info by id", description = "Get room info by id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Room info retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Room not found")})
-    @GetMapping(RestApiRoutes.GET_ROOM_INFO) // GET /hotel/{roomId}
-    public ResponseEntity<?> getRoomInfo(@PathVariable String roomId) {
-
-        RoomInfoInput input = RoomInfoInput.builder().roomId(roomId).build();
-
-        RoomInfoOutput output = hotelService.getRoomInfo(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
@@ -129,10 +76,9 @@ public class HotelController {
             @ApiResponse(responseCode = "400", description = "Room already booked or bad request"),
             @ApiResponse(responseCode = "404", description = "Room not found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})
-    @PostMapping(RestApiRoutes.BOOK_ROOM) // POST /hotel/{roomId}
+    @PostMapping(RestApiRoutes.BOOK_ROOM)
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
                                       @RequestBody @Valid BookRoomInput input) {
-
         BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         BookRoomOutput output = hotelService.bookRoom(updatedInput);
@@ -144,15 +90,12 @@ public class HotelController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
             @ApiResponse(responseCode = "404", description = "Room booking not found")})
-    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM) // DELETE /hotel/{bookingId}
+    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
     public ResponseEntity<?> deleteBooking(@PathVariable String bookingId) {
+        UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
+        UnbookRoomOutput output = hotelService.unbookRoom(input);
 
-        DeleteBookingInput input = DeleteBookingInput.builder().bookingId(bookingId).build();
-
-        DeleteBookingOutput output = hotelService.deleteBooking(input);
-
-        return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
-*/
 
 }

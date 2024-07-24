@@ -16,7 +16,9 @@ import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.Get
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.unbookroom.UnbookRoomOutput;
-import com.tinqinacademy.hotel.persistence.repository.*;
+import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
+import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
+import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -26,136 +28,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class HotelServiceImpl implements HotelService {
 
-    private final BedRepository bedRepository;
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
-    private final GuestRepository guestRepository;
     private final BookingRepository bookingRepository;
 
-    public HotelServiceImpl(BedRepository bedRepository, RoomRepository roomRepository, UserRepository userRepository, GuestRepository guestRepository, BookingRepository bookingRepository) {
-        this.bedRepository = bedRepository;
+    public HotelServiceImpl(RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
-        this.guestRepository = guestRepository;
         this.bookingRepository = bookingRepository;
     }
 
-    /*
-        @Override
-        public GetRoomOutput getRooms(GetRoomInput input) {
-            log.info("Start getRooms with input: {}", input);
-
-            GetRoomOutput output = GetRoomOutput.builder()
-                    .ids(List.of("1", "2", "3", "63"))
-                    .build();
-
-            log.info("End getRooms with output: {}", output);
-            return output;
-        }
-
-        @Override
-        public RoomInfoOutput getRoomInfo(RoomInfoInput input) {
-            log.info("Start getRoomInfo with input: {}", input);
-
-            Random random = new Random();
-            List<LocalDate> sampleDates = generateSampleDates();
-
-            RoomInfoOutput output = RoomInfoOutput.builder() // sample random data
-                    .id(input.getRoomId())
-                    .price(BigDecimal.valueOf(random.nextDouble(50_000) + 1))
-                    .floor(random.nextInt(10) + 1)
-                    .bedSize(BedSize.DOUBLE)
-                    .bathroomType(BathroomType.PRIVATE)
-                    .bedCount(random.nextInt(5) + 1)
-                    .datesOccupied(sampleDates)
-                    .build();
-
-            log.info("End getRoomInfo with output: {}", output);
-            return output;
-        }
-
-        private List<LocalDate> generateSampleDates() {
-            List<LocalDate> sampleDates = new ArrayList<>();
-            sampleDates.add(LocalDate.now());
-            sampleDates.add(LocalDate.now().plusDays(1));
-            sampleDates.add(LocalDate.now().plusDays(2));
-            sampleDates.add(LocalDate.now().plusDays(3));
-
-            return sampleDates;
-        }
-
-        @Override
-        public BookRoomOutput bookRoom(BookRoomInput input) {
-            log.info("Start bookRoom with input: {}", input);
-
-            BookRoomOutput output = BookRoomOutput.builder().build();
-
-            log.info("End bookRoom with output: {}", output);
-            return output;
-        }
-
-        @Override
-        public DeleteBookingOutput deleteBooking(DeleteBookingInput input) {
-            log.info("Start deleteBooking with input: {}", input);
-
-            DeleteBookingOutput output = DeleteBookingOutput.builder().build();
-
-            log.info("End deleteBooking with output: {}", output);
-            return output;
-        }
-
-
-     */
     @Override
     public CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input) {
+        log.info("Started checkAvailableRoom with input: {}", input);
 
-        log.info("Start checkAvailableRoom with input: {}", input);
-
-        //TODO: needs refactoring
-
-        BedSize bedSize;
-        BathroomType bathroomType;
-
-        // Convert string inputs to enum
-        try {
-            bedSize = BedSize.getByCode(input.getBedSize());
-            bathroomType = BathroomType.getByCode(input.getBathroomType());
-        } catch (IllegalArgumentException e) {
-            log.error("Invalid bed size or bathroom type: {}", e.getMessage());
-            return CheckAvailableRoomOutput.builder().ids(List.of()).build();
+        BedSize bedSize = BedSize.getByCode(input.getBedSize());
+        BathroomType bathroomType = BathroomType.getByCode(input.getBathroomType());
+        if (bedSize == BedSize.UNKNOWN || bathroomType == BathroomType.UNKNOWN) {
+            log.error("Invalid bed size or bathroom type provided: bedSize={}, bathroomType={}", input.getBedSize(), input.getBathroomType());
+            throw new HotelException("Invalid bed size or bathroom type.");
         }
 
-        // Find rooms by bed size and bathroom type
-        List<Room> roomsByBedAndBathroom = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
+        if (input.getStartDate().isAfter(input.getEndDate())) {
+            log.error("Start date should be before end date");
+            throw new HotelException("Start date should be before end date.");
+        }
 
-        // Filter out rooms that have conflicting bookings
-//        List<Room> availableRooms = roomsByBedAndBathroom.stream()
-//                .filter(room -> !bookingRepository.existsByRoomAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
-//                        room, input.getEndDate(), input.getStartDate()))
-//                .toList();
-        List<Room> availableRooms = new ArrayList<>(); //to be deleted
+        List<Room> availableRooms = roomRepository.findAvailableRooms(input.getStartDate(), input.getEndDate());
+        List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
+        List<String> availableRoomIds = new ArrayList<>();
 
-        // Extract room IDs from available rooms
-        List<String> availableRoomIds = availableRooms.stream()
-                .map(room -> room.getId().toString())
-                .collect(Collectors.toList());
+        for (Room room : availableRooms) {
+            if (roomsMatchingCriteria.contains(room)) {
+                availableRoomIds.add(room.getId().toString());
+            }
+        }
 
         CheckAvailableRoomOutput output = CheckAvailableRoomOutput.builder()
                 .ids(availableRoomIds)
                 .build();
 
-        log.info("End checkAvailableRoom with output: {}", output);
+        log.info("Ended checkAvailableRoom with output: {}", output);
         return output;
     }
 
     @Override
     public GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input) {
+        log.info("Started getRoomBasicInfo with input: {}", input);
+
         UUID roomId = input.getRoomId();
         Room room = roomRepository.findByIdWithBeds(roomId).orElseThrow(() -> new HotelException("Room not found"));
 
@@ -171,7 +96,7 @@ public class HotelServiceImpl implements HotelService {
             }
         }
 
-        return GetRoomBasicInfoOutput.builder()
+        GetRoomBasicInfoOutput output = GetRoomBasicInfoOutput.builder()
                 .id(room.getId())
                 .price(room.getPrice())
                 .floor(room.getFloor())
@@ -179,10 +104,15 @@ public class HotelServiceImpl implements HotelService {
                 .bathroomType(room.getBathroomType())
                 .datesOccupied(datesOccupied)
                 .build();
+
+        log.info("Ended getRoomBasicInfo with output: {}", output);
+        return output;
     }
 
     @Override
     public BookRoomOutput bookRoom(BookRoomInput input) {
+        log.info("Started bookRoom with input: {}", input);
+
         UUID roomId = UUID.fromString(input.getRoomId());
         LocalDate startDate = input.getStartDate();
         LocalDate endDate = input.getEndDate();
@@ -195,7 +125,8 @@ public class HotelServiceImpl implements HotelService {
             throw new RuntimeException("Room is not available for the selected dates");
         }
 
-        User user = userRepository.findByPhoneNumber(input.getPhoneNo())
+        User user = userRepository
+                .findByPhoneNumberAndFirstNameAndLastName(input.getPhoneNo(), input.getFirstName(), input.getLastName())
                 .orElseThrow(() -> new HotelException("no user found"));
 
         BigDecimal totalPrice = room.getPrice().add(BigDecimal.valueOf(50)); // Example price; should add logic
@@ -205,24 +136,28 @@ public class HotelServiceImpl implements HotelService {
                 .user(user)
                 .startDate(startDate)
                 .endDate(endDate)
-                .totalPrice(totalPrice) // Set the total price based on your business logic
+                .totalPrice(totalPrice)
                 .guests(Set.of()) // Empty set, later will have endpoint for adding guests for certain booking
                 .build();
 
         bookingRepository.save(booking);
 
-        return BookRoomOutput.builder().build();
+        BookRoomOutput output = BookRoomOutput.builder().build();
+        log.info("Ended bookRoom with output: {}", output);
+        return output;
     }
 
     @Override
     public UnbookRoomOutput unbookRoom(UnbookRoomInput input) {
+        log.info("Started unbookRoom with input: {}", input);
 
         UUID bookingId = UUID.fromString(input.getBookingId());
         Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new HotelException("booking not found"));
         bookingRepository.delete(booking);
 
-        return UnbookRoomOutput.builder().build();
+        UnbookRoomOutput output = UnbookRoomOutput.builder().build();
+        log.info("Ended unbookRoom with output: {}", output);
+        return output;
     }
-
 
 }
