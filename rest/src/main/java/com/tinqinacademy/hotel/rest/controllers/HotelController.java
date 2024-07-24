@@ -98,4 +98,7 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
+    // TODO:
+    //  endpoint: updateBooking
+
 }
