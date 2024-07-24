@@ -2,6 +2,8 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
+import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -147,20 +150,32 @@ public class HotelServiceImpl implements HotelService {
         UUID roomId = input.getRoomId();
         Room room = roomRepository.findByIdWithBeds(roomId).orElseThrow(() -> new HotelException("Room not found"));
 
-        List<LocalDate> datesOccupied = bookingRepository.findAllByRoomId(roomId).stream()
-                .flatMap(booking ->
-                        booking
-                                .getStartDate()
-                                .datesUntil(booking.getEndDate().plusDays(1))
-                                .toList().stream())
-                .distinct()
-                .collect(Collectors.toList());
+//        List<LocalDate> datesOccupied = bookingRepository.findAllByRoomId(roomId).stream()
+//                .flatMap(booking ->
+//                        booking
+//                                .getStartDate()
+//                                .datesUntil(booking.getEndDate().plusDays(1))
+//                                .toList().stream())
+//                .distinct()
+//                .collect(Collectors.toList());
+
+        List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());
+
+        List<LocalDate> datesOccupied = new ArrayList<>();
+        for (Booking booking : bookings) {
+            LocalDate startDate = booking.getStartDate();
+            LocalDate endDate = booking.getEndDate();
+            while (startDate.isBefore(endDate)) {
+                datesOccupied.add(startDate);
+                startDate = startDate.plusDays(1);
+            }
+        }
 
         return GetRoomBasicInfoOutput.builder()
                 .id(room.getId())
                 .price(room.getPrice())
                 .floor(room.getFloor())
-                .bedSize(room.getBeds().stream().findFirst().map(bed -> bed.getBedSize()).orElse(null))
+                .bedSize(room.getBeds().stream().findFirst().map(Bed::getBedSize).orElse(null))
                 .bathroomType(room.getBathroomType())
                 .datesOccupied(datesOccupied)
                 .build();
