@@ -68,3 +68,4 @@ UUID generating should be in the db sql query, not in the code [will need to dro
 
 JPA
 * JpaRepository
+* DataSeeder ( .builder().id() ???)
