@@ -19,6 +19,8 @@ public interface HotelService {
     DeleteBookingOutput deleteBooking(DeleteBookingInput input);
 */
     CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input);
+
     GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
+
     BookRoomOutput bookRoom(BookRoomInput input);
 }

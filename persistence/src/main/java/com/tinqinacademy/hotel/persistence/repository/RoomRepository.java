@@ -33,8 +33,8 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
             SELECT r.* 
             FROM rooms r 
             LEFT JOIN bookings b ON r.id = b.room_id 
-                AND b.start_date <= :endDate 
-                AND b.end_date >= :startDate 
+                 AND b.start_date <= :endDate 
+                 AND b.end_date >= :startDate 
             WHERE b.room_id IS NULL;
             """, nativeQuery = true)
     List<Room> findAvailableRooms(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);

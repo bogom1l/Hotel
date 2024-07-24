@@ -54,9 +54,9 @@ public class HotelController {
     @Operation(summary = "TO_BE_REFACTORED - Check room availability for a certain period")
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY) // GET /hotel/rooms
     public ResponseEntity<?> checkAvailableRoom(@RequestParam LocalDate startDate,
-                                                   @RequestParam LocalDate endDate,
-                                                   @RequestParam String bedSize,
-                                                   @RequestParam String bathroomType) {
+                                                @RequestParam LocalDate endDate,
+                                                @RequestParam String bedSize,
+                                                @RequestParam String bathroomType) {
         CheckAvailableRoomInput input = CheckAvailableRoomInput.builder()
                 .startDate(startDate)
                 .endDate(endDate)

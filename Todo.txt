@@ -47,25 +47,24 @@ Todo:
 
 ✔️ create sql tables - "db_scheme.txt"
 
--new endpoint: updateBooking + good logic for it
-
 - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ✔️ All crud operations for all tables
     ✔ add data seeding when starting app (one time) [+ add logger everywhere]
     ✔ endpoint for clearing all tables
 
-- Implement some of the endpoints from the discord image table (?use input/output models?)
-    ✔️ 2) Returns basic info for a room with the specified id
-
-UUID generating should be in the db sql query, not in the code [will need to drop all tables probably]
-     (@JsonIgnore, and remove all .randomUUID generating in the code)
+✔️ Implement some of the endpoints from the discord image table (?use input/output models?)
+    ✔ 2) Returns basic info for a room with the specified id
 
 ------------------------------------------------------------------------------------------
 
 * use single quotes ' ' for the saved words in the queries
 * """select...."""  instead of  "select.."+"..."
 
-JPA
-* JpaRepository
-* DataSeeder ( .builder().id() ???)
+- JPA
+    ✔️ JpaRepository
+    ✔️ DataSeeder (not necessary adding ids when building)
+
+- Implement all endpoints from discord image tables
+    ❌ new endpoint: updateBooking + good logic for it
+

@@ -2,13 +2,16 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
-import com.tinqinacademy.hotel.persistence.model.*;
+import com.tinqinacademy.hotel.persistence.model.Bed;
+import com.tinqinacademy.hotel.persistence.model.Booking;
+import com.tinqinacademy.hotel.persistence.model.Room;
+import com.tinqinacademy.hotel.persistence.model.User;
+import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
+import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.model.operations.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.checkavailableroom.CheckAvailableRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
-import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.repository.*;
@@ -17,7 +20,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -109,7 +115,7 @@ public class HotelServiceImpl implements HotelService {
 
         log.info("Start checkAvailableRoom with input: {}", input);
 
-        //TODO maybe needs refactoring
+        //TODO: needs refactoring
 
         BedSize bedSize;
         BathroomType bathroomType;
@@ -133,7 +139,7 @@ public class HotelServiceImpl implements HotelService {
 //                .toList();
         List<Room> availableRooms = new ArrayList<>(); //to be deleted
 
-                // Extract room IDs from available rooms
+        // Extract room IDs from available rooms
         List<String> availableRoomIds = availableRooms.stream()
                 .map(room -> room.getId().toString())
                 .collect(Collectors.toList());
