@@ -81,7 +81,7 @@ public class HotelServiceImpl implements HotelService {
     public GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input) {
         log.info("Started getRoomBasicInfo with input: {}", input);
 
-        UUID roomId = input.getRoomId();
+        UUID roomId = UUID.fromString(input.getRoomId());
         Room room = roomRepository.findByIdWithBeds(roomId).orElseThrow(() -> new HotelException("Room not found"));
 
         List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());

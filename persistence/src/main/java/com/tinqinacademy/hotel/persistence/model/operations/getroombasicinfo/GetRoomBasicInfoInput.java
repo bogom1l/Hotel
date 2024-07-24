@@ -11,5 +11,5 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 public class GetRoomBasicInfoInput {
-    private UUID roomId; // use String instead of UUID?
+    private String roomId;
 }

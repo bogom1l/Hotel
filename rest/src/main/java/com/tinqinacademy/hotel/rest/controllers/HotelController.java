@@ -60,7 +60,7 @@ public class HotelController {
             @ApiResponse(responseCode = "200", description = "Room info retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "Room not found")})
     @GetMapping(RestApiRoutes.GET_ROOM_INFO)
-    public ResponseEntity<?> getRoomBasicInfo(@PathVariable UUID roomId) {
+    public ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId) {
         GetRoomBasicInfoInput input = GetRoomBasicInfoInput.builder()
                 .roomId(roomId)
                 .build();

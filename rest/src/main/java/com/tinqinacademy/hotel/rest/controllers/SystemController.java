@@ -24,7 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/system")
 public class SystemController {
 
     private final SystemService systemService;
@@ -34,6 +33,8 @@ public class SystemController {
         this.systemService = systemService;
     }
 
+
+    
     @Operation(summary = "Register a visitor as room renter",
             description = "Register a visitor as room renter")
     @ApiResponses(value = {
