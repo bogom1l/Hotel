@@ -1,47 +1,11 @@
-# Ignore build directories and files
 target/
-bin/
-*.class
-*.jar
-*.war
-*.ear
-
-# Ignore logs and temporary files
-*.log
-*.tmp
-*.temp
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Ignore IDE and editor files
 .idea/
 *.iml
-*.ipr
-*.iws
-.vscode/
-.project
-.settings/
-.classpath
 .mvn
-
-# Ignore OS-specific metadata files
-.DS_Store
-Thumbs.db
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
-
-# Flatten POM files
-**/*.flattened-pom.xml
 
 .gitattributes
 mvnw.cmd
 HELP.md
 mvnw
 
-
+**/*.flattened-pom.xml
