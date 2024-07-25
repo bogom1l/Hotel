@@ -5,7 +5,6 @@ import com.tinqinacademy.hotel.core.contracts.SystemService;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.Visitor;
@@ -20,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -42,9 +42,8 @@ public class SystemServiceImpl implements SystemService {
         log.info("Start registerVisitor with input: {}", input);
 
         for (Visitor visitor : input.getVisitors()) {
-            Room room = roomRepository.findByRoomNumber(visitor.getRoomNumber())
+            Room room = roomRepository.findById(UUID.fromString(visitor.getRoomId()))
                     .orElseThrow(() -> new HotelException("no room found"));
-            //TODO why we needed room?
 
             Guest guest = Guest.builder()
                     .firstName(visitor.getFirstName())
@@ -57,9 +56,18 @@ public class SystemServiceImpl implements SystemService {
                     .birthdate(visitor.getBirthdate())
                     .build();
 
-            guestRepository.save(guest);
-        }
+            Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
+                    room.getId(), visitor.getStartDate(), visitor.getEndDate())
+                    .orElseThrow(() -> new HotelException("no booking found"));
 
+            Set<Guest> existingGuests = booking.getGuests();
+            // maybe will need to check if guest already exists in the booking
+            existingGuests.add(guest);
+            booking.setGuests(existingGuests);
+
+            guestRepository.save(guest);
+            bookingRepository.save(booking);
+        }
 
         RegisterVisitorOutput output = RegisterVisitorOutput.builder().build();
         log.info("End registerVisitor with output: {}", output);

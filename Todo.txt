@@ -65,7 +65,16 @@ Todo:
     ✔️ JpaRepository
     ✔️ DataSeeder (not necessary adding ids when building)
 
-- Implement all endpoints from discord image tables
-    ❌ new endpoint: updateBooking + good logic for it
+- - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- Converters (discord)
+- Implement all endpoints from discord image tables
+    + new endpoint: updateBooking + good logic for it
+
+- ConversionService - add converters (discord) for necessary models (and add logging to converters)
+
+- Git:
+  -ssh keys
+  -gitignore (only source code)
+  -branch with new feature -> pull request -> merge with main
+
+ - Add logging to everything in business logic

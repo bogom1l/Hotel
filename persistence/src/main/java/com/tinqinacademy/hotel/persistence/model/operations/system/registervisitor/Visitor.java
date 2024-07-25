@@ -33,7 +33,7 @@ public class Visitor {
 
     private LocalDate idCardIssueDate;
 
-    private String roomNumber;
+    private String roomId;
 
     private LocalDate birthdate;
 
