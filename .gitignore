@@ -26,6 +26,7 @@ bin/
 .project
 .settings/
 .classpath
+.mvn
 
 # Ignore OS-specific metadata files
 .DS_Store
