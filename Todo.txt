@@ -67,6 +67,8 @@ Todo:
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- Rename all 'visitor' in project to 'guest' (for easier understanding)
+
 - Implement all endpoints from discord image tables
     + new endpoint: updateBooking + good logic for it
 

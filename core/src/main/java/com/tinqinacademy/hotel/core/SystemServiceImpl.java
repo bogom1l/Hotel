@@ -60,10 +60,7 @@ public class SystemServiceImpl implements SystemService {
                     room.getId(), visitor.getStartDate(), visitor.getEndDate())
                     .orElseThrow(() -> new HotelException("no booking found"));
 
-            Set<Guest> existingGuests = booking.getGuests();
-            // maybe will need to check if guest already exists in the booking
-            existingGuests.add(guest);
-            booking.setGuests(existingGuests);
+            booking.getGuests().add(guest);
 
             guestRepository.save(guest);
             bookingRepository.save(booking);
