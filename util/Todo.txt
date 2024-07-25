@@ -80,3 +80,9 @@ Todo:
   -ssh keys
   ✔️ configure .gitignore - all but source code
   -branch with new feature -> pull request -> merge with main
+
+
+???? whats the logic in the getReport to return List<> when there can't be 2 guests with the same idCardNo
+ *fix: moje da se podava primerno samo roomNo i da se izvejdat wsichki bookingi za tazi staq
+ *fix: moje da se wrushta direktno edin guest
+ *fix: ?

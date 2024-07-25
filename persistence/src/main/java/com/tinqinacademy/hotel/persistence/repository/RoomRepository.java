@@ -39,5 +39,5 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
             """, nativeQuery = true)
     List<Room> findAvailableRooms(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-
+    Optional<Room> findByRoomNumber(String roomNumber);
 }

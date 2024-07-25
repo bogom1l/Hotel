@@ -5,9 +5,12 @@ import com.tinqinacademy.hotel.core.contracts.SystemService;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.model.Room;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GuestOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
 import com.tinqinacademy.hotel.persistence.repository.GuestRepository;
 import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
@@ -15,8 +18,9 @@ import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -55,7 +59,7 @@ public class SystemServiceImpl implements SystemService {
                     .build();
 
             Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
-                    room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
+                            room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
                     .orElseThrow(() -> new HotelException("no booking found"));
 
             booking.getGuests().add(guest);
@@ -69,10 +73,69 @@ public class SystemServiceImpl implements SystemService {
         return output;
     }
 
-    private BigDecimal calculateTotalPrice(Room room, LocalDate startDate, LocalDate endDate) {
-        long days = endDate.toEpochDay() - startDate.toEpochDay();
-        return room.getPrice().multiply(BigDecimal.valueOf(days));
+    @Override
+    public GetReportOutput getReport(GetReportInput input) {
+        log.info("Start getRoomReport with input: {}", input);
+
+        LocalDate startDate = LocalDate.parse(input.getStartDate());
+        LocalDate endDate = LocalDate.parse(input.getEndDate());
+
+        Room room = roomRepository.findByRoomNumber(input.getRoomNo())
+                .orElseThrow(() -> new HotelException("No room found with number: " + input.getRoomNo()));
+
+        // find all existing bookings that match: roomId, startDate, endDate
+        List<Booking> bookings = bookingRepository.findByRoomIdAndDateRange(
+                        room.getId(), startDate, endDate)
+                .orElseThrow(() -> new HotelException("no bookings found"));
+
+        // find all existing guests that match: firstName, lastName, phoneNo,idCardNo, idCardValidity, idCardIssueAuthority, idCardIssueDate
+        List<Guest> matchingGuests = guestRepository.findMatchingGuests(
+                        input.getFirstName(),
+                        input.getLastName(),
+                        input.getPhoneNo(),
+                        input.getIdCardNo(),
+                        input.getIdCardValidity(),
+                        input.getIdCardIssueAuthority(),
+                        input.getIdCardIssueDate()
+                )
+                .orElseThrow(() -> new HotelException("no guests found"));
+
+        List<GuestOutput> guestOutputs = new ArrayList<>();
+
+        // iterate through the bookings and through the guests, and find if any booking contains one of the matching guests
+        for (Booking booking : bookings) {
+            for (Guest guest : matchingGuests) {
+                if (booking.getGuests().contains(guest)) {
+
+                    GuestOutput visitorOutput = GuestOutput.builder()
+                            .startDate(booking.getStartDate())
+                            .endDate(booking.getEndDate())
+                            .firstName(guest.getFirstName())
+                            .lastName(guest.getLastName())
+                            .phoneNo(guest.getPhoneNumber())
+                            .idCardNo(guest.getIdCardNumber())
+                            .idCardValidity(guest.getIdCardValidity())
+                            .idCardIssueAuthority(guest.getIdCardIssueAuthority())
+                            .idCardIssueDate(guest.getIdCardIssueDate())
+                            .build();
+                    guestOutputs.add(visitorOutput);
+                }
+            }
+        }
+
+        if (guestOutputs.isEmpty()) {
+            throw new HotelException("No matching guests found for the provided criteria.");
+        }
+
+        GetReportOutput output = GetReportOutput.builder()
+                .guests(guestOutputs)
+                .build();
+
+        log.info("End getRoomReport with output: {}", output);
+        return output;
     }
+
+
 
     /*
     @Override
@@ -181,4 +244,6 @@ public class SystemServiceImpl implements SystemService {
     }
 
     */
+
+
 }

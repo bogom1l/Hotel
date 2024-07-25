@@ -2,6 +2,8 @@ package com.tinqinacademy.hotel.rest.controllers;
 
 
 import com.tinqinacademy.hotel.core.contracts.SystemService;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
@@ -27,6 +29,37 @@ public class SystemController {
         RegisterGuestOutput output = systemService.registerGuest(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Provides a room report based on various criteria")
+    @GetMapping(RestApiRoutes.GET_REPORT)
+    public ResponseEntity<?> getReport(@RequestParam String startDate,
+                                       @RequestParam String endDate,
+                                       @RequestParam String firstName,
+                                       @RequestParam String lastName,
+                                       @RequestParam String phoneNo,
+                                       @RequestParam String idCardNo,
+                                       @RequestParam String idCardValidity,
+                                       @RequestParam String idCardIssueAuthority,
+                                       @RequestParam String idCardIssueDate,
+                                       @RequestParam String roomNo) {
+
+        GetReportInput input = GetReportInput.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .firstName(firstName)
+                .lastName(lastName)
+                .phoneNo(phoneNo)
+                .idCardNo(idCardNo)
+                .idCardValidity(idCardValidity)
+                .idCardIssueAuthority(idCardIssueAuthority)
+                .idCardIssueDate(idCardIssueDate)
+                .roomNo(roomNo)
+                .build();
+
+        GetReportOutput output = systemService.getReport(input);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
 /*
