@@ -1,11 +1,11 @@
 target/
 .idea/
+.mvn/
 *.iml
-.mvn
 
-.gitattributes
+mvnw
 mvnw.cmd
 HELP.md
-mvnw
+.gitattributes
 
 **/*.flattened-pom.xml
