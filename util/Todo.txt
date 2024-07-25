@@ -69,14 +69,14 @@ Todo:
 
 ✔️ Rename all 'visitor' in project to 'guest' (for easier understanding)
 
-- Implement all endpoints from discord image tables
+❌ Implement all endpoints from discord image tables
     + new endpoint: updateBooking + good logic for it
 
-- ConversionService - add converters (discord) for necessary models (and add logging to converters - started converter with..., ended converter with...)
+❌ ConversionService - add converters (discord) for necessary models (and add logging to converters - started converter with..., ended converter with...)
 
-- Git:
+❌ Add logging to everything in business logic
+
+❌ Git:
   -ssh keys
-  -gitignore (only source code)
+  ✔️ configure .gitignore - all but source code
   -branch with new feature -> pull request -> merge with main
-
- - Add logging to everything in business logic
