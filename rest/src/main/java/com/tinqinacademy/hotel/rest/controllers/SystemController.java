@@ -2,8 +2,8 @@ package com.tinqinacademy.hotel.rest.controllers;
 
 
 import com.tinqinacademy.hotel.core.contracts.SystemService;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ public class SystemController {
         this.systemService = systemService;
     }
 
-    @Operation(summary = "Register a visitor as room renter")
-    @PostMapping(RestApiRoutes.REGISTER_VISITOR)
-    public ResponseEntity<?> registerVisitor(@RequestBody /*@Valid*/ RegisterVisitorInput input) {
-        RegisterVisitorOutput output = systemService.registerVisitor(input);
+    @Operation(summary = "Register a guest as room renter")
+    @PostMapping(RestApiRoutes.REGISTER_GUEST)
+    public ResponseEntity<?> registerGuest(@RequestBody /*@Valid*/ RegisterGuestInput input) {
+        RegisterGuestOutput output = systemService.registerGuest(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }

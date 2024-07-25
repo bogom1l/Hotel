@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.contracts;
 
-import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
 
 public interface SystemService {
 //    RegisterVisitorOutput registerVisitor(RegisterVisitorInput input);
@@ -16,6 +16,6 @@ public interface SystemService {
 //
 //    DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 
-RegisterVisitorOutput registerVisitor(RegisterVisitorInput input);
+    RegisterGuestOutput registerGuest(RegisterGuestInput input);
 
 }

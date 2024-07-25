@@ -5,9 +5,9 @@ import com.tinqinacademy.hotel.core.contracts.SystemService;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.Visitor;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
 import com.tinqinacademy.hotel.persistence.repository.GuestRepository;
 import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -38,26 +36,26 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public RegisterVisitorOutput registerVisitor(RegisterVisitorInput input) {
-        log.info("Start registerVisitor with input: {}", input);
+    public RegisterGuestOutput registerGuest(RegisterGuestInput input) {
+        log.info("Start registerGuest with input: {}", input);
 
-        for (Visitor visitor : input.getVisitors()) {
-            Room room = roomRepository.findById(UUID.fromString(visitor.getRoomId()))
+        for (GuestInput guestInput : input.getGuests()) {
+            Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))
                     .orElseThrow(() -> new HotelException("no room found"));
 
             Guest guest = Guest.builder()
-                    .firstName(visitor.getFirstName())
-                    .lastName(visitor.getLastName())
-                    .phoneNumber(visitor.getPhoneNo())
-                    .idCardNumber(visitor.getIdCardNo())
-                    .idCardValidity(visitor.getIdCardValidity())
-                    .idCardIssueAuthority(visitor.getIdCardIssueAuthority())
-                    .idCardIssueDate(visitor.getIdCardIssueDate())
-                    .birthdate(visitor.getBirthdate())
+                    .firstName(guestInput.getFirstName())
+                    .lastName(guestInput.getLastName())
+                    .phoneNumber(guestInput.getPhoneNo())
+                    .idCardNumber(guestInput.getIdCardNo())
+                    .idCardValidity(guestInput.getIdCardValidity())
+                    .idCardIssueAuthority(guestInput.getIdCardIssueAuthority())
+                    .idCardIssueDate(guestInput.getIdCardIssueDate())
+                    .birthdate(guestInput.getBirthdate())
                     .build();
 
             Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
-                    room.getId(), visitor.getStartDate(), visitor.getEndDate())
+                    room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
                     .orElseThrow(() -> new HotelException("no booking found"));
 
             booking.getGuests().add(guest);
@@ -66,8 +64,8 @@ public class SystemServiceImpl implements SystemService {
             bookingRepository.save(booking);
         }
 
-        RegisterVisitorOutput output = RegisterVisitorOutput.builder().build();
-        log.info("End registerVisitor with output: {}", output);
+        RegisterGuestOutput output = RegisterGuestOutput.builder().build();
+        log.info("End registerGuest with output: {}", output);
         return output;
     }
 

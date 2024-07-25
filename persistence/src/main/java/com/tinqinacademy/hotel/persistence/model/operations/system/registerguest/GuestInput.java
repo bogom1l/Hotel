@@ -1,8 +1,6 @@
-package com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor;
+package com.tinqinacademy.hotel.persistence.model.operations.system.registerguest;
 
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Visitor {
+public class GuestInput {
 
     private LocalDate startDate;
 
