@@ -1,23 +1,11 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
-import com.tinqinacademy.hotel.api.operations.createroom.CreateRoomInput;
-import com.tinqinacademy.hotel.api.operations.createroom.CreateRoomOutput;
-import com.tinqinacademy.hotel.api.operations.deleteroom.DeleteRoomInput;
-import com.tinqinacademy.hotel.api.operations.deleteroom.DeleteRoomOutput;
-import com.tinqinacademy.hotel.api.operations.getroomreport.RegisterReportInput;
-import com.tinqinacademy.hotel.api.operations.getroomreport.RegisterReportOutput;
-import com.tinqinacademy.hotel.api.operations.partialupdateroom.PartialUpdateRoomInput;
-import com.tinqinacademy.hotel.api.operations.partialupdateroom.PartialUpdateRoomOutput;
-import com.tinqinacademy.hotel.api.operations.registervisitor.RegisterVisitorInput;
-import com.tinqinacademy.hotel.api.operations.registervisitor.RegisterVisitorOutput;
-import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomInput;
-import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomOutput;
+
 import com.tinqinacademy.hotel.core.contracts.SystemService;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +21,15 @@ public class SystemController {
         this.systemService = systemService;
     }
 
+    @Operation(summary = "Register a visitor as room renter")
+    @PostMapping(RestApiRoutes.REGISTER_VISITOR)
+    public ResponseEntity<?> registerVisitor(@RequestBody /*@Valid*/ RegisterVisitorInput input) {
+        RegisterVisitorOutput output = systemService.registerVisitor(input);
 
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
+    }
+
+/*
     
     @Operation(summary = "Register a visitor as room renter",
             description = "Register a visitor as room renter")
@@ -134,5 +130,5 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
     }
 
-
+*/
 }

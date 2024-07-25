@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.operations.bookroom;
+package com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;

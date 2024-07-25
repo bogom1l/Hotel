@@ -1,32 +1,77 @@
 package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
-import com.tinqinacademy.hotel.api.operations.createroom.CreateRoomInput;
-import com.tinqinacademy.hotel.api.operations.createroom.CreateRoomOutput;
-import com.tinqinacademy.hotel.api.operations.deleteroom.DeleteRoomInput;
-import com.tinqinacademy.hotel.api.operations.deleteroom.DeleteRoomOutput;
-import com.tinqinacademy.hotel.api.operations.getroomreport.RegisterReportInput;
-import com.tinqinacademy.hotel.api.operations.getroomreport.RegisterReportOutput;
-import com.tinqinacademy.hotel.api.operations.getroomreport.VisitorReportOutput;
-import com.tinqinacademy.hotel.api.operations.partialupdateroom.PartialUpdateRoomInput;
-import com.tinqinacademy.hotel.api.operations.partialupdateroom.PartialUpdateRoomOutput;
-import com.tinqinacademy.hotel.api.operations.registervisitor.RegisterVisitorInput;
-import com.tinqinacademy.hotel.api.operations.registervisitor.RegisterVisitorOutput;
-import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomInput;
-import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.core.contracts.SystemService;
+import com.tinqinacademy.hotel.persistence.model.Booking;
+import com.tinqinacademy.hotel.persistence.model.Guest;
+import com.tinqinacademy.hotel.persistence.model.Room;
+import com.tinqinacademy.hotel.persistence.model.User;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.registervisitor.Visitor;
+import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
+import com.tinqinacademy.hotel.persistence.repository.GuestRepository;
+import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
+import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Slf4j
 public class SystemServiceImpl implements SystemService {
 
+    private final RoomRepository roomRepository;
+    private final GuestRepository guestRepository;
+    private final BookingRepository bookingRepository;
+    private final UserRepository userRepository;
+
+    public SystemServiceImpl(RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository, UserRepository userRepository) {
+        this.roomRepository = roomRepository;
+        this.guestRepository = guestRepository;
+        this.bookingRepository = bookingRepository;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public RegisterVisitorOutput registerVisitor(RegisterVisitorInput input) {
+        log.info("Start registerVisitor with input: {}", input);
+
+        for (Visitor visitor : input.getVisitors()) {
+            Room room = roomRepository.findByRoomNumber(visitor.getRoomNumber())
+                    .orElseThrow(() -> new HotelException("no room found"));
+            //TODO why we needed room?
+
+            Guest guest = Guest.builder()
+                    .firstName(visitor.getFirstName())
+                    .lastName(visitor.getLastName())
+                    .phoneNumber(visitor.getPhoneNo())
+                    .idCardNumber(visitor.getIdCardNo())
+                    .idCardValidity(visitor.getIdCardValidity())
+                    .idCardIssueAuthority(visitor.getIdCardIssueAuthority())
+                    .idCardIssueDate(visitor.getIdCardIssueDate())
+                    .birthdate(visitor.getBirthdate())
+                    .build();
+
+            guestRepository.save(guest);
+        }
+
+
+        RegisterVisitorOutput output = RegisterVisitorOutput.builder().build();
+        log.info("End registerVisitor with output: {}", output);
+        return output;
+    }
+
+    private BigDecimal calculateTotalPrice(Room room, LocalDate startDate, LocalDate endDate) {
+        long days = endDate.toEpochDay() - startDate.toEpochDay();
+        return room.getPrice().multiply(BigDecimal.valueOf(days));
+    }
+
+    /*
     @Override
     public RegisterVisitorOutput registerVisitor(RegisterVisitorInput input) {
         log.info("Start registerVisitor with input: {}", input);
@@ -131,4 +176,6 @@ public class SystemServiceImpl implements SystemService {
         log.info("End deleteRoom with output: {}", output);
         return output;
     }
+
+    */
 }

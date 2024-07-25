@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.operations.unbookroom;
+package com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom;
 
 import lombok.*;
 

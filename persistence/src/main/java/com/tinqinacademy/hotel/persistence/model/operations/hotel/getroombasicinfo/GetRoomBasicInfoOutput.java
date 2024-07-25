@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.operations.getroombasicinfo;
+package com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo;
 
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
