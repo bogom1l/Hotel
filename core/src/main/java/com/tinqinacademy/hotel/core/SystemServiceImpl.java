@@ -186,9 +186,6 @@ public class SystemServiceImpl implements SystemService {
     public UpdateRoomOutput updateRoom(UpdateRoomInput input) {
         log.info("Started updateRoom with input: {}", input);
 
-        Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
-                .orElseThrow(() -> new HotelException("No room found with id: " + input.getRoomId()));
-
         if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
             throw new HotelException("No bed size found");
         }
@@ -207,6 +204,9 @@ public class SystemServiceImpl implements SystemService {
                 input.getPrice() == null) {
             throw new HotelException("Please fill all the fields.");
         }
+
+        Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
+                .orElseThrow(() -> new HotelException("No room found with id: " + input.getRoomId()));
 
         room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
         room.setRoomNumber(input.getRoomNo());
