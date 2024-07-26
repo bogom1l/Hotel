@@ -26,4 +26,10 @@ public interface SystemService {
     UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
 
     DeleteRoomOutput deleteRoom(DeleteRoomInput input);
+
+    void deleteAllUsers();
+
+    void deleteAllGuests();
+
+    void deleteAllBookings();
 }

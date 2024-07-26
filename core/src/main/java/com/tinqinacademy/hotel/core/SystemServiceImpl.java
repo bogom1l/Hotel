@@ -291,4 +291,19 @@ public class SystemServiceImpl implements SystemService {
         return output;
     }
 
+    @Override
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
+
+    @Override
+    public void deleteAllGuests() {
+        guestRepository.deleteAll();
+    }
+
+    @Override
+    public void deleteAllBookings() {
+        bookingRepository.deleteAll();
+    }
+
 }

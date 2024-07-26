@@ -113,6 +113,27 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete all users")
+    @DeleteMapping("/api/v1/system/deleteAllUsers")
+    public ResponseEntity<?> deleteAllUsers() {
+        systemService.deleteAllUsers();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @Operation(summary = "Delete all guests")
+    @DeleteMapping("/api/v1/system/deleteAllGuests")
+    public ResponseEntity<?> deleteAllGuests() {
+        systemService.deleteAllGuests();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @Operation(summary = "Delete all bookings")
+    @DeleteMapping("/api/v1/system/deleteAllBookings")
+    public ResponseEntity<?> deleteAllBookings() {
+        systemService.deleteAllBookings();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
 /*
     
     @Operation(summary = "Register a visitor as room renter",
