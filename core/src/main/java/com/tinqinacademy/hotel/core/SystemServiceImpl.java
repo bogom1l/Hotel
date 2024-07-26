@@ -2,19 +2,21 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.SystemService;
+import com.tinqinacademy.hotel.persistence.model.Bed;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.model.Room;
+import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
+import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
+import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GuestOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
-import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
-import com.tinqinacademy.hotel.persistence.repository.GuestRepository;
-import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
-import com.tinqinacademy.hotel.persistence.repository.UserRepository;
+import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -31,17 +33,19 @@ public class SystemServiceImpl implements SystemService {
     private final GuestRepository guestRepository;
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
+    private final BedRepository bedRepository;
 
-    public SystemServiceImpl(RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository, UserRepository userRepository) {
+    public SystemServiceImpl(RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository, UserRepository userRepository, BedRepository bedRepository) {
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
+        this.bedRepository = bedRepository;
     }
 
     @Override
     public RegisterGuestOutput registerGuest(RegisterGuestInput input) {
-        log.info("Start registerGuest with input: {}", input);
+        log.info("Started registerGuest with input: {}", input);
 
         for (GuestInput guestInput : input.getGuests()) {
             Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))
@@ -69,13 +73,14 @@ public class SystemServiceImpl implements SystemService {
         }
 
         RegisterGuestOutput output = RegisterGuestOutput.builder().build();
-        log.info("End registerGuest with output: {}", output);
+        log.info("Ended registerGuest with output: {}", output);
         return output;
     }
 
+    // TODO: refactor, make the fields optional
     @Override
     public GetReportOutput getReport(GetReportInput input) {
-        log.info("Start getRoomReport with input: {}", input);
+        log.info("Started getRoomReport with input: {}", input);
 
         LocalDate startDate = LocalDate.parse(input.getStartDate());
         LocalDate endDate = LocalDate.parse(input.getEndDate());
@@ -131,7 +136,43 @@ public class SystemServiceImpl implements SystemService {
                 .guests(guestOutputs)
                 .build();
 
-        log.info("End getRoomReport with output: {}", output);
+        log.info("Ended getRoomReport with output: {}", output);
+        return output;
+    }
+
+    @Override
+    public CreateRoomOutput createRoom(CreateRoomInput input) {
+        log.info("Started createRoom with input: {}", input);
+
+        if(BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)){
+            throw new HotelException("No bed size found");
+        }
+        if(BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)){
+            throw new HotelException("No bathroom type found");
+        }
+
+        Bed bed = Bed.builder()
+                .bedSize(BedSize.getByCode(input.getBedSize()))
+                .capacity(BedSize.getByCode(input.getBedSize()).getCapacity())
+                .build();
+
+        bedRepository.save(bed);
+
+        Room room = Room.builder()
+                .beds(List.of(bed))
+                .bathroomType(BathroomType.getByCode(input.getBathroomType()))
+                .floor(input.getFloor())
+                .roomNumber(input.getRoomNo())
+                .price(input.getPrice())
+                .build();
+
+        roomRepository.save(room);
+
+        CreateRoomOutput output = CreateRoomOutput.builder()
+                .id(room.getId())
+                .build();
+
+        log.info("Ended createRoom with output: {}", output);
         return output;
     }
 

@@ -2,12 +2,15 @@ package com.tinqinacademy.hotel.rest.controllers;
 
 
 import com.tinqinacademy.hotel.core.contracts.SystemService;
+import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,7 @@ public class SystemController {
         return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
+    // TODO: refactor, make the fields optional
     @Operation(summary = "Provides a room report based on various criteria")
     @GetMapping(RestApiRoutes.GET_REPORT)
     public ResponseEntity<?> getReport(@RequestParam String startDate,
@@ -60,6 +64,14 @@ public class SystemController {
         GetReportOutput output = systemService.getReport(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Create a room")
+    @PostMapping(RestApiRoutes.CREATE_ROOM)
+    public ResponseEntity<?> createRoom(@RequestBody @Valid CreateRoomInput input) {
+        CreateRoomOutput output = systemService.createRoom(input);
+
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
 /*
