@@ -4,6 +4,8 @@ package com.tinqinacademy.hotel.rest.controllers;
 import com.tinqinacademy.hotel.core.contracts.SystemService;
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
@@ -97,6 +99,16 @@ public class SystemController {
         UpdatePartiallyRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         UpdatePartiallyRoomOutput output = systemService.updatePartiallyRoom(updatedInput);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Delete a room")
+    @DeleteMapping(RestApiRoutes.DELETE_ROOM)
+    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
+        DeleteRoomInput input = DeleteRoomInput.builder().id(id).build();
+
+        DeleteRoomOutput output = systemService.deleteRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
     }

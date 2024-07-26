@@ -2,6 +2,8 @@ package com.tinqinacademy.hotel.core.contracts;
 
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
@@ -33,4 +35,6 @@ public interface SystemService {
     UpdateRoomOutput updateRoom(UpdateRoomInput input);
 
     UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
+
+    DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 }

@@ -10,6 +10,8 @@ import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GuestOutput;
@@ -275,6 +277,19 @@ public class SystemServiceImpl implements SystemService {
         return output;
     }
 
+    @Override
+    public DeleteRoomOutput deleteRoom(DeleteRoomInput input) {
+        log.info("Started deleteRoom with input: {}", input);
+
+        Room room = roomRepository.findById(UUID.fromString(input.getId()))
+                .orElseThrow(() -> new HotelException("No room found with id: " + input.getId()));
+
+        roomRepository.delete(room);
+
+        DeleteRoomOutput output = DeleteRoomOutput.builder().build();
+        log.info("Ended deleteRoom with output: {}", output);
+        return output;
+    }
 
 
     /*
