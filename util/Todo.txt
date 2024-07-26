@@ -86,3 +86,4 @@ Todo:
  *fix: moje da se podava primerno samo roomNo i da se izvejdat wsichki bookingi za tazi staq
  *fix: moje da se wrushta direktno edin guest
  *fix: ?
+ *fix: make the fields optional
