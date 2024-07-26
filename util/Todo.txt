@@ -75,15 +75,15 @@ Todo:
     ❌ new endpoint: updateBooking + good logic for it
     ❌ refactor getReport - make the fields optional
 
-❌ ConversionService - add converters (discord) for necessary models (and add logging to converters - started converter with..., ended converter with...)
+❌ ConversionService - add converters for all models (and add logging to converters - started converter with..., ended converter with...)
 
 -clean up all code
 
 -download?: sourcetree
 
-❌ Git:
-  -ssh keys
+- Git:
+  ❌ ssh key
   ✔️ configure .gitignore - all but source code
-  - ✔ new branch -> implement the feature in the branch -> pull request -> merge with main
+  ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
 
 
