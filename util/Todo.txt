@@ -65,19 +65,22 @@ Todo:
     ✔️ JpaRepository
     ✔️ DataSeeder (not necessary adding ids when building)
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ✔️ Rename all 'visitor' in project to 'guest' (for easier understanding)
 
-❌ Implement all endpoints from discord image tables
-    + make deleteAll for each table
-    + new endpoint: updateBooking + good logic for it
-    + ? whats the logic in the getReport to return List<> when there can't be 2 guests with the same idCardNo
+- - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+-  Implement all endpoints from discord image tables
+    ❌ make deleteAll for each table
+    ❌ new endpoint: updateBooking + good logic for it
+    ❌ ? whats the logic in the getReport to return List<> when there can't be 2 guests with the same idCardNo
       *fix: make the fields optional
 
 ❌ ConversionService - add converters (discord) for necessary models (and add logging to converters - started converter with..., ended converter with...)
 
-❌ Add logging to everything in business logic
+-clean up all code
+
+-download?: sourcetree
 
 ❌ Git:
   -ssh keys
@@ -85,4 +88,3 @@ Todo:
   -branch with new feature -> pull request -> merge with main
 
 
-download: sourcetree

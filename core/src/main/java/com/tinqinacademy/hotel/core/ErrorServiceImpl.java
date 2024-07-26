@@ -21,12 +21,4 @@ public class ErrorServiceImpl implements ErrorService {
         return ErrorWrapper.builder().errors(errors).errorCode(HttpStatus.BAD_REQUEST).build();
     }
 
-    // TODO: 1 method that gets generic exceptions (to catch all different exceptions)
-    //  receive all different exceptions and return error wrapper?
-    //   because not all exceptions have bindings
-    //   -- 1 method that handles all different exceptions --
-    // constraint validation exception
-    // ConstraintViolationException constraintViolationException =
-
-
 }

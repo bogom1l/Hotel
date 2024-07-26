@@ -11,19 +11,11 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.Unb
 
 public interface HotelService {
 
-    /*
-    BookRoomOutput bookRoom(BookRoomInput input);
-
-    GetRoomOutput getRooms(GetRoomInput input);
-
-    RoomInfoOutput getRoomInfo(RoomInfoInput input);
-
-    DeleteBookingOutput deleteBooking(DeleteBookingInput input);
-*/
     CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input);
 
     GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
 
     BookRoomOutput bookRoom(BookRoomInput input);
+
     UnbookRoomOutput unbookRoom(UnbookRoomInput input);
 }

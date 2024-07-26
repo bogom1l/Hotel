@@ -197,7 +197,7 @@ public class SystemServiceImpl implements SystemService {
             throw new HotelException("No bathroom type found");
         }
 
-        if(roomRepository.existsByRoomNumber(input.getRoomNo())){
+        if (roomRepository.existsByRoomNumber(input.getRoomNo())) {
             throw new HotelException("Room number already exists");
         }
 
@@ -236,7 +236,7 @@ public class SystemServiceImpl implements SystemService {
         Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
                 .orElseThrow(() -> new HotelException("No room found with id: " + input.getRoomId()));
 
-        if(input.getBathroomType() != null){
+        if (input.getBathroomType() != null) {
             if (BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)) {
                 throw new HotelException("No bathroom type found");
             }
@@ -244,18 +244,18 @@ public class SystemServiceImpl implements SystemService {
             room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
         }
 
-        if(input.getRoomNo() != null){
-            if(roomRepository.existsByRoomNumber(input.getRoomNo())){
+        if (input.getRoomNo() != null) {
+            if (roomRepository.existsByRoomNumber(input.getRoomNo())) {
                 throw new HotelException("Room number already exists");
             }
             room.setRoomNumber(input.getRoomNo());
         }
 
-        if(input.getPrice() != null){
+        if (input.getPrice() != null) {
             room.setPrice(input.getPrice());
         }
 
-        if(input.getBedSize() != null){
+        if (input.getBedSize() != null) {
             if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
                 throw new HotelException("No bed size found");
             }
@@ -290,115 +290,5 @@ public class SystemServiceImpl implements SystemService {
         log.info("Ended deleteRoom with output: {}", output);
         return output;
     }
-
-
-    /*
-    @Override
-    public RegisterVisitorOutput registerVisitor(RegisterVisitorInput input) {
-        log.info("Start registerVisitor with input: {}", input);
-
-        RegisterVisitorOutput output = RegisterVisitorOutput.builder().build();
-
-        log.info("End registerVisitor with output: {}", output);
-        return output;
-    }
-
-    @Override
-    public RegisterReportOutput registerReport(RegisterReportInput input) {
-        log.info("Start registerReport with input: {}", input);
-
-        List<VisitorReportOutput> sampleVisitorReports = generateSampleVisitorReports();
-
-        RegisterReportOutput output = RegisterReportOutput.builder()
-                .visitors(sampleVisitorReports)
-                .build();
-
-        log.info("End registerReport with output: {}", output);
-        return output;
-    }
-
-    private List<VisitorReportOutput> generateSampleVisitorReports() {
-        List<VisitorReportOutput> sampleVisitorReports = new ArrayList<>();
-
-        VisitorReportOutput v1 = VisitorReportOutput.builder()
-                .firstName("firstname1").lastName("lastname1")
-                .startDate(LocalDate.parse("2024-11-02"))
-                .endDate(LocalDate.parse("2024-05-05"))
-                .phoneNo("+359123123")
-                .idCardNo("1")
-                .idCardValidity("2")
-                .idCardIssueAuthority("3")
-                .idCardIssueDate("4")
-                .build();
-
-        VisitorReportOutput v2 = VisitorReportOutput.builder()
-                .firstName("fn2").lastName("ln2")
-                .startDate(LocalDate.parse("2022-12-01"))
-                .endDate(LocalDate.parse("2023-02-02"))
-                .phoneNo("+3591444").idCardNo("44")
-                .idCardValidity("55")
-                .idCardIssueAuthority("66")
-                .idCardIssueDate("77")
-                .build();
-
-        sampleVisitorReports.add(v1);
-        sampleVisitorReports.add(v2);
-
-        return sampleVisitorReports;
-    }
-
-    @Override
-    public CreateRoomOutput createRoom(CreateRoomInput input) {
-        log.info("Start createRoom with input: {}", input);
-
-        CreateRoomOutput output = CreateRoomOutput.builder()
-                .id("1")
-                .build();
-
-        // randomly sometimes throw an error just for testing purposes
-        if (new Random().nextBoolean()) {
-            throw new HotelException("Random generated HotelError for testing purposes - bad request - error creating room");
-        }
-
-        log.info("End createRoom with output: {}", output);
-        return output;
-    }
-
-    @Override
-    public UpdateRoomOutput updateRoom(UpdateRoomInput input) {
-        log.info("Start updateRoom with input: {}", input);
-
-        UpdateRoomOutput output = UpdateRoomOutput.builder()
-                .id(input.getRoomId())
-                .build();
-
-        log.info("End updateRoom with output: {}", output);
-        return output;
-    }
-
-    @Override
-    public PartialUpdateRoomOutput partialUpdateRoom(PartialUpdateRoomInput input) {
-        log.info("Start partialUpdateRoom with input: {}", input);
-
-        PartialUpdateRoomOutput output = PartialUpdateRoomOutput.builder()
-                .id(input.getRoomId())
-                .build();
-
-        log.info("End partialUpdateRoom with output: {}", output);
-        return output;
-    }
-
-    @Override
-    public DeleteRoomOutput deleteRoom(DeleteRoomInput input) {
-        log.info("Start deleteRoom with input: {}", input);
-
-        DeleteRoomOutput output = DeleteRoomOutput.builder().build();
-
-        log.info("End deleteRoom with output: {}", output);
-        return output;
-    }
-
-    */
-
 
 }

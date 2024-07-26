@@ -34,7 +34,7 @@ public class SystemController {
 
     @Operation(summary = "Register a guest as room renter")
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
-    public ResponseEntity<?> registerGuest(@RequestBody /*@Valid*/ RegisterGuestInput input) {
+    public ResponseEntity<?> registerGuest(@RequestBody @Valid RegisterGuestInput input) {
         RegisterGuestOutput output = systemService.registerGuest(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
