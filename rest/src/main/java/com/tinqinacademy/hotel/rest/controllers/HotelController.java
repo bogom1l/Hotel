@@ -97,6 +97,21 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete all rooms")
+    @DeleteMapping("/api/v1/hotel/deleteAllRooms")
+    public ResponseEntity<?> deleteAllRooms() {
+        hotelService.deleteAllRooms();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @Operation(summary = "Delete all beds")
+    @DeleteMapping("/api/v1/hotel/deleteAllBeds")
+    public ResponseEntity<?> deleteAllBeds() {
+        hotelService.deleteAllBeds();
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+
     // TODO:
     //  endpoint: updateBooking
 

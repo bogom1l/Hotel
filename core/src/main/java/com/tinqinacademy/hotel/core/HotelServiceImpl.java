@@ -16,6 +16,7 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicin
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomOutput;
+import com.tinqinacademy.hotel.persistence.repository.BedRepository;
 import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
 import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
 import com.tinqinacademy.hotel.persistence.repository.UserRepository;
@@ -36,11 +37,13 @@ public class HotelServiceImpl implements HotelService {
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
+    private final BedRepository bedRepository;
 
-    public HotelServiceImpl(RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository) {
+    public HotelServiceImpl(RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, BedRepository bedRepository) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
+        this.bedRepository = bedRepository;
     }
 
     @Override
@@ -159,6 +162,20 @@ public class HotelServiceImpl implements HotelService {
         UnbookRoomOutput output = UnbookRoomOutput.builder().build();
         log.info("Ended unbookRoom with output: {}", output);
         return output;
+    }
+
+    @Override
+    public void deleteAllRooms() {
+        log.info("Started deleteAllRooms");
+        roomRepository.deleteAll();
+        log.info("Ended deleteAllRooms successfully");
+    }
+
+    @Override
+    public void deleteAllBeds() {
+        log.info("Started deleteAllBeds");
+        bedRepository.deleteAll();
+        log.info("Ended deleteAllBeds successfully");
     }
 
 }
