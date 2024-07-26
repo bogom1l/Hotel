@@ -8,6 +8,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
@@ -83,6 +85,18 @@ public class SystemController {
         UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         UpdateRoomOutput output = systemService.updateRoom(updatedInput);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Update partially a room")
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_ROOM)
+    public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
+                                                 @RequestBody @Valid UpdatePartiallyRoomInput input) {
+
+        UpdatePartiallyRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
+
+        UpdatePartiallyRoomOutput output = systemService.updatePartiallyRoom(updatedInput);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
     }

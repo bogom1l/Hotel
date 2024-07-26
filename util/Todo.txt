@@ -73,6 +73,7 @@ Todo:
     + new endpoint: updateBooking + good logic for it
      ? whats the logic in the getReport to return List<> when there can't be 2 guests with the same idCardNo
      *fix: make the fields optional
+    - use jsonmerge for the partial update (patch endpoint)
 
 ❌ ConversionService - add converters (discord) for necessary models (and add logging to converters - started converter with..., ended converter with...)
 
@@ -84,3 +85,4 @@ Todo:
   -branch with new feature -> pull request -> merge with main
 
 
+download: sourcetree

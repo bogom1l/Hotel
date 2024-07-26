@@ -16,6 +16,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.persistence.repository.*;
@@ -223,6 +225,56 @@ public class SystemServiceImpl implements SystemService {
         log.info("Ended updateRoom with output: {}", output);
         return output;
     }
+
+
+    @Override
+    public UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input) {
+        log.info("Started updatePartiallyRoom with input: {}", input);
+
+        Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
+                .orElseThrow(() -> new HotelException("No room found with id: " + input.getRoomId()));
+
+        if(input.getBathroomType() != null){
+            if (BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)) {
+                throw new HotelException("No bathroom type found");
+            }
+
+            room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
+        }
+
+        if(input.getRoomNo() != null){
+            if(roomRepository.existsByRoomNumber(input.getRoomNo())){
+                throw new HotelException("Room number already exists");
+            }
+            room.setRoomNumber(input.getRoomNo());
+        }
+
+        if(input.getPrice() != null){
+            room.setPrice(input.getPrice());
+        }
+
+        if(input.getBedSize() != null){
+            if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
+                throw new HotelException("No bed size found");
+            }
+
+            List<Bed> bedsInCurrentRoom = room.getBeds();
+
+            for (Bed bed : bedsInCurrentRoom) {
+                bed.setBedSize(BedSize.getByCode(input.getBedSize()));
+            }
+        }
+
+        roomRepository.save(room);
+
+        UpdatePartiallyRoomOutput output = UpdatePartiallyRoomOutput.builder()
+                .id(room.getId())
+                .build();
+
+        log.info("Ended updatePartiallyRoom with output: {}", output);
+        return output;
+    }
+
 
 
     /*
