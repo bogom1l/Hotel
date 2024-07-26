@@ -8,6 +8,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -72,6 +74,17 @@ public class SystemController {
         CreateRoomOutput output = systemService.createRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Update a room")
+    @PutMapping(RestApiRoutes.UPDATE_ROOM)
+    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
+                                        @RequestBody @Valid UpdateRoomInput input) {
+        UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
+
+        UpdateRoomOutput output = systemService.updateRoom(updatedInput);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
 /*

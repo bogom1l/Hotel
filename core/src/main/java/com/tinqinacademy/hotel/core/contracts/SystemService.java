@@ -6,6 +6,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport
 import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomOutput;
 
 public interface SystemService {
 //    RegisterVisitorOutput registerVisitor(RegisterVisitorInput input);
@@ -25,4 +27,6 @@ public interface SystemService {
     GetReportOutput getReport(GetReportInput input);
 
     CreateRoomOutput createRoom(CreateRoomInput input);
+
+    UpdateRoomOutput updateRoom(UpdateRoomInput input);
 }

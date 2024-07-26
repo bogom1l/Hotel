@@ -40,4 +40,6 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
     List<Room> findAvailableRooms(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     Optional<Room> findByRoomNumber(String roomNumber);
+
+    Boolean existsByRoomNumber(String roomNumber);
 }
