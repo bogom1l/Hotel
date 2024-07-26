@@ -73,17 +73,23 @@ Todo:
 -  Implement all endpoints from discord image tables
     ✔️ make deleteAll for each table
     ❌ new endpoint: updateBooking + good logic for it
-    ❌ refactor getReport - make the fields optional
+    ❌ refactor endpoint: getReport - make the fields optional
 
-❌ ConversionService - add converters for all models (and add logging to converters - started converter with..., ended converter with...)
+❌ ConversionService - add converters for all models (and logging in each converter)
 
 -clean up all code
+    -> review all comments '//'
+     -> fix where needs to be fixed
+      -> review all code logic and add todos for future refactoring/implementing
 
--download?: sourcetree
+
+---------- Monday: ----------
 
 - Git:
   ❌ ssh key
   ✔️ configure .gitignore - all but source code
   ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
 
+-------------------------------------------------------------------------
 
+- Implement all endpoints (discord image) in the 'comments microservice'
