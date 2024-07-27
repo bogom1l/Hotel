@@ -75,6 +75,8 @@ Todo:
     ❌ new endpoint: updateBooking + good logic for it
     ❌ refactor endpoint: getReport - make the fields optional
 
+//make unique guest's idCardNumber (drop all db tables)
+
 ❌ ConversionService - add converters for all models (and logging in each converter)
 
 -clean up all code
@@ -84,6 +86,8 @@ Todo:
 
 
 ---------- Monday: ----------
+
+//make unique guest's idCardNumber (drop all db tables)
 
 - Git:
   ❌ ssh key

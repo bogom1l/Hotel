@@ -32,7 +32,7 @@ public class Guest {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "id_card_number", nullable = false)
+    @Column(name = "id_card_number", nullable = false) //todo make unique
     private String idCardNumber;
 
     @Column(name = "id_card_validity", nullable = false)

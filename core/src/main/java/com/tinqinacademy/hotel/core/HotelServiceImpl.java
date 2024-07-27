@@ -2,10 +2,7 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
-import com.tinqinacademy.hotel.persistence.model.Bed;
-import com.tinqinacademy.hotel.persistence.model.Booking;
-import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.User;
+import com.tinqinacademy.hotel.persistence.model.*;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookRoomInput;
@@ -16,10 +13,10 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicin
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomOutput;
-import com.tinqinacademy.hotel.persistence.repository.BedRepository;
-import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
-import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
-import com.tinqinacademy.hotel.persistence.repository.UserRepository;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
+import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +35,14 @@ public class HotelServiceImpl implements HotelService {
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     private final BedRepository bedRepository;
+    private final GuestRepository guestRepository;
 
-    public HotelServiceImpl(RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, BedRepository bedRepository) {
+    public HotelServiceImpl(RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, BedRepository bedRepository, GuestRepository guestRepository) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
         this.bedRepository = bedRepository;
+        this.guestRepository = guestRepository;
     }
 
     @Override
@@ -176,6 +175,65 @@ public class HotelServiceImpl implements HotelService {
         log.info("Started deleteAllBeds");
         bedRepository.deleteAll();
         log.info("Ended deleteAllBeds successfully");
+    }
+
+    @Override
+    public UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input) {
+        log.info("Started updatePartiallyBooking with input: {}", input);
+
+        Booking booking = bookingRepository.findById(UUID.fromString(input.getId()))
+                .orElseThrow(() -> new HotelException("booking not found"));
+
+        if (input.getStartDate() != null) {
+            booking.setStartDate(LocalDate.parse(input.getStartDate()));
+        }
+        if (input.getEndDate() != null) {
+            booking.setEndDate(LocalDate.parse(input.getEndDate()));
+        }
+        if (input.getTotalPrice() != null) {
+            booking.setTotalPrice(input.getTotalPrice());
+        }
+
+
+        if (input.getRoomNumber() != null) {
+            if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
+                throw new HotelException("room already exists");
+            }
+
+            // logic: shouldn't be able to create a new room
+
+            booking.getRoom().setRoomNumber(input.getRoomNumber());
+        }
+
+        if (input.getGuests() != null && !input.getGuests().isEmpty()) { // if guests field is not empty
+
+            for (UpdatePartiallyGuestInput guest : input.getGuests()) { // add each of the filled guests
+
+                Guest currentGuest = Guest.builder()
+                        .firstName(guest.getFirstName())
+                        .lastName(guest.getLastName())
+                        .phoneNumber(guest.getPhoneNumber())
+                        .idCardNumber(guest.getIdCardNumber())
+                        .idCardValidity(guest.getIdCardValidity())
+                        .idCardIssueDate(guest.getIdCardIssueDate())
+                        .idCardIssueAuthority(guest.getIdCardIssueAuthority())
+                        .birthdate(guest.getBirthdate())
+                        .build();
+
+                guestRepository.save(currentGuest);
+
+                booking.getGuests().add(currentGuest);
+            }
+        }
+
+        bookingRepository.save(booking);
+
+        UpdatePartiallyBookingOutput output = UpdatePartiallyBookingOutput.builder()
+                .id(booking.getId())
+                .build();
+
+        log.info("Ended updatePartiallyBooking with output: {}", output);
+        return output;
     }
 
 }

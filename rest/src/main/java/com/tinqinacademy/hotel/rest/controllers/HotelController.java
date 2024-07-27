@@ -9,6 +9,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicin
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -114,5 +116,15 @@ public class HotelController {
 
     // TODO:
     //  endpoint: updateBooking
+    @Operation(summary = "Update partially a booking")
+    @PatchMapping("/api/v1/hotel/updatePartiallyBooking/{id}")
+    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String id,
+                                                    @RequestBody @Valid UpdatePartiallyBookingInput input) {
+        UpdatePartiallyBookingInput updatedInput = input.toBuilder()
+                .id(id)
+                .build();
+        UpdatePartiallyBookingOutput output = hotelService.updatePartiallyBooking(updatedInput);
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
 
 }

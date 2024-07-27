@@ -42,4 +42,5 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
     Optional<Room> findByRoomNumber(String roomNumber);
 
     Boolean existsByRoomNumber(String roomNumber);
+
 }

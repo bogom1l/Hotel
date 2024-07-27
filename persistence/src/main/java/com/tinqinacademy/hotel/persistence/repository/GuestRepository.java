@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Repository
@@ -29,4 +30,12 @@ public interface GuestRepository extends JpaRepository<Guest, UUID> {
                                              @Param("idCardValidity") String idCardValidity, // Handle as String and cast in SQL
                                              @Param("idCardIssueAuthority") String idCardIssueAuthority,
                                              @Param("idCardIssueDate") String idCardIssueDate); // Handle as String and cast in SQL
+
+    @Query(value = """
+            SELECT g.* FROM guests g JOIN bookings_guests bg ON g.id = bg.guests_id WHERE bg.booking_id = :bookingId
+            """
+            , nativeQuery = true)
+    Optional<Set<Guest>> findAllGuestsForBooking(@Param("bookingId") UUID bookingId);
+
+    Optional<Guest> findByIdCardNumber(String idCardNumber);
 }

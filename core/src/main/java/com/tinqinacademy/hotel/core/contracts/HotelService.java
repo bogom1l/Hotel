@@ -8,6 +8,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicin
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 
 public interface HotelService {
 
@@ -22,4 +24,6 @@ public interface HotelService {
     void deleteAllRooms();
 
     void deleteAllBeds();
+
+    UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input);
 }
