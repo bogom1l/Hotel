@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport;
+package com.tinqinacademy.hotel.persistence.model.operations.system.getreport;
 
 import lombok.*;
 
@@ -12,7 +12,6 @@ public class GetReportInput {
     //booking?
     private String startDate;
     private String endDate;
-    private String roomNo;
 
     //guest?
     private String firstName;
@@ -22,4 +21,7 @@ public class GetReportInput {
     private String idCardValidity;
     private String idCardIssueAuthority;
     private String idCardIssueDate;
+
+    //room?
+    private String roomNo;
 }

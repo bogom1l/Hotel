@@ -4,8 +4,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.Cr
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;

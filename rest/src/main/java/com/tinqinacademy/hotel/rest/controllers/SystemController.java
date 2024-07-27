@@ -6,8 +6,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.Cr
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport.GetReportOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
@@ -43,16 +43,16 @@ public class SystemController {
     // TODO: refactor, make the fields optional
     @Operation(summary = "Provides a room report based on various criteria")
     @GetMapping(RestApiRoutes.GET_REPORT)
-    public ResponseEntity<?> getReport(@RequestParam String startDate,
-                                       @RequestParam String endDate,
-                                       @RequestParam String firstName,
-                                       @RequestParam String lastName,
-                                       @RequestParam String phoneNo,
-                                       @RequestParam String idCardNo,
-                                       @RequestParam String idCardValidity,
-                                       @RequestParam String idCardIssueAuthority,
-                                       @RequestParam String idCardIssueDate,
-                                       @RequestParam String roomNo) {
+    public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
+                                       @RequestParam(required = false) String endDate,
+                                       @RequestParam(required = false) String firstName,
+                                       @RequestParam(required = false) String lastName,
+                                       @RequestParam(required = false) String phoneNo,
+                                       @RequestParam(required = false) String idCardNo,
+                                       @RequestParam(required = false) String idCardValidity,
+                                       @RequestParam(required = false) String idCardIssueAuthority,
+                                       @RequestParam(required = false) String idCardIssueDate,
+                                       @RequestParam(required = false) String roomNo) {
 
         GetReportInput input = GetReportInput.builder()
                 .startDate(startDate)

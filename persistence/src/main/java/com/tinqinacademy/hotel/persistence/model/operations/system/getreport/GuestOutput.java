@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.operations.system.getroomreport;
+package com.tinqinacademy.hotel.persistence.model.operations.system.getreport;
 
 import lombok.*;
 
