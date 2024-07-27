@@ -72,22 +72,20 @@ Todo:
 
 -  Implement all endpoints from discord image tables
     ✔️ make deleteAll for each table
-    ❌ new endpoint: updateBooking + good logic for it
+    ✔️ [bonus] new endpoint: updateBooking + good logic for it
     ❌ refactor endpoint: getReport - make the fields optional
-
-//make unique guest's idCardNumber (drop all db tables)
-
-❌ ConversionService - add converters for all models (and logging in each converter)
+    ❌ make guest's idCardNumber unique (drop all db tables for refresh)
+    ❌ ConversionService - add converters for all models (and logging in each converter)
 
 -clean up all code
     -> review all comments '//'
-     -> fix where needs to be fixed
+     -> fix where needs to be fixed <==> test all features
       -> review all code logic and add todos for future refactoring/implementing
 
 
 ---------- Monday: ----------
 
-//make unique guest's idCardNumber (drop all db tables)
+//make guest's idCardNumber unique (drop all db tables for refresh)
 
 - Git:
   ❌ ssh key

@@ -114,8 +114,6 @@ public class HotelController {
     }
 
 
-    // TODO:
-    //  endpoint: updateBooking
     @Operation(summary = "Update partially a booking")
     @PatchMapping("/api/v1/hotel/updatePartiallyBooking/{id}")
     public ResponseEntity<?> updatePartiallyBooking(@PathVariable String id,
