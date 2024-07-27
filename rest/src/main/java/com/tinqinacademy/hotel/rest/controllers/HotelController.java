@@ -99,27 +99,38 @@ public class HotelController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete all rooms")
-    @DeleteMapping("/api/v1/hotel/deleteAllRooms")
+    @Operation(summary = "Delete all rooms", description = "Delete all rooms")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rooms deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Error deleting rooms")})
+    @DeleteMapping(RestApiRoutes.DELETE_ALL_ROOMS)
     public ResponseEntity<?> deleteAllRooms() {
         hotelService.deleteAllRooms();
+
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    @Operation(summary = "Delete all beds")
-    @DeleteMapping("/api/v1/hotel/deleteAllBeds")
+    @Operation(summary = "Delete all beds", description = "Delete all beds")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Beds deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Error deleting beds")})
+    @DeleteMapping(RestApiRoutes.DELETE_ALL_BEDS)
     public ResponseEntity<?> deleteAllBeds() {
         hotelService.deleteAllBeds();
+
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-
-    @Operation(summary = "Update partially a booking")
-    @PatchMapping("/api/v1/hotel/updatePartiallyBooking/{id}")
-    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String id,
+    @Operation(summary = "Update partially a booking",
+            description = "Update partially a booking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Booking updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Error updating the booking")})
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
+    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
                                                     @RequestBody @Valid UpdatePartiallyBookingInput input) {
         UpdatePartiallyBookingInput updatedInput = input.toBuilder()
-                .id(id)
+                .id(bookingId)
                 .build();
         UpdatePartiallyBookingOutput output = hotelService.updatePartiallyBooking(updatedInput);
         return new ResponseEntity<>(output, HttpStatus.OK);

@@ -175,7 +175,18 @@ public class DataSeeder implements ApplicationRunner {
                 .birthdate(LocalDate.of(1999, 11, 25))
                 .build();
 
-        guestRepository.saveAll(List.of(guest1, guest2));
+        Guest guest3 = Guest.builder()
+                .firstName("Bogi")
+                .lastName("Stoev")
+                .phoneNumber("0888919934")
+                .idCardNumber("9999")
+                .idCardValidity(LocalDate.of(2029, 9, 11))
+                .idCardIssueAuthority("AuthorityB")
+                .idCardIssueDate(LocalDate.of(2013, 2, 18))
+                .birthdate(LocalDate.of(2001, 11, 16))
+                .build();
+
+        guestRepository.saveAll(List.of(guest1, guest2, guest3));
         log.info("DataSeeder - seeded guests.");
     }
 

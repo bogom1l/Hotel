@@ -74,7 +74,7 @@ Todo:
     ✔️ make deleteAll for each table
     ✔️ [bonus] new endpoint: updateBooking + good logic for it
     ✔️ refactor endpoint: getReport - make the fields optional
-    ❌ make guest's idCardNumber unique (drop all db tables for refresh)
+    ✔️ make guest's idCardNumber unique (drop all db tables for refresh)
     ❌ ConversionService - add converters for all models (and logging in each converter)
 
 -clean up all code
@@ -85,7 +85,7 @@ Todo:
 
 ---------- Monday: ----------
 
-//make guest's idCardNumber unique (drop all db tables for refresh)
+  ❌ drop all db tables for refresh - because i made guest's idCardNumber unique
 
 - Git:
   ❌ ssh key
