@@ -16,12 +16,12 @@ public class GetReportInput {
     //guest?
     private String firstName;
     private String lastName;
-    private String phoneNo;
-    private String idCardNo;
+    private String phoneNumber;
+    private String idCardNumber;
     private String idCardValidity;
     private String idCardIssueAuthority;
     private String idCardIssueDate;
 
     //room?
-    private String roomNo;
+    private String roomNumber;
 }

@@ -56,23 +56,23 @@ public class SystemController {
                                        @RequestParam(required = false) String endDate,
                                        @RequestParam(required = false) String firstName,
                                        @RequestParam(required = false) String lastName,
-                                       @RequestParam(required = false) String phoneNo,
-                                       @RequestParam(required = false) String idCardNo,
+                                       @RequestParam(required = false) String phoneNumber,
+                                       @RequestParam(required = false) String idCardNumber,
                                        @RequestParam(required = false) String idCardValidity,
                                        @RequestParam(required = false) String idCardIssueAuthority,
                                        @RequestParam(required = false) String idCardIssueDate,
-                                       @RequestParam(required = false) String roomNo) {
+                                       @RequestParam(required = false) String roomNumber) {
         GetReportInput input = GetReportInput.builder()
                 .startDate(startDate)
                 .endDate(endDate)
                 .firstName(firstName)
                 .lastName(lastName)
-                .phoneNo(phoneNo)
-                .idCardNo(idCardNo)
+                .phoneNumber(phoneNumber)
+                .idCardNumber(idCardNumber)
                 .idCardValidity(idCardValidity)
                 .idCardIssueAuthority(idCardIssueAuthority)
                 .idCardIssueDate(idCardIssueDate)
-                .roomNo(roomNo)
+                .roomNumber(roomNumber)
                 .build();
 
         GetReportOutput output = systemService.getReport(input);
@@ -139,7 +139,6 @@ public class SystemController {
     @DeleteMapping(RestApiRoutes.DELETE_ALL_USERS)
     public ResponseEntity<?> deleteAllUsers() {
         systemService.deleteAllUsers();
-
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
@@ -150,7 +149,6 @@ public class SystemController {
     @DeleteMapping(RestApiRoutes.DELETE_ALL_GUESTS)
     public ResponseEntity<?> deleteAllGuests() {
         systemService.deleteAllGuests();
-
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
@@ -161,7 +159,6 @@ public class SystemController {
     @DeleteMapping(RestApiRoutes.DELETE_ALL_BOOKINGS)
     public ResponseEntity<?> deleteAllBookings() {
         systemService.deleteAllBookings();
-
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 }

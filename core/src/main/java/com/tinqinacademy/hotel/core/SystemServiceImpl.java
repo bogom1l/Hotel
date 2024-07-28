@@ -54,9 +54,11 @@ public class SystemServiceImpl implements SystemService {
     public RegisterGuestOutput registerGuest(RegisterGuestInput input) {
         log.info("Started registerGuest with input: {}", input);
 
+        // todo: logic: should room be in the List, or should it be a separate field?
+
         for (GuestInput guestInput : input.getGuests()) {
             Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))
-                    .orElseThrow(() -> new HotelException("no room found"));
+                    .orElseThrow(() -> new HotelException("No room found"));
 
 //            Guest guest = Guest.builder()
 //                    .firstName(guestInput.getFirstName())
@@ -73,7 +75,7 @@ public class SystemServiceImpl implements SystemService {
 
             Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
                             room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
-                    .orElseThrow(() -> new HotelException("no booking found"));
+                    .orElseThrow(() -> new HotelException("No booking found"));
 
             booking.getGuests().add(guest);
 
@@ -87,6 +89,7 @@ public class SystemServiceImpl implements SystemService {
     }
 
 
+    // todo: make this method more readable (split into smaller methods)
     @Override
     public GetReportOutput getReport(GetReportInput input) { // optional fields - fill only 1) or 2) or 3)
         log.info("Started getRoomReport with input: {}", input);
@@ -114,8 +117,8 @@ public class SystemServiceImpl implements SystemService {
         //2. Search by guest details
         if (input.getFirstName() != null &&
                 input.getLastName() != null &&
-                input.getPhoneNo() != null &&
-                input.getIdCardNo() != null &&
+                input.getPhoneNumber() != null &&
+                input.getIdCardNumber() != null &&
                 input.getIdCardValidity() != null &&
                 input.getIdCardIssueAuthority() != null &&
                 input.getIdCardIssueDate() != null) {
@@ -123,8 +126,8 @@ public class SystemServiceImpl implements SystemService {
             List<Guest> matchingGuests = guestRepository.findMatchingGuests(
                     input.getFirstName(),
                     input.getLastName(),
-                    input.getPhoneNo(),
-                    input.getIdCardNo(),
+                    input.getPhoneNumber(),
+                    input.getIdCardNumber(),
                     input.getIdCardValidity(),
                     input.getIdCardIssueAuthority(),
                     input.getIdCardIssueDate()
@@ -156,9 +159,9 @@ public class SystemServiceImpl implements SystemService {
         }
 
         //3. Search by room number
-        if (input.getRoomNo() != null) {
-            Room room = roomRepository.findByRoomNumber(input.getRoomNo())
-                    .orElseThrow(() -> new HotelException("No room found with number: " + input.getRoomNo()));
+        if (input.getRoomNumber() != null) {
+            Room room = roomRepository.findByRoomNumber(input.getRoomNumber())
+                    .orElseThrow(() -> new HotelException("No room found with number: " + input.getRoomNumber()));
 
             List<Booking> bookings = bookingRepository.findByRoomId(room.getId())
                     .orElse(Collections.emptyList());
@@ -203,6 +206,7 @@ public class SystemServiceImpl implements SystemService {
 //    }
 
 
+    // todo: logic: create the bed or find the bed?
     @Override
     public CreateRoomOutput createRoom(CreateRoomInput input) {
         log.info("Started createRoom with input: {}", input);
@@ -253,13 +257,13 @@ public class SystemServiceImpl implements SystemService {
             throw new HotelException("No bathroom type found");
         }
 
-        if (roomRepository.existsByRoomNumber(input.getRoomNo())) {
+        if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
             throw new HotelException("Room number already exists");
         }
 
         if (input.getBathroomType() == null ||
                 input.getBedSize() == null ||
-                input.getRoomNo() == null ||
+                input.getRoomNumber() == null ||
                 input.getPrice() == null) {
             throw new HotelException("Please fill all the fields.");
         }
@@ -268,7 +272,7 @@ public class SystemServiceImpl implements SystemService {
                 .orElseThrow(() -> new HotelException("No room found with id: " + input.getRoomId()));
 
         room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
-        room.setRoomNumber(input.getRoomNo());
+        room.setRoomNumber(input.getRoomNumber());
         room.setPrice(input.getPrice());
 
         List<Bed> bedsInCurrentRoom = room.getBeds();
@@ -303,11 +307,11 @@ public class SystemServiceImpl implements SystemService {
             room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
         }
 
-        if (input.getRoomNo() != null) {
-            if (roomRepository.existsByRoomNumber(input.getRoomNo())) {
+        if (input.getRoomNumber() != null) {
+            if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
                 throw new HotelException("Room number already exists");
             }
-            room.setRoomNumber(input.getRoomNo());
+            room.setRoomNumber(input.getRoomNumber());
         }
 
         if (input.getPrice() != null) {

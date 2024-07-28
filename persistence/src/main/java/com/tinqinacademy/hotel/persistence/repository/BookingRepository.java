@@ -16,7 +16,7 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     Optional<List<Booking>> findAllByRoomId(UUID roomId);
 
-    Optional<Booking> findByRoomIdAndStartDateAndEndDate(UUID id, LocalDate startDate, LocalDate endDate);
+    Optional<Booking> findByRoomIdAndStartDateAndEndDate(UUID roomId, LocalDate startDate, LocalDate endDate);
 
     @Query("""
                      SELECT b FROM Booking b 

@@ -23,7 +23,7 @@ public class UpdatePartiallyRoomInput {
     private String bathroomType;
 
     // @RoomNumberValidation // Custom validation
-    private String roomNo;
+    private String roomNumber;
 
     @Positive(message = "Price should be positive")
     private BigDecimal price;

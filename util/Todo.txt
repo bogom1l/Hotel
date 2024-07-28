@@ -82,10 +82,7 @@ Todo:
   ✔️ configure .gitignore - all but source code
   ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
 
--clean up all code
-    -> review all comments '//'
-     -> fix where needs to be fixed <==> test all features
-      -> review all code logic and add todos for future refactoring/implementing
+  ✔️ review all code logic and add todos for future refactoring/implementing
 
 
 ---------- Monday: (DELETE AFTER COMPLETING) ----------
