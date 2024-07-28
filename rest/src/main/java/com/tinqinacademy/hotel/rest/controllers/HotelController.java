@@ -106,7 +106,6 @@ public class HotelController {
     @DeleteMapping(RestApiRoutes.DELETE_ALL_ROOMS)
     public ResponseEntity<?> deleteAllRooms() {
         hotelService.deleteAllRooms();
-
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
@@ -117,7 +116,6 @@ public class HotelController {
     @DeleteMapping(RestApiRoutes.DELETE_ALL_BEDS)
     public ResponseEntity<?> deleteAllBeds() {
         hotelService.deleteAllBeds();
-
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
@@ -130,7 +128,7 @@ public class HotelController {
     public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
                                                     @RequestBody @Valid UpdatePartiallyBookingInput input) {
         UpdatePartiallyBookingInput updatedInput = input.toBuilder()
-                .id(bookingId)
+                .bookingId(bookingId)
                 .build();
         UpdatePartiallyBookingOutput output = hotelService.updatePartiallyBooking(updatedInput);
         return new ResponseEntity<>(output, HttpStatus.OK);

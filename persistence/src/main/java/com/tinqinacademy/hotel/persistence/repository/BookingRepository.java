@@ -20,15 +20,6 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     @Query("""
                      SELECT b FROM Booking b 
-                     WHERE b.room.id = :roomId 
-                     AND ((b.startDate BETWEEN :startDate AND :endDate) 
-                     OR (b.endDate BETWEEN :startDate AND :endDate))
-            """)
-    Optional<List<Booking>> findByRoomIdAndDateRange(@Param("roomId") UUID roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
-    // New method to find bookings within a date range regardless of room ID
-    @Query("""
-                     SELECT b FROM Booking b 
                      WHERE (b.startDate BETWEEN :startDate AND :endDate) 
                      OR (b.endDate BETWEEN :startDate AND :endDate)
             """)

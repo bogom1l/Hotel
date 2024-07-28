@@ -30,5 +30,5 @@ public class BookRoomInput {
     private String lastName;
 
     @NotBlank(message = "Phone number is mandatory")
-    private String phoneNo;
+    private String phoneNumber;
 }

@@ -16,9 +16,9 @@ import java.util.UUID;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, UUID> {
 
-    @Query("""
-            SELECT DISTINCT r FROM Room r JOIN r.beds b 
-            WHERE b.bedSize = :bedSize AND r.bathroomType = :bathroomType
+    @Query(value = """
+             SELECT DISTINCT r FROM Room r JOIN r.beds b
+             WHERE b.bedSize = :bedSize AND r.bathroomType = :bathroomType
             """)
     List<Room> findRoomsByBedSizeAndBathroomType(
             @Param("bedSize") BedSize bedSize,
@@ -37,10 +37,20 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
                  AND b.end_date >= :startDate
             WHERE b.room_id IS NULL;
             """, nativeQuery = true)
-    List<Room> findAvailableRooms(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    Optional<List<Room>> findAvailableRoomsBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     Optional<Room> findByRoomNumber(String roomNumber);
 
     Boolean existsByRoomNumber(String roomNumber);
 
+
+    @Query(value = """
+            SELECT CASE WHEN COUNT(r) > 0 THEN TRUE ELSE FALSE END
+            FROM rooms r
+            LEFT JOIN bookings b ON r.id = b.room_id
+                 AND b.start_date <= :endDate
+                 AND b.end_date >= :startDate
+            WHERE r.id = :roomId AND b.room_id IS NULL;
+            """, nativeQuery = true)
+    Boolean isRoomAvailableByRoomIdAndBetweenDates(@Param("roomId") UUID roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

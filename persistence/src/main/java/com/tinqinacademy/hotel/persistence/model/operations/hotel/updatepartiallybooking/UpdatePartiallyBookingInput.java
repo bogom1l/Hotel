@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 public class UpdatePartiallyBookingInput {
     @JsonIgnore
-    private String id;
+    private String bookingId;
 
     private String roomNumber;
 

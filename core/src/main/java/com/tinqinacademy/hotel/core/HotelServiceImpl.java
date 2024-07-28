@@ -24,12 +24,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -57,21 +57,22 @@ public class HotelServiceImpl implements HotelService {
 
         BedSize bedSize = BedSize.getByCode(input.getBedSize());
         BathroomType bathroomType = BathroomType.getByCode(input.getBathroomType());
+
         if (bedSize == BedSize.UNKNOWN || bathroomType == BathroomType.UNKNOWN) {
-            log.error("Invalid bed size or bathroom type provided: bedSize={}, bathroomType={}", input.getBedSize(), input.getBathroomType());
             throw new HotelException("Invalid bed size or bathroom type.");
         }
 
         if (input.getStartDate().isAfter(input.getEndDate())) {
-            log.error("Start date should be before end date");
             throw new HotelException("Start date should be before end date.");
         }
 
-        List<Room> availableRooms = roomRepository.findAvailableRooms(input.getStartDate(), input.getEndDate());
-        List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
-        List<String> availableRoomIds = new ArrayList<>();
+        List<Room> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(input.getStartDate(), input.getEndDate())
+                .orElseThrow(() -> new HotelException("No available rooms found"));
 
-        for (Room room : availableRooms) {
+        List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
+
+        List<String> availableRoomIds = new ArrayList<>();
+        for (Room room : availableRoomsBetweenDates) {
             if (roomsMatchingCriteria.contains(room)) {
                 availableRoomIds.add(room.getId().toString());
             }
@@ -94,15 +95,9 @@ public class HotelServiceImpl implements HotelService {
 
         List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());
 
-        List<LocalDate> datesOccupied = new ArrayList<>();
-        for (Booking booking : bookings) {
-            LocalDate startDate = booking.getStartDate();
-            LocalDate endDate = booking.getEndDate();
-            while (startDate.isBefore(endDate)) {
-                datesOccupied.add(startDate);
-                startDate = startDate.plusDays(1);
-            }
-        }
+        List<LocalDate> datesOccupied = bookings.stream()
+                .flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate()))
+                .collect(Collectors.toList());
 
         GetRoomBasicInfoOutput output = conversionService.convert(room, GetRoomBasicInfoOutput.class);
         output.setDatesOccupied(datesOccupied);
@@ -126,29 +121,24 @@ public class HotelServiceImpl implements HotelService {
         log.info("Started bookRoom with input: {}", input);
 
         UUID roomId = UUID.fromString(input.getRoomId());
-        LocalDate startDate = input.getStartDate();
-        LocalDate endDate = input.getEndDate();
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new HotelException("Room not found"));
 
-        Room room = roomRepository.findById(roomId).orElseThrow(() -> new HotelException("room not found"));
-
-        List<Room> availableRooms = roomRepository.findAvailableRooms(startDate, endDate);
-
-        if (!availableRooms.contains(room)) {
-            throw new RuntimeException("Room is not available for the selected dates");
+        if (!roomRepository.isRoomAvailableByRoomIdAndBetweenDates(room.getId(), input.getStartDate(), input.getEndDate())) {
+            throw new HotelException("Room is not available for the selected dates: " + input.getStartDate() + " - " + input.getEndDate());
         }
 
+        // todo: logic: find user or create user?
         User user = userRepository
-                .findByPhoneNumberAndFirstNameAndLastName(input.getPhoneNo(), input.getFirstName(), input.getLastName())
-                .orElseThrow(() -> new HotelException("no user found"));
-
-        BigDecimal totalPrice = room.getPrice().add(BigDecimal.valueOf(50)); // Example price; should add logic
+                .findByPhoneNumberAndFirstNameAndLastName(input.getPhoneNumber(), input.getFirstName(), input.getLastName())
+                .orElseThrow(() -> new HotelException("No user found with first name: " +
+                        input.getFirstName() + ", last name: " + input.getLastName() + ", phone number: " + input.getPhoneNumber()));
 
         Booking booking = Booking.builder()
                 .room(room)
                 .user(user)
-                .startDate(startDate)
-                .endDate(endDate)
-                .totalPrice(totalPrice)
+                .startDate(input.getStartDate())
+                .endDate(input.getEndDate())
+                .totalPrice(room.getPrice())
                 .guests(Set.of()) // Empty set, later will have endpoint for adding guests for certain booking
                 .build();
 
@@ -165,7 +155,8 @@ public class HotelServiceImpl implements HotelService {
 
         UUID bookingId = UUID.fromString(input.getBookingId());
         Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new HotelException("booking not found"));
+                .orElseThrow(() -> new HotelException("Booking not found"));
+
         bookingRepository.delete(booking);
 
         UnbookRoomOutput output = UnbookRoomOutput.builder().build();
@@ -176,14 +167,18 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public void deleteAllRooms() {
         log.info("Started deleteAllRooms");
+
         roomRepository.deleteAll();
+
         log.info("Ended deleteAllRooms successfully");
     }
 
     @Override
     public void deleteAllBeds() {
         log.info("Started deleteAllBeds");
+
         bedRepository.deleteAll();
+
         log.info("Ended deleteAllBeds successfully");
     }
 
@@ -191,48 +186,49 @@ public class HotelServiceImpl implements HotelService {
     public UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input) {
         log.info("Started updatePartiallyBooking with input: {}", input);
 
-        Booking booking = bookingRepository.findById(UUID.fromString(input.getId()))
-                .orElseThrow(() -> new HotelException("booking not found"));
+        Booking booking = bookingRepository.findById(UUID.fromString(input.getBookingId()))
+                .orElseThrow(() -> new HotelException("Booking not found"));
 
         if (input.getStartDate() != null) {
             booking.setStartDate(LocalDate.parse(input.getStartDate()));
         }
+
         if (input.getEndDate() != null) {
             booking.setEndDate(LocalDate.parse(input.getEndDate()));
         }
+
         if (input.getTotalPrice() != null) {
             booking.setTotalPrice(input.getTotalPrice());
         }
 
-
         if (input.getRoomNumber() != null) {
             if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
-                throw new HotelException("room already exists");
+                throw new HotelException("Room number already exists. Please choose different room number.");
             }
 
-            // logic: shouldn't be able to create a new room
-
-            booking.getRoom().setRoomNumber(input.getRoomNumber());
+            booking.getRoom().setRoomNumber(input.getRoomNumber()); // logic: shouldn't be able to create a new room
         }
 
-        if (input.getGuests() != null && !input.getGuests().isEmpty()) { // if guests field is not empty
+        if (input.getGuests() != null && !input.getGuests().isEmpty()) { // if guests field is not left empty
 
             for (UpdatePartiallyGuestInput guest : input.getGuests()) { // add each of the filled guests
 
-                Guest currentGuest = Guest.builder()
-                        .firstName(guest.getFirstName())
-                        .lastName(guest.getLastName())
-                        .phoneNumber(guest.getPhoneNumber())
-                        .idCardNumber(guest.getIdCardNumber())
-                        .idCardValidity(guest.getIdCardValidity())
-                        .idCardIssueDate(guest.getIdCardIssueDate())
-                        .idCardIssueAuthority(guest.getIdCardIssueAuthority())
-                        .birthdate(guest.getBirthdate())
-                        .build();
+//                Guest currentGuest = Guest.builder()
+//                        .firstName(guest.getFirstName())
+//                        .lastName(guest.getLastName())
+//                        .phoneNumber(guest.getPhoneNumber())
+//                        .idCardNumber(guest.getIdCardNumber())
+//                        .idCardValidity(guest.getIdCardValidity())
+//                        .idCardIssueDate(guest.getIdCardIssueDate())
+//                        .idCardIssueAuthority(guest.getIdCardIssueAuthority())
+//                        .birthdate(guest.getBirthdate())
+//                        .build();
 
-                guestRepository.save(currentGuest);
+                Guest newGuest = conversionService.convert(guest, Guest.class);
 
-                booking.getGuests().add(currentGuest);
+                guestRepository.save(newGuest);
+
+                booking.getGuests().add(newGuest);
             }
         }
 
