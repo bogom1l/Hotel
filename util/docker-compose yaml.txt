@@ -1,4 +1,4 @@
-docker-compose.yaml:
+make a file "docker-compose.yaml":
 
 version: '3.8'
 
@@ -17,5 +17,3 @@ services:
 
 volumes:
   db-volume:
-
-  ---------------------------------------------

@@ -29,7 +29,7 @@
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-jdbc</artifactId>-->
-<!--            <version>3.3.1</version> &lt;!&ndash; TODO ${jdb.version} &ndash;&gt;-->
+<!--            <version>3.3.1</version>-->
 <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->

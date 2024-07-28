@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception ex) {
         String message = ex.getMessage();
-        if(ex.getCause() != null){
+        if (ex.getCause() != null) {
             message += "\nCause: " + ex.getCause();
         }
 

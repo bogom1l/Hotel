@@ -26,5 +26,4 @@ public enum BathroomType {
     public String toString() {
         return this.code;
     }
-
 }

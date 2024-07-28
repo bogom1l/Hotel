@@ -2,7 +2,7 @@ package com.tinqinacademy.hotel.persistence.model.operations.system.updatepartia
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.math.BigDecimal;

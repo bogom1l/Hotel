@@ -2,7 +2,10 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.HotelService;
-import com.tinqinacademy.hotel.persistence.model.*;
+import com.tinqinacademy.hotel.persistence.model.Booking;
+import com.tinqinacademy.hotel.persistence.model.Guest;
+import com.tinqinacademy.hotel.persistence.model.Room;
+import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookRoomInput;
