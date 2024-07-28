@@ -209,16 +209,18 @@ public class SystemServiceImpl implements SystemService {
                 .capacity(BedSize.getByCode(input.getBedSize()).getCapacity())
                 .build();
 
+//        Room room = Room.builder()
+//                .beds(List.of(bed))
+//                .bathroomType(BathroomType.getByCode(input.getBathroomType()))
+//                .floor(input.getFloor())
+//                .roomNumber(input.getRoomNumber())
+//                .price(input.getPrice())
+//                .build();
+
+        Room room = conversionService.convert(input, Room.class);
+        room.setBeds(List.of(bed));
+
         bedRepository.save(bed);
-
-        Room room = Room.builder()
-                .beds(List.of(bed))
-                .bathroomType(BathroomType.getByCode(input.getBathroomType()))
-                .floor(input.getFloor())
-                .roomNumber(input.getRoomNo())
-                .price(input.getPrice())
-                .build();
-
         roomRepository.save(room);
 
         CreateRoomOutput output = CreateRoomOutput.builder()

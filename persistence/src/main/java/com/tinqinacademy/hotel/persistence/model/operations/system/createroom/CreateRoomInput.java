@@ -26,7 +26,7 @@ public class CreateRoomInput {
 
     //@RoomNumberValidation // Custom validation
     @NotBlank(message = "Room number is mandatory")
-    private String roomNo;
+    private String roomNumber;
 
     @NotNull(message = "Price is mandatory")
     @Positive(message = "Price should be positive")
