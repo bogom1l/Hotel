@@ -102,7 +102,10 @@ public class SystemServiceImpl implements SystemService {
 
             for (Booking booking : bookings) {
                 for (Guest guest : booking.getGuests()) {
-                    GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
+                    //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
+                    GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
+                    guestOutput.setStartDate(booking.getStartDate());
+                    guestOutput.setEndDate(booking.getEndDate());
                     guestMap.putIfAbsent(guest.getId(), guestOutput);
                 }
             }
@@ -133,13 +136,17 @@ public class SystemServiceImpl implements SystemService {
 
                 if (bookings.isEmpty()) {
                     if (!guestMap.containsKey(guest.getId())) {
-                        GuestOutput guestOutput = convertGuestToGuestOutput(guest, null);
+                        //GuestOutput guestOutput = convertGuestToGuestOutput(guest, null);
+                        GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
                         guestMap.put(guest.getId(), guestOutput);
                     }
                 } else {
                     for (Booking booking : bookings) {
                         if (!guestMap.containsKey(guest.getId())) {
-                            GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
+                            //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
+                            GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
+                            guestOutput.setStartDate(booking.getStartDate());
+                            guestOutput.setEndDate(booking.getEndDate());
                             guestMap.put(guest.getId(), guestOutput);
                         }
                     }
@@ -159,7 +166,10 @@ public class SystemServiceImpl implements SystemService {
             for (Booking booking : bookings) {
                 for (Guest guest : booking.getGuests()) {
                     if (!guestMap.containsKey(guest.getId())) {
-                        GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
+                        //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
+                        GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
+                        guestOutput.setStartDate(booking.getStartDate());
+                        guestOutput.setEndDate(booking.getEndDate());
                         guestMap.put(guest.getId(), guestOutput);
                     }
                 }
@@ -178,19 +188,19 @@ public class SystemServiceImpl implements SystemService {
         return output;
     }
 
-    private GuestOutput convertGuestToGuestOutput(Guest guest, Booking booking) {
-        return GuestOutput.builder()
-                .startDate(booking != null ? booking.getStartDate() : null)
-                .endDate(booking != null ? booking.getEndDate() : null)
-                .firstName(guest.getFirstName())
-                .lastName(guest.getLastName())
-                .phoneNo(guest.getPhoneNumber())
-                .idCardNo(guest.getIdCardNumber())
-                .idCardValidity(guest.getIdCardValidity())
-                .idCardIssueAuthority(guest.getIdCardIssueAuthority())
-                .idCardIssueDate(guest.getIdCardIssueDate())
-                .build();
-    }
+//    private GuestOutput convertGuestToGuestOutput(Guest guest, Booking booking) {
+//        return GuestOutput.builder()
+//                .startDate(booking != null ? booking.getStartDate() : null)
+//                .endDate(booking != null ? booking.getEndDate() : null)
+//                .firstName(guest.getFirstName())
+//                .lastName(guest.getLastName())
+//                .phoneNo(guest.getPhoneNumber())
+//                .idCardNo(guest.getIdCardNumber())
+//                .idCardValidity(guest.getIdCardValidity())
+//                .idCardIssueAuthority(guest.getIdCardIssueAuthority())
+//                .idCardIssueDate(guest.getIdCardIssueDate())
+//                .build();
+//    }
 
 
     @Override

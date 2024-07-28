@@ -77,23 +77,24 @@ Todo:
     ✔️ make guest's idCardNumber unique (drop all db tables for refresh)
     ✔️ ConversionService (and logging)
 
+- Git:
+  ✔️ ssh key [home✔️]
+  ✔️ configure .gitignore - all but source code
+  ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
+
 -clean up all code
     -> review all comments '//'
      -> fix where needs to be fixed <==> test all features
       -> review all code logic and add todos for future refactoring/implementing
 
 
----------- Monday: ----------
+---------- Monday: (DELETE AFTER COMPLETING) ----------
 
   ❌ drop all db tables for refresh - because i made guest's idCardNumber unique
 
-- Git:
   ❌ ssh key [home✔️; work❌]
-  ✔️ configure .gitignore - all but source code
-  ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
 
-  ❌ ConversionService - add converters for all models (and logging in each converter)
-     * ?can't add converter for getReport() because it uses 3 different entities
+  ❌ are my converters good (is it bad practice to use setters after converter)
 
 -------------------------------------------------------------------------
 
