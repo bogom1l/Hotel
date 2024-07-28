@@ -58,16 +58,18 @@ public class SystemServiceImpl implements SystemService {
             Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))
                     .orElseThrow(() -> new HotelException("no room found"));
 
-            Guest guest = Guest.builder()
-                    .firstName(guestInput.getFirstName())
-                    .lastName(guestInput.getLastName())
-                    .phoneNumber(guestInput.getPhoneNo())
-                    .idCardNumber(guestInput.getIdCardNo())
-                    .idCardValidity(guestInput.getIdCardValidity())
-                    .idCardIssueAuthority(guestInput.getIdCardIssueAuthority())
-                    .idCardIssueDate(guestInput.getIdCardIssueDate())
-                    .birthdate(guestInput.getBirthdate())
-                    .build();
+//            Guest guest = Guest.builder()
+//                    .firstName(guestInput.getFirstName())
+//                    .lastName(guestInput.getLastName())
+//                    .phoneNumber(guestInput.getPhoneNumber())
+//                    .idCardNumber(guestInput.getIdCardNumber())
+//                    .idCardValidity(guestInput.getIdCardValidity())
+//                    .idCardIssueAuthority(guestInput.getIdCardIssueAuthority())
+//                    .idCardIssueDate(guestInput.getIdCardIssueDate())
+//                    .birthdate(guestInput.getBirthdate())
+//                    .build();
+
+            Guest guest = conversionService.convert(guestInput, Guest.class);
 
             Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
                             room.getId(), guestInput.getStartDate(), guestInput.getEndDate())

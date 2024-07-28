@@ -35,7 +35,7 @@ public class SystemController {
     }
 
     @Operation(summary = "Register a guest as room renter",
-            description = "Register a guest as room renter")
+            description = "Register a guest as room renter by Booking's: roomId, startDate, endDate")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Guest registered successfully"),
             @ApiResponse(responseCode = "400", description = "Error registering guest")})

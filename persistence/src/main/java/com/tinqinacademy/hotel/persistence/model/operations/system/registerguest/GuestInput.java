@@ -28,10 +28,10 @@ public class GuestInput {
     private String lastName;
 
     @NotBlank(message = "Phone number is mandatory")
-    private String phoneNo;
+    private String phoneNumber;
 
     @NotBlank(message = "Id card number is mandatory")
-    private String idCardNo;
+    private String idCardNumber;
 
     @NotNull(message = "Id card validity date is mandatory")
     private LocalDate idCardValidity;
