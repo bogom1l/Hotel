@@ -75,7 +75,7 @@ Todo:
     ✔️ [bonus] new endpoint: updateBooking + good logic for it
     ✔️ refactor endpoint: getReport - make the fields optional
     ✔️ make guest's idCardNumber unique (drop all db tables for refresh)
-    ❌ ConversionService - add converters for all models (and logging in each converter)
+    ✔️ ConversionService (and logging)
 
 -clean up all code
     -> review all comments '//'
@@ -91,6 +91,9 @@ Todo:
   ❌ ssh key [home✔️; work❌]
   ✔️ configure .gitignore - all but source code
   ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
+
+  ❌ ConversionService - add converters for all models (and logging in each converter)
+     * ?can't add converter for getReport() because it uses 3 different entities
 
 -------------------------------------------------------------------------
 
