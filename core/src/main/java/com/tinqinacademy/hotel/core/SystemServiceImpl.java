@@ -24,6 +24,7 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.Up
 import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -38,13 +39,15 @@ public class SystemServiceImpl implements SystemService {
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
     private final BedRepository bedRepository;
+    private final ConversionService conversionService;
 
-    public SystemServiceImpl(RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository, UserRepository userRepository, BedRepository bedRepository) {
+    public SystemServiceImpl(RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository, UserRepository userRepository, BedRepository bedRepository, ConversionService conversionService) {
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.bedRepository = bedRepository;
+        this.conversionService = conversionService;
     }
 
     @Override

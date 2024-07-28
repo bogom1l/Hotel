@@ -18,6 +18,7 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiall
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
 import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -36,13 +37,15 @@ public class HotelServiceImpl implements HotelService {
     private final BookingRepository bookingRepository;
     private final BedRepository bedRepository;
     private final GuestRepository guestRepository;
+    private final ConversionService conversionService;
 
-    public HotelServiceImpl(RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, BedRepository bedRepository, GuestRepository guestRepository) {
+    public HotelServiceImpl(RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, BedRepository bedRepository, GuestRepository guestRepository, ConversionService conversionService) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
         this.bedRepository = bedRepository;
         this.guestRepository = guestRepository;
+        this.conversionService = conversionService;
     }
 
     @Override
@@ -98,14 +101,18 @@ public class HotelServiceImpl implements HotelService {
             }
         }
 
-        GetRoomBasicInfoOutput output = GetRoomBasicInfoOutput.builder()
-                .id(room.getId())
-                .price(room.getPrice())
-                .floor(room.getFloor())
-                .bedSize(room.getBeds().stream().findFirst().map(Bed::getBedSize).orElse(null))
-                .bathroomType(room.getBathroomType())
-                .datesOccupied(datesOccupied)
-                .build();
+        GetRoomBasicInfoOutput output = conversionService.convert(room, GetRoomBasicInfoOutput.class);
+        output.setDatesOccupied(datesOccupied);
+
+//        GetRoomBasicInfoOutput output = GetRoomBasicInfoOutput.builder()
+//                .id(room.getId())
+//                .price(room.getPrice())
+//                .floor(room.getFloor())
+//                .bedSize(room.getBeds().stream().findFirst().map(Bed::getBedSize).orElse(null))
+//                .bathroomType(room.getBathroomType())
+//                .datesOccupied(datesOccupied)
+//                .roomNumber(room.getRoomNumber())
+//                .build();
 
         log.info("Ended getRoomBasicInfo with output: {}", output);
         return output;

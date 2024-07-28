@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -22,4 +22,6 @@ public class GetRoomBasicInfoOutput {
     private BedSize bedSize;
     private BathroomType bathroomType;
     private List<LocalDate> datesOccupied;
+
+    private String roomNumber;
 }
