@@ -88,7 +88,7 @@ Todo:
   ❌ drop all db tables for refresh - because i made guest's idCardNumber unique
 
 - Git:
-  ❌ ssh key
+  ❌ ssh key [home✔️; work❌]
   ✔️ configure .gitignore - all but source code
   ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
 
