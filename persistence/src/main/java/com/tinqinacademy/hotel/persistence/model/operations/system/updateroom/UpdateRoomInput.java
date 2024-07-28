@@ -2,6 +2,7 @@ package com.tinqinacademy.hotel.persistence.model.operations.system.updateroom;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -26,7 +27,7 @@ public class UpdateRoomInput {
     @NotBlank(message = "Bathroom type is mandatory")
     private String bathroomType;
 
-    //@RoomNumberValidation // Custom validation
+    @RoomNumberValidation // Custom validation
     @NotBlank(message = "Room number is mandatory")
     private String roomNumber;
 

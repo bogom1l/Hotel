@@ -1,6 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.createroom;
 
-import com.tinqinacademy.hotel.api.customvalidation.RoomNumberValidation;
+import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.constraints.*;
 import lombok.*;
 

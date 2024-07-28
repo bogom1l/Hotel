@@ -2,6 +2,7 @@ package com.tinqinacademy.hotel.persistence.model.operations.system.updatepartia
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class UpdatePartiallyRoomInput {
 
     private String bathroomType;
 
-    // @RoomNumberValidation // Custom validation
+    @RoomNumberValidation // Custom validation
     private String roomNumber;
 
     @Positive(message = "Price should be positive")

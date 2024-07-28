@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.persistence.model.operations.system.createroom;
 
+import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -24,7 +25,7 @@ public class CreateRoomInput {
     @Max(value = 15, message = "Floor should be maximum 10")
     private Integer floor;
 
-    //@RoomNumberValidation // Custom validation
+    @RoomNumberValidation // Custom validation
     @NotBlank(message = "Room number is mandatory")
     private String roomNumber;
 

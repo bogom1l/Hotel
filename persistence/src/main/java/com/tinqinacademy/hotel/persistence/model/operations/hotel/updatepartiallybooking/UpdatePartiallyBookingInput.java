@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -18,6 +19,7 @@ public class UpdatePartiallyBookingInput {
     @JsonIgnore
     private String bookingId;
 
+    @RoomNumberValidation // Custom validation
     private String roomNumber;
 
     // no userId, because: user shouldn't be changed; instead every user creates his new booking
