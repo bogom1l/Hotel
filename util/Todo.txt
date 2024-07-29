@@ -78,18 +78,11 @@ Todo:
     ✔️ ConversionService (and logging)
 
 - Git:
-  ✔️ ssh key [home✔️]
+  ✔️ ssh key [home✔️; work?]
   ✔️ configure .gitignore - all but source code
   ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
 
   ✔️ review all code logic and add todos for future refactoring/implementing
-
-
----------- Monday: (DELETE AFTER COMPLETING) ----------
-
-  ✔️ drop all db tables for refresh - because i made guest's idCardNumber unique
-
-  ❌ ssh key [home✔️; work❌]
 
   ❌ are my converters good (is it bad practice to use setters after converter)
 
