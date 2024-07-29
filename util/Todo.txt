@@ -75,7 +75,7 @@ Todo:
     ✔️ [bonus] new endpoint: updateBooking + good logic for it
     ✔️ refactor endpoint: getReport - make the fields optional
     ✔️ make guest's idCardNumber unique (drop all db tables for refresh)
-    ✔️ ConversionService (and logging)
+    ✔️ ConversionService (with Builder if necessary) (and logging)
 
 - Git:
   ✔️ ssh key [home✔️; work?]
@@ -83,8 +83,6 @@ Todo:
   ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
 
   ✔️ review all code logic and add todos for future refactoring/implementing
-
-  ❌ are my converters good (is it bad practice to use setters after converter)
 
 -------------------------------------------------------------------------
 
