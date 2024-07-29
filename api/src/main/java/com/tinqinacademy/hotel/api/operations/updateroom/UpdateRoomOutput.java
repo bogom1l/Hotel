@@ -2,6 +2,8 @@ package com.tinqinacademy.hotel.api.operations.updateroom;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -9,5 +11,5 @@ import lombok.*;
 @Builder
 @ToString
 public class UpdateRoomOutput {
-    private String id;
+    private UUID id;
 }

@@ -243,9 +243,10 @@ public class SystemServiceImpl implements SystemService {
         bedRepository.save(bed);
         roomRepository.save(room);
 
-        CreateRoomOutput output = CreateRoomOutput.builder()
-                .id(room.getId())
-                .build();
+//        CreateRoomOutput output = CreateRoomOutput.builder()
+//                .id(room.getId())
+//                .build();
+        CreateRoomOutput output = conversionService.convert(room, CreateRoomOutput.class);
 
         log.info("Ended createRoom with output: {}", output);
         return output;
@@ -289,9 +290,10 @@ public class SystemServiceImpl implements SystemService {
 
         roomRepository.save(room);
 
-        UpdateRoomOutput output = UpdateRoomOutput.builder()
-                .id(room.getId())
-                .build();
+//        UpdateRoomOutput output = UpdateRoomOutput.builder()
+//                .id(room.getId())
+//                .build();
+        UpdateRoomOutput output = conversionService.convert(room, UpdateRoomOutput.class);
 
         log.info("Ended updateRoom with output: {}", output);
         return output;
@@ -338,9 +340,10 @@ public class SystemServiceImpl implements SystemService {
 
         roomRepository.save(room);
 
-        UpdatePartiallyRoomOutput output = UpdatePartiallyRoomOutput.builder()
-                .id(room.getId())
-                .build();
+//        UpdatePartiallyRoomOutput output = UpdatePartiallyRoomOutput.builder()
+//                .id(room.getId())
+//                .build();
+        UpdatePartiallyRoomOutput output = conversionService.convert(room, UpdatePartiallyRoomOutput.class);
 
         log.info("Ended updatePartiallyRoom with output: {}", output);
         return output;

@@ -78,9 +78,12 @@ public class HotelServiceImpl implements HotelService {
             }
         }
 
-        CheckAvailableRoomOutput output = CheckAvailableRoomOutput.builder()
-                .ids(availableRoomIds)
-                .build();
+//        CheckAvailableRoomOutput output = CheckAvailableRoomOutput.builder()
+//                .ids(availableRoomIds)
+//                .build();
+
+        CheckAvailableRoomOutput output = conversionService
+                .convert(availableRoomIds, CheckAvailableRoomOutput.class);
 
         log.info("Ended checkAvailableRoom with output: {}", output);
         return output;
@@ -236,9 +239,11 @@ public class HotelServiceImpl implements HotelService {
 
         bookingRepository.save(booking);
 
-        UpdatePartiallyBookingOutput output = UpdatePartiallyBookingOutput.builder()
-                .id(booking.getId())
-                .build();
+//        UpdatePartiallyBookingOutput output = UpdatePartiallyBookingOutput.builder()
+//                .id(booking.getId())
+//                .build();
+        UpdatePartiallyBookingOutput output = conversionService
+                .convert(booking, UpdatePartiallyBookingOutput.class);
 
         log.info("Ended updatePartiallyBooking with output: {}", output);
         return output;

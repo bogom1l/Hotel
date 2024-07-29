@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters;
+package com.tinqinacademy.hotel.core.converters.room;
 
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;

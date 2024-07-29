@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters;
+package com.tinqinacademy.hotel.core.converters.guest;
 
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GuestOutput;
