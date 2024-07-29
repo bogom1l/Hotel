@@ -2,16 +2,16 @@ package com.tinqinacademy.hotel.core;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
 import com.tinqinacademy.hotel.core.contracts.SystemService;
-import com.tinqinacademy.hotel.persistence.model.Bed;
-import com.tinqinacademy.hotel.persistence.model.Booking;
-import com.tinqinacademy.hotel.persistence.model.Guest;
-import com.tinqinacademy.hotel.persistence.model.Room;
+import com.tinqinacademy.hotel.persistence.model.*;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.UserOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GuestOutput;
@@ -376,6 +376,23 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public void deleteAllBookings() {
         bookingRepository.deleteAll();
+    }
+
+    @Override
+    public GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input) {
+        log.info("Started getAllUsers with input: {}", input);
+
+        List<User> users = userRepository.findUsersByPartialName(input.getPartialName())
+                .orElse(Collections.emptyList());
+
+        GetAllUsersOutput output = GetAllUsersOutput.builder()
+                .users(users.stream()
+                        .map(user -> conversionService.convert(user, UserOutput.class)).toList())
+                .count(users.size())
+                .build();
+
+        log.info("Ended getAllUsers with output: {}", output);
+        return output;
     }
 
 }

@@ -87,3 +87,5 @@ Todo:
 -------------------------------------------------------------------------
 
 - Implement operation class for each endpoint in the controller
+
+- ?Refactor GetReport criteria logic

@@ -5,10 +5,9 @@ Todo (bonus):
 -------------------------------------------------------------------------------
 
 ❌ New Endpoints:
-    -users to view their booking history.
-    -admins to see all currently booked rooms by roomNumber
-    -admins to see current list (+count for convenience) of all guests in the hotel
-    -(bonus) admins to see current list (+count for convenience) of all registered users
+    ✔️ users to view their booking history (by phoneNumber)
+    ✔️ admins to see current list (+count for convenience) of all registered users
+    - ?
 
 -------------------------------------------------------------------------------
 

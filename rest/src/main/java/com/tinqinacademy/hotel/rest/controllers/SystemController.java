@@ -6,6 +6,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.Cr
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
@@ -161,4 +163,18 @@ public class SystemController {
         systemService.deleteAllBookings();
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
+
+    @Operation(summary = "Get all users by partial name", description = "Get all users by partial name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Users retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Error retrieving users")})
+    @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
+    public ResponseEntity<?> getAllUsersByPartialName(@RequestParam String partialName) {
+
+        GetAllUsersInput input = GetAllUsersInput.builder().partialName(partialName).build();
+        GetAllUsersOutput output = systemService.getAllUsersByPartialName(input);
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
 }

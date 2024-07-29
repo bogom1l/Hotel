@@ -4,6 +4,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.Cr
 import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersInput;
+import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
@@ -32,4 +34,6 @@ public interface SystemService {
     void deleteAllGuests();
 
     void deleteAllBookings();
+
+    GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input);
 }

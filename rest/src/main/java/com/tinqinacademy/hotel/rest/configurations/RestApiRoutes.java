@@ -23,6 +23,6 @@ public class RestApiRoutes {
     public static final String DELETE_ALL_BOOKINGS = API_SYSTEM + "/deleteAllBookings";
     public static final String DELETE_ALL_ROOMS = API_SYSTEM + "/deleteAllRooms";
     public static final String DELETE_ALL_BEDS = API_SYSTEM + "/deleteAllBeds";
-
+    public static final String GET_ALL_USERS_BY_PARTIAL_NAME = API_SYSTEM + "/allUsers";
 
 }
