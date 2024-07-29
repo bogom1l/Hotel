@@ -12,6 +12,9 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookR
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryBookingOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryInput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
@@ -246,6 +249,26 @@ public class HotelServiceImpl implements HotelService {
                 .convert(booking, UpdatePartiallyBookingOutput.class);
 
         log.info("Ended updatePartiallyBooking with output: {}", output);
+        return output;
+    }
+
+    @Override
+    public GetBookingHistoryOutput getBookingHistory(GetBookingHistoryInput input) {
+        log.info("Started getBookingHistory with input: {}", input);
+
+        User user = userRepository.findByPhoneNumber(input.getPhoneNumber())
+                .orElseThrow(() -> new HotelException("No user found with phone number: " + input.getPhoneNumber()));
+
+        List<Booking> bookings = bookingRepository.findAllByUserId(user.getId())
+                .orElseThrow(() -> new HotelException("No bookings found for user with phone number: " + input.getPhoneNumber()));
+
+        GetBookingHistoryOutput output = GetBookingHistoryOutput.builder()
+                .bookings(bookings.stream()
+                        .map(booking -> conversionService.convert(booking, GetBookingHistoryBookingOutput.class))
+                        .toList())
+                .build();
+
+        log.info("Ended getBookingHistory with output: {}", output);
         return output;
     }
 

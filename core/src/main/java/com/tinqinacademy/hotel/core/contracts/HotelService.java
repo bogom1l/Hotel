@@ -4,6 +4,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookR
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryInput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
@@ -26,4 +28,6 @@ public interface HotelService {
     void deleteAllBeds();
 
     UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input);
+
+    GetBookingHistoryOutput getBookingHistory(GetBookingHistoryInput input);
 }

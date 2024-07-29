@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -35,4 +36,5 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
             """)
     Optional<List<Booking>> findByGuestIdCardNumber(@Param("idCardNumber") String idCardNumber);
 
+    Optional<List<Booking>> findAllByUserId(UUID userId);
 }

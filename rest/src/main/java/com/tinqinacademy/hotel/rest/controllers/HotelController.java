@@ -5,6 +5,8 @@ import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookR
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryInput;
+import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
@@ -131,6 +133,23 @@ public class HotelController {
                 .bookingId(bookingId)
                 .build();
         UpdatePartiallyBookingOutput output = hotelService.updatePartiallyBooking(updatedInput);
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Get booking history",
+            description = "Get booking history")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Booking history retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Error retrieving booking history")})
+    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
+    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
+
+        GetBookingHistoryInput input = GetBookingHistoryInput.builder()
+                .phoneNumber(phoneNumber)
+                .build();
+
+        GetBookingHistoryOutput output = hotelService.getBookingHistory(input);
+
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
