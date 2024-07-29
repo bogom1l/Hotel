@@ -106,9 +106,11 @@ public class SystemServiceImpl implements SystemService {
             for (Booking booking : bookings) {
                 for (Guest guest : booking.getGuests()) {
                     //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
-                    GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
-                    guestOutput.setStartDate(booking.getStartDate());
-                    guestOutput.setEndDate(booking.getEndDate());
+                    GuestOutput guestOutput =
+                            conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
+                                    .startDate(booking.getStartDate())
+                                    .endDate(booking.getEndDate())
+                                    .build();
                     guestMap.putIfAbsent(guest.getId(), guestOutput);
                 }
             }
@@ -147,9 +149,11 @@ public class SystemServiceImpl implements SystemService {
                     for (Booking booking : bookings) {
                         if (!guestMap.containsKey(guest.getId())) {
                             //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
-                            GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
-                            guestOutput.setStartDate(booking.getStartDate());
-                            guestOutput.setEndDate(booking.getEndDate());
+                            GuestOutput guestOutput =
+                                    conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
+                                            .startDate(booking.getStartDate())
+                                            .endDate(booking.getEndDate())
+                                            .build();
                             guestMap.put(guest.getId(), guestOutput);
                         }
                     }
@@ -170,9 +174,11 @@ public class SystemServiceImpl implements SystemService {
                 for (Guest guest : booking.getGuests()) {
                     if (!guestMap.containsKey(guest.getId())) {
                         //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
-                        GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
-                        guestOutput.setStartDate(booking.getStartDate());
-                        guestOutput.setEndDate(booking.getEndDate());
+                        GuestOutput guestOutput =
+                                conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
+                                        .startDate(booking.getStartDate())
+                                        .endDate(booking.getEndDate())
+                                        .build();
                         guestMap.put(guest.getId(), guestOutput);
                     }
                 }
@@ -231,8 +237,8 @@ public class SystemServiceImpl implements SystemService {
 //                .price(input.getPrice())
 //                .build();
 
-        Room room = conversionService.convert(input, Room.class);
-        room.setBeds(List.of(bed));
+        Room room = Objects.requireNonNull(
+                conversionService.convert(input, Room.RoomBuilder.class)).beds(List.of(bed)).build();
 
         bedRepository.save(bed);
         roomRepository.save(room);

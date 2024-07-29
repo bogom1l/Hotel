@@ -9,18 +9,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class CreateRoomInputToRoom implements Converter<CreateRoomInput, Room> {
+public class CreateRoomInputToRoomBuilder implements Converter<CreateRoomInput, Room.RoomBuilder> {
 
     @Override
-    public Room convert(CreateRoomInput source) {
+    public Room.RoomBuilder convert(CreateRoomInput source) {
         log.info("Started Converter - CreateRoomInput to Room");
 
-        Room room = Room.builder()
+        Room.RoomBuilder room = Room.builder()
                 .bathroomType(BathroomType.getByCode(source.getBathroomType()))
                 .floor(source.getFloor())
                 .roomNumber(source.getRoomNumber())
-                .price(source.getPrice())
-                .build();
+                .price(source.getPrice());
 
         log.info("Ended Converter - CreateRoomInput to Room");
         return room;

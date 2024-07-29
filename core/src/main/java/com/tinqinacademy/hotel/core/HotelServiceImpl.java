@@ -99,8 +99,10 @@ public class HotelServiceImpl implements HotelService {
                 .flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate()))
                 .collect(Collectors.toList());
 
-        GetRoomBasicInfoOutput output = conversionService.convert(room, GetRoomBasicInfoOutput.class);
-        output.setDatesOccupied(datesOccupied);
+        GetRoomBasicInfoOutput output =
+                conversionService.convert(room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder.class)
+                        .datesOccupied(datesOccupied)
+                        .build();
 
 //        GetRoomBasicInfoOutput output = GetRoomBasicInfoOutput.builder()
 //                .id(room.getId())

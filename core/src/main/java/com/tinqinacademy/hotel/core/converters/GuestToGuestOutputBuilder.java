@@ -8,20 +8,19 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class GuestToGuestOutput implements Converter<Guest, GuestOutput> {
+public class GuestToGuestOutputBuilder implements Converter<Guest, GuestOutput.GuestOutputBuilder> {
     @Override
-    public GuestOutput convert(Guest source) {
+    public GuestOutput.GuestOutputBuilder convert(Guest source) {
         log.info("Started Converter - Guest to GuestOutput");
 
-        GuestOutput guestOutput = GuestOutput.builder()
+        GuestOutput.GuestOutputBuilder guestOutput = GuestOutput.builder()
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .phoneNo(source.getPhoneNumber())
                 .idCardNo(source.getIdCardNumber())
                 .idCardValidity(source.getIdCardValidity())
                 .idCardIssueAuthority(source.getIdCardIssueAuthority())
-                .idCardIssueDate(source.getIdCardIssueDate())
-                .build();
+                .idCardIssueDate(source.getIdCardIssueDate());
 
         log.info("Ended Converter - Guest to GuestOutput");
         return guestOutput;

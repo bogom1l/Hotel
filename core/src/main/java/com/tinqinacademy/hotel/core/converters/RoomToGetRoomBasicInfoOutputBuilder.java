@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class RoomToGetRoomBasicInfoOutput implements Converter<Room, GetRoomBasicInfoOutput> {
+public class RoomToGetRoomBasicInfoOutputBuilder implements Converter<Room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder> {
     @Override
-    public GetRoomBasicInfoOutput convert(Room source) {
+    public GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder convert(Room source) {
         log.info("Started Converter - Room to GetRoomBasicInfoOutput");
 
-        GetRoomBasicInfoOutput getRoomBasicInfoOutput = GetRoomBasicInfoOutput.builder()
+        GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder getRoomBasicInfoOutput = GetRoomBasicInfoOutput
+                .builder()
                 .id(source.getId())
                 .price(source.getPrice())
                 .floor(source.getFloor())
                 .bedSize(source.getBeds().getFirst().getBedSize())
                 .bathroomType(source.getBathroomType())
-                .roomNumber(source.getRoomNumber())
-                .build();
+                .roomNumber(source.getRoomNumber());
 
         log.info("Ended Converter - Room to GetRoomBasicInfoOutput");
         return getRoomBasicInfoOutput;
