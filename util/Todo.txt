@@ -87,7 +87,7 @@ Todo:
 
 ---------- Monday: (DELETE AFTER COMPLETING) ----------
 
-  ❌ drop all db tables for refresh - because i made guest's idCardNumber unique
+  ✔️ drop all db tables for refresh - because i made guest's idCardNumber unique
 
   ❌ ssh key [home✔️; work❌]
 
