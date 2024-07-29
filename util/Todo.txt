@@ -86,6 +86,4 @@ Todo:
 
 -------------------------------------------------------------------------
 
-- Implement all endpoints (discord image) in the 'comments microservice'
-
-- Implement operation for each endpoint in the controller
+- Implement operation class for each endpoint in the controller
