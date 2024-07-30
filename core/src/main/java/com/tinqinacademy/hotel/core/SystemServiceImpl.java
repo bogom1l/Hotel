@@ -60,17 +60,6 @@ public class SystemServiceImpl implements SystemService {
             Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))
                     .orElseThrow(() -> new HotelException("No room found"));
 
-//            Guest guest = Guest.builder()
-//                    .firstName(guestInput.getFirstName())
-//                    .lastName(guestInput.getLastName())
-//                    .phoneNumber(guestInput.getPhoneNumber())
-//                    .idCardNumber(guestInput.getIdCardNumber())
-//                    .idCardValidity(guestInput.getIdCardValidity())
-//                    .idCardIssueAuthority(guestInput.getIdCardIssueAuthority())
-//                    .idCardIssueDate(guestInput.getIdCardIssueDate())
-//                    .birthdate(guestInput.getBirthdate())
-//                    .build();
-
             Guest guest = conversionService.convert(guestInput, Guest.class);
 
             Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
@@ -105,7 +94,6 @@ public class SystemServiceImpl implements SystemService {
 
             for (Booking booking : bookings) {
                 for (Guest guest : booking.getGuests()) {
-                    //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
                     GuestOutput guestOutput =
                             conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
                                     .startDate(booking.getStartDate())
@@ -141,14 +129,12 @@ public class SystemServiceImpl implements SystemService {
 
                 if (bookings.isEmpty()) {
                     if (!guestMap.containsKey(guest.getId())) {
-                        //GuestOutput guestOutput = convertGuestToGuestOutput(guest, null);
                         GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.class);
                         guestMap.put(guest.getId(), guestOutput);
                     }
                 } else {
                     for (Booking booking : bookings) {
                         if (!guestMap.containsKey(guest.getId())) {
-                            //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
                             GuestOutput guestOutput =
                                     conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
                                             .startDate(booking.getStartDate())
@@ -173,7 +159,6 @@ public class SystemServiceImpl implements SystemService {
             for (Booking booking : bookings) {
                 for (Guest guest : booking.getGuests()) {
                     if (!guestMap.containsKey(guest.getId())) {
-                        //GuestOutput guestOutput = convertGuestToGuestOutput(guest, booking);
                         GuestOutput guestOutput =
                                 conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
                                         .startDate(booking.getStartDate())
@@ -197,21 +182,6 @@ public class SystemServiceImpl implements SystemService {
         return output;
     }
 
-//    private GuestOutput convertGuestToGuestOutput(Guest guest, Booking booking) {
-//        return GuestOutput.builder()
-//                .startDate(booking != null ? booking.getStartDate() : null)
-//                .endDate(booking != null ? booking.getEndDate() : null)
-//                .firstName(guest.getFirstName())
-//                .lastName(guest.getLastName())
-//                .phoneNo(guest.getPhoneNumber())
-//                .idCardNo(guest.getIdCardNumber())
-//                .idCardValidity(guest.getIdCardValidity())
-//                .idCardIssueAuthority(guest.getIdCardIssueAuthority())
-//                .idCardIssueDate(guest.getIdCardIssueDate())
-//                .build();
-//    }
-
-
     // todo: logic: create the bed or find the bed?
     @Override
     public CreateRoomOutput createRoom(CreateRoomInput input) {
@@ -229,23 +199,14 @@ public class SystemServiceImpl implements SystemService {
                 .capacity(BedSize.getByCode(input.getBedSize()).getCapacity())
                 .build();
 
-//        Room room = Room.builder()
-//                .beds(List.of(bed))
-//                .bathroomType(BathroomType.getByCode(input.getBathroomType()))
-//                .floor(input.getFloor())
-//                .roomNumber(input.getRoomNumber())
-//                .price(input.getPrice())
-//                .build();
-
-        Room room = Objects.requireNonNull(
-                conversionService.convert(input, Room.RoomBuilder.class)).beds(List.of(bed)).build();
+        Room room = conversionService
+                .convert(input, Room.RoomBuilder.class)
+                .beds(List.of(bed))
+                .build();
 
         bedRepository.save(bed);
         roomRepository.save(room);
 
-//        CreateRoomOutput output = CreateRoomOutput.builder()
-//                .id(room.getId())
-//                .build();
         CreateRoomOutput output = conversionService.convert(room, CreateRoomOutput.class);
 
         log.info("Ended createRoom with output: {}", output);
@@ -290,9 +251,6 @@ public class SystemServiceImpl implements SystemService {
 
         roomRepository.save(room);
 
-//        UpdateRoomOutput output = UpdateRoomOutput.builder()
-//                .id(room.getId())
-//                .build();
         UpdateRoomOutput output = conversionService.convert(room, UpdateRoomOutput.class);
 
         log.info("Ended updateRoom with output: {}", output);
@@ -340,9 +298,6 @@ public class SystemServiceImpl implements SystemService {
 
         roomRepository.save(room);
 
-//        UpdatePartiallyRoomOutput output = UpdatePartiallyRoomOutput.builder()
-//                .id(room.getId())
-//                .build();
         UpdatePartiallyRoomOutput output = conversionService.convert(room, UpdatePartiallyRoomOutput.class);
 
         log.info("Ended updatePartiallyRoom with output: {}", output);
@@ -382,12 +337,15 @@ public class SystemServiceImpl implements SystemService {
     public GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input) {
         log.info("Started getAllUsers with input: {}", input);
 
-        List<User> users = userRepository.findUsersByPartialName(input.getPartialName())
-                .orElse(Collections.emptyList());
+        List<User> users = userRepository.findUsersByPartialName(input.getPartialName());
+
+        List<UserOutput> usersOutput = users
+                .stream()
+                .map(user -> conversionService.convert(user, UserOutput.class))
+                .toList();
 
         GetAllUsersOutput output = GetAllUsersOutput.builder()
-                .users(users.stream()
-                        .map(user -> conversionService.convert(user, UserOutput.class)).toList())
+                .users(usersOutput)
                 .count(users.size())
                 .build();
 

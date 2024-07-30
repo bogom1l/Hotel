@@ -159,9 +159,9 @@ public class SystemController {
             @ApiResponse(responseCode = "200", description = "Bookings deleted successfully"),
             @ApiResponse(responseCode = "400", description = "Error deleting bookings")})
     @DeleteMapping(RestApiRoutes.DELETE_ALL_BOOKINGS)
-    public ResponseEntity<?> deleteAllBookings() {
+    public ResponseEntity<?> deleteAllBookings(/*todo inputmodel*/) {
         systemService.deleteAllBookings();
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(/*todo outputmodel*/null, HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "Get all users by partial name", description = "Get all users by partial name")
@@ -169,7 +169,7 @@ public class SystemController {
             @ApiResponse(responseCode = "200", description = "Users retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Error retrieving users")})
     @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
-    public ResponseEntity<?> getAllUsersByPartialName(@RequestParam String partialName) {
+    public ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName) {
 
         GetAllUsersInput input = GetAllUsersInput.builder().partialName(partialName).build();
         GetAllUsersOutput output = systemService.getAllUsersByPartialName(input);

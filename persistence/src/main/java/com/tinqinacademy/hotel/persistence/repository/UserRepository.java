@@ -17,12 +17,12 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByPhoneNumber(String phoneNumber);
 
     @Query(value = """
-        SELECT * 
-        FROM users 
-        WHERE LOWER(first_name) LIKE LOWER(CONCAT('%', :partialName, '%')) 
-           OR LOWER(last_name) LIKE LOWER(CONCAT('%', :partialName, '%'))
-        """, nativeQuery = true)
-    Optional<List<User>> findUsersByPartialName(@Param("partialName") String partialName);
+            SELECT * 
+            FROM users 
+            WHERE LOWER(first_name) LIKE LOWER(CONCAT('%', :partialName, '%')) 
+               OR LOWER(last_name) LIKE LOWER(CONCAT('%', :partialName, '%'))
+            """, nativeQuery = true)
+    List<User> findUsersByPartialName(@Param("partialName") String partialName);
 
     // Optional<List<User>> findByFirstNameContainingOrLastNameContaining(String partialName, String partialName1);
 

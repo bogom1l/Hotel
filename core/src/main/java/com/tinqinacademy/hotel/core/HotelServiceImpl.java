@@ -69,24 +69,13 @@ public class HotelServiceImpl implements HotelService {
             throw new HotelException("Start date should be before end date.");
         }
 
-        List<Room> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(input.getStartDate(), input.getEndDate())
-                .orElseThrow(() -> new HotelException("No available rooms found"));
+        List<Room> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(input.getStartDate(), input.getEndDate()).orElseThrow(() -> new HotelException("No available rooms found"));
 
         List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
 
-        List<String> availableRoomIds = new ArrayList<>();
-        for (Room room : availableRoomsBetweenDates) {
-            if (roomsMatchingCriteria.contains(room)) {
-                availableRoomIds.add(room.getId().toString());
-            }
-        }
+        List<String> availableRoomIds = availableRoomsBetweenDates.stream().filter(roomsMatchingCriteria::contains).map(room -> room.getId().toString()).collect(Collectors.toList());
 
-//        CheckAvailableRoomOutput output = CheckAvailableRoomOutput.builder()
-//                .ids(availableRoomIds)
-//                .build();
-
-        CheckAvailableRoomOutput output = conversionService
-                .convert(availableRoomIds, CheckAvailableRoomOutput.class);
+        CheckAvailableRoomOutput output = conversionService.convert(availableRoomIds, CheckAvailableRoomOutput.class);
 
         log.info("Ended checkAvailableRoom with output: {}", output);
         return output;
@@ -101,24 +90,9 @@ public class HotelServiceImpl implements HotelService {
 
         List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());
 
-        List<LocalDate> datesOccupied = bookings.stream()
-                .flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate()))
-                .collect(Collectors.toList());
+        List<LocalDate> datesOccupied = bookings.stream().flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate())).collect(Collectors.toList());
 
-        GetRoomBasicInfoOutput output =
-                conversionService.convert(room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder.class)
-                        .datesOccupied(datesOccupied)
-                        .build();
-
-//        GetRoomBasicInfoOutput output = GetRoomBasicInfoOutput.builder()
-//                .id(room.getId())
-//                .price(room.getPrice())
-//                .floor(room.getFloor())
-//                .bedSize(room.getBeds().stream().findFirst().map(Bed::getBedSize).orElse(null))
-//                .bathroomType(room.getBathroomType())
-//                .datesOccupied(datesOccupied)
-//                .roomNumber(room.getRoomNumber())
-//                .build();
+        GetRoomBasicInfoOutput output = conversionService.convert(room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder.class).datesOccupied(datesOccupied).build();
 
         log.info("Ended getRoomBasicInfo with output: {}", output);
         return output;
@@ -136,18 +110,9 @@ public class HotelServiceImpl implements HotelService {
         }
 
         // todo: logic: find user or create user?
-        User user = userRepository
-                .findByPhoneNumberAndFirstNameAndLastName(input.getPhoneNumber(), input.getFirstName(), input.getLastName())
-                .orElseThrow(() -> new HotelException("No user found with first name: " +
-                        input.getFirstName() + ", last name: " + input.getLastName() + ", phone number: " + input.getPhoneNumber()));
+        User user = userRepository.findByPhoneNumberAndFirstNameAndLastName(input.getPhoneNumber(), input.getFirstName(), input.getLastName()).orElseThrow(() -> new HotelException(String.format("No user found with first name: %s, last name: %s, phone number: %s", input.getFirstName(), input.getLastName(), input.getPhoneNumber())));
 
-        Booking booking = Booking.builder()
-                .room(room)
-                .user(user)
-                .startDate(input.getStartDate())
-                .endDate(input.getEndDate())
-                .totalPrice(room.getPrice())
-                .guests(Set.of()) // Empty set, later will have endpoint for adding guests for certain booking
+        Booking booking = Booking.builder().room(room).user(user).startDate(input.getStartDate()).endDate(input.getEndDate()).totalPrice(room.getPrice()).guests(Set.of()) // Empty set, later will have endpoint for adding guests for certain booking
                 .build();
 
         bookingRepository.save(booking);
@@ -162,12 +127,12 @@ public class HotelServiceImpl implements HotelService {
         log.info("Started unbookRoom with input: {}", input);
 
         UUID bookingId = UUID.fromString(input.getBookingId());
-        Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new HotelException("Booking not found"));
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new HotelException("Booking not found"));
 
         bookingRepository.delete(booking);
 
         UnbookRoomOutput output = UnbookRoomOutput.builder().build();
+
         log.info("Ended unbookRoom with output: {}", output);
         return output;
     }
@@ -194,8 +159,7 @@ public class HotelServiceImpl implements HotelService {
     public UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input) {
         log.info("Started updatePartiallyBooking with input: {}", input);
 
-        Booking booking = bookingRepository.findById(UUID.fromString(input.getBookingId()))
-                .orElseThrow(() -> new HotelException("Booking not found"));
+        Booking booking = bookingRepository.findById(UUID.fromString(input.getBookingId())).orElseThrow(() -> new HotelException("Booking not found"));
 
         if (input.getStartDate() != null) {
             booking.setStartDate(LocalDate.parse(input.getStartDate()));
@@ -221,17 +185,6 @@ public class HotelServiceImpl implements HotelService {
 
             for (UpdatePartiallyGuestInput guest : input.getGuests()) { // add each of the filled guests
 
-//                Guest currentGuest = Guest.builder()
-//                        .firstName(guest.getFirstName())
-//                        .lastName(guest.getLastName())
-//                        .phoneNumber(guest.getPhoneNumber())
-//                        .idCardNumber(guest.getIdCardNumber())
-//                        .idCardValidity(guest.getIdCardValidity())
-//                        .idCardIssueDate(guest.getIdCardIssueDate())
-//                        .idCardIssueAuthority(guest.getIdCardIssueAuthority())
-//                        .birthdate(guest.getBirthdate())
-//                        .build();
-
                 Guest newGuest = conversionService.convert(guest, Guest.class);
 
                 guestRepository.save(newGuest);
@@ -242,11 +195,7 @@ public class HotelServiceImpl implements HotelService {
 
         bookingRepository.save(booking);
 
-//        UpdatePartiallyBookingOutput output = UpdatePartiallyBookingOutput.builder()
-//                .id(booking.getId())
-//                .build();
-        UpdatePartiallyBookingOutput output = conversionService
-                .convert(booking, UpdatePartiallyBookingOutput.class);
+        UpdatePartiallyBookingOutput output = conversionService.convert(booking, UpdatePartiallyBookingOutput.class);
 
         log.info("Ended updatePartiallyBooking with output: {}", output);
         return output;
@@ -256,16 +205,18 @@ public class HotelServiceImpl implements HotelService {
     public GetBookingHistoryOutput getBookingHistory(GetBookingHistoryInput input) {
         log.info("Started getBookingHistory with input: {}", input);
 
-        User user = userRepository.findByPhoneNumber(input.getPhoneNumber())
-                .orElseThrow(() -> new HotelException("No user found with phone number: " + input.getPhoneNumber()));
+        User user = userRepository.findByPhoneNumber(input.getPhoneNumber()).orElseThrow(() -> new HotelException("No user found with phone number: " + input.getPhoneNumber()));
 
-        List<Booking> bookings = bookingRepository.findAllByUserId(user.getId())
-                .orElseThrow(() -> new HotelException("No bookings found for user with phone number: " + input.getPhoneNumber()));
+        List<Booking> bookings = bookingRepository.findAllByUserId(user.getId()).orElseThrow(() -> new HotelException("No bookings found for user with phone number: " + input.getPhoneNumber()));
 
-        GetBookingHistoryOutput output = GetBookingHistoryOutput.builder()
-                .bookings(bookings.stream()
-                        .map(booking -> conversionService.convert(booking, GetBookingHistoryBookingOutput.class))
-                        .toList())
+        List<GetBookingHistoryBookingOutput> bookingsOutput = bookings
+                .stream()
+                .map(booking -> conversionService.convert(booking, GetBookingHistoryBookingOutput.class))
+                .toList();
+
+        GetBookingHistoryOutput output = GetBookingHistoryOutput
+                .builder()
+                .bookings(bookingsOutput)
                 .build();
 
         log.info("Ended getBookingHistory with output: {}", output);
