@@ -48,49 +48,6 @@ public class ErrorHandler {
                 .build();
     }
 
-    public ErrorsWrapper handleErrors_v2(Throwable throwable) {
-        List<Error> errors = new ArrayList<>();
-        HttpStatus status;
 
-        switch (throwable) {
-            case MethodArgumentNotValidException methodArgumentNotValidException -> {
-                methodArgumentNotValidException.getBindingResult().getFieldErrors()
-                        .forEach(error -> errors.add(Error
-                                .builder()
-                                .field(error.getField())
-                                .message(error.getDefaultMessage())
-                                .build()));
-                status = HttpStatus.BAD_REQUEST;
-            }
-            case RoomNotAvailableException roomNotAvailableException -> {
-                errors.add(Error.builder().message(throwable.getMessage()).build());
-                status = HttpStatus.CONFLICT;
-            }
-            case HotelException hotelException -> {
-                errors.add(Error.builder().message(throwable.getMessage()).build());
-                status = HttpStatus.NOT_FOUND;
-            }
-            case null, default -> {
-                errors.add(Error.builder().message(throwable.getMessage()).build());
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-        }
-
-        return ErrorsWrapper.builder()
-                .errors(errors)
-                .errorCode(status)
-                .build();
-    }
 
 }
-
-/*
-Case($(instanceOf(MethodArgumentNotValidException.class)), ex -> {
-                    ((MethodArgumentNotValidException) ex).getBindingResult().getFieldErrors()
-                            .forEach(error -> errors.add(Error.builder()
-                                    .field(error.getField())
-                                    .message(error.getDefaultMessage())
-                                    .build()));
-                    return HttpStatus.BAD_REQUEST;
-                }),
- */

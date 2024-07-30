@@ -1,9 +1,8 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
-import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOperation;
-import com.tinqinacademy.hotel.core.services.contracts.HotelService;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
@@ -15,6 +14,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
+import com.tinqinacademy.hotel.core.services.contracts.HotelService;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,7 +22,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.vavr.control.Either;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -91,15 +90,15 @@ public class HotelController {
                                       @RequestBody @Valid BookRoomInput input) {
         BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
-//        //BookRoomOutput output = hotelService.bookRoom(updatedInput);
-//        BookRoomOutput output = bookRoom.process(updatedInput).get();
-//
-//        return new ResponseEntity<>(output, HttpStatus.CREATED);
-        Either<ErrorsWrapper, BookRoomOutput> result = bookRoom.process(updatedInput);
-        if (result.isRight()) {
-            return ResponseEntity.ok(result.get());
+        Either<ErrorsWrapper, BookRoomOutput> output = bookRoom.process(updatedInput);
+
+        if (output.isRight()) {
+            BookRoomOutput bookRoomOutput = output.get();
+            return new ResponseEntity<>(bookRoomOutput, HttpStatus.OK);
         } else {
-            return ResponseEntity.status(result.getLeft().getErrorCode()).body(result.getLeft());
+            ErrorsWrapper errorsWrapper = output.getLeft();
+            HttpStatus status = errorsWrapper.getErrorCode();
+            return new ResponseEntity<>(errorsWrapper, status);
         }
     }
 

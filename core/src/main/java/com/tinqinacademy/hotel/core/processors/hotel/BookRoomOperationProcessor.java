@@ -54,7 +54,6 @@ public class BookRoomOperationProcessor implements BookRoomOperation {
                 })
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
-
     }
 
     private Booking buildBooking(BookRoomInput input, Room room, User user) {
