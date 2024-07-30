@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
     // TODO: handle all other different exceptions
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException ex) {
-        ErrorsWrapper errors = errorService.handleErrors(ex);
+    public ResponseEntity<?> handleMethodNotValidException(MethodArgumentNotValidException ex) {
+        ErrorsWrapper errors = errorService.handleMethodNotValidException(ex);
 
         return new ResponseEntity<>(errors.getErrors(), errors.getErrorCode());
     }

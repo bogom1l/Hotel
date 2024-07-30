@@ -15,6 +15,39 @@ import static io.vavr.Predicates.instanceOf;
 @Component
 public class ErrorHandler {
 
+    public ErrorsWrapper handleErrors(Throwable throwable) {
+        List<Error> errors = new ArrayList<>();
+
+        HttpStatus status = Match(throwable).of(
+                Case($(instanceOf(MethodArgumentNotValidException.class)), ex -> {
+                    ex.getBindingResult().getFieldErrors()
+                            .forEach(error ->
+                                    errors.add(Error.builder()
+                                            .field(error.getField())
+                                            .message(error.getDefaultMessage())
+                                            .build()));
+                    return HttpStatus.BAD_REQUEST;
+                }),
+                Case($(instanceOf(RoomNotAvailableException.class)), ex -> {
+                    errors.add(Error.builder().message(ex.getMessage()).build());
+                    return HttpStatus.CONFLICT;
+                }),
+                Case($(instanceOf(HotelException.class)), ex -> {
+                    errors.add(Error.builder().message(ex.getMessage()).build());
+                    return HttpStatus.NOT_FOUND;
+                }),
+                Case($(), ex -> {
+                    errors.add(Error.builder().message(ex.getMessage()).build());
+                    return HttpStatus.INTERNAL_SERVER_ERROR;
+                })
+        );
+
+        return ErrorsWrapper.builder()
+                .errors(errors)
+                .errorCode(status)
+                .build();
+    }
+
     public ErrorsWrapper handleErrors_v2(Throwable throwable) {
         List<Error> errors = new ArrayList<>();
         HttpStatus status;
@@ -49,29 +82,6 @@ public class ErrorHandler {
                 .build();
     }
 
-    public ErrorsWrapper handleErrors(Throwable throwable) {
-        List<Error> errors = new ArrayList<>();
-        HttpStatus status = Match(throwable).of(
-
-                Case($(instanceOf(RoomNotAvailableException.class)), ex -> {
-                    errors.add(Error.builder().message(ex.getMessage()).build());
-                    return HttpStatus.CONFLICT;
-                }),
-                Case($(instanceOf(HotelException.class)), ex -> {
-                    errors.add(Error.builder().message(ex.getMessage()).build());
-                    return HttpStatus.NOT_FOUND;
-                }),
-                Case($(), ex -> {
-                    errors.add(Error.builder().message(ex.getMessage()).build());
-                    return HttpStatus.INTERNAL_SERVER_ERROR;
-                })
-        );
-
-        return ErrorsWrapper.builder()
-                .errors(errors)
-                .errorCode(status)
-                .build();
-    }
 }
 
 /*
