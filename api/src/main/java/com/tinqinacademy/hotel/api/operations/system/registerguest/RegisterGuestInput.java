@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.system.registerguest;
 
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class RegisterGuestInput {
+public class RegisterGuestInput implements OperationInput {
     @Valid
     @NotEmpty(message = "Guests list should not be empty")
     private List<GuestInput> guests;

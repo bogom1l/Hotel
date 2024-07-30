@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.hotel.bookroom;
 
+import com.tinqinacademy.hotel.api.base.OperationOutput;
 import lombok.*;
 
 @Getter
@@ -7,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class BookRoomOutput {
+public class BookRoomOutput implements OperationOutput {
 }

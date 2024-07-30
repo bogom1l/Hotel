@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.hotel.unbookroom;
 
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class UnbookRoomInput {
+public class UnbookRoomInput implements OperationInput {
     private String bookingId;
 }

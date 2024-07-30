@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom;
 
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @ToString
-public class CheckAvailableRoomInput {
+public class CheckAvailableRoomInput implements OperationInput {
     private LocalDate startDate;
     private LocalDate endDate;
     private String bedSize;

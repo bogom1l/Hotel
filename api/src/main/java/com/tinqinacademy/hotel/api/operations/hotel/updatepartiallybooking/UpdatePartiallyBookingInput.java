@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @ToString
-public class UpdatePartiallyBookingInput {
+public class UpdatePartiallyBookingInput implements OperationInput {
     @JsonIgnore
     private String bookingId;
 

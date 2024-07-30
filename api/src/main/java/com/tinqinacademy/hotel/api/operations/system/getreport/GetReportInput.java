@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.system.getreport;
 
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import lombok.*;
 
 @Getter
@@ -8,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class GetReportInput {
+public class GetReportInput implements OperationInput {
     //booking?
     private String startDate;
     private String endDate;

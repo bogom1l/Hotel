@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory;
 
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import lombok.*;
 
 @Getter
@@ -7,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GetBookingHistoryInput {
+public class GetBookingHistoryInput implements OperationInput {
     private String phoneNumber;
 }

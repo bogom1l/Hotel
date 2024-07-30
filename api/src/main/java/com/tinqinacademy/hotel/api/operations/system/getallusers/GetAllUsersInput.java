@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.system.getallusers;
 
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class GetAllUsersInput {
+public class GetAllUsersInput implements OperationInput {
     private String partialName;
 }

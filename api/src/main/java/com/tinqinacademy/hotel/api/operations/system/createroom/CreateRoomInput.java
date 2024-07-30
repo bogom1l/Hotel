@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.system.createroom;
 
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 @ToString
-public class CreateRoomInput {
+public class CreateRoomInput implements OperationInput {
 
     @NotBlank(message = "Bed size is mandatory")
     private String bedSize;

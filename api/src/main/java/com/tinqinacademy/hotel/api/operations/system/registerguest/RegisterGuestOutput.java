@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.system.registerguest;
 
+import com.tinqinacademy.hotel.api.base.OperationOutput;
 import lombok.*;
 
 @Getter
@@ -7,5 +8,5 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @ToString
-public class RegisterGuestOutput {
+public class RegisterGuestOutput implements OperationOutput {
 }

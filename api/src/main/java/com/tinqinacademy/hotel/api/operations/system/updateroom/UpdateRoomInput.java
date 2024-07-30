@@ -2,6 +2,7 @@ package com.tinqinacademy.hotel.api.operations.system.updateroom;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tinqinacademy.hotel.api.base.OperationInput;
 import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @ToString
-public class UpdateRoomInput {
+public class UpdateRoomInput implements OperationInput {
 
     @JsonIgnore
     private String roomId;

@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo;
 
+import com.tinqinacademy.hotel.api.base.OperationOutput;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import lombok.*;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class GetRoomBasicInfoOutput {
+public class GetRoomBasicInfoOutput implements OperationOutput {
     private UUID id;
     private BigDecimal price;
     private Integer floor;
