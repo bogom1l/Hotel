@@ -1,19 +1,19 @@
 package com.tinqinacademy.hotel.core.contracts;
 
-import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.createroom.CreateRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.deleteroom.DeleteRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getallusers.GetAllUsersOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.getreport.GetReportOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.registerguest.RegisterGuestOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomInput;
-import com.tinqinacademy.hotel.persistence.model.operations.system.updateroom.UpdateRoomOutput;
+import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
+import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersInput;
+import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;
+import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
+import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
+import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
+import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
+import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
 
 public interface SystemService {
 

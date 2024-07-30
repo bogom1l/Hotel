@@ -8,20 +8,20 @@ import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookRoomInput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.bookroom.BookRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryBookingOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryInput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomInput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.unbookroom.UnbookRoomOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
+import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryBookingOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
+import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
 import com.tinqinacademy.hotel.persistence.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -73,7 +72,7 @@ public class HotelServiceImpl implements HotelService {
 
         List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
 
-        List<String> availableRoomIds = availableRoomsBetweenDates.stream().filter(roomsMatchingCriteria::contains).map(room -> room.getId().toString()).collect(Collectors.toList());
+        List<String> availableRoomIds = availableRoomsBetweenDates.stream().filter(roomsMatchingCriteria::contains).map(room -> room.getId().toString()).toList();
 
         CheckAvailableRoomOutput output = conversionService.convert(availableRoomIds, CheckAvailableRoomOutput.class);
 
@@ -90,7 +89,7 @@ public class HotelServiceImpl implements HotelService {
 
         List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());
 
-        List<LocalDate> datesOccupied = bookings.stream().flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate())).collect(Collectors.toList());
+        List<LocalDate> datesOccupied = bookings.stream().flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate())).toList();
 
         GetRoomBasicInfoOutput output = conversionService.convert(room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder.class).datesOccupied(datesOccupied).build();
 
@@ -209,15 +208,9 @@ public class HotelServiceImpl implements HotelService {
 
         List<Booking> bookings = bookingRepository.findAllByUserId(user.getId()).orElseThrow(() -> new HotelException("No bookings found for user with phone number: " + input.getPhoneNumber()));
 
-        List<GetBookingHistoryBookingOutput> bookingsOutput = bookings
-                .stream()
-                .map(booking -> conversionService.convert(booking, GetBookingHistoryBookingOutput.class))
-                .toList();
+        List<GetBookingHistoryBookingOutput> bookingsOutput = bookings.stream().map(booking -> conversionService.convert(booking, GetBookingHistoryBookingOutput.class)).toList();
 
-        GetBookingHistoryOutput output = GetBookingHistoryOutput
-                .builder()
-                .bookings(bookingsOutput)
-                .build();
+        GetBookingHistoryOutput output = GetBookingHistoryOutput.builder().bookings(bookingsOutput).build();
 
         log.info("Ended getBookingHistory with output: {}", output);
         return output;

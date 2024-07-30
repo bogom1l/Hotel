@@ -86,6 +86,8 @@ Todo:
 
 -------------------------------------------------------------------------
 
-- Implement operation class for each endpoint in the controller
+- add vavr dependency
+
+- Implement operation processors class for each endpoint in the controller
 
 - ?Refactor GetReport criteria logic

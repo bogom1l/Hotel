@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.converters.booking;
 
 import com.tinqinacademy.hotel.persistence.model.Booking;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

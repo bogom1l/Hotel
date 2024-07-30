@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.converters.guest;
 
 import com.tinqinacademy.hotel.persistence.model.Guest;
-import com.tinqinacademy.hotel.persistence.model.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
