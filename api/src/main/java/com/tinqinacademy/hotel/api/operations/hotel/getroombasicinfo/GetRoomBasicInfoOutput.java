@@ -3,6 +3,8 @@ package com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo;
 import com.tinqinacademy.hotel.api.base.OperationOutput;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
+//import com.tinqinacademy.hotel.api.enums.BathroomType;
+//import com.tinqinacademy.hotel.api.enums.BedSize;
 import lombok.*;
 
 import java.math.BigDecimal;

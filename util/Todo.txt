@@ -1,4 +1,4 @@
-Todo:
+Todo: ✔️ ❌ ❓
 
 ✔️ reorder packages
 ✔️ logging in services(log.info)
@@ -98,6 +98,10 @@ Todo:
       -> dont throw exceptions, return ErrorsWrapper
       -> use Try.of()
 
+
+
+❓ enumite ot persitence, trqbva da gi polzvame samo za Entity-tata v persistence,
+    a za input/output modelite v api da polzvame enumite ot api
 
 
 

@@ -2,21 +2,24 @@ package com.tinqinacademy.hotel.api.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
-// TODO: rename to Bed , add a field 'capacity'
-
+@Getter
 public enum BedSize {
-    SINGLE("single"),
-    SMALL_DOUBLE("smallDouble"),
-    DOUBLE("double"),
-    KING_SIZE("kingSize"),
-    QUEEN_SIZE("queensSize"),
-    UNKNOWN("");
+    SINGLE("single", 1),
+    SMALL_DOUBLE("smallDouble", 2),
+    DOUBLE("double", 2),
+    KING_SIZE("kingSize", 3),
+    QUEEN_SIZE("queenSize", 3),
+    UNKNOWN("", 0);
 
     private final String code;
 
-    BedSize(String code) {
+    private final Integer capacity;
+
+    BedSize(String code, Integer capacity) {
         this.code = code;
+        this.capacity = capacity;
     }
 
     @JsonCreator
