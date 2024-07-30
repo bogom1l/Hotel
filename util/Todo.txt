@@ -84,19 +84,20 @@ Todo:
 
   ✔️ review all code logic and add todos for future refactoring/implementing
 
+❌ ?Refactor GetReport criteria logic
+
 -------------------------------------------------------------------------
 
 ✔️ Add vavr dependency
 
-❌ Implement operation processors class for each endpoint in the controller
-    AddRoomInput, AddRoomOutput
-    interface: AddRoomOperation
-    impl: AddRoomOperationProcessor
+❌ Implement operation processors class for each endpoint in the controllers
+    * Try.of() block -> .toEither.mapLeft(errors)
+    //na baza exceptionite, da vurna ErrorsWrapper
 
-    ErrorsWrapper - handle and return them
-    -> dont throw exceptions, return ErrorsWrapper
-    -> use Try.of()
-
+    * ErrorsWrapper - handle and return them
+      -> dont throw exceptions, return ErrorsWrapper
+      -> use Try.of()
 
 
-❌ ?Refactor GetReport criteria logic
+
+

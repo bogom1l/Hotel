@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.exceptionhandler;
 
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
-import com.tinqinacademy.hotel.api.error.HotelException;
+import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.core.services.contracts.ErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
