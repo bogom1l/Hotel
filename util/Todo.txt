@@ -86,11 +86,19 @@ Todo:
 
 -------------------------------------------------------------------------
 
-- add vavr dependency
+✔️ Add vavr dependency
 
 - Implement operation processors class for each endpoint in the controller
     AddRoomInput, AddRoomOutput
     interface: AddRoomOperation
     impl: AddRoomOperationProcessor
+
+    ErrorsWrapper - handle and return them
+    -> dont throw exceptions, return ErrorsWrapper
+    -> use Try.of()
+
+    discord images
+
+
 
 - ?Refactor GetReport criteria logic

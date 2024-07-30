@@ -1,7 +1,6 @@
 package com.tinqinacademy.hotel.core.services;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
-import com.tinqinacademy.hotel.core.services.SystemService;
 import com.tinqinacademy.hotel.core.services.contracts.SystemService;
 import com.tinqinacademy.hotel.persistence.model.*;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;

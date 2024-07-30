@@ -1,7 +1,6 @@
 package com.tinqinacademy.hotel.core.services;
 
 import com.tinqinacademy.hotel.api.error.HotelException;
-import com.tinqinacademy.hotel.core.services.HotelService;
 import com.tinqinacademy.hotel.core.services.contracts.HotelService;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;

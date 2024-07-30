@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
-public class ErrorWrapper {
+public class ErrorsWrapper {
     private List<Error> errors;
     private HttpStatus errorCode;
 }

@@ -14,8 +14,9 @@ public class RoomNumberValidator implements ConstraintValidator<RoomNumberValida
 
     static {
         for (int i = 100; i <= 999; i++) {
+            RESERVED_ROOM_NUMBERS.add(String.format("X%d", i));
+            RESERVED_ROOM_NUMBERS.add(String.format("Y%d", i));
             RESERVED_ROOM_NUMBERS.add(String.format("Z%d", i));
-            RESERVED_ROOM_NUMBERS.add(String.format("VIP%d", i));
         }
     }
 

@@ -1,8 +1,7 @@
 package com.tinqinacademy.hotel.core.exceptionhandler;
 
-import com.tinqinacademy.hotel.api.error.ErrorWrapper;
+import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.error.HotelException;
-import com.tinqinacademy.hotel.core.services.ErrorService;
 import com.tinqinacademy.hotel.core.services.contracts.ErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException ex) {
-        ErrorWrapper errors = errorService.handleErrors(ex);
+        ErrorsWrapper errors = errorService.handleErrors(ex);
 
         return new ResponseEntity<>(errors.getErrors(), errors.getErrorCode());
     }
