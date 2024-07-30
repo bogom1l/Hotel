@@ -1,6 +1,6 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
-import com.tinqinacademy.hotel.core.contracts.HotelService;
+import com.tinqinacademy.hotel.core.services.contracts.HotelService;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomInput;

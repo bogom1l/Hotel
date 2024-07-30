@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 
-import com.tinqinacademy.hotel.core.contracts.SystemService;
+import com.tinqinacademy.hotel.core.services.contracts.SystemService;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;

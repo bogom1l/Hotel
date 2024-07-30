@@ -89,5 +89,8 @@ Todo:
 - add vavr dependency
 
 - Implement operation processors class for each endpoint in the controller
+    AddRoomInput, AddRoomOutput
+    interface: AddRoomOperation
+    impl: AddRoomOperationProcessor
 
 - ?Refactor GetReport criteria logic

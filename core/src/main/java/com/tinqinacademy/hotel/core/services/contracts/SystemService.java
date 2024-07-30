@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.contracts;
+package com.tinqinacademy.hotel.core.services.contracts;
 
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
