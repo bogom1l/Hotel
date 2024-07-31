@@ -1,13 +1,15 @@
 package com.tinqinacademy.hotel.core.processors.base;
 
-import jakarta.validation.*;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import org.springframework.core.convert.ConversionService;
 
 import java.util.Set;
 
 public abstract class BaseOperationProcessor<OperationInput> {
 
-    private final ConversionService conversionService;
+    protected final ConversionService conversionService;
     private final Validator validator;
 
     protected BaseOperationProcessor(ConversionService conversionService, Validator validator) {
@@ -16,11 +18,6 @@ public abstract class BaseOperationProcessor<OperationInput> {
     }
 
     protected void validateInput(OperationInput input) {
-        //ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-       // Validator validator = validatorFactory.getValidator();
-
-        //Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
         Set<ConstraintViolation<OperationInput>> violations = validator.validate(input);
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(violations);

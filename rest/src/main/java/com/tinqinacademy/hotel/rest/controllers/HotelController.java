@@ -30,7 +30,7 @@ import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
-public class HotelController extends BaseController{
+public class HotelController extends BaseController {
 
     private final HotelService hotelService;
 
@@ -87,7 +87,8 @@ public class HotelController extends BaseController{
 
         Either<ErrorsWrapper, BookRoomOutput> output = bookRoom.process(updatedInput);
 
-        return handleResult(output);
+        // return handle(output);
+        return handleWithStatus(output, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Unbook a room", description = "Unbook a room")
