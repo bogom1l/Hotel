@@ -53,22 +53,6 @@ public class HotelServiceImpl implements HotelService {
         this.conversionService = conversionService;
     }
 
-    @Override
-    public GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input) {
-        log.info("Started getRoomBasicInfo with input: {}", input);
-
-        UUID roomId = UUID.fromString(input.getRoomId());
-        Room room = roomRepository.findByIdWithBeds(roomId).orElseThrow(() -> new HotelException("Room not found"));
-
-        List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());
-
-        List<LocalDate> datesOccupied = bookings.stream().flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate())).toList();
-
-        GetRoomBasicInfoOutput output = conversionService.convert(room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder.class).datesOccupied(datesOccupied).build();
-
-        log.info("Ended getRoomBasicInfo with output: {}", output);
-        return output;
-    }
 
     @Override
     public UnbookRoomOutput unbookRoom(UnbookRoomInput input) {

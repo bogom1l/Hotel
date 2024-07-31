@@ -11,6 +11,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBooking
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
+import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
@@ -39,6 +40,7 @@ public class HotelController extends BaseController {
     private final BookRoomOperation bookRoom;
     private final CheckAvailableRoomOperation checkAvailableRoom;
     private final GetBookingHistoryOperation getBookingHistory;
+    private final GetRoomBasicInfoOperation getRoomBasicInfo;
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -72,9 +74,8 @@ public class HotelController extends BaseController {
                 .roomId(roomId)
                 .build();
 
-        GetRoomBasicInfoOutput output = hotelService.getRoomBasicInfo(input);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, GetRoomBasicInfoOutput> output = getRoomBasicInfo.process(input);
+        return handle(output);
     }
 
     @Operation(summary = "Book a room", description = "Book a room")

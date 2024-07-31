@@ -114,4 +114,4 @@ Todo: ✔️ ❌ ❓
 
 ???place ErrorHandler in the BaseOperationProcessor?
 
-clean up and reformat all classes because ctrl+alt+shift+L made the code ugly
+clean up and reformat all classes because ctrl+alt+shift+L made the code ugly ; and rename all bad variable names :D

@@ -17,7 +17,7 @@ public interface HotelService {
 
     //CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input);
 
-    GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
+    //GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
 
     //BookRoomOutput bookRoom(BookRoomInput input);
 
