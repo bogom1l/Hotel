@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.converters.room;
 
-import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.persistence.model.Room;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,6 @@ import java.util.List;
 @Component
 @Slf4j
 public class RoomsToCheckAvailableRoomOutput implements Converter<List<Room>, CheckAvailableRoomOutput> {
-
     @Override
     public CheckAvailableRoomOutput convert(List<Room> source) {
         log.info("Started Converter - Room to CheckAvailableRoomOutput");

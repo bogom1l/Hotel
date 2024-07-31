@@ -22,7 +22,6 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class DeleteRoomOperationProcessor extends BaseOperationProcessor<DeleteRoomInput> implements DeleteRoomOperation {
-
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
 

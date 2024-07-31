@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.converters.room;
 
-import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.persistence.model.Room;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

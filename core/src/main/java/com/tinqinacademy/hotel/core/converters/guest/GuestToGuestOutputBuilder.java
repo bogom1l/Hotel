@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.converters.guest;
 
-import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GuestOutput;
+import com.tinqinacademy.hotel.persistence.model.Guest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

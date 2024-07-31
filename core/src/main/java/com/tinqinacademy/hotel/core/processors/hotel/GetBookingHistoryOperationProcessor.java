@@ -15,7 +15,6 @@ import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.validation.Validator;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -25,11 +24,10 @@ import java.util.List;
 @Service
 @Slf4j
 public class GetBookingHistoryOperationProcessor extends BaseOperationProcessor<GetBookingHistoryInput> implements GetBookingHistoryOperation {
-
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
 
-    protected GetBookingHistoryOperationProcessor(ConversionService conversionService,  ErrorHandler errorHandler,Validator validator, UserRepository userRepository, BookingRepository bookingRepository) {
+    protected GetBookingHistoryOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, UserRepository userRepository, BookingRepository bookingRepository) {
         super(conversionService, errorHandler, validator);
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
@@ -37,8 +35,7 @@ public class GetBookingHistoryOperationProcessor extends BaseOperationProcessor<
 
     @Override
     public Either<ErrorsWrapper, GetBookingHistoryOutput> process(GetBookingHistoryInput input) {
-        return Try.of(() ->
-                        getBookingHistoryOutput(input))
+        return Try.of(() -> getBookingHistoryOutput(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }

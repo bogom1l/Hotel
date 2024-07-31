@@ -1,16 +1,19 @@
 package com.tinqinacademy.hotel.core.converters.guest;
 
-import com.tinqinacademy.hotel.persistence.model.Guest;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
+import com.tinqinacademy.hotel.persistence.model.Guest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class UpdatePartiallyGuestInputToGuest implements Converter<UpdatePartiallyGuestInput, Guest> {
-
     @Override
     public Guest convert(UpdatePartiallyGuestInput source) {
-        return Guest.builder()
+        log.info("Started Converter - UpdatePartiallyGuestInput to Guest");
+
+        Guest guest = Guest.builder()
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .phoneNumber(source.getPhoneNumber())
@@ -20,5 +23,8 @@ public class UpdatePartiallyGuestInputToGuest implements Converter<UpdatePartial
                 .idCardIssueDate(source.getIdCardIssueDate())
                 .idCardValidity(source.getIdCardValidity())
                 .build();
+
+        log.info("Ended Converter - UpdatePartiallyGuestInput to Guest");
+        return guest;
     }
 }

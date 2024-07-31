@@ -27,25 +27,20 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomInput> implements BookRoomOperation {
-
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
-//    private final ErrorHandler errorHandler;
 
     protected BookRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository) {
         super(conversionService, errorHandler, validator); //
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
-//        this.errorHandler = errorHandler;
     }
 
     @Override
     public Either<ErrorsWrapper, BookRoomOutput> process(BookRoomInput input) {
-        return Try.of(() ->
-                        bookRoom(input)
-                )
+        return Try.of(() -> bookRoom(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }

@@ -23,7 +23,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor<CheckAvailableRoomInput> implements CheckAvailableRoomOperation {
-
     private final RoomRepository roomRepository;
 
     protected CheckAvailableRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository) {
@@ -33,9 +32,7 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
 
     @Override
     public Either<ErrorsWrapper, CheckAvailableRoomOutput> process(CheckAvailableRoomInput input) {
-        return Try.of(() ->
-                        checkAvailableRooms(input)
-                )
+        return Try.of(() -> checkAvailableRooms(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
@@ -51,11 +48,11 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
         if (input.getStartDate().isAfter(input.getEndDate())) {
             throw new HotelException("Start date should be before end date.");
         }
-        if (bedSize == BedSize.UNKNOWN ) {
+        if (bedSize == BedSize.UNKNOWN) {
             throw new HotelException("Invalid bed size.");
         }
 
-        if(bathroomType == BathroomType.UNKNOWN){
+        if (bathroomType == BathroomType.UNKNOWN) {
             throw new HotelException("Invalid bathroom type.");
         }
 

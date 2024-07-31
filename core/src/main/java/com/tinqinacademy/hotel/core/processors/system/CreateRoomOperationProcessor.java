@@ -25,7 +25,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateRoomInput> implements CreateRoomOperation {
-
     private final BedRepository bedRepository;
     private final RoomRepository roomRepository;
 
@@ -44,7 +43,7 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
 
     private CreateRoomOutput createRoom(CreateRoomInput input) {
         log.info("Started createRoom with input: {}", input);
-        // todo: logic: create the bed or find the bed?
+        // todo: logic: ? create the bed or find the bed
 
         validateInput(input);
 
@@ -68,7 +67,7 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
             throw new HotelException("Invalid bed size.");
         }
 
-        if(bathroomType == BathroomType.UNKNOWN){
+        if (bathroomType == BathroomType.UNKNOWN) {
             throw new HotelException("Invalid bathroom type.");
         }
 

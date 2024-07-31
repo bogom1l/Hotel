@@ -10,7 +10,9 @@ import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.Updat
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
-import com.tinqinacademy.hotel.persistence.repository.*;
+import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
+import com.tinqinacademy.hotel.persistence.repository.GuestRepository;
+import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.validation.Validator;
@@ -24,7 +26,6 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class UpdatePartiallyBookingOperationProcessor extends BaseOperationProcessor<UpdatePartiallyBookingInput> implements UpdatePartiallyBookingOperation {
-
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
     private final GuestRepository guestRepository;
@@ -38,8 +39,7 @@ public class UpdatePartiallyBookingOperationProcessor extends BaseOperationProce
 
     @Override
     public Either<ErrorsWrapper, UpdatePartiallyBookingOutput> process(UpdatePartiallyBookingInput input) {
-        return Try.of(() ->
-                        updatePartiallyBooking(input))
+        return Try.of(() -> updatePartiallyBooking(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
@@ -84,9 +84,7 @@ public class UpdatePartiallyBookingOperationProcessor extends BaseOperationProce
         }
 
         if (input.getGuests() != null && !input.getGuests().isEmpty()) { // if guests field is not left empty
-
             for (UpdatePartiallyGuestInput guest : input.getGuests()) { // add each of the filled guests
-
                 Guest newGuest = conversionService.convert(guest, Guest.class);
 
                 guestRepository.save(newGuest);

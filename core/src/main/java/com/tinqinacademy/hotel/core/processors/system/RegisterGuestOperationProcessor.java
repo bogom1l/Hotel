@@ -26,11 +26,9 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class RegisterGuestOperationProcessor extends BaseOperationProcessor<RegisterGuestInput> implements RegisterGuestOperation {
-
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final BookingRepository bookingRepository;
-
 
     protected RegisterGuestOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository) {
         super(conversionService, errorHandler, validator);
@@ -51,7 +49,7 @@ public class RegisterGuestOperationProcessor extends BaseOperationProcessor<Regi
 
         validateInput(input);
 
-        // todo: logic: should room be in the List, or should it be a separate field?
+        // todo: logic: ? should room be in the List, or should it be a separate field
 
         for (GuestInput guestInput : input.getGuests()) {
             Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))

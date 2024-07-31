@@ -25,7 +25,6 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class UpdateRoomOperationProcessor extends BaseOperationProcessor<UpdateRoomInput> implements UpdateRoomOperation {
-
     private final RoomRepository roomRepository;
 
     protected UpdateRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository) {

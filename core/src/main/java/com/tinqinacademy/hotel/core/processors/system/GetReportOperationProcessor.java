@@ -27,7 +27,6 @@ import java.util.*;
 @Service
 @Slf4j
 public class GetReportOperationProcessor extends BaseOperationProcessor<GetReportInput> implements GetReportOperation {
-
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final BookingRepository bookingRepository;
@@ -53,7 +52,7 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
 
         validateInput(input);
 
-        if(!isAnyFieldProvided(input)) {
+        if (!isAnyFieldProvided(input)) {
             throw new HotelException("No search criteria provided."); // optional fields - fill only 1) or 2) or 3)
         }
 

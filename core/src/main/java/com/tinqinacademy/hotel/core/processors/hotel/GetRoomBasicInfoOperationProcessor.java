@@ -14,7 +14,6 @@ import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.validation.Validator;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,6 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class GetRoomBasicInfoOperationProcessor extends BaseOperationProcessor<GetRoomBasicInfoInput> implements GetRoomBasicInfoOperation {
-
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
 
@@ -39,8 +37,7 @@ public class GetRoomBasicInfoOperationProcessor extends BaseOperationProcessor<G
 
     @Override
     public Either<ErrorsWrapper, GetRoomBasicInfoOutput> process(GetRoomBasicInfoInput input) {
-        return Try.of( () ->
-                getRoomBasicInfoOutput(input))
+        return Try.of(() -> getRoomBasicInfoOutput(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }

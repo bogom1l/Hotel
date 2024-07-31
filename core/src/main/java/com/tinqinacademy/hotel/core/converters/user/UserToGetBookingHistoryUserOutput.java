@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.converters.user;
 
-import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryUserOutput;
+import com.tinqinacademy.hotel.persistence.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

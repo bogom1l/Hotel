@@ -1,10 +1,10 @@
 package com.tinqinacademy.hotel.core.converters.booking;
 
-import com.tinqinacademy.hotel.persistence.model.Booking;
-import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryGuestOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryBookingOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryGuestOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryUserOutput;
+import com.tinqinacademy.hotel.persistence.model.Booking;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.ConversionService;
@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class BookingToGetBookingHistoryBookingOutput implements Converter<Booking, GetBookingHistoryBookingOutput> {
-
     private final ConversionService conversionService;
 
     @Lazy
@@ -34,8 +33,8 @@ public class BookingToGetBookingHistoryBookingOutput implements Converter<Bookin
                 .bookingStartDate(source.getStartDate())
                 .bookingEndDate(source.getEndDate())
                 .bookingTotalPrice(source.getTotalPrice())
-                .guests(source.getGuests().stream().map(guest ->
-                                conversionService.convert(guest, GetBookingHistoryGuestOutput.class))
+                .guests(source.getGuests().stream().map(guest -> conversionService
+                                .convert(guest, GetBookingHistoryGuestOutput.class))
                         .collect(Collectors.toSet()))
                 .build();
 

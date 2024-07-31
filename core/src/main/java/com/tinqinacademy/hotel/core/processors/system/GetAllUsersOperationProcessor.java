@@ -21,7 +21,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class GetAllUsersOperationProcessor extends BaseOperationProcessor<GetAllUsersInput> implements GetAllUsersOperation {
-
     private final UserRepository userRepository;
 
     protected GetAllUsersOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, UserRepository userRepository) {

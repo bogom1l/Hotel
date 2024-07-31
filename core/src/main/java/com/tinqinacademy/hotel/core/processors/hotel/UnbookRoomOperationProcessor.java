@@ -23,7 +23,6 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class UnbookRoomOperationProcessor extends BaseOperationProcessor<UnbookRoomInput> implements UnbookRoomOperation {
-
     private final BookingRepository bookingRepository;
     private final GuestRepository guestRepository;
 

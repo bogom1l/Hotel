@@ -9,7 +9,6 @@ import org.springframework.core.convert.ConversionService;
 import java.util.Set;
 
 public abstract class BaseOperationProcessor<OperationInput> {
-
     protected final ConversionService conversionService;
     protected final ErrorHandler errorHandler;
     private final Validator validator;
@@ -26,5 +25,4 @@ public abstract class BaseOperationProcessor<OperationInput> {
             throw new ConstraintViolationException(violations);
         }
     }
-
 }
