@@ -21,20 +21,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class SystemController {
+@RequiredArgsConstructor
+public class SystemController { //todo extends BaseController
 
     private final SystemService systemService;
-
-    @Autowired
-    public SystemController(SystemService systemService) {
-        this.systemService = systemService;
-    }
 
     @Operation(summary = "Register a guest as room renter",
             description = "Register a guest as room renter by Booking's: roomId, startDate, endDate")

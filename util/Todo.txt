@@ -106,4 +106,6 @@ Todo: ✔️ ❌ ❓
 
     and can validate @NotNull, @NotBlank,... in the input models for the get requests
 
+ abstract class BaseController -  from Either to make ResponseEntity
+ abstract class BaseOperationProcessor : private/protected final conversionService, validator -> constructor
 

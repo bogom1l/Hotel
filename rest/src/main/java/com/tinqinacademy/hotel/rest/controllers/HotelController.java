@@ -30,16 +30,11 @@ import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
-public class HotelController {
+public class HotelController extends BaseController{
 
     private final HotelService hotelService;
 
     private final BookRoomOperation bookRoom;
-
-//    @Autowired
-//    public HotelController(HotelService hotelService) {
-//        this.hotelService = hotelService;
-//    }
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -92,14 +87,7 @@ public class HotelController {
 
         Either<ErrorsWrapper, BookRoomOutput> output = bookRoom.process(updatedInput);
 
-        if (output.isRight()) {
-            BookRoomOutput bookRoomOutput = output.get();
-            return new ResponseEntity<>(bookRoomOutput, HttpStatus.OK);
-        } else {
-            ErrorsWrapper errorsWrapper = output.getLeft();
-            return new ResponseEntity<>(errorsWrapper.getErrors(), errorsWrapper.getHttpStatus());
-        }
-
+        return handleResult(output);
     }
 
     @Operation(summary = "Unbook a room", description = "Unbook a room")

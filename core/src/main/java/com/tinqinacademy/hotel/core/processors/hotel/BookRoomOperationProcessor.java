@@ -7,6 +7,7 @@ import com.tinqinacademy.hotel.api.exceptions.RoomNotAvailableException;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.User;
@@ -15,23 +16,29 @@ import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
 import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
-import jakarta.validation.*;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
-public class BookRoomOperationProcessor implements BookRoomOperation {
+public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomInput> implements BookRoomOperation {
 
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     private final ErrorHandler errorHandler;
+
+    protected BookRoomOperationProcessor(ConversionService conversionService, RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, ErrorHandler errorHandler) {
+        super(conversionService);
+        this.roomRepository = roomRepository;
+        this.userRepository = userRepository;
+        this.bookingRepository = bookingRepository;
+        this.errorHandler = errorHandler;
+    }
 
     @Override
     public Either<ErrorsWrapper, BookRoomOutput> process(BookRoomInput input) {
@@ -63,15 +70,15 @@ public class BookRoomOperationProcessor implements BookRoomOperation {
         return output;
     }
 
-    private void validateInput(BookRoomInput input) {
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
-
-        Set<ConstraintViolation<BookRoomInput>> violations = validator.validate(input);
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
-    }
+//    private void validateInput(BookRoomInput input) {
+//        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+//        Validator validator = validatorFactory.getValidator();
+//
+//        Set<ConstraintViolation<BookRoomInput>> violations = validator.validate(input);
+//        if (!violations.isEmpty()) {
+//            throw new ConstraintViolationException(violations);
+//        }
+//    }
 
     private Booking buildBooking(BookRoomInput input, Room room, User user) {
         return Booking
