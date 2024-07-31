@@ -50,33 +50,6 @@ public class SystemServiceImpl implements SystemService {
         this.conversionService = conversionService;
     }
 
-    @Override
-    public RegisterGuestOutput registerGuest(RegisterGuestInput input) {
-        log.info("Started registerGuest with input: {}", input);
-
-        // todo: logic: should room be in the List, or should it be a separate field?
-
-        for (GuestInput guestInput : input.getGuests()) {
-            Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))
-                    .orElseThrow(() -> new HotelException("No room found"));
-
-            Guest guest = conversionService.convert(guestInput, Guest.class);
-
-            Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
-                            room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
-                    .orElseThrow(() -> new HotelException("No booking found"));
-
-            booking.getGuests().add(guest);
-
-            guestRepository.save(guest);
-            bookingRepository.save(booking);
-        }
-
-        RegisterGuestOutput output = RegisterGuestOutput.builder().build();
-        log.info("Ended registerGuest with output: {}", output);
-        return output;
-    }
-
 
     @Override
     public UpdateRoomOutput updateRoom(UpdateRoomInput input) {

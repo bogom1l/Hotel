@@ -15,6 +15,7 @@ import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOperation;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
+import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOperation;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
@@ -38,13 +39,15 @@ public class SystemController extends BaseController {
     private final DeleteRoomOperation deleteRoom;
     private final GetAllUsersOperation getAllUsersByPartialName;
     private final GetReportOperation getReport;
+    private final RegisterGuestOperation registerGuest;
 
-    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName, GetReportOperation getReport) {
+    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName, GetReportOperation getReport, RegisterGuestOperation registerGuest) {
         this.systemService = systemService;
         this.createRoom = createRoom;
         this.deleteRoom = deleteRoom;
         this.getAllUsersByPartialName = getAllUsersByPartialName;
         this.getReport = getReport;
+        this.registerGuest = registerGuest;
     }
 
     @Operation(summary = "Register a guest as room renter",
@@ -54,9 +57,9 @@ public class SystemController extends BaseController {
             @ApiResponse(responseCode = "400", description = "Error registering guest")})
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
     public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
-        RegisterGuestOutput output = systemService.registerGuest(input);
+        Either<ErrorsWrapper, RegisterGuestOutput> output = registerGuest.process(input);
 
-        return new ResponseEntity<>(output, HttpStatus.CREATED);
+        return handleWithStatus(output, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Provides a report based on various criteria",
