@@ -29,5 +29,5 @@ public interface SystemService {
 
     //DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 
-    GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input);
+    //GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input);
 }

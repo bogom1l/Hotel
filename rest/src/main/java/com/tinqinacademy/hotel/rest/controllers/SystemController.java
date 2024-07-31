@@ -9,6 +9,7 @@ import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersInput;
+import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOperation;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
@@ -36,11 +37,13 @@ public class SystemController extends BaseController {
     private final SystemService systemService;
     private final CreateRoomOperation createRoom;
     private final DeleteRoomOperation deleteRoom;
+    private final GetAllUsersOperation getAllUsersByPartialName;
 
-    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom) {
+    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName) {
         this.systemService = systemService;
         this.createRoom = createRoom;
         this.deleteRoom = deleteRoom;
+        this.getAllUsersByPartialName = getAllUsersByPartialName;
     }
 
     @Operation(summary = "Register a guest as room renter",
@@ -145,11 +148,10 @@ public class SystemController extends BaseController {
             @ApiResponse(responseCode = "400", description = "Error retrieving users")})
     @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
     public ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName) {
-
         GetAllUsersInput input = GetAllUsersInput.builder().partialName(partialName).build();
-        GetAllUsersOutput output = systemService.getAllUsersByPartialName(input);
 
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, GetAllUsersOutput> output = getAllUsersByPartialName.process(input);
+        return handle(output);
     }
 
 }

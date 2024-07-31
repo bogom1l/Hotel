@@ -275,24 +275,4 @@ public class SystemServiceImpl implements SystemService {
     }
 
 
-    @Override
-    public GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input) {
-        log.info("Started getAllUsers with input: {}", input);
-
-        List<User> users = userRepository.findUsersByPartialName(input.getPartialName());
-
-        List<UserOutput> usersOutput = users
-                .stream()
-                .map(user -> conversionService.convert(user, UserOutput.class))
-                .toList();
-
-        GetAllUsersOutput output = GetAllUsersOutput.builder()
-                .users(usersOutput)
-                .count(users.size())
-                .build();
-
-        log.info("Ended getAllUsers with output: {}", output);
-        return output;
-    }
-
 }
