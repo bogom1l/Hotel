@@ -2,9 +2,11 @@ package com.tinqinacademy.hotel.persistence.repository;
 
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,5 +39,23 @@ public interface GuestRepository extends JpaRepository<Guest, UUID> {
             , nativeQuery = true)
     Optional<Set<Guest>> findAllGuestsForBooking(@Param("bookingId") UUID bookingId);
 
-    Optional<Guest> findByIdCardNumber(String idCardNumber);
+    @Modifying
+    @Transactional
+    @Query(value = """
+        DELETE FROM bookings_guests
+         WHERE booking_id = :bookingId
+        """, nativeQuery = true)
+    void deleteGuestsFromBookingsGuestsByBookingId(@Param("bookingId") UUID bookingId);
+
+    @Modifying
+    @Transactional
+    @Query(value = """
+        DELETE FROM guests
+         WHERE id IN
+               (SELECT guests_id
+                FROM bookings_guests
+                WHERE booking_id = :bookingId)
+        """, nativeQuery = true)
+    void deleteGuestsByBookingId(@Param("bookingId") UUID bookingId);
+
 }
