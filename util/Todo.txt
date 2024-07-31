@@ -103,6 +103,8 @@ Todo: ✔️ ❌ ❓
       -> use Try.of()
 
     remove @valid annotations from controllers input and validate them in the service layer (operationprocessors)
+    remove @RequiredArgsConstructor from processors
+
     remove GlobalExceptionHandler
 
     and can validate @NotNull, @NotBlank,... in the input models for the get requests
@@ -110,3 +112,6 @@ Todo: ✔️ ❌ ❓
  abstract class BaseController -  from Either to make ResponseEntity
  abstract class BaseOperationProcessor : private/protected final conversionService, validator -> constructor
 
+???place ErrorHandler in the BaseOperationProcessor?
+
+clean up and reformat all classes because ctrl+alt+shift+L made the code ugly

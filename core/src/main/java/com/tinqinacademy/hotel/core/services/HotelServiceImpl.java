@@ -54,33 +54,6 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input) {
-        log.info("Started checkAvailableRoom with input: {}", input);
-
-        BedSize bedSize = BedSize.getByCode(input.getBedSize());
-        BathroomType bathroomType = BathroomType.getByCode(input.getBathroomType());
-
-        if (bedSize == BedSize.UNKNOWN || bathroomType == BathroomType.UNKNOWN) {
-            throw new HotelException("Invalid bed size or bathroom type.");
-        }
-
-        if (input.getStartDate().isAfter(input.getEndDate())) {
-            throw new HotelException("Start date should be before end date.");
-        }
-
-        List<Room> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(input.getStartDate(), input.getEndDate()).orElseThrow(() -> new HotelException("No available rooms found"));
-
-        List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
-
-        List<String> availableRoomIds = availableRoomsBetweenDates.stream().filter(roomsMatchingCriteria::contains).map(room -> room.getId().toString()).toList();
-
-        CheckAvailableRoomOutput output = conversionService.convert(availableRoomIds, CheckAvailableRoomOutput.class);
-
-        log.info("Ended checkAvailableRoom with output: {}", output);
-        return output;
-    }
-
-    @Override
     public GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input) {
         log.info("Started getRoomBasicInfo with input: {}", input);
 
@@ -94,30 +67,6 @@ public class HotelServiceImpl implements HotelService {
         GetRoomBasicInfoOutput output = conversionService.convert(room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder.class).datesOccupied(datesOccupied).build();
 
         log.info("Ended getRoomBasicInfo with output: {}", output);
-        return output;
-    }
-
-    @Override
-    public BookRoomOutput bookRoom(BookRoomInput input) {
-        log.info("Started bookRoom with input: {}", input);
-
-        UUID roomId = UUID.fromString(input.getRoomId());
-        Room room = roomRepository.findById(roomId).orElseThrow(() -> new HotelException("Room not found"));
-
-        if (!roomRepository.isRoomAvailableByRoomIdAndBetweenDates(room.getId(), input.getStartDate(), input.getEndDate())) {
-            throw new HotelException("Room is not available for the selected dates: " + input.getStartDate() + " - " + input.getEndDate());
-        }
-
-        // todo: logic: find user or create user?
-        User user = userRepository.findByPhoneNumberAndFirstNameAndLastName(input.getPhoneNumber(), input.getFirstName(), input.getLastName()).orElseThrow(() -> new HotelException(String.format("No user found with first name: %s, last name: %s, phone number: %s", input.getFirstName(), input.getLastName(), input.getPhoneNumber())));
-
-        Booking booking = Booking.builder().room(room).user(user).startDate(input.getStartDate()).endDate(input.getEndDate()).totalPrice(room.getPrice()).guests(Set.of()) // Empty set, later will have endpoint for adding guests for certain booking
-                .build();
-
-        bookingRepository.save(booking);
-
-        BookRoomOutput output = BookRoomOutput.builder().build();
-        log.info("Ended bookRoom with output: {}", output);
         return output;
     }
 
@@ -200,20 +149,5 @@ public class HotelServiceImpl implements HotelService {
         return output;
     }
 
-    @Override
-    public GetBookingHistoryOutput getBookingHistory(GetBookingHistoryInput input) {
-        log.info("Started getBookingHistory with input: {}", input);
-
-        User user = userRepository.findByPhoneNumber(input.getPhoneNumber()).orElseThrow(() -> new HotelException("No user found with phone number: " + input.getPhoneNumber()));
-
-        List<Booking> bookings = bookingRepository.findAllByUserId(user.getId()).orElseThrow(() -> new HotelException("No bookings found for user with phone number: " + input.getPhoneNumber()));
-
-        List<GetBookingHistoryBookingOutput> bookingsOutput = bookings.stream().map(booking -> conversionService.convert(booking, GetBookingHistoryBookingOutput.class)).toList();
-
-        GetBookingHistoryOutput output = GetBookingHistoryOutput.builder().bookings(bookingsOutput).build();
-
-        log.info("Ended getBookingHistory with output: {}", output);
-        return output;
-    }
 
 }

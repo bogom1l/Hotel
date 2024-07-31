@@ -8,6 +8,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvai
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
@@ -37,6 +38,7 @@ public class HotelController extends BaseController {
 
     private final BookRoomOperation bookRoom;
     private final CheckAvailableRoomOperation checkAvailableRoom;
+    private final GetBookingHistoryOperation getBookingHistory;
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -83,7 +85,7 @@ public class HotelController extends BaseController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})
     @PostMapping(RestApiRoutes.BOOK_ROOM)
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
-                                      @RequestBody /*@Valid*/ BookRoomInput input) {
+                                      @RequestBody BookRoomInput input) {
         BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         Either<ErrorsWrapper, BookRoomOutput> output = bookRoom.process(updatedInput);
@@ -149,9 +151,8 @@ public class HotelController extends BaseController {
                 .phoneNumber(phoneNumber)
                 .build();
 
-        GetBookingHistoryOutput output = hotelService.getBookingHistory(input);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, GetBookingHistoryOutput> output = getBookingHistory.process(input);
+        return handle(output);
     }
 
 }

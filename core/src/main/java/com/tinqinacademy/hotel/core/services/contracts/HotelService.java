@@ -15,11 +15,11 @@ import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.Updat
 
 public interface HotelService {
 
-    CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input);
+    //CheckAvailableRoomOutput checkAvailableRoom(CheckAvailableRoomInput input);
 
     GetRoomBasicInfoOutput getRoomBasicInfo(GetRoomBasicInfoInput input);
 
-    BookRoomOutput bookRoom(BookRoomInput input);
+    //BookRoomOutput bookRoom(BookRoomInput input);
 
     UnbookRoomOutput unbookRoom(UnbookRoomInput input);
 
@@ -29,5 +29,5 @@ public interface HotelService {
 
     UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input);
 
-    GetBookingHistoryOutput getBookingHistory(GetBookingHistoryInput input);
+    //GetBookingHistoryOutput getBookingHistory(GetBookingHistoryInput input);
 }
