@@ -72,51 +72,6 @@ public class HotelServiceImpl implements HotelService {
         log.info("Ended deleteAllBeds successfully");
     }
 
-    @Override
-    public UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input) {
-        log.info("Started updatePartiallyBooking with input: {}", input);
-
-        Booking booking = bookingRepository.findById(UUID.fromString(input.getBookingId())).orElseThrow(() -> new HotelException("Booking not found"));
-
-        if (input.getStartDate() != null) {
-            booking.setStartDate(LocalDate.parse(input.getStartDate()));
-        }
-
-        if (input.getEndDate() != null) {
-            booking.setEndDate(LocalDate.parse(input.getEndDate()));
-        }
-
-        if (input.getTotalPrice() != null) {
-            booking.setTotalPrice(input.getTotalPrice());
-        }
-
-        if (input.getRoomNumber() != null) {
-            if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
-                throw new HotelException("Room number already exists. Please choose different room number.");
-            }
-
-            booking.getRoom().setRoomNumber(input.getRoomNumber()); // logic: shouldn't be able to create a new room
-        }
-
-        if (input.getGuests() != null && !input.getGuests().isEmpty()) { // if guests field is not left empty
-
-            for (UpdatePartiallyGuestInput guest : input.getGuests()) { // add each of the filled guests
-
-                Guest newGuest = conversionService.convert(guest, Guest.class);
-
-                guestRepository.save(newGuest);
-
-                booking.getGuests().add(newGuest);
-            }
-        }
-
-        bookingRepository.save(booking);
-
-        UpdatePartiallyBookingOutput output = conversionService.convert(booking, UpdatePartiallyBookingOutput.class);
-
-        log.info("Ended updatePartiallyBooking with output: {}", output);
-        return output;
-    }
 
 
 }

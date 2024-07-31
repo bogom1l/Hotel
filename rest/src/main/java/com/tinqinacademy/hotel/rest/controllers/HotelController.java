@@ -17,6 +17,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import com.tinqinacademy.hotel.core.services.contracts.HotelService;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
@@ -43,6 +44,7 @@ public class HotelController extends BaseController {
     private final GetBookingHistoryOperation getBookingHistory;
     private final GetRoomBasicInfoOperation getRoomBasicInfo;
     private final UnbookRoomOperation unbookRoom;
+    private final UpdatePartiallyBookingOperation updatePartiallyBooking;
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -134,12 +136,13 @@ public class HotelController extends BaseController {
             @ApiResponse(responseCode = "400", description = "Error updating the booking")})
     @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
     public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
-                                                    @RequestBody @Valid UpdatePartiallyBookingInput input) {
+                                                    @RequestBody UpdatePartiallyBookingInput input) {
         UpdatePartiallyBookingInput updatedInput = input.toBuilder()
                 .bookingId(bookingId)
                 .build();
-        UpdatePartiallyBookingOutput output = hotelService.updatePartiallyBooking(updatedInput);
-        return new ResponseEntity<>(output, HttpStatus.OK);
+
+        Either<ErrorsWrapper, UpdatePartiallyBookingOutput> output = updatePartiallyBooking.process(updatedInput);
+        return handle(output);
     }
 
     @Operation(summary = "Get booking history",

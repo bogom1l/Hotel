@@ -27,7 +27,7 @@ public interface HotelService {
 
     void deleteAllBeds();
 
-    UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input);
+    //UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input);
 
     //GetBookingHistoryOutput getBookingHistory(GetBookingHistoryInput input);
 }
