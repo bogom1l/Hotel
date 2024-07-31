@@ -21,7 +21,7 @@ public interface HotelService {
 
     //BookRoomOutput bookRoom(BookRoomInput input);
 
-    UnbookRoomOutput unbookRoom(UnbookRoomInput input);
+    //UnbookRoomOutput unbookRoom(UnbookRoomInput input);
 
     void deleteAllRooms();
 

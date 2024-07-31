@@ -55,21 +55,6 @@ public class HotelServiceImpl implements HotelService {
 
 
     @Override
-    public UnbookRoomOutput unbookRoom(UnbookRoomInput input) {
-        log.info("Started unbookRoom with input: {}", input);
-
-        UUID bookingId = UUID.fromString(input.getBookingId());
-        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new HotelException("Booking not found"));
-
-        bookingRepository.delete(booking);
-
-        UnbookRoomOutput output = UnbookRoomOutput.builder().build();
-
-        log.info("Ended unbookRoom with output: {}", output);
-        return output;
-    }
-
-    @Override
     public void deleteAllRooms() {
         log.info("Started deleteAllRooms");
 

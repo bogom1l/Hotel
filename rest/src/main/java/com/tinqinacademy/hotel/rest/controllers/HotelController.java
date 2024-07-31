@@ -14,6 +14,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasi
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
@@ -41,6 +42,7 @@ public class HotelController extends BaseController {
     private final CheckAvailableRoomOperation checkAvailableRoom;
     private final GetBookingHistoryOperation getBookingHistory;
     private final GetRoomBasicInfoOperation getRoomBasicInfo;
+    private final UnbookRoomOperation unbookRoom;
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -98,11 +100,11 @@ public class HotelController extends BaseController {
             @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
             @ApiResponse(responseCode = "404", description = "Room booking not found")})
     @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
-    public ResponseEntity<?> deleteBooking(@PathVariable String bookingId) {
+    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {
         UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
-        UnbookRoomOutput output = hotelService.unbookRoom(input);
 
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, UnbookRoomOutput> output = unbookRoom.process(input);
+        return handle(output);
     }
 
     @Operation(summary = "Delete all rooms", description = "Delete all rooms")

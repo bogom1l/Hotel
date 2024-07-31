@@ -48,6 +48,8 @@ public class GetRoomBasicInfoOperationProcessor extends BaseOperationProcessor<G
     private GetRoomBasicInfoOutput getRoomBasicInfoOutput(GetRoomBasicInfoInput input) {
         log.info("Started getRoomBasicInfo with input: {}", input);
 
+        validateInput(input);
+
         UUID roomId = UUID.fromString(input.getRoomId());
         Room room = roomRepository.findByIdWithBeds(roomId)
                 .orElseThrow(() -> new HotelException("Room not found"));
