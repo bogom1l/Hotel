@@ -5,6 +5,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
@@ -35,6 +36,7 @@ public class HotelController extends BaseController {
     private final HotelService hotelService;
 
     private final BookRoomOperation bookRoom;
+    private final CheckAvailableRoomOperation checkAvailableRoom;
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -53,9 +55,8 @@ public class HotelController extends BaseController {
                 .bathroomType(bathroomType)
                 .build();
 
-        CheckAvailableRoomOutput output = hotelService.checkAvailableRoom(input);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, CheckAvailableRoomOutput> output = checkAvailableRoom.process(input);
+        return handle(output);
     }
 
     @Operation(summary = "Returns basic info for a room with the specified id",
@@ -86,8 +87,6 @@ public class HotelController extends BaseController {
         BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         Either<ErrorsWrapper, BookRoomOutput> output = bookRoom.process(updatedInput);
-
-        // return handle(output);
         return handleWithStatus(output, HttpStatus.CREATED);
     }
 

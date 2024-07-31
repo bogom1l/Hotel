@@ -71,16 +71,6 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
         return output;
     }
 
-//    private void validateInput(BookRoomInput input) {
-//        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-//        Validator validator = validatorFactory.getValidator();
-//
-//        Set<ConstraintViolation<BookRoomInput>> violations = validator.validate(input);
-//        if (!violations.isEmpty()) {
-//            throw new ConstraintViolationException(violations);
-//        }
-//    }
-
     private Booking buildBooking(BookRoomInput input, Room room, User user) {
         return Booking
                 .builder()
