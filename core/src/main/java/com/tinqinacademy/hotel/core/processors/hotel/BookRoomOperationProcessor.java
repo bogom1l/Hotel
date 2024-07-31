@@ -36,13 +36,13 @@ public class BookRoomOperationProcessor implements BookRoomOperation {
     @Override
     public Either<ErrorsWrapper, BookRoomOutput> process(BookRoomInput input) {
         return Try.of(() ->
-                    bookRoom(input)
+                        bookRoom(input)
                 )
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
 
-    private BookRoomOutput bookRoom(BookRoomInput input){
+    private BookRoomOutput bookRoom(BookRoomInput input) {
         log.info("Started bookRoom with input: {}", input);
 
         validateInput(input);
