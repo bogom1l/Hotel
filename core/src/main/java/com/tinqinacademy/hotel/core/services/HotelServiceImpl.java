@@ -54,24 +54,5 @@ public class HotelServiceImpl implements HotelService {
     }
 
 
-    @Override
-    public void deleteAllRooms() {
-        log.info("Started deleteAllRooms");
-
-        roomRepository.deleteAll();
-
-        log.info("Ended deleteAllRooms successfully");
-    }
-
-    @Override
-    public void deleteAllBeds() {
-        log.info("Started deleteAllBeds");
-
-        bedRepository.deleteAll();
-
-        log.info("Ended deleteAllBeds successfully");
-    }
-
-
 
 }

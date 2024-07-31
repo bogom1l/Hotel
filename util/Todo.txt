@@ -93,25 +93,17 @@ Todo: ✔️ ❌ ❓
 
 ✔️ Add vavr dependency
 
-  -  Implement operation processors class for each endpoint in the controllers
+❌ Implement operation processors class for each endpoint in the controllers
+    - remove GlobalExceptionHandler
+    - Monads - Vavr - Try, Either : Try.of() block -> .toEither.mapLeft(ErrorsWrapper)
+    - abstract class BaseController - from Either to ResponseEntity
+    - abstract class BaseOperationProcessor : conversionService, validator + validateInput(), ?errorHandler
 
-     ❌ Try.of() block -> .toEither.mapLeft(errors)
-         na baza exceptionite, da vurna ErrorsWrapper
+    * remove @valid annotations from controllers input and validate them in the service layer (operationprocessors)
+    * remove @RequiredArgsConstructor from processors
 
-    * ErrorsWrapper - handle and return them
-      -> dont throw exceptions, return ErrorsWrapper
-      -> use Try.of()
+    * ?GET requests: ?can validate @NotNull, @NotBlank,... in the input models
 
-    remove @valid annotations from controllers input and validate them in the service layer (operationprocessors)
-    remove @RequiredArgsConstructor from processors
+❌ clean up and reformat all classes because ctrl+alt+shift+L made the code ugly ; and rename all bad variable names :D
 
-    remove GlobalExceptionHandler
-
-    and can validate @NotNull, @NotBlank,... in the input models for the get requests
-
- abstract class BaseController -  from Either to make ResponseEntity
- abstract class BaseOperationProcessor : private/protected final conversionService, validator -> constructor
-
-???place ErrorHandler in the BaseOperationProcessor?
-
-clean up and reformat all classes because ctrl+alt+shift+L made the code ugly ; and rename all bad variable names :D
+add proper validation to all input models

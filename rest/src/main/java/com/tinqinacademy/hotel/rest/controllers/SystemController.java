@@ -1,7 +1,6 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 
-import com.tinqinacademy.hotel.core.services.contracts.SystemService;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
@@ -16,13 +15,13 @@ import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdateP
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
+import com.tinqinacademy.hotel.core.services.contracts.SystemService;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -129,36 +128,6 @@ public class SystemController { //todo extends BaseController
         DeleteRoomOutput output = systemService.deleteRoom(input);
 
         return new ResponseEntity<>(output, HttpStatus.OK);
-    }
-
-    @Operation(summary = "Delete all users", description = "Delete all users")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Users deleted successfully"),
-            @ApiResponse(responseCode = "400", description = "Error deleting users")})
-    @DeleteMapping(RestApiRoutes.DELETE_ALL_USERS)
-    public ResponseEntity<?> deleteAllUsers() {
-        systemService.deleteAllUsers();
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-    }
-
-    @Operation(summary = "Delete all guests", description = "Delete all guests")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Guests deleted successfully"),
-            @ApiResponse(responseCode = "400", description = "Error deleting guests")})
-    @DeleteMapping(RestApiRoutes.DELETE_ALL_GUESTS)
-    public ResponseEntity<?> deleteAllGuests() {
-        systemService.deleteAllGuests();
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-    }
-
-    @Operation(summary = "Delete all bookings", description = "Delete all bookings")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Bookings deleted successfully"),
-            @ApiResponse(responseCode = "400", description = "Error deleting bookings")})
-    @DeleteMapping(RestApiRoutes.DELETE_ALL_BOOKINGS)
-    public ResponseEntity<?> deleteAllBookings(/*todo inputmodel*/) {
-        systemService.deleteAllBookings();
-        return new ResponseEntity<>(/*todo outputmodel*/null, HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "Get all users by partial name", description = "Get all users by partial name")

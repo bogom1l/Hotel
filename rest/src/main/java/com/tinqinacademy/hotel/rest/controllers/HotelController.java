@@ -25,7 +25,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.vavr.control.Either;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -107,26 +106,6 @@ public class HotelController extends BaseController {
 
         Either<ErrorsWrapper, UnbookRoomOutput> output = unbookRoom.process(input);
         return handle(output);
-    }
-
-    @Operation(summary = "Delete all rooms", description = "Delete all rooms")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Rooms deleted successfully"),
-            @ApiResponse(responseCode = "400", description = "Error deleting rooms")})
-    @DeleteMapping(RestApiRoutes.DELETE_ALL_ROOMS)
-    public ResponseEntity<?> deleteAllRooms() {
-        hotelService.deleteAllRooms();
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-    }
-
-    @Operation(summary = "Delete all beds", description = "Delete all beds")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Beds deleted successfully"),
-            @ApiResponse(responseCode = "400", description = "Error deleting beds")})
-    @DeleteMapping(RestApiRoutes.DELETE_ALL_BEDS)
-    public ResponseEntity<?> deleteAllBeds() {
-        hotelService.deleteAllBeds();
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "Update partially a booking",
