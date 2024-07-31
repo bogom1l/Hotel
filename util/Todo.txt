@@ -104,6 +104,8 @@ Todo: ✔️ ❌ ❓
 
     * ?GET requests: ?can validate @NotNull, @NotBlank,... in the input models
 
+❌❌❌❌unbookRoom -> AND REMOVE ALL GUESTS TO THIS BOOKING
+
 ❌ clean up, reformat, rename
 
 ❌ add good validation to all input models (@NotNull(value=...), @NotBlank(value=...))

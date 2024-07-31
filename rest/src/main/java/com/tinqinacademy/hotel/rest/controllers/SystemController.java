@@ -12,6 +12,7 @@ import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersInpu
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOperation;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
+import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOperation;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
@@ -25,8 +26,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.vavr.control.Either;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,12 +37,14 @@ public class SystemController extends BaseController {
     private final CreateRoomOperation createRoom;
     private final DeleteRoomOperation deleteRoom;
     private final GetAllUsersOperation getAllUsersByPartialName;
+    private final GetReportOperation getReport;
 
-    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName) {
+    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName, GetReportOperation getReport) {
         this.systemService = systemService;
         this.createRoom = createRoom;
         this.deleteRoom = deleteRoom;
         this.getAllUsersByPartialName = getAllUsersByPartialName;
+        this.getReport = getReport;
     }
 
     @Operation(summary = "Register a guest as room renter",
@@ -87,9 +88,8 @@ public class SystemController extends BaseController {
                 .roomNumber(roomNumber)
                 .build();
 
-        GetReportOutput output = systemService.getReport(input);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, GetReportOutput> output = getReport.process(input);
+        return handle(output);
     }
 
     @Operation(summary = "Create a room", description = "Create a room")

@@ -19,7 +19,7 @@ public interface SystemService {
 
     RegisterGuestOutput registerGuest(RegisterGuestInput input);
 
-    GetReportOutput getReport(GetReportInput input);
+    //GetReportOutput getReport(GetReportInput input);
 
     //CreateRoomOutput createRoom(CreateRoomInput input);
 
