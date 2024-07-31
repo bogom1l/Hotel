@@ -23,7 +23,6 @@ import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdateP
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
-import com.tinqinacademy.hotel.core.services.contracts.SystemService;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -36,25 +35,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SystemController extends BaseController {
 
-    private final SystemService systemService;
-    private final CreateRoomOperation createRoom;
-    private final DeleteRoomOperation deleteRoom;
-    private final GetAllUsersOperation getAllUsersByPartialName;
     private final GetReportOperation getReport;
+    private final GetAllUsersOperation getAllUsersByPartialName;
     private final RegisterGuestOperation registerGuest;
-    private final UpdatePartiallyRoomOperation updatePartiallyRoom;
+    private final CreateRoomOperation createRoom;
     private final UpdateRoomOperation updateRoom;
+    private final UpdatePartiallyRoomOperation updatePartiallyRoom;
+    private final DeleteRoomOperation deleteRoom;
 
-
-    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName, GetReportOperation getReport, RegisterGuestOperation registerGuest, UpdatePartiallyRoomOperation updatePartiallyRoom, UpdateRoomOperation updateRoom) {
-        this.systemService = systemService;
-        this.createRoom = createRoom;
-        this.deleteRoom = deleteRoom;
-        this.getAllUsersByPartialName = getAllUsersByPartialName;
+    public SystemController(GetReportOperation getReport, GetAllUsersOperation getAllUsersByPartialName, RegisterGuestOperation registerGuest, CreateRoomOperation createRoom, UpdateRoomOperation updateRoom, UpdatePartiallyRoomOperation updatePartiallyRoom, DeleteRoomOperation deleteRoom) {
         this.getReport = getReport;
+        this.getAllUsersByPartialName = getAllUsersByPartialName;
         this.registerGuest = registerGuest;
-        this.updatePartiallyRoom = updatePartiallyRoom;
+        this.createRoom = createRoom;
         this.updateRoom = updateRoom;
+        this.updatePartiallyRoom = updatePartiallyRoom;
+        this.deleteRoom = deleteRoom;
     }
 
     @Operation(summary = "Register a guest as room renter",

@@ -24,7 +24,7 @@ public class UpdatePartiallyRoomInput implements OperationInput {
 
     private String bathroomType;
 
-    @RoomNumberValidation // Custom validation
+    @RoomNumberValidation(optional = true) // Custom validation
     private String roomNumber;
 
     @Positive(message = "Price should be positive")

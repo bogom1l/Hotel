@@ -19,4 +19,5 @@ public @interface RoomNumberValidation {
 
     Class<? extends Payload>[] payload() default {};
 
+    boolean optional() default false; // Add this attribute to make validation optional
 }
