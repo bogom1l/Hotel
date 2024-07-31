@@ -9,6 +9,6 @@ import lombok.*;
 @Builder
 @ToString
 public class Error {
-    private String field;
+    private String field; // for MethodArgumentNotValidException
     private String message;
 }

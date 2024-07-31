@@ -87,7 +87,7 @@ public class HotelController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})
     @PostMapping(RestApiRoutes.BOOK_ROOM)
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
-                                      @RequestBody @Valid BookRoomInput input) {
+                                      @RequestBody /*@Valid*/ BookRoomInput input) {
         BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         Either<ErrorsWrapper, BookRoomOutput> output = bookRoom.process(updatedInput);
@@ -97,9 +97,9 @@ public class HotelController {
             return new ResponseEntity<>(bookRoomOutput, HttpStatus.OK);
         } else {
             ErrorsWrapper errorsWrapper = output.getLeft();
-            HttpStatus status = errorsWrapper.getErrorCode();
-            return new ResponseEntity<>(errorsWrapper, status);
+            return new ResponseEntity<>(errorsWrapper.getErrors(), errorsWrapper.getHttpStatus());
         }
+
     }
 
     @Operation(summary = "Unbook a room", description = "Unbook a room")

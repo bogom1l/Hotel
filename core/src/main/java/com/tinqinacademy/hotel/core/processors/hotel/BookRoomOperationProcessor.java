@@ -15,6 +15,7 @@ import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
 import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import jakarta.validation.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,26 +35,42 @@ public class BookRoomOperationProcessor implements BookRoomOperation {
 
     @Override
     public Either<ErrorsWrapper, BookRoomOutput> process(BookRoomInput input) {
-        return Try.of(() -> {
-                    log.info("Started bookRoom with input: {}", input);
-
-                    Room room = findRoom(input);
-
-                    checkRoomAvailability(input, room);
-
-                    User user = findUser(input); // todo: logic: ? find user or create user
-
-                    Booking booking = buildBooking(input, room, user);
-
-                    bookingRepository.save(booking);
-
-                    BookRoomOutput output = BookRoomOutput.builder().build();
-
-                    log.info("Ended bookRoom with output: {}", output);
-                    return output;
-                })
+        return Try.of(() ->
+                    bookRoom(input)
+                )
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
+    }
+
+    private BookRoomOutput bookRoom(BookRoomInput input){
+        log.info("Started bookRoom with input: {}", input);
+
+        validateInput(input);
+
+        Room room = findRoom(input);
+
+        checkRoomAvailability(input, room);
+
+        User user = findUser(input); // todo: logic: ? find user or create user
+
+        Booking booking = buildBooking(input, room, user);
+
+        bookingRepository.save(booking);
+
+        BookRoomOutput output = BookRoomOutput.builder().build();
+
+        log.info("Ended bookRoom with output: {}", output);
+        return output;
+    }
+
+    private void validateInput(BookRoomInput input) {
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
+
+        Set<ConstraintViolation<BookRoomInput>> violations = validator.validate(input);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
     }
 
     private Booking buildBooking(BookRoomInput input, Room room, User user) {

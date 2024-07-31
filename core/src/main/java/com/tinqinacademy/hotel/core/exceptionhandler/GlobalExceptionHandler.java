@@ -11,12 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static io.vavr.API.*;
-import static io.vavr.Predicates.instanceOf;
 
 @RequiredArgsConstructor
 @ControllerAdvice
@@ -45,10 +40,10 @@ public class GlobalExceptionHandler {
 
         ErrorsWrapper errorsWrapper = ErrorsWrapper.builder()
                 .errors(errors)
-                .errorCode(HttpStatus.BAD_REQUEST)
+                .httpStatus(HttpStatus.BAD_REQUEST)
                 .build();
 
-        return new ResponseEntity<>(errorsWrapper.getErrors(), errorsWrapper.getErrorCode());
+        return new ResponseEntity<>(errorsWrapper.getErrors(), errorsWrapper.getHttpStatus());
     }
 
     @ExceptionHandler(Exception.class)

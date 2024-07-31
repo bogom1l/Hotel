@@ -88,6 +88,9 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
+❓ enumite ot persitence, trqbva da gi polzvame samo za Entity-tata v persistence,
+    a za input/output modelite v api da polzvame enumite ot api
+
 ✔️ Add vavr dependency
 
   -  Implement operation processors class for each endpoint in the controllers
@@ -98,10 +101,9 @@ Todo: ✔️ ❌ ❓
       -> dont throw exceptions, return ErrorsWrapper
       -> use Try.of()
 
+    remove @valid annotations from controllers input and validate them in the service layer (operationprocessors)
+    remove GlobalExceptionHandler
 
-
-❓ enumite ot persitence, trqbva da gi polzvame samo za Entity-tata v persistence,
-    a za input/output modelite v api da polzvame enumite ot api
-
+    and can validate @NotNull, @NotBlank,... in the input models for the get requests
 
 
