@@ -25,7 +25,7 @@ public interface SystemService {
 
     UpdateRoomOutput updateRoom(UpdateRoomInput input);
 
-    UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
+    //UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
 
     //DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 

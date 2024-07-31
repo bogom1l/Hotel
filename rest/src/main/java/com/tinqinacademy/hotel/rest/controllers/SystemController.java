@@ -18,8 +18,10 @@ import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuest
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOperation;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.core.services.contracts.SystemService;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
@@ -40,14 +42,19 @@ public class SystemController extends BaseController {
     private final GetAllUsersOperation getAllUsersByPartialName;
     private final GetReportOperation getReport;
     private final RegisterGuestOperation registerGuest;
+    private final UpdatePartiallyRoomOperation updatePartiallyRoom;
+    private final UpdateRoomOperation updateRoom;
 
-    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName, GetReportOperation getReport, RegisterGuestOperation registerGuest) {
+
+    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom, GetAllUsersOperation getAllUsersByPartialName, GetReportOperation getReport, RegisterGuestOperation registerGuest, UpdatePartiallyRoomOperation updatePartiallyRoom, UpdateRoomOperation updateRoom) {
         this.systemService = systemService;
         this.createRoom = createRoom;
         this.deleteRoom = deleteRoom;
         this.getAllUsersByPartialName = getAllUsersByPartialName;
         this.getReport = getReport;
         this.registerGuest = registerGuest;
+        this.updatePartiallyRoom = updatePartiallyRoom;
+        this.updateRoom = updateRoom;
     }
 
     @Operation(summary = "Register a guest as room renter",
@@ -128,9 +135,8 @@ public class SystemController extends BaseController {
                                                  @RequestBody UpdatePartiallyRoomInput input) {
         UpdatePartiallyRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
-        UpdatePartiallyRoomOutput output = systemService.updatePartiallyRoom(updatedInput);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, UpdatePartiallyRoomOutput> output = updatePartiallyRoom.process(updatedInput);
+        return handle(output);
     }
 
     @Operation(summary = "Delete a room", description = "Delete a room")

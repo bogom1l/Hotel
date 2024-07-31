@@ -96,51 +96,6 @@ public class SystemServiceImpl implements SystemService {
     }
 
 
-    @Override
-    public UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input) {
-        log.info("Started updatePartiallyRoom with input: {}", input);
-
-        Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
-                .orElseThrow(() -> new HotelException("No room found with id: " + input.getRoomId()));
-
-        if (input.getBathroomType() != null) {
-            if (BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)) {
-                throw new HotelException("No bathroom type found");
-            }
-
-            room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
-        }
-
-        if (input.getRoomNumber() != null) {
-            if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
-                throw new HotelException("Room number already exists");
-            }
-            room.setRoomNumber(input.getRoomNumber());
-        }
-
-        if (input.getPrice() != null) {
-            room.setPrice(input.getPrice());
-        }
-
-        if (input.getBedSize() != null) {
-            if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
-                throw new HotelException("No bed size found");
-            }
-
-            List<Bed> bedsInCurrentRoom = room.getBeds();
-
-            for (Bed bed : bedsInCurrentRoom) {
-                bed.setBedSize(BedSize.getByCode(input.getBedSize()));
-            }
-        }
-
-        roomRepository.save(room);
-
-        UpdatePartiallyRoomOutput output = conversionService.convert(room, UpdatePartiallyRoomOutput.class);
-
-        log.info("Ended updatePartiallyRoom with output: {}", output);
-        return output;
-    }
 
 
 }
