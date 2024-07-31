@@ -25,12 +25,10 @@ import java.util.List;
 public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor<CheckAvailableRoomInput> implements CheckAvailableRoomOperation {
 
     private final RoomRepository roomRepository;
-    private final ErrorHandler errorHandler;
 
-    protected CheckAvailableRoomOperationProcessor(ConversionService conversionService, Validator validator, RoomRepository roomRepository, ErrorHandler errorHandler) {
-        super(conversionService, validator);
+    protected CheckAvailableRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository) {
+        super(conversionService, errorHandler, validator);
         this.roomRepository = roomRepository;
-        this.errorHandler = errorHandler;
     }
 
     @Override

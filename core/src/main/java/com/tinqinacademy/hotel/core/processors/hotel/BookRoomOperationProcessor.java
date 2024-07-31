@@ -31,14 +31,14 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
-    private final ErrorHandler errorHandler;
+//    private final ErrorHandler errorHandler;
 
-    protected BookRoomOperationProcessor(ConversionService conversionService, Validator validator, RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, ErrorHandler errorHandler) {
-        super(conversionService, validator);
+    protected BookRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository) {
+        super(conversionService, errorHandler, validator); //
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
-        this.errorHandler = errorHandler;
+//        this.errorHandler = errorHandler;
     }
 
     @Override

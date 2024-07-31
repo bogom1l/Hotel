@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.core.processors.base;
 
+import com.tinqinacademy.hotel.api.error.ErrorHandler;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
@@ -10,10 +11,12 @@ import java.util.Set;
 public abstract class BaseOperationProcessor<OperationInput> {
 
     protected final ConversionService conversionService;
+    protected final ErrorHandler errorHandler;
     private final Validator validator;
 
-    protected BaseOperationProcessor(ConversionService conversionService, Validator validator) {
+    protected BaseOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator) {
         this.conversionService = conversionService;
+        this.errorHandler = errorHandler;
         this.validator = validator;
     }
 

@@ -26,13 +26,11 @@ import java.util.List;
 @Slf4j
 public class GetBookingHistoryOperationProcessor extends BaseOperationProcessor<GetBookingHistoryInput> implements GetBookingHistoryOperation {
 
-    private final ErrorHandler errorHandler;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
 
-    protected GetBookingHistoryOperationProcessor(ConversionService conversionService, Validator validator, ErrorHandler errorHandler, UserRepository userRepository, BookingRepository bookingRepository) {
-        super(conversionService, validator);
-        this.errorHandler = errorHandler;
+    protected GetBookingHistoryOperationProcessor(ConversionService conversionService,  ErrorHandler errorHandler,Validator validator, UserRepository userRepository, BookingRepository bookingRepository) {
+        super(conversionService, errorHandler, validator);
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
     }
