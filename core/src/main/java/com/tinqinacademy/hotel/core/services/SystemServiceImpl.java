@@ -182,36 +182,6 @@ public class SystemServiceImpl implements SystemService {
         return output;
     }
 
-    // todo: logic: create the bed or find the bed?
-    @Override
-    public CreateRoomOutput createRoom(CreateRoomInput input) {
-        log.info("Started createRoom with input: {}", input);
-
-        if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
-            throw new HotelException("No bed size found");
-        }
-        if (BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)) {
-            throw new HotelException("No bathroom type found");
-        }
-
-        Bed bed = Bed.builder()
-                .bedSize(BedSize.getByCode(input.getBedSize()))
-                .capacity(BedSize.getByCode(input.getBedSize()).getCapacity())
-                .build();
-
-        Room room = conversionService
-                .convert(input, Room.RoomBuilder.class)
-                .beds(List.of(bed))
-                .build();
-
-        bedRepository.save(bed);
-        roomRepository.save(room);
-
-        CreateRoomOutput output = conversionService.convert(room, CreateRoomOutput.class);
-
-        log.info("Ended createRoom with output: {}", output);
-        return output;
-    }
 
     @Override
     public UpdateRoomOutput updateRoom(UpdateRoomInput input) {
@@ -304,19 +274,6 @@ public class SystemServiceImpl implements SystemService {
         return output;
     }
 
-    @Override
-    public DeleteRoomOutput deleteRoom(DeleteRoomInput input) {
-        log.info("Started deleteRoom with input: {}", input);
-
-        Room room = roomRepository.findById(UUID.fromString(input.getId()))
-                .orElseThrow(() -> new HotelException("No room found with id: " + input.getId()));
-
-        roomRepository.delete(room);
-
-        DeleteRoomOutput output = DeleteRoomOutput.builder().build();
-        log.info("Ended deleteRoom with output: {}", output);
-        return output;
-    }
 
     @Override
     public GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input) {

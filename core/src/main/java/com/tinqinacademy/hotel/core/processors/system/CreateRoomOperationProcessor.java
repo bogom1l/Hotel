@@ -44,6 +44,7 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
 
     private CreateRoomOutput createRoom(CreateRoomInput input) {
         log.info("Started createRoom with input: {}", input);
+        // todo: logic: create the bed or find the bed?
 
         validateInput(input);
 

@@ -6,6 +6,7 @@ import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersInput;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;
@@ -34,10 +35,12 @@ public class SystemController extends BaseController {
 
     private final SystemService systemService;
     private final CreateRoomOperation createRoom;
+    private final DeleteRoomOperation deleteRoom;
 
-    public SystemController(SystemService systemService, CreateRoomOperation createRoom) {
+    public SystemController(SystemService systemService, CreateRoomOperation createRoom, DeleteRoomOperation deleteRoom) {
         this.systemService = systemService;
         this.createRoom = createRoom;
+        this.deleteRoom = deleteRoom;
     }
 
     @Operation(summary = "Register a guest as room renter",
@@ -132,9 +135,8 @@ public class SystemController extends BaseController {
     public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
         DeleteRoomInput input = DeleteRoomInput.builder().id(id).build();
 
-        DeleteRoomOutput output = systemService.deleteRoom(input);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, DeleteRoomOutput> output = deleteRoom.process(input);
+        return handle(output);
     }
 
     @Operation(summary = "Get all users by partial name", description = "Get all users by partial name")

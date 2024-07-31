@@ -21,13 +21,13 @@ public interface SystemService {
 
     GetReportOutput getReport(GetReportInput input);
 
-    CreateRoomOutput createRoom(CreateRoomInput input);
+    //CreateRoomOutput createRoom(CreateRoomInput input);
 
     UpdateRoomOutput updateRoom(UpdateRoomInput input);
 
     UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
 
-    DeleteRoomOutput deleteRoom(DeleteRoomInput input);
+    //DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 
     GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input);
 }
