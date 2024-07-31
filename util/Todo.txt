@@ -94,6 +94,7 @@ Todo: ✔️ ❌ ❓
 ✔️ Add vavr dependency
 
   -  Implement operation processors class for each endpoint in the controllers
+
      ❌ Try.of() block -> .toEither.mapLeft(errors)
          na baza exceptionite, da vurna ErrorsWrapper
 
