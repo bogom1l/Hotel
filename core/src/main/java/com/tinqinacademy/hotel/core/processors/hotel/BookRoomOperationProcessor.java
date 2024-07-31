@@ -16,6 +16,7 @@ import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
 import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,8 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
     private final BookingRepository bookingRepository;
     private final ErrorHandler errorHandler;
 
-    protected BookRoomOperationProcessor(ConversionService conversionService, RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, ErrorHandler errorHandler) {
-        super(conversionService);
+    protected BookRoomOperationProcessor(ConversionService conversionService, Validator validator, RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository, ErrorHandler errorHandler) {
+        super(conversionService, validator);
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
