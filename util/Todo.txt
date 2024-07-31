@@ -80,7 +80,7 @@ Todo: ✔️ ❌ ❓
 - Git:
   ✔️ ssh key [home✔️; work?]
   ✔️ configure .gitignore - all but source code
-  ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
+  ✔️ (new issue?) -> new branch -> implement the feature in the branch -> pull request -> merge with main
 
   ✔️ review all code logic and add todos for future refactoring/implementing
 
