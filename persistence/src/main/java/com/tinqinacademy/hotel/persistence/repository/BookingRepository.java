@@ -15,10 +15,13 @@ import java.util.UUID;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, UUID> {
-
     Optional<List<Booking>> findAllByRoomId(UUID roomId);
 
     Optional<Booking> findByRoomIdAndStartDateAndEndDate(UUID roomId, LocalDate startDate, LocalDate endDate);
+
+    Optional<List<Booking>> findByRoomId(UUID roomId);
+
+    Optional<List<Booking>> findAllByUserId(UUID userId);
 
     @Query("""
                      SELECT b FROM Booking b 
@@ -27,9 +30,6 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
             """)
     Optional<List<Booking>> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-
-    Optional<List<Booking>> findByRoomId(UUID roomId);
-
     @Query("""
                      SELECT b FROM Booking b
                      JOIN b.guests g
@@ -37,22 +37,16 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
             """)
     Optional<List<Booking>> findByGuestIdCardNumber(@Param("idCardNumber") String idCardNumber);
 
-    Optional<List<Booking>> findAllByUserId(UUID userId);
-
-    Boolean existsByRoomId(UUID roomId);
-
     @Modifying
     @Transactional
     @Query("DELETE FROM Booking b WHERE b.room.id = :roomId")
     void deleteBookingsByRoomId(@Param("roomId") UUID roomId);
 
-
     @Modifying
     @Transactional
     @Query(value = """
-    DELETE FROM bookings_guests
-     WHERE booking_id = :bookingId
-    """, nativeQuery = true)
+            DELETE FROM bookings_guests
+             WHERE booking_id = :bookingId
+            """, nativeQuery = true)
     void deleteFromBookingsGuestsByBookingId(@Param("bookingId") UUID bookingId);
-
 }

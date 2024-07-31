@@ -2,20 +2,16 @@ package com.tinqinacademy.hotel.persistence.repository;
 
 import com.tinqinacademy.hotel.persistence.model.Guest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Repository
 public interface GuestRepository extends JpaRepository<Guest, UUID> {
-
     @Query(value = "SELECT * FROM guests g " +
             "WHERE (:firstName IS NULL OR LOWER(g.first_name) = LOWER(:firstName)) " +
             "AND (:lastName IS NULL OR LOWER(g.last_name) = LOWER(:lastName)) " +
@@ -32,30 +28,5 @@ public interface GuestRepository extends JpaRepository<Guest, UUID> {
                                              @Param("idCardValidity") String idCardValidity, // Handle as String and cast in SQL
                                              @Param("idCardIssueAuthority") String idCardIssueAuthority,
                                              @Param("idCardIssueDate") String idCardIssueDate); // Handle as String and cast in SQL
-
-    @Query(value = """
-            SELECT g.* FROM guests g JOIN bookings_guests bg ON g.id = bg.guests_id WHERE bg.booking_id = :bookingId
-            """
-            , nativeQuery = true)
-    Optional<Set<Guest>> findAllGuestsForBooking(@Param("bookingId") UUID bookingId);
-
-    @Modifying
-    @Transactional
-    @Query(value = """
-        DELETE FROM bookings_guests
-         WHERE booking_id = :bookingId
-        """, nativeQuery = true)
-    void deleteGuestsFromBookingsGuestsByBookingId(@Param("bookingId") UUID bookingId);
-
-    @Modifying
-    @Transactional
-    @Query(value = """
-        DELETE FROM guests
-         WHERE id IN
-               (SELECT guests_id
-                FROM bookings_guests
-                WHERE booking_id = :bookingId)
-        """, nativeQuery = true)
-    void deleteGuestsByBookingId(@Param("bookingId") UUID bookingId);
 
 }

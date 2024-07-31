@@ -23,19 +23,4 @@ public interface UserRepository extends JpaRepository<User, UUID> {
                OR LOWER(last_name) LIKE LOWER(CONCAT('%', :partialName, '%'))
             """, nativeQuery = true)
     List<User> findUsersByPartialName(@Param("partialName") String partialName);
-
-    // Optional<List<User>> findByFirstNameContainingOrLastNameContaining(String partialName, String partialName1);
-
-    /*
-    // CREATE EXTENSION fuzzystrmatch;
-    // DROP EXTENSION fuzzystrmatch;
-    @Query(value = """
-        SELECT *
-        FROM users
-        WHERE SOUNDEX(first_name) = SOUNDEX(:partialName)
-           OR SOUNDEX(last_name) = SOUNDEX(:partialName)
-        """, nativeQuery = true)
-    Optional<List<User>> findUsersBySimilarName(@Param("partialName") String partialName);
-     */
-
 }

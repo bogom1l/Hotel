@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME) // will be available on runtime
 @Constraint(validatedBy = RoomNumberValidator.class) // implement custom validation logic from the class
 public @interface RoomNumberValidation {
-
     String message() default "Invalid room number: Valid Format - A100, A101, B205, H804, P999";
 
     Class<?>[] groups() default {};

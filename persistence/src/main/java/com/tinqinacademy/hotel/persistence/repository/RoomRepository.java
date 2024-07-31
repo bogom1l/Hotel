@@ -15,6 +15,9 @@ import java.util.UUID;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, UUID> {
+    Optional<Room> findByRoomNumber(String roomNumber);
+
+    Boolean existsByRoomNumber(String roomNumber);
 
     @Query(value = """
              SELECT DISTINCT r FROM Room r JOIN r.beds b
@@ -38,11 +41,6 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
             WHERE b.room_id IS NULL;
             """, nativeQuery = true)
     Optional<List<Room>> findAvailableRoomsBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
-    Optional<Room> findByRoomNumber(String roomNumber);
-
-    Boolean existsByRoomNumber(String roomNumber);
-
 
     @Query(value = """
             SELECT CASE WHEN COUNT(r) > 0 THEN TRUE ELSE FALSE END

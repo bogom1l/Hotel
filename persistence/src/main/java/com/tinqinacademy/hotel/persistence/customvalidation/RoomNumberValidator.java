@@ -7,9 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class RoomNumberValidator implements ConstraintValidator<RoomNumberValidation, String> {
-
-    private boolean optional;
-
     private static final String ROOM_NUMBER_PATTERN = "^[A-Z][1-9][0-9]{2}$";
     private static final Set<String> RESERVED_ROOM_NUMBERS = new HashSet<>();
     private static final String RESERVED_ROOM_MESSAGE = "This room is reserved for VIPs only.";
@@ -21,6 +18,8 @@ public class RoomNumberValidator implements ConstraintValidator<RoomNumberValida
             RESERVED_ROOM_NUMBERS.add(String.format("Z%d", i));
         }
     }
+
+    private boolean optional;
 
     @Override
     public void initialize(RoomNumberValidation constraintAnnotation) {

@@ -26,7 +26,6 @@ import java.util.Set;
 @Component
 @Order(1)
 public class DataSeeder implements ApplicationRunner {
-
     private final BedRepository bedRepository;
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
@@ -41,7 +40,6 @@ public class DataSeeder implements ApplicationRunner {
         this.guestRepository = guestRepository;
         this.bookingRepository = bookingRepository;
     }
-
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
