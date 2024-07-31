@@ -1,12 +1,13 @@
 package com.tinqinacademy.hotel.persistence.repository;
 
 import com.tinqinacademy.hotel.persistence.model.Booking;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -37,4 +38,11 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
     Optional<List<Booking>> findByGuestIdCardNumber(@Param("idCardNumber") String idCardNumber);
 
     Optional<List<Booking>> findAllByUserId(UUID userId);
+
+    Boolean existsByRoomId(UUID roomId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Booking b WHERE b.room.id = :roomId")
+    void deleteBookingsByRoomId(@Param("roomId") UUID roomId);
 }

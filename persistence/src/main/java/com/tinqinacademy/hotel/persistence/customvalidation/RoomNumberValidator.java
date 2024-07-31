@@ -8,6 +8,8 @@ import java.util.Set;
 
 public class RoomNumberValidator implements ConstraintValidator<RoomNumberValidation, String> {
 
+    private boolean optional;
+
     private static final String ROOM_NUMBER_PATTERN = "^[A-Z][1-9][0-9]{2}$";
     private static final Set<String> RESERVED_ROOM_NUMBERS = new HashSet<>();
     private static final String RESERVED_ROOM_MESSAGE = "This room is reserved for VIPs only.";
@@ -22,11 +24,15 @@ public class RoomNumberValidator implements ConstraintValidator<RoomNumberValida
 
     @Override
     public void initialize(RoomNumberValidation constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
+        this.optional = constraintAnnotation.optional();
     }
 
     @Override
     public boolean isValid(String roomNumber, ConstraintValidatorContext constraintValidatorContext) {
+        if (optional && (roomNumber == null || roomNumber.isEmpty())) {
+            return true; // Skip validation if optional and room number is not provided
+        }
+
         if (roomNumber == null || roomNumber.isEmpty()) {
             return false;
         }

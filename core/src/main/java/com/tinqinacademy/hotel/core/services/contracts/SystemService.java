@@ -17,17 +17,17 @@ import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput
 
 public interface SystemService {
 
-    RegisterGuestOutput registerGuest(RegisterGuestInput input);
+    //RegisterGuestOutput registerGuest(RegisterGuestInput input);
 
-    GetReportOutput getReport(GetReportInput input);
+    //GetReportOutput getReport(GetReportInput input);
 
-    CreateRoomOutput createRoom(CreateRoomInput input);
+    //CreateRoomOutput createRoom(CreateRoomInput input);
 
-    UpdateRoomOutput updateRoom(UpdateRoomInput input);
+    //UpdateRoomOutput updateRoom(UpdateRoomInput input);
 
-    UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
+    //UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
 
-    DeleteRoomOutput deleteRoom(DeleteRoomInput input);
+    //DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 
-    GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input);
+    //GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input);
 }

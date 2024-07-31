@@ -80,7 +80,7 @@ Todo: ✔️ ❌ ❓
 - Git:
   ✔️ ssh key [home✔️; work?]
   ✔️ configure .gitignore - all but source code
-  ✔️ new branch -> implement the feature in the branch -> pull request -> merge with main
+  ✔️ (new issue?) -> new branch -> implement the feature in the branch -> pull request -> merge with main
 
   ✔️ review all code logic and add todos for future refactoring/implementing
 
@@ -103,6 +103,8 @@ Todo: ✔️ ❌ ❓
     * remove @RequiredArgsConstructor from processors
 
     * ?GET requests: ?can validate @NotNull, @NotBlank,... in the input models
+
+❌❌❌❌unbookRoom -> AND REMOVE ALL GUESTS TO THIS BOOKING
 
 ❌ clean up, reformat, rename
 
