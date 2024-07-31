@@ -11,9 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "com.tinqinacademy.hotel.persistence.model")
 @EnableJpaRepositories(basePackages = "com.tinqinacademy.hotel.persistence.repository")
 public class HotelApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(HotelApplication.class, args);
     }
-
 }

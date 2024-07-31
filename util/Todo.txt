@@ -84,12 +84,9 @@ Todo: ✔️ ❌ ❓
 
   ✔️ review all code logic and add todos for future refactoring/implementing
 
-❌ ?Refactor GetReport criteria logic
+❌ Refactor GetReport criteria logic
 
 -------------------------------------------------------------------------
-
-❓ enumite ot persitence, trqbva da gi polzvame samo za Entity-tata v persistence,
-    a za input/output modelite v api da polzvame enumite ot api
 
 ✔️ Add vavr dependency
 
@@ -105,11 +102,15 @@ Todo: ✔️ ❌ ❓
 
 ✔️ unbookRoom -> AND REMOVE ALL GUESTS TO THIS BOOKING
 
-❌ clean up, reformat, rename
+✔️ clean up
 
-❌ add good validation to all input models (@NotNull(value=...), @NotBlank(value=...))
+❌ look for bad naming and reformat
 
-❓ add more CustomExceptions?; and handle them in the ErrorHandler
+❌ add good validation to all input models (@NotNull(value=..), @NotBlank(value=..), @Size(), ...)
+
+❓ add more CustomExceptions?; and handle them in the ErrorHandler   ||   use everywhere only HotelException?
+
+❓ da iztrq starite enumi ot api layera, shtoto nikyde ne gi polzvame
 
 -------------------------------------------------------------------------
 

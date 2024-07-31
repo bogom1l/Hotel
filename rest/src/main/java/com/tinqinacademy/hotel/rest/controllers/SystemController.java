@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SystemController extends BaseController {
-
     private final GetReportOperation getReport;
     private final GetAllUsersOperation getAllUsersByPartialName;
     private final RegisterGuestOperation registerGuest;

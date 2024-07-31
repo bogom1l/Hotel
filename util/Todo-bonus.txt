@@ -4,11 +4,10 @@ Todo (bonus):
 
 -------------------------------------------------------------------------------
 
-❌ New Endpoints:
-    ✔️ users to view their booking history (by phoneNumber)
-    ✔️ admins to see current list (+count for convenience) of all registered users
-    - ?
+✔️ New Endpoints:
+    ✔ users to view their booking history (by phoneNumber)
+    ✔ admins to see current list (+count for convenience) of all registered users
 
 -------------------------------------------------------------------------------
 
-
+❌ refactor some logic

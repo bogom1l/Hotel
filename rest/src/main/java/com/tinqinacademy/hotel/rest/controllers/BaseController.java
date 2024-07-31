@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public abstract class BaseController {
-
     protected ResponseEntity<?> handle(Either<ErrorsWrapper, ? extends OperationOutput> output) {
         if (output.isLeft()) {
             return error(output);
@@ -26,5 +25,4 @@ public abstract class BaseController {
         ErrorsWrapper errorWrapper = output.getLeft();
         return new ResponseEntity<>(errorWrapper.getErrors(), errorWrapper.getHttpStatus());
     }
-
 }

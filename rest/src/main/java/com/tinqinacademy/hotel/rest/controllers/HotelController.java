@@ -32,7 +32,6 @@ import java.time.LocalDate;
 
 @RestController
 public class HotelController extends BaseController {
-
     private final GetRoomBasicInfoOperation getRoomBasicInfo;
     private final GetBookingHistoryOperation getBookingHistory;
     private final CheckAvailableRoomOperation checkAvailableRoom;
