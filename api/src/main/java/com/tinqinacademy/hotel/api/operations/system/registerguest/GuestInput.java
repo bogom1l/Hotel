@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Builder
 @ToString
 public class GuestInput {
-
     @NotNull(message = "Start date is mandatory")
     private LocalDate startDate;
 
@@ -47,5 +46,4 @@ public class GuestInput {
 
     @NotNull(message = "Birth date is mandatory")
     private LocalDate birthdate;
-
 }

@@ -10,19 +10,26 @@ import lombok.*;
 @Builder
 @ToString
 public class GetReportInput implements OperationInput {
-    //booking?
+    //booking
     private String startDate;
+
     private String endDate;
 
-    //guest?
+    //guest
     private String firstName;
+
     private String lastName;
+
     private String phoneNumber;
+
     private String idCardNumber;
+
     private String idCardValidity;
+
     private String idCardIssueAuthority;
+
     private String idCardIssueDate;
 
-    //room?
+    //room
     private String roomNumber;
 }

@@ -9,5 +9,6 @@ import lombok.*;
 @Builder
 public class GetBookingHistoryUserOutput {
     private String userEmail;
+
     private String userPhoneNumber;
 }

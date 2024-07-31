@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class GetBookingHistoryRoomOutput {
-
     private String roomNumber;
 
     private BigDecimal roomPrice;

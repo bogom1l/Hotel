@@ -11,7 +11,6 @@ import lombok.*;
 @Builder
 @ToString
 public class GetAllUsersInput implements OperationInput {
-
     @Size(max = 10)
     private String partialName;
 }

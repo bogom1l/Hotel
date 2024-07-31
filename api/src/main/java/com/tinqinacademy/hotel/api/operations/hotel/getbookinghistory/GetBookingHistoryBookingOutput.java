@@ -12,7 +12,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class GetBookingHistoryBookingOutput {
-
     private GetBookingHistoryRoomOutput room;
 
     private GetBookingHistoryUserOutput user;

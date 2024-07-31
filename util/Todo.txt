@@ -93,22 +93,23 @@ Todo: ✔️ ❌ ❓
 
 ✔️ Add vavr dependency
 
-❌ Implement operation processors class for each endpoint in the controllers
+✔️ Implement operation processors class for each endpoint in the controllers
     - remove GlobalExceptionHandler
     - Monads - Vavr - Try, Either : Try.of() block -> .toEither.mapLeft(ErrorsWrapper)
     - abstract class BaseController - from Either to ResponseEntity
     - abstract class BaseOperationProcessor : conversionService, validator + validateInput(), ?errorHandler
 
-    * remove @valid annotations from controllers input and validate them in the service layer (operationprocessors)
+    * remove @valid annotations from controllers input and validate them in the service layer (OperationProcessors)
     * remove @RequiredArgsConstructor from processors
+    * GET requests: can validate @Size,... in the input models
 
-    * ?GET requests: ?can validate @NotNull, @NotBlank,... in the input models
-
-❌❌❌❌unbookRoom -> AND REMOVE ALL GUESTS TO THIS BOOKING
+✔️ unbookRoom -> AND REMOVE ALL GUESTS TO THIS BOOKING
 
 ❌ clean up, reformat, rename
 
 ❌ add good validation to all input models (@NotNull(value=...), @NotBlank(value=...))
+
+❓ add more CustomExceptions?; and handle them in the ErrorHandler
 
 -------------------------------------------------------------------------
 

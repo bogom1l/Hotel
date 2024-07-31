@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 @Builder
 @ToString
 public class CreateRoomInput implements OperationInput {
-
     @NotBlank(message = "Bed size is mandatory")
     private String bedSize;
 

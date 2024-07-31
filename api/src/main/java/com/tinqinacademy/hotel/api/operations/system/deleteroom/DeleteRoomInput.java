@@ -11,7 +11,6 @@ import lombok.*;
 @Builder
 @ToString
 public class DeleteRoomInput implements OperationInput {
-
     @JsonIgnore
     private String id;
 }

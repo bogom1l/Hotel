@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class GetBookingHistoryGuestOutput {
-
     private String firstName;
 
     private String lastName;

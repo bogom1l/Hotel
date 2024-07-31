@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 @Builder(toBuilder = true)
 @ToString
 public class UpdateRoomInput implements OperationInput {
-
     @JsonIgnore
     private String roomId;
 
