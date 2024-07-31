@@ -104,6 +104,10 @@ Todo: ✔️ ❌ ❓
 
     * ?GET requests: ?can validate @NotNull, @NotBlank,... in the input models
 
-❌ clean up and reformat all classes because ctrl+alt+shift+L made the code ugly ; and rename all bad variable names :D
+❌ clean up, reformat, rename
 
-add proper validation to all input models
+❌ add good validation to all input models (@NotNull(value=...), @NotBlank(value=...))
+
+-------------------------------------------------------------------------
+
+-> implement same things to the 'comments' microservice

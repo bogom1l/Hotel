@@ -1,7 +1,9 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 
+import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
@@ -20,6 +22,7 @@ import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.vavr.control.Either;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,10 +30,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
-public class SystemController { //todo extends BaseController
+public class SystemController extends BaseController {
 
     private final SystemService systemService;
+    private final CreateRoomOperation createRoom;
+
+    public SystemController(SystemService systemService, CreateRoomOperation createRoom) {
+        this.systemService = systemService;
+        this.createRoom = createRoom;
+    }
 
     @Operation(summary = "Register a guest as room renter",
             description = "Register a guest as room renter by Booking's: roomId, startDate, endDate")
@@ -38,7 +46,7 @@ public class SystemController { //todo extends BaseController
             @ApiResponse(responseCode = "201", description = "Guest registered successfully"),
             @ApiResponse(responseCode = "400", description = "Error registering guest")})
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
-    public ResponseEntity<?> registerGuest(@RequestBody @Valid RegisterGuestInput input) {
+    public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
         RegisterGuestOutput output = systemService.registerGuest(input);
 
         return new ResponseEntity<>(output, HttpStatus.CREATED);
@@ -83,10 +91,9 @@ public class SystemController { //todo extends BaseController
             @ApiResponse(responseCode = "201", description = "Room created successfully"),
             @ApiResponse(responseCode = "400", description = "Error creating room")})
     @PostMapping(RestApiRoutes.CREATE_ROOM)
-    public ResponseEntity<?> createRoom(@RequestBody @Valid CreateRoomInput input) {
-        CreateRoomOutput output = systemService.createRoom(input);
-
-        return new ResponseEntity<>(output, HttpStatus.CREATED);
+    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
+        Either<ErrorsWrapper, CreateRoomOutput> output = createRoom.process(input);
+        return handleWithStatus(output, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update a room", description = "Update a room")
@@ -95,7 +102,7 @@ public class SystemController { //todo extends BaseController
             @ApiResponse(responseCode = "400", description = "Error updating room")})
     @PutMapping(RestApiRoutes.UPDATE_ROOM)
     public ResponseEntity<?> updateRoom(@PathVariable String roomId,
-                                        @RequestBody @Valid UpdateRoomInput input) {
+                                        @RequestBody UpdateRoomInput input) {
         UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         UpdateRoomOutput output = systemService.updateRoom(updatedInput);
@@ -109,7 +116,7 @@ public class SystemController { //todo extends BaseController
             @ApiResponse(responseCode = "400", description = "Error updating room")})
     @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_ROOM)
     public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
-                                                 @RequestBody @Valid UpdatePartiallyRoomInput input) {
+                                                 @RequestBody UpdatePartiallyRoomInput input) {
         UpdatePartiallyRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
         UpdatePartiallyRoomOutput output = systemService.updatePartiallyRoom(updatedInput);

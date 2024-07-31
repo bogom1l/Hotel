@@ -29,11 +29,5 @@ public interface SystemService {
 
     DeleteRoomOutput deleteRoom(DeleteRoomInput input);
 
-    void deleteAllUsers();
-
-    void deleteAllGuests();
-
-    void deleteAllBookings();
-
     GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input);
 }

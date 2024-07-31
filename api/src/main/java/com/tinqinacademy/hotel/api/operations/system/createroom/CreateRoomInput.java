@@ -22,8 +22,8 @@ public class CreateRoomInput implements OperationInput {
     private String bathroomType;
 
     @NotNull(message = "Floor is mandatory")
-    @Min(value = 1, message = "Floor should be at least 0")
-    @Max(value = 15, message = "Floor should be maximum 10")
+    @Min(value = 0, message = "Floor should be at least 0")
+    @Max(value = 15, message = "Floor should be maximum 15")
     private Integer floor;
 
     @RoomNumberValidation // Custom validation

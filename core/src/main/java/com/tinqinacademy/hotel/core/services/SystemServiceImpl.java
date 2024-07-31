@@ -319,21 +319,6 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
-    }
-
-    @Override
-    public void deleteAllGuests() {
-        guestRepository.deleteAll();
-    }
-
-    @Override
-    public void deleteAllBookings() {
-        bookingRepository.deleteAll();
-    }
-
-    @Override
     public GetAllUsersOutput getAllUsersByPartialName(GetAllUsersInput input) {
         log.info("Started getAllUsers with input: {}", input);
 

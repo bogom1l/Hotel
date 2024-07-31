@@ -19,13 +19,11 @@ import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
-import com.tinqinacademy.hotel.core.services.contracts.HotelService;
 import com.tinqinacademy.hotel.rest.configurations.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.vavr.control.Either;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,17 +31,23 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequiredArgsConstructor
 public class HotelController extends BaseController {
 
-    private final HotelService hotelService;
-
-    private final BookRoomOperation bookRoom;
-    private final CheckAvailableRoomOperation checkAvailableRoom;
-    private final GetBookingHistoryOperation getBookingHistory;
     private final GetRoomBasicInfoOperation getRoomBasicInfo;
+    private final GetBookingHistoryOperation getBookingHistory;
+    private final CheckAvailableRoomOperation checkAvailableRoom;
+    private final BookRoomOperation bookRoom;
     private final UnbookRoomOperation unbookRoom;
     private final UpdatePartiallyBookingOperation updatePartiallyBooking;
+
+    public HotelController(GetRoomBasicInfoOperation getRoomBasicInfo, GetBookingHistoryOperation getBookingHistory, CheckAvailableRoomOperation checkAvailableRoom, BookRoomOperation bookRoom, UnbookRoomOperation unbookRoom, UpdatePartiallyBookingOperation updatePartiallyBooking) {
+        this.getRoomBasicInfo = getRoomBasicInfo;
+        this.getBookingHistory = getBookingHistory;
+        this.checkAvailableRoom = checkAvailableRoom;
+        this.bookRoom = bookRoom;
+        this.unbookRoom = unbookRoom;
+        this.updatePartiallyBooking = updatePartiallyBooking;
+    }
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
