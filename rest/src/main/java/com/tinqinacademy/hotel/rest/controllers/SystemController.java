@@ -121,9 +121,8 @@ public class SystemController extends BaseController {
                                         @RequestBody UpdateRoomInput input) {
         UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
-        UpdateRoomOutput output = systemService.updateRoom(updatedInput);
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+        Either<ErrorsWrapper, UpdateRoomOutput> output = updateRoom.process(updatedInput);
+        return handle(output);
     }
 
     @Operation(summary = "Update partially a room", description = "Update partially a room")

@@ -51,49 +51,6 @@ public class SystemServiceImpl implements SystemService {
     }
 
 
-    @Override
-    public UpdateRoomOutput updateRoom(UpdateRoomInput input) {
-        log.info("Started updateRoom with input: {}", input);
-
-        if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
-            throw new HotelException("No bed size found");
-        }
-
-        if (BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)) {
-            throw new HotelException("No bathroom type found");
-        }
-
-        if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
-            throw new HotelException("Room number already exists");
-        }
-
-        if (input.getBathroomType() == null ||
-                input.getBedSize() == null ||
-                input.getRoomNumber() == null ||
-                input.getPrice() == null) {
-            throw new HotelException("Please fill all the fields.");
-        }
-
-        Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
-                .orElseThrow(() -> new HotelException("No room found with id: " + input.getRoomId()));
-
-        room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
-        room.setRoomNumber(input.getRoomNumber());
-        room.setPrice(input.getPrice());
-
-        List<Bed> bedsInCurrentRoom = room.getBeds();
-
-        for (Bed bed : bedsInCurrentRoom) {
-            bed.setBedSize(BedSize.getByCode(input.getBedSize()));
-        }
-
-        roomRepository.save(room);
-
-        UpdateRoomOutput output = conversionService.convert(room, UpdateRoomOutput.class);
-
-        log.info("Ended updateRoom with output: {}", output);
-        return output;
-    }
 
 
 

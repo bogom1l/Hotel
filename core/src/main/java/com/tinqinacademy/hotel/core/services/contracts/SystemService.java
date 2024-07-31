@@ -23,7 +23,7 @@ public interface SystemService {
 
     //CreateRoomOutput createRoom(CreateRoomInput input);
 
-    UpdateRoomOutput updateRoom(UpdateRoomInput input);
+    //UpdateRoomOutput updateRoom(UpdateRoomInput input);
 
     //UpdatePartiallyRoomOutput updatePartiallyRoom(UpdatePartiallyRoomInput input);
 
