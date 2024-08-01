@@ -60,10 +60,6 @@ public class UpdatePartiallyRoomOperationProcessor extends BaseOperationProcesso
     private void setFields(UpdatePartiallyRoomInput input, Room room) {
 
         if (input.getBathroomType() != null) {
-            if (BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)) {
-                throw new HotelException("No bathroom type found");
-            }
-
             room.setBathroomType(BathroomType.getByCode(input.getBathroomType()));
         }
 
@@ -79,10 +75,6 @@ public class UpdatePartiallyRoomOperationProcessor extends BaseOperationProcesso
         }
 
         if (input.getBedSize() != null) {
-            if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
-                throw new HotelException("No bed size found");
-            }
-
             List<Bed> bedsInCurrentRoom = room.getBeds();
 
             for (Bed bed : bedsInCurrentRoom) {

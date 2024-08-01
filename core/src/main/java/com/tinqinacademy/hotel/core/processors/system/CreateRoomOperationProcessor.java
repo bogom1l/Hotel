@@ -60,17 +60,6 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
     }
 
     private Bed buildBed(CreateRoomInput input) {
-        BedSize bedSize = BedSize.getByCode(input.getBedSize());
-        BathroomType bathroomType = BathroomType.getByCode(input.getBathroomType());
-
-        if (bedSize == BedSize.UNKNOWN) {
-            throw new HotelException("Invalid bed size.");
-        }
-
-        if (bathroomType == BathroomType.UNKNOWN) {
-            throw new HotelException("Invalid bathroom type.");
-        }
-
         return Bed.builder()
                 .bedSize(BedSize.getByCode(input.getBedSize()))
                 .capacity(BedSize.getByCode(input.getBedSize()).getCapacity())
