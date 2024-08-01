@@ -3,7 +3,7 @@ package com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinqinacademy.hotel.api.base.OperationInput;
-import com.tinqinacademy.hotel.persistence.customvalidation.RoomNumberValidation;
+import com.tinqinacademy.hotel.api.validation.RoomNumberValidation;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 

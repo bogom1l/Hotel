@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.rest.configurations;
+package com.tinqinacademy.hotel.rest.configuration;
 
 public class RestApiRoutes {
     public static final String API = "/api/v1";

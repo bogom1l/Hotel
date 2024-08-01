@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.customvalidation;
+package com.tinqinacademy.hotel.api.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -18,5 +18,5 @@ public @interface RoomNumberValidation {
 
     Class<? extends Payload>[] payload() default {};
 
-    boolean optional() default false; // Add this attribute to make validation optional
+    boolean optional() default false;
 }

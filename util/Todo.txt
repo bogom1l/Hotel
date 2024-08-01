@@ -110,7 +110,7 @@ Todo: ✔️ ❌ ❓
 
 ❓ add more CustomExceptions?; and handle them in the ErrorHandler   ||   use everywhere only HotelException?
 
-❓ da iztrq starite enumi ot api layera, shtoto nikyde ne gi polzvame
+❓ DataSourceConfiguration not necessary anymore?
 
 -------------------------------------------------------------------------
 

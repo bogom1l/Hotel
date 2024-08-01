@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.processors.system;
 
-import com.tinqinacademy.hotel.api.error.ErrorHandler;
-import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
+import com.tinqinacademy.hotel.api.errorhandler.ErrorHandler;
+import com.tinqinacademy.hotel.api.errorhandler.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOperation;

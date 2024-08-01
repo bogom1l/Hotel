@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.customvalidation;
+package com.tinqinacademy.hotel.api.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
