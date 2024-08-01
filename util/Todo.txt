@@ -108,4 +108,13 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
--> implement same things to the 'comments' microservice
+//todo throw customexception in validateInput i da gi mapna
+//todo ternary operator in base controller
+//todo na 1 red outputa v controllerite v handle()
+//todo custom validation annotation for enums in input models ; and remove if checks for enums in processors
+//todo? remove big private methods in processors
+
+//todo   @NotNull(message = "visitors cannot be null")
+         private List<@Valid RegisterVisitorInput> visitors;
+
+

@@ -33,6 +33,7 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
     @Override
     public Either<ErrorsWrapper, CheckAvailableRoomOutput> process(CheckAvailableRoomInput input) {
         return Try.of(() -> checkAvailableRooms(input))
+                //todo remove private method
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
@@ -48,6 +49,7 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
         if (input.getStartDate().isAfter(input.getEndDate())) {
             throw new HotelException("Start date should be before end date.");
         }
+
         if (bedSize == BedSize.UNKNOWN) {
             throw new HotelException("Invalid bed size.");
         }
@@ -61,7 +63,9 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
 
         List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
 
-        List<String> availableRoomIds = availableRoomsBetweenDates.stream().filter(roomsMatchingCriteria::contains).map(room -> room.getId().toString()).toList();
+        List<String> availableRoomIds = availableRoomsBetweenDates.stream()
+                .filter(roomsMatchingCriteria::contains)
+                .map(room -> room.getId().toString()).toList();
 
         CheckAvailableRoomOutput output = conversionService.convert(availableRoomIds, CheckAvailableRoomOutput.class);
 

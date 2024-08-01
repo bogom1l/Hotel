@@ -65,8 +65,7 @@ public class HotelController extends BaseController {
                 .bathroomType(bathroomType)
                 .build();
 
-        Either<ErrorsWrapper, CheckAvailableRoomOutput> output = checkAvailableRoom.process(input);
-        return handle(output);
+        return handle(checkAvailableRoom.process(input));
     }
 
     @Operation(summary = "Returns basic info for a room with the specified id",

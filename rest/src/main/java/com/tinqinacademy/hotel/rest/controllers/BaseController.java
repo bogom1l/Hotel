@@ -11,7 +11,7 @@ public abstract class BaseController {
         if (output.isLeft()) {
             return error(output);
         }
-        return new ResponseEntity<>(output.get(), HttpStatus.OK);
+        return new ResponseEntity<>(output.get(), HttpStatus.OK); //todo ternar operator
     }
 
     protected ResponseEntity<?> handleWithStatus(Either<ErrorsWrapper, ? extends OperationOutput> output, HttpStatus status) {

@@ -22,7 +22,7 @@ public abstract class BaseOperationProcessor<OperationInput> {
     protected void validateInput(OperationInput input) {
         Set<ConstraintViolation<OperationInput>> violations = validator.validate(input);
         if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
+            throw new ConstraintViolationException(violations); //todo throw customexc in validateInput
         }
     }
 }
