@@ -1,33 +1,24 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 
-import com.tinqinacademy.hotel.api.errorhandler.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOperation;
-import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOperation;
-import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersInput;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOperation;
-import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOperation;
-import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOperation;
-import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOperation;
-import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOperation;
-import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.rest.configuration.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.vavr.control.Either;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,9 +50,8 @@ public class SystemController extends BaseController {
             @ApiResponse(responseCode = "400", description = "Error registering guest")})
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
     public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
-        Either<ErrorsWrapper, RegisterGuestOutput> output = registerGuest.process(input);
 
-        return handleWithStatus(output, HttpStatus.CREATED);
+        return handleWithStatus(registerGuest.process(input), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Provides a report based on various criteria",
@@ -93,8 +83,7 @@ public class SystemController extends BaseController {
                 .roomNumber(roomNumber)
                 .build();
 
-        Either<ErrorsWrapper, GetReportOutput> output = getReport.process(input);
-        return handle(output);
+        return handle(getReport.process(input));
     }
 
     @Operation(summary = "Create a room", description = "Create a room")
@@ -103,8 +92,8 @@ public class SystemController extends BaseController {
             @ApiResponse(responseCode = "400", description = "Error creating room")})
     @PostMapping(RestApiRoutes.CREATE_ROOM)
     public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
-        Either<ErrorsWrapper, CreateRoomOutput> output = createRoom.process(input);
-        return handleWithStatus(output, HttpStatus.CREATED);
+
+        return handleWithStatus(createRoom.process(input), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update a room", description = "Update a room")
@@ -116,8 +105,7 @@ public class SystemController extends BaseController {
                                         @RequestBody UpdateRoomInput input) {
         UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
-        Either<ErrorsWrapper, UpdateRoomOutput> output = updateRoom.process(updatedInput);
-        return handle(output);
+        return handle(updateRoom.process(updatedInput));
     }
 
     @Operation(summary = "Update partially a room", description = "Update partially a room")
@@ -129,8 +117,7 @@ public class SystemController extends BaseController {
                                                  @RequestBody UpdatePartiallyRoomInput input) {
         UpdatePartiallyRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
-        Either<ErrorsWrapper, UpdatePartiallyRoomOutput> output = updatePartiallyRoom.process(updatedInput);
-        return handle(output);
+        return handle(updatePartiallyRoom.process(updatedInput));
     }
 
     @Operation(summary = "Delete a room", description = "Delete a room")
@@ -141,8 +128,7 @@ public class SystemController extends BaseController {
     public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
         DeleteRoomInput input = DeleteRoomInput.builder().id(id).build();
 
-        Either<ErrorsWrapper, DeleteRoomOutput> output = deleteRoom.process(input);
-        return handle(output);
+        return handle(deleteRoom.process(input));
     }
 
     @Operation(summary = "Get all users by partial name", description = "Get all users by partial name")
@@ -153,8 +139,7 @@ public class SystemController extends BaseController {
     public ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName) {
         GetAllUsersInput input = GetAllUsersInput.builder().partialName(partialName).build();
 
-        Either<ErrorsWrapper, GetAllUsersOutput> output = getAllUsersByPartialName.process(input);
-        return handle(output);
+        return handle(getAllUsersByPartialName.process(input));
     }
 
 }

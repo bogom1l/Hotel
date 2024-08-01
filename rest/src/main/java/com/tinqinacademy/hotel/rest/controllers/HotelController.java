@@ -1,29 +1,21 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
-import com.tinqinacademy.hotel.api.errorhandler.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOperation;
-import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOperation;
-import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOperation;
-import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOperation;
-import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOperation;
-import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOperation;
-import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import com.tinqinacademy.hotel.rest.configuration.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.vavr.control.Either;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,8 +71,7 @@ public class HotelController extends BaseController {
                 .roomId(roomId)
                 .build();
 
-        Either<ErrorsWrapper, GetRoomBasicInfoOutput> output = getRoomBasicInfo.process(input);
-        return handle(output);
+        return handle(getRoomBasicInfo.process(input));
     }
 
     @Operation(summary = "Book a room", description = "Book a room")
@@ -94,8 +85,7 @@ public class HotelController extends BaseController {
                                       @RequestBody BookRoomInput input) {
         BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
 
-        Either<ErrorsWrapper, BookRoomOutput> output = bookRoom.process(updatedInput);
-        return handleWithStatus(output, HttpStatus.CREATED);
+        return handleWithStatus(bookRoom.process(updatedInput), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Unbook a room", description = "Unbook a room")
@@ -106,8 +96,7 @@ public class HotelController extends BaseController {
     public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {
         UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
 
-        Either<ErrorsWrapper, UnbookRoomOutput> output = unbookRoom.process(input);
-        return handle(output);
+        return handle(unbookRoom.process(input));
     }
 
     @Operation(summary = "Update partially a booking",
@@ -122,8 +111,7 @@ public class HotelController extends BaseController {
                 .bookingId(bookingId)
                 .build();
 
-        Either<ErrorsWrapper, UpdatePartiallyBookingOutput> output = updatePartiallyBooking.process(updatedInput);
-        return handle(output);
+        return handle(updatePartiallyBooking.process(updatedInput));
     }
 
     @Operation(summary = "Get booking history",
@@ -133,13 +121,11 @@ public class HotelController extends BaseController {
             @ApiResponse(responseCode = "400", description = "Error retrieving booking history")})
     @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
     public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
-
         GetBookingHistoryInput input = GetBookingHistoryInput.builder()
                 .phoneNumber(phoneNumber)
                 .build();
 
-        Either<ErrorsWrapper, GetBookingHistoryOutput> output = getBookingHistory.process(input);
-        return handle(output);
+        return handle(getBookingHistory.process(input));
     }
 
 }

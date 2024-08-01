@@ -26,9 +26,9 @@ public abstract class BaseOperationProcessor<OperationInput> {
         Set<ConstraintViolation<OperationInput>> violations = validator.validate(input);
 
         if (!violations.isEmpty()) {
-            List<Error> errors =buildErrors(violations);
+            List<Error> errors = buildErrors(violations);
 
-            throw new ValidationException(errors); //todo throw customexc in validateInput
+            throw new ValidationException(errors);
         }
     }
 

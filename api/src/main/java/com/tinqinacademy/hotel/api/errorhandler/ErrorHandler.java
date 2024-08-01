@@ -1,9 +1,8 @@
 package com.tinqinacademy.hotel.api.errorhandler;
 
-import com.tinqinacademy.hotel.api.exceptions.ValidationException;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.exceptions.RoomNotAvailableException;
-import jakarta.validation.ConstraintViolationException;
+import com.tinqinacademy.hotel.api.exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,11 +21,10 @@ public class ErrorHandler {
 
         HttpStatus status = Match(throwable).of(
                 Case($(instanceOf(MethodArgumentNotValidException.class)), ex -> handleMethodArgumentNotValidException(ex, errors)),
-                Case($(instanceOf(ValidationException.class)), ex -> handleCustomConstraintViolationException(ex, errors)),
-                //Case($(instanceOf(ConstraintViolationException.class)), ex -> handleConstraintViolationException(ex, errors)),
+                Case($(instanceOf(ValidationException.class)), ex -> handleValidationException(ex, errors)),
                 Case($(instanceOf(RoomNotAvailableException.class)), ex -> handleRoomNotAvailableException(ex, errors)),
                 Case($(instanceOf(HotelException.class)), ex -> handleHotelException(ex, errors)),
-                        Case($(), ex -> handleGenericException(ex, errors))
+                Case($(), ex -> handleGenericException(ex, errors))
         );
 
         return ErrorsWrapper.builder()
@@ -35,12 +33,12 @@ public class ErrorHandler {
                 .build();
     }
 
-    private HttpStatus handleCustomConstraintViolationException(ValidationException ex, List<Error> errors) {
-           ex.getViolations().forEach(violation -> errors.add(Error.builder()
-                    .field(violation.getField())
-                    .message(violation.getMessage())
-                    .build()));
-            return HttpStatus.BAD_REQUEST;
+    private HttpStatus handleValidationException(ValidationException ex, List<Error> errors) {
+        ex.getViolations().forEach(violation -> errors.add(Error.builder()
+                .field(violation.getField())
+                .message(violation.getMessage())
+                .build()));
+        return HttpStatus.BAD_REQUEST;
 
     }
 
@@ -51,15 +49,6 @@ public class ErrorHandler {
                                 .field(error.getField())
                                 .message(error.getDefaultMessage())
                                 .build()));
-        return HttpStatus.BAD_REQUEST;
-    }
-
-    private HttpStatus handleConstraintViolationException(ConstraintViolationException ex, List<Error> errors) {
-        ex.getConstraintViolations()
-                .forEach(violation -> errors.add(Error.builder()
-                        .field(violation.getPropertyPath().toString())
-                        .message(violation.getMessage())
-                        .build()));
         return HttpStatus.BAD_REQUEST;
     }
 

@@ -33,7 +33,6 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
     @Override
     public Either<ErrorsWrapper, CheckAvailableRoomOutput> process(CheckAvailableRoomInput input) {
         return Try.of(() -> checkAvailableRooms(input))
-                //todo remove private method
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
