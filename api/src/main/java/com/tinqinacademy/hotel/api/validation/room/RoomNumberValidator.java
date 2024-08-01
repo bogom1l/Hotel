@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.api.validation;
+package com.tinqinacademy.hotel.api.validation.room;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

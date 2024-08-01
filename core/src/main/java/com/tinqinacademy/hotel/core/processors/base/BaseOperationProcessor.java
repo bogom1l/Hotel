@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.processors.base;
 
-import com.tinqinacademy.hotel.api.errorhandler.Error;
-import com.tinqinacademy.hotel.api.errorhandler.ErrorHandler;
+import com.tinqinacademy.hotel.api.error.Error;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.exceptions.ValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;

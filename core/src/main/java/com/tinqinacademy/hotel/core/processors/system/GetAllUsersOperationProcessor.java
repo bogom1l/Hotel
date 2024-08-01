@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.core.processors.system;
 
-import com.tinqinacademy.hotel.api.errorhandler.ErrorHandler;
-import com.tinqinacademy.hotel.api.errorhandler.ErrorsWrapper;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
+import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersInput;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOperation;
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;

@@ -1,5 +1,7 @@
-package com.tinqinacademy.hotel.api.errorhandler;
+package com.tinqinacademy.hotel.core.errorhandler;
 
+import com.tinqinacademy.hotel.api.error.Error;
+import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.exceptions.RoomNotAvailableException;
 import com.tinqinacademy.hotel.api.exceptions.ValidationException;

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.api.errorhandler;
+package com.tinqinacademy.hotel.api.error;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;

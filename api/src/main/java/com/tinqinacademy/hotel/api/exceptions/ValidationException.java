@@ -1,6 +1,6 @@
 package com.tinqinacademy.hotel.api.exceptions;
 
-import com.tinqinacademy.hotel.api.errorhandler.Error;
+import com.tinqinacademy.hotel.api.error.Error;
 import lombok.Getter;
 
 import java.util.List;

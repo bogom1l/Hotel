@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotel.api.operations.system.getreport;
 
 import com.tinqinacademy.hotel.api.base.OperationInput;
-import com.tinqinacademy.hotel.api.validation.RoomNumberValidation;
+import com.tinqinacademy.hotel.api.validation.room.RoomNumberValidation;
 import lombok.*;
 
 @Getter
