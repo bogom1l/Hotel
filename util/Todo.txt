@@ -111,14 +111,16 @@ Todo: ✔️ ❌ ❓
 ✔️ todo throw customexception in validateInput i da gi mapna
 ✔️ todo ternary operator in base controller
 ✔️ todo na 1 red outputa v controllerite v handle()
-//todo custom validation annotation for enums
-   -> add it in input models (?maybe add something more in @Target in the validators)
+//todo custom validation annotation for enums✔
+   -> add it in input models (?maybe add something more in @Target in the validators for the annotaion in list
     -> and remove if checks for enums in processors
+//todo   @NotNull(message = "visitors cannot be null")
+             private List<@Valid RegisterVisitorInput> visitors;
+
 //todo fix CheckAvailableRoomOperationProcessor to make all fields optional
 //todo remove big private methods in processors and split them
 
-//todo   @NotNull(message = "visitors cannot be null")
-         private List<@Valid RegisterVisitorInput> visitors;
+//todo look todo in RoomNumberValidator.
 
 -> fix same things in 'comments' microservice
 -> double check layers dependencies

@@ -72,15 +72,6 @@ public class UpdateRoomOperationProcessor extends BaseOperationProcessor<UpdateR
     }
 
     private void validateFields(UpdateRoomInput input) {
-//        if (BedSize.getByCode(input.getBedSize()).equals(BedSize.UNKNOWN)) {
-//            throw new HotelException("No bed size found");
-//        }
-
-      //  //todo remove
-//        if (BathroomType.getByCode(input.getBathroomType()).equals(BathroomType.UNKNOWN)) {
-//            throw new HotelException("No bathroom type found");
-//        }
-
         if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
             throw new HotelException("Room number already exists");
         }

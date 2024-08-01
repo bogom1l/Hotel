@@ -49,24 +49,16 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
             throw new HotelException("Start date should be before end date.");
         }
 
-        if (bedSize == BedSize.UNKNOWN) {
-            throw new HotelException("Invalid bed size.");
-        }
-
-        if (bathroomType == BathroomType.UNKNOWN) {
-            throw new HotelException("Invalid bathroom type.");
-        }
-
         List<Room> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(input.getStartDate(), input.getEndDate())
                 .orElseThrow(() -> new HotelException("No available rooms found"));
 
-        List<Room> roomsMatchingCriteria = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
+        List<Room> roomsMatchingBedSizeAndBathroomType = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
 
-        List<String> availableRoomIds = availableRoomsBetweenDates.stream()
-                .filter(roomsMatchingCriteria::contains)
-                .map(room -> room.getId().toString()).toList();
+        List<Room> roomsMatchingCriteria = availableRoomsBetweenDates.stream()
+                .filter(roomsMatchingBedSizeAndBathroomType::contains)
+                .toList();
 
-        CheckAvailableRoomOutput output = conversionService.convert(availableRoomIds, CheckAvailableRoomOutput.class);
+        CheckAvailableRoomOutput output = conversionService.convert(roomsMatchingCriteria, CheckAvailableRoomOutput.class);
 
         log.info("Ended checkAvailableRoom with output: {}", output);
         return output;
