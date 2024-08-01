@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.api.operations.system.getreport;
 
 import com.tinqinacademy.hotel.api.base.OperationInput;
+import com.tinqinacademy.hotel.api.validation.RoomNumberValidation;
 import lombok.*;
 
 @Getter
@@ -31,5 +32,6 @@ public class GetReportInput implements OperationInput {
     private String idCardIssueDate;
 
     //room
+    @RoomNumberValidation(optional = true)
     private String roomNumber;
 }

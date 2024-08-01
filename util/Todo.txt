@@ -104,8 +104,6 @@ Todo: ✔️ ❌ ❓
 
 ✔️ clean up
 
-❌ add good validation to all input models (@NotNull(value=..), @NotBlank(value=..), @Size(), ...)
-
 ❓ add more CustomExceptions?; and handle them in the ErrorHandler   ||   use everywhere only HotelException?
 
 -------------------------------------------------------------------------
