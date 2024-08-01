@@ -51,4 +51,24 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
             WHERE r.id = :roomId AND b.room_id IS NULL;
             """, nativeQuery = true)
     Boolean isRoomAvailableByRoomIdAndBetweenDates(@Param("roomId") UUID roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+
+
+    @Query(value = """
+        SELECT r.*
+        FROM rooms r
+        LEFT JOIN bookings b ON r.id = b.room_id
+             AND (:startDate IS NULL OR b.start_date <= :endDate)
+             AND (:endDate IS NULL OR b.end_date >= :startDate)
+        LEFT JOIN rooms_beds rb ON r.id = rb.room_id
+        LEFT JOIN beds bd ON rb.beds_id = bd.id
+        WHERE (:startDate IS NULL OR :endDate IS NULL OR b.room_id IS NULL)
+          AND (:bedSize IS NULL OR bd.bed_size = :bedSize)
+          AND (:bathroomType IS NULL OR r.bathroom_type = :bathroomType);
+        """, nativeQuery = true)
+    Optional<List<Room>> findAvailableRooms(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate,
+            @Param("bedSize") BedSize bedSize,
+            @Param("bathroomType") BathroomType bathroomType);
 }

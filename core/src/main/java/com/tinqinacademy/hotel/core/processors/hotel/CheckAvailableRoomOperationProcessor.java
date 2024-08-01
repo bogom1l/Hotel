@@ -18,7 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -42,23 +44,24 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
 
         validateInput(input);
 
-        BedSize bedSize = BedSize.getByCode(input.getBedSize());
-        BathroomType bathroomType = BathroomType.getByCode(input.getBathroomType());
 
-        if (input.getStartDate().isAfter(input.getEndDate())) {
+        LocalDate startDate = input.getStartDate();
+        LocalDate endDate = input.getEndDate();
+        BedSize bedSize = Optional.ofNullable(input.getBedSize()).map(BedSize::getByCode).orElse(null);
+        BathroomType bathroomType = Optional.ofNullable(input.getBathroomType()).map(BathroomType::getByCode).orElse(null);
+
+        if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
             throw new HotelException("Start date should be before end date.");
         }
 
-        List<Room> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(input.getStartDate(), input.getEndDate())
+        List<Room> availableRooms = roomRepository.findAvailableRooms(
+                        startDate,
+                        endDate,
+                        bedSize,
+                        bathroomType)
                 .orElseThrow(() -> new HotelException("No available rooms found"));
 
-        List<Room> roomsMatchingBedSizeAndBathroomType = roomRepository.findRoomsByBedSizeAndBathroomType(bedSize, bathroomType);
-
-        List<Room> roomsMatchingCriteria = availableRoomsBetweenDates.stream()
-                .filter(roomsMatchingBedSizeAndBathroomType::contains)
-                .toList();
-
-        CheckAvailableRoomOutput output = conversionService.convert(roomsMatchingCriteria, CheckAvailableRoomOutput.class);
+        CheckAvailableRoomOutput output = conversionService.convert(availableRooms, CheckAvailableRoomOutput.class);
 
         log.info("Ended checkAvailableRoom with output: {}", output);
         return output;

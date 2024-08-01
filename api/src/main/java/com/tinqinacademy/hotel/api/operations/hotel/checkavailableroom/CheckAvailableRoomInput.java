@@ -18,9 +18,9 @@ public class CheckAvailableRoomInput implements OperationInput {
 
     private LocalDate endDate;
 
-    @BedSizeValidation
+    @BedSizeValidation(optional = true)
     private String bedSize;
 
-    @BathroomTypeValidation
+    @BathroomTypeValidation(optional = true)
     private String bathroomType;
 }
