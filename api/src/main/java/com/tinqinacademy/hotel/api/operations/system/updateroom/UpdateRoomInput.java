@@ -29,8 +29,7 @@ public class UpdateRoomInput implements OperationInput {
     @BathroomTypeValidation
     private String bathroomType;
 
-    @RoomNumberValidation // Custom validation
-    @NotBlank(message = "Room number is mandatory")
+    @RoomNumberValidation
     private String roomNumber;
 
     @NotNull(message = "Price is mandatory")

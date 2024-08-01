@@ -27,8 +27,7 @@ public class CreateRoomInput implements OperationInput {
     @Max(value = 15, message = "Floor should be maximum 15")
     private Integer floor;
 
-    @RoomNumberValidation // Custom validation
-    @NotBlank(message = "Room number is mandatory")
+    @RoomNumberValidation
     private String roomNumber;
 
     @NotNull(message = "Price is mandatory")

@@ -23,5 +23,4 @@ public class GetBookingHistoryBookingOutput {
     private BigDecimal bookingTotalPrice;
 
     private Set<GetBookingHistoryGuestOutput> guests;
-
 }
