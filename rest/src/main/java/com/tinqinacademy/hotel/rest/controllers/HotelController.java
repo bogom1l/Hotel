@@ -46,10 +46,10 @@ public class HotelController extends BaseController {
             @ApiResponse(responseCode = "200", description = "Room is available"),
             @ApiResponse(responseCode = "404", description = "Room not found")})
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
-    public ResponseEntity<?> checkAvailableRoom(@RequestParam LocalDate startDate,
-                                                @RequestParam LocalDate endDate,
-                                                @RequestParam String bedSize,
-                                                @RequestParam String bathroomType) {
+    public ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
+                                                @RequestParam(required = false) LocalDate endDate,
+                                                @RequestParam(required = false) String bedSize,
+                                                @RequestParam(required = false) String bathroomType) {
         CheckAvailableRoomInput input = CheckAvailableRoomInput.builder()
                 .startDate(startDate)
                 .endDate(endDate)

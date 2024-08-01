@@ -115,6 +115,7 @@ Todo: ✔️ ❌ ❓
 ✔️ todo @NotNull(message = "visitors cannot be null") private List<@Valid RegisterVisitorInput> visitors;
 
 ❌ fix CheckAvailableRoomOperationProcessor to make all fields optional
+    * need to do a good sql query for this
 
 ❌ remove big private methods in processors and split them into smaller ones
 
