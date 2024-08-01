@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.persistence.model.enums;
+package com.tinqinacademy.hotel.api.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
