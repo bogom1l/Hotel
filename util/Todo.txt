@@ -108,21 +108,19 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
-✔️ todo throw customexception in validateInput i da gi mapna
+✔️ todo throw custom ValidationException in validateInput
 ✔️ todo ternary operator in base controller
 ✔️ todo na 1 red outputa v controllerite v handle()
 ✔️ todo custom validation annotation for enums;add it in input models;remove if checks for enums in processors
+✔️ todo @NotNull(message = "visitors cannot be null") private List<@Valid RegisterVisitorInput> visitors;
 
-//todo   @NotNull(message = "visitors cannot be null")
-             private List<@Valid RegisterVisitorInput> visitors;
+❌ fix CheckAvailableRoomOperationProcessor to make all fields optional
 
-//todo fix CheckAvailableRoomOperationProcessor to make all fields optional
-//todo remove big private methods in processors and split them into smaller ones
-
-//todo look todo in RoomNumberValidator.
+❌ remove big private methods in processors and split them into smaller ones
 
 -> fix same things in 'comments' microservice
--> double check layers dependencies
 
-//feign
+-------------------------------------------------------------------------
+
+feign
 

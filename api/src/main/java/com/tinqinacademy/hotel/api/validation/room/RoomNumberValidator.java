@@ -37,7 +37,6 @@ public class RoomNumberValidator implements ConstraintValidator<RoomNumberValida
         }
 
         if (RESERVED_ROOM_NUMBERS.contains(roomNumber)) {
-            //todo remove
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext
                     .buildConstraintViolationWithTemplate(RESERVED_ROOM_MESSAGE)
