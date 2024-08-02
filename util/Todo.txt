@@ -108,21 +108,21 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
-✔️ todo throw custom ValidationException in validateInput
-✔️ todo ternary operator in base controller
-✔️ todo na 1 red outputa v controllerite v handle()
-✔️ todo custom validation annotation for enums;add it in input models;remove if checks for enums in processors
-✔️ todo @NotNull(message = "visitors cannot be null") private List<@Valid RegisterVisitorInput> visitors;
+✔️ throw custom ValidationException instead of ConstraintViolationException (in validateInput())
+✔️ ternary operator in base controller
+✔️ na 1 red outputa v controllerite v handle()
+✔️ custom validation annotation for enums;add it in input models;remove if checks for enums in processors
+✔️ @NotNull(message = "visitors cannot be null") private List<@Valid RegisterVisitorInput> visitors;
 ✔️ fix CheckAvailableRoomOperationProcessor: startDate and endDate - required; others - optional
 ✔️ refactor enum validators
 
-❌ remove big private methods in processors and split them into smaller ones
+-------------------------------------------------------------------------
 
--> fix same things in 'comments' microservice
+❌ clean up all processors
 
 -------------------------------------------------------------------------
 
-2 more projects with same architecture:
+❌ 2 more projects with same architecture:
 - authentication service - new empty db (name - authorization)
 - bff service - backend for frontend
 
