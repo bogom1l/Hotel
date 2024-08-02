@@ -15,7 +15,7 @@ import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdateP
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOperation;
-import com.tinqinacademy.hotel.rest.configuration.RestApiRoutes;
+import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
