@@ -1,11 +1,11 @@
 package com.tinqinacademy.hotel.core.processors.hotel;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -44,24 +43,26 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
 
         validateInput(input);
 
-
         LocalDate startDate = input.getStartDate();
         LocalDate endDate = input.getEndDate();
-        BedSize bedSize = Optional.ofNullable(input.getBedSize()).map(BedSize::getByCode).orElse(null);
-        BathroomType bathroomType = Optional.ofNullable(input.getBathroomType()).map(BathroomType::getByCode).orElse(null);
+        BedSize bedSize = input.getBedSize() != null
+                ? BedSize.getByCode(input.getBedSize()) : null;
+        BathroomType bathroomType = input.getBathroomType() != null
+                ? BathroomType.getByCode(input.getBathroomType()) : null;
 
         if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
             throw new HotelException("Start date should be before end date.");
         }
 
-        List<Room> availableRooms = roomRepository.findAvailableRooms(
-                        startDate,
-                        endDate,
-                        bedSize,
-                        bathroomType)
+        List<Room> availableRooms = roomRepository.findAvailableRoomsBetweenDates(startDate, endDate)
                 .orElseThrow(() -> new HotelException("No available rooms found"));
 
-        CheckAvailableRoomOutput output = conversionService.convert(availableRooms, CheckAvailableRoomOutput.class);
+        List<Room> filteredRooms = availableRooms.stream()
+                .filter(room -> bedSize == null || room.getBeds().stream().anyMatch(bed -> bed.getBedSize().equals(bedSize)))
+                .filter(room -> bathroomType == null || room.getBathroomType().equals(bathroomType))
+                .toList();
+
+        CheckAvailableRoomOutput output = conversionService.convert(filteredRooms, CheckAvailableRoomOutput.class);
 
         log.info("Ended checkAvailableRoom with output: {}", output);
         return output;

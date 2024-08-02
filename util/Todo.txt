@@ -113,9 +113,9 @@ Todo: ✔️ ❌ ❓
 ✔️ todo na 1 red outputa v controllerite v handle()
 ✔️ todo custom validation annotation for enums;add it in input models;remove if checks for enums in processors
 ✔️ todo @NotNull(message = "visitors cannot be null") private List<@Valid RegisterVisitorInput> visitors;
+✔️ todo fix CheckAvailableRoomOperationProcessor: startDate and endDate - required; others - optional
 
-❌ fix CheckAvailableRoomOperationProcessor to make all fields optional
-    * need to do a good sql query for this
+//todo return optional and remove upper if in bedsize validation and bathroom vliadaiotn
 
 ❌ remove big private methods in processors and split them into smaller ones
 

@@ -27,7 +27,7 @@ public class BedSizeValidator implements ConstraintValidator<BedSizeValidation, 
         }
 
         if (bedSize == null || bedSize.isEmpty()) {
-            return false;
+            return false; //todo return optional and remove upper if
         }
 
         return VALID_BED_SIZES.contains(bedSize);
