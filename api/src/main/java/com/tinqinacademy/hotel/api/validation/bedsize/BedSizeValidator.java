@@ -22,14 +22,9 @@ public class BedSizeValidator implements ConstraintValidator<BedSizeValidation, 
 
     @Override
     public boolean isValid(String bedSize, ConstraintValidatorContext constraintValidatorContext) {
-        if (optional && (bedSize == null || bedSize.isEmpty())) {
-            return true; // Skip validation if optional and bed size is not provided
-        }
-
         if (bedSize == null || bedSize.isEmpty()) {
-            return false; //todo return optional and remove upper if
+            return optional;
         }
-
         return VALID_BED_SIZES.contains(bedSize);
     }
 }

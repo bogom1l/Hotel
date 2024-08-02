@@ -23,12 +23,8 @@ public class BathroomTypeValidator implements ConstraintValidator<BathroomTypeVa
 
     @Override
     public boolean isValid(String bathroomType, ConstraintValidatorContext constraintValidatorContext) {
-        if (optional && (bathroomType == null || bathroomType.isEmpty())) {
-            return true; // Skip validation if optional and bed size is not provided
-        }
-
         if (bathroomType == null || bathroomType.isEmpty()) {
-            return false;
+            return optional;
         }
 
         return VALID_BATHROOM_TYPES.contains(bathroomType);
