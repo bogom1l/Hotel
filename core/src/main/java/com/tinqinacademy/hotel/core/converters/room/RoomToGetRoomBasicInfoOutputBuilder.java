@@ -1,5 +1,7 @@
 package com.tinqinacademy.hotel.core.converters.room;
 
+import com.tinqinacademy.hotel.api.enums.BathroomType;
+import com.tinqinacademy.hotel.api.enums.BedSize;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +20,8 @@ public class RoomToGetRoomBasicInfoOutputBuilder implements Converter<Room, GetR
                 .id(source.getId())
                 .price(source.getPrice())
                 .floor(source.getFloor())
-                .bedSize(source.getBeds().getFirst().getBedSize())
-                .bathroomType(source.getBathroomType())
+                .bedSize(BedSize.getByCode(source.getBeds().getFirst().getBedSize().getCode()))
+                .bathroomType(BathroomType.getByCode(source.getBathroomType().getCode()))
                 .roomNumber(source.getRoomNumber());
 
         log.info("Ended Converter - Room to GetRoomBasicInfoOutput");
