@@ -15,7 +15,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.tinqinacademy.hotel</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>core</artifactId>
             <version>${revision}</version>
         </dependency>
