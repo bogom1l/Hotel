@@ -113,9 +113,8 @@ Todo: ✔️ ❌ ❓
 ✔️ todo na 1 red outputa v controllerite v handle()
 ✔️ todo custom validation annotation for enums;add it in input models;remove if checks for enums in processors
 ✔️ todo @NotNull(message = "visitors cannot be null") private List<@Valid RegisterVisitorInput> visitors;
-✔️ todo fix CheckAvailableRoomOperationProcessor: startDate and endDate - required; others - optional
-
-//todo return optional and remove upper if in bedsize validation and bathroom vliadaiotn
+✔️ fix CheckAvailableRoomOperationProcessor: startDate and endDate - required; others - optional
+✔️ refactor enum validators
 
 ❌ remove big private methods in processors and split them into smaller ones
 
@@ -123,5 +122,7 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
-feign
+2 more projects with same architecture:
+- authentication service - new empty db (name - authorization)
+- bff service - backend for frontend
 
