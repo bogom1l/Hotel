@@ -122,7 +122,4 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
-❌ 2 more projects with same architecture:
-- authentication service - new empty db (db name - authentication)
-- bff service - backend for frontend
 
