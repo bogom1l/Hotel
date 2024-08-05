@@ -30,7 +30,8 @@
 		<module>core</module>
 		<module>api</module>
 		<module>rest</module>
-	</modules>
+        <module>restexport</module>
+    </modules>
 
 	<dependencies>
 
