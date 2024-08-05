@@ -46,9 +46,6 @@ public class DeleteRoomOperationProcessor extends BaseOperationProcessor<DeleteR
         Room room = roomRepository.findById(UUID.fromString(input.getId()))
                 .orElseThrow(() -> new HotelException("No room found with id: " + input.getId()));
 
-//        if (bookingRepository.existsByRoomId(room.getId())) {
-//            throw new HotelException("Cannot delete room with existing bookings.");
-//        }
         bookingRepository.deleteBookingsByRoomId(room.getId());
         roomRepository.delete(room);
 

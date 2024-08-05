@@ -57,6 +57,5 @@ public class GetBookingHistoryOperationProcessor extends BaseOperationProcessor<
 
         log.info("Ended getBookingHistory with output: {}", output);
         return output;
-
     }
 }
