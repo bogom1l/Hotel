@@ -84,8 +84,6 @@ Todo: ✔️ ❌ ❓
 
   ✔️ review all code logic and add todos for future refactoring/implementing
 
-❌ Refactor GetReport criteria logic
-
 -------------------------------------------------------------------------
 
 ✔️ Add vavr dependency
@@ -104,7 +102,8 @@ Todo: ✔️ ❌ ❓
 
 ✔️ clean up
 
-❓ add more CustomExceptions?; and handle them in the ErrorHandler   ||   use everywhere only HotelException?
+❓ Add more custom exceptions? (and handle them in the ErrorHandler)   ||   use everywhere only HotelException?
+❓ Refactor some of the processors' logic
 
 -------------------------------------------------------------------------
 
@@ -115,10 +114,6 @@ Todo: ✔️ ❌ ❓
 ✔️ @NotNull(message = "visitors cannot be null") private List<@Valid RegisterVisitorInput> visitors;
 ✔️ fix CheckAvailableRoomOperationProcessor: startDate and endDate - required; others - optional
 ✔️ refactor enum validators
-
--------------------------------------------------------------------------
-
-❌ clean up all processors
 
 -------------------------------------------------------------------------
 

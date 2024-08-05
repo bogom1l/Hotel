@@ -46,6 +46,7 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
                 .mapLeft(errorHandler::handleErrors);
     }
 
+    //todo: ? refactor logic
 
     private GetReportOutput getReport(GetReportInput input) {
         log.info("Started getRoomReport with input: {}", input);
