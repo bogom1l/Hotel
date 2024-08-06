@@ -103,6 +103,7 @@ Todo: ✔️ ❌ ❓
 ✔️ clean up
 
 ❓ Add more custom exceptions? (and handle them in the ErrorHandler)   ||   use everywhere only HotelException?
+
 ❓ Refactor some of the processors' logic
 
 -------------------------------------------------------------------------
@@ -119,10 +120,11 @@ Todo: ✔️ ❌ ❓
 
 ❓ Integrate spring boot admin (?not in a new project)
 
-❌ Feign - add Hotel and Comments in HotelBff
-    * restexport module
-    * mvn clean install -U
-    -> In HotelBff make a configuration for the other microservices
+-------------------------------------------------------------------------
 
-❌ authentication's endpoints (discord image)
+❌ Feign (restexport module; a lot of mvn clean installs)
+    ✔️ add Hotel in HotelBff
+    ❌ add Comments in HotelBff
+
+❌ authentication microservice's endpoints (discord image) (IT)
 
