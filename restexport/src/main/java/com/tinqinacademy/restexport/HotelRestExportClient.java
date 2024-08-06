@@ -24,11 +24,10 @@ public interface HotelRestExportClient {
     ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId);
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
-    ResponseEntity<?> checkAvailableRoom(@RequestParam(value = "startDate") LocalDate startDate,
-                                         @RequestParam(value = "endDate") LocalDate endDate,
-                                         @RequestParam(value = "bedCount") Integer bedCount,
-                                         @RequestParam(value = "bedSize") List<String> beds,
-                                         @RequestParam(value = "bathroomType") String bathroomType);
+    ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
+                                                @RequestParam(required = false) LocalDate endDate,
+                                                @RequestParam(required = false) String bedSize,
+                                                @RequestParam(required = false) String bathroomType);
 
     @PostMapping(RestApiRoutes.BOOK_ROOM)
     ResponseEntity<?> bookRoom(@PathVariable String roomId, @RequestBody BookRoomInput input);
@@ -37,7 +36,8 @@ public interface HotelRestExportClient {
     ResponseEntity<?> unbookRoom(@PathVariable String bookingId);
 
     @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
-    ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId, @RequestBody UpdatePartiallyBookingInput input);
+    ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
+                                             @RequestBody UpdatePartiallyBookingInput input);
 
     @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
     ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber);
