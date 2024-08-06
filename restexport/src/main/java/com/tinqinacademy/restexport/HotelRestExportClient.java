@@ -13,9 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
-//todo @Headers("Content-Type: application/json")
+
 @FeignClient(name = "hotel")
 @Headers("Content-Type: application/json")
 public interface HotelRestExportClient {
@@ -25,9 +24,9 @@ public interface HotelRestExportClient {
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
     ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
-                                                @RequestParam(required = false) LocalDate endDate,
-                                                @RequestParam(required = false) String bedSize,
-                                                @RequestParam(required = false) String bathroomType);
+                                         @RequestParam(required = false) LocalDate endDate,
+                                         @RequestParam(required = false) String bedSize,
+                                         @RequestParam(required = false) String bathroomType);
 
     @PostMapping(RestApiRoutes.BOOK_ROOM)
     ResponseEntity<?> bookRoom(@PathVariable String roomId, @RequestBody BookRoomInput input);

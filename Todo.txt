@@ -120,8 +120,9 @@ Todo: ✔️ ❌ ❓
 ❓ Integrate spring boot admin (?not in a new project)
 
 ❌ Feign - add Hotel and Comments in HotelBff
-    * rest export module, rest client
-->
-In HotelBff make a configuration for the other microservices
+    * restexport module
+    * mvn clean install -U
+    -> In HotelBff make a configuration for the other microservices
 
-❌ discord image - authentication's endpoints
+❌ authentication's endpoints (discord image)
+
