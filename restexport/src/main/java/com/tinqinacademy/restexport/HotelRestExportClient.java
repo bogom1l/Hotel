@@ -7,6 +7,7 @@ import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuest
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
+import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+//todo @Headers("Content-Type: application/json")
 @FeignClient(name = "hotel")
-public interface HotelRestClient {
+@Headers("Content-Type: application/json")
+public interface HotelRestExportClient {
+
+    @GetMapping(RestApiRoutes.GET_ROOM_INFO)
+    ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId);
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
     ResponseEntity<?> checkAvailableRoom(@RequestParam(value = "startDate") LocalDate startDate,
@@ -23,9 +29,6 @@ public interface HotelRestClient {
                                          @RequestParam(value = "bedCount") Integer bedCount,
                                          @RequestParam(value = "bedSize") List<String> beds,
                                          @RequestParam(value = "bathroomType") String bathroomType);
-
-    @GetMapping(RestApiRoutes.GET_ROOM_INFO)
-    ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId);
 
     @PostMapping(RestApiRoutes.BOOK_ROOM)
     ResponseEntity<?> bookRoom(@PathVariable String roomId, @RequestBody BookRoomInput input);
