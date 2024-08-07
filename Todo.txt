@@ -122,9 +122,9 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
-❌ Feign to HotelBff (restexport module; a lot of mvn clean installs)
+✔️ Feign to HotelBff (restexport module; a lot of mvn clean installs)
     ✔️ Hotel in HotelBff
-    ❌ Comments in HotelBff
+    ✔️ Comments in HotelBff
     ❌ ? All operations / input/output models should be copied into HotelBff
 
 
