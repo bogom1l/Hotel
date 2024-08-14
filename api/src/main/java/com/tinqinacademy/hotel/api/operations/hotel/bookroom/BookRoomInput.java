@@ -24,12 +24,15 @@ public class BookRoomInput implements OperationInput {
     @NotNull(message = "End date is mandatory")
     private LocalDate endDate;
 
-    @NotBlank(message = "First name is mandatory")
-    private String firstName;
+//    @NotBlank(message = "First name is mandatory")
+//    private String firstName;
+//
+//    @NotBlank(message = "Last name is mandatory")
+//    private String lastName;
+//
+//    @NotBlank(message = "Phone number is mandatory")
+//    private String phoneNumber;
 
-    @NotBlank(message = "Last name is mandatory")
-    private String lastName;
-
-    @NotBlank(message = "Phone number is mandatory")
-    private String phoneNumber;
+    @NotBlank(message = "User id is mandatory")
+    private String userId;
 }

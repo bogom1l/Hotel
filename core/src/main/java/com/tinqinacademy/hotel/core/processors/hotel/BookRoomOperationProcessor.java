@@ -1,12 +1,12 @@
 package com.tinqinacademy.hotel.core.processors.hotel;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.exceptions.RoomNotAvailableException;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Room;
@@ -54,9 +54,9 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
 
         checkRoomAvailability(input, room);
 
-        User user = findUser(input); // todo: logic: ? find user or create user
+        String userId = findUserId(input);
 
-        Booking booking = buildBooking(input, room, user);
+        Booking booking = buildBooking(input, room, userId);
 
         bookingRepository.save(booking);
 
@@ -66,11 +66,11 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
         return output;
     }
 
-    private Booking buildBooking(BookRoomInput input, Room room, User user) {
+    private Booking buildBooking(BookRoomInput input, Room room, String userId) {
         return Booking
                 .builder()
                 .room(room)
-                .user(user)
+                .user(user) //todo userId
                 .startDate(input.getStartDate())
                 .endDate(input.getEndDate())
                 .totalPrice(room.getPrice())
@@ -92,17 +92,19 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
         }
     }
 
-    private User findUser(BookRoomInput input) {
-        return userRepository
-                .findByPhoneNumberAndFirstNameAndLastName(
-                        input.getPhoneNumber(),
-                        input.getFirstName(),
-                        input.getLastName())
-                .orElseThrow(() -> new HotelException(
-                        String.format("No user found with first name: %s, last name: %s, phone number: %s",
-                                input.getFirstName(),
-                                input.getLastName(),
-                                input.getPhoneNumber())));
+    //     private User findUser(BookRoomInput input) {
+//        return userRepository
+//                .findByPhoneNumberAndFirstNameAndLastName(
+//                        input.getPhoneNumber(),
+//                        input.getFirstName(),
+//                        input.getLastName())
+//                .orElseThrow(() -> new HotelException(
+//                        String.format("No user found with first name: %s, last name: %s, phone number: %s",
+//                                input.getFirstName(),
+//                                input.getLastName(),
+//                                input.getPhoneNumber())));
+    private String findUserId(BookRoomInput input) {
+        return input.getUserId();
     }
 
 }

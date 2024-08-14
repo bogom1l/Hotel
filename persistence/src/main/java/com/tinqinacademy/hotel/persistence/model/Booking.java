@@ -29,9 +29,10 @@ public class Booking {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @ManyToOne
+    //@ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UUID userId;
+//    private User user;
 
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;

@@ -130,3 +130,14 @@ Todo: ✔️ ❌ ❓
 ✔️ authentication microservice's endpoints (discord image) (IT)
 
 -------------------------------------------------------------------------
+
+da napravq UserContext (kakto toshko i plamen kazaha) (v tetradkata imam primer)
+
+drop User entity
+drop User table
+drop UserRepository
+ because its all in Auth microservice
+
+v Booking entity veche shte e userId, a ne User entity
+
+ drop all tables in all projects, reload maven in all projects
