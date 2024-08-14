@@ -125,8 +125,8 @@ Todo: ✔️ ❌ ❓
 ✔️ Feign to HotelBff (restexport module; a lot of mvn clean installs)
     ✔️ Hotel in HotelBff
     ✔️ Comments in HotelBff
-    ❌ ? All operations / input/output models should be copied into HotelBff
+    ✔️ Auth in HotelBff
 
+✔️ authentication microservice's endpoints (discord image) (IT)
 
-❌ authentication microservice's endpoints (discord image) (IT)
-
+-------------------------------------------------------------------------
