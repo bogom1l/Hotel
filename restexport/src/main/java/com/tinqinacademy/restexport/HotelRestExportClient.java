@@ -1,12 +1,24 @@
 package com.tinqinacademy.restexport;
 
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
+import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;
+import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
+import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,7 +33,7 @@ import java.time.LocalDate;
 public interface HotelRestExportClient {
 
     @GetMapping(RestApiRoutes.GET_ROOM_INFO)
-    ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId);
+    GetRoomBasicInfoOutput getRoomBasicInfo(@PathVariable String roomId);
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
     CheckAvailableRoomOutput checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
@@ -30,45 +42,45 @@ public interface HotelRestExportClient {
                                                 @RequestParam(required = false) String bathroomType);
 
     @PostMapping(RestApiRoutes.BOOK_ROOM)
-    ResponseEntity<?> bookRoom(@PathVariable String roomId, @RequestBody BookRoomInput input);
+    BookRoomOutput bookRoom(@PathVariable String roomId, @RequestBody BookRoomInput input);
 
     @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
-    ResponseEntity<?> unbookRoom(@PathVariable String bookingId);
+    UnbookRoomOutput unbookRoom(@PathVariable String bookingId);
 
     @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
-    ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
-                                             @RequestBody UpdatePartiallyBookingInput input);
+    UpdatePartiallyBookingOutput updatePartiallyBooking(@PathVariable String bookingId,
+                                                        @RequestBody UpdatePartiallyBookingInput input);
 
     @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
-    ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber);
+    GetBookingHistoryOutput getBookingHistory(@PathVariable String phoneNumber);
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
-    ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input);
+    RegisterGuestOutput registerGuest(@RequestBody RegisterGuestInput input);
 
     @GetMapping(RestApiRoutes.GET_REPORT)
-    ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
-                                @RequestParam(required = false) String endDate,
-                                @RequestParam(required = false) String firstName,
-                                @RequestParam(required = false) String lastName,
-                                @RequestParam(required = false) String phoneNumber,
-                                @RequestParam(required = false) String idCardNumber,
-                                @RequestParam(required = false) String idCardValidity,
-                                @RequestParam(required = false) String idCardIssueAuthority,
-                                @RequestParam(required = false) String idCardIssueDate,
-                                @RequestParam(required = false) String roomNumber);
+    GetReportOutput getReport(@RequestParam(required = false) String startDate,
+                              @RequestParam(required = false) String endDate,
+                              @RequestParam(required = false) String firstName,
+                              @RequestParam(required = false) String lastName,
+                              @RequestParam(required = false) String phoneNumber,
+                              @RequestParam(required = false) String idCardNumber,
+                              @RequestParam(required = false) String idCardValidity,
+                              @RequestParam(required = false) String idCardIssueAuthority,
+                              @RequestParam(required = false) String idCardIssueDate,
+                              @RequestParam(required = false) String roomNumber);
 
     @PostMapping(RestApiRoutes.CREATE_ROOM)
-    ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input);
+    CreateRoomOutput createRoom(@RequestBody CreateRoomInput input);
 
     @PutMapping(RestApiRoutes.UPDATE_ROOM)
-    ResponseEntity<?> updateRoom(@PathVariable String roomId, @RequestBody UpdateRoomInput input);
+    UpdateRoomOutput updateRoom(@PathVariable String roomId, @RequestBody UpdateRoomInput input);
 
     @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_ROOM)
-    ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId, @RequestBody UpdatePartiallyRoomInput input);
+    UpdatePartiallyRoomOutput updatePartiallyRoom(@PathVariable String roomId, @RequestBody UpdatePartiallyRoomInput input);
 
     @DeleteMapping(RestApiRoutes.DELETE_ROOM)
-    ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id);
+    DeleteRoomOutput deleteRoom(@PathVariable("roomId") String id);
 
     @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
-    ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName);
+    GetAllUsersOutput getAllUsersByPartialName(@RequestParam(required = false) String partialName);
 }
