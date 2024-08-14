@@ -1,6 +1,7 @@
 package com.tinqinacademy.restexport;
 
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
@@ -23,10 +24,10 @@ public interface HotelRestExportClient {
     ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId);
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
-    ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
-                                         @RequestParam(required = false) LocalDate endDate,
-                                         @RequestParam(required = false) String bedSize,
-                                         @RequestParam(required = false) String bathroomType);
+    CheckAvailableRoomOutput checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
+                                                @RequestParam(required = false) LocalDate endDate,
+                                                @RequestParam(required = false) String bedSize,
+                                                @RequestParam(required = false) String bathroomType);
 
     @PostMapping(RestApiRoutes.BOOK_ROOM)
     ResponseEntity<?> bookRoom(@PathVariable String roomId, @RequestBody BookRoomInput input);
