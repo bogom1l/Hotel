@@ -5,6 +5,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
@@ -45,7 +46,7 @@ public interface HotelRestExportClient {
     BookRoomOutput bookRoom(@PathVariable String roomId, @RequestBody BookRoomInput input);
 
     @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
-    UnbookRoomOutput unbookRoom(@PathVariable String bookingId);
+    UnbookRoomOutput unbookRoom(@PathVariable String bookingId, @RequestBody UnbookRoomInput input);
 
     @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
     UpdatePartiallyBookingOutput updatePartiallyBooking(@PathVariable String bookingId,

@@ -49,6 +49,10 @@ public class UnbookRoomOperationProcessor extends BaseOperationProcessor<UnbookR
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new HotelException("Booking not found"));
 
+        if(!isUserCreatorOfBooking(input.getUserId(), booking.getUserId().toString())) {
+            throw new HotelException("This user is not the creator of the booking, and he isn't authorized to delete it");
+        }
+
         for (Guest guest : booking.getGuests()) {
             bookingRepository.deleteFromBookingsGuestsByBookingId(bookingId);
             guestRepository.deleteById(guest.getId());
@@ -58,6 +62,10 @@ public class UnbookRoomOperationProcessor extends BaseOperationProcessor<UnbookR
         UnbookRoomOutput output = UnbookRoomOutput.builder().build();
         log.info("Ended unbookRoom with output: {}", output);
         return output;
+    }
+
+    private boolean isUserCreatorOfBooking(String userId, String bookingUserId) {
+        return userId.equals(bookingUserId);
     }
 
 }

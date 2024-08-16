@@ -29,7 +29,7 @@ public class HotelController extends BaseController {
     private final GetRoomBasicInfoOperation getRoomBasicInfo;
     private final CheckAvailableRoomOperation checkAvailableRoom;
     private final BookRoomOperation bookRoom;
-//    private final UnbookRoomOperation unbookRoom;
+    private final UnbookRoomOperation unbookRoom;
 //    private final UpdatePartiallyBookingOperation updatePartiallyBooking;
 //    private final GetBookingHistoryOperation getBookingHistory;
 
@@ -80,17 +80,18 @@ public class HotelController extends BaseController {
 
         return handleWithStatus(bookRoom.process(updatedInput), HttpStatus.CREATED);
     }
-//
-//    @Operation(summary = "Unbook a room", description = "Unbook a room")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
-//            @ApiResponse(responseCode = "404", description = "Room booking not found")})
-//    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
-//    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {
-//        UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
-//
-//        return handle(unbookRoom.process(input));
-//    }
+
+    @Operation(summary = "Unbook a room", description = "Unbook a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
+            @ApiResponse(responseCode = "404", description = "Room booking not found")})
+    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
+    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId,
+                                        @RequestBody UnbookRoomInput input) {
+        UnbookRoomInput updatedInput = input.toBuilder().bookingId(bookingId).build();
+
+        return handle(unbookRoom.process(updatedInput));
+    }
 //
 //    @Operation(summary = "Update partially a booking",
 //            description = "Update partially a booking")
