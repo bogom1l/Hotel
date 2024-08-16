@@ -49,6 +49,8 @@ public class DeleteRoomOperationProcessor extends BaseOperationProcessor<DeleteR
         bookingRepository.deleteBookingsByRoomId(room.getId());
         roomRepository.delete(room);
 
+        //todo find all guests in the booking and delete them too.
+
         DeleteRoomOutput output = DeleteRoomOutput.builder().build();
         log.info("Ended deleteRoom with output: {}", output);
         return output;

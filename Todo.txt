@@ -144,6 +144,6 @@ Todo: ✔️ ❌ ❓
 ✔️createRoom
 ✔️updateRoom
 ✔️updatePartiallyRoom
-❌deleteRoom
+✔️deleteRoom
 ❌[bonus]getAllUsersByPartialName
 

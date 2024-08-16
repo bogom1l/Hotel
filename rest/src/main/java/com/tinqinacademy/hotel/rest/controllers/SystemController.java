@@ -36,7 +36,7 @@ public class SystemController extends BaseController {
     private final CreateRoomOperation createRoom;
     private final UpdateRoomOperation updateRoom;
     private final UpdatePartiallyRoomOperation updatePartiallyRoom;
-//    private final DeleteRoomOperation deleteRoom;
+   private final DeleteRoomOperation deleteRoom;
 //
 
     @Operation(summary = "Register a guest as room renter",
@@ -116,17 +116,17 @@ public class SystemController extends BaseController {
 
         return handle(updatePartiallyRoom.process(updatedInput));
     }
-//
-//    @Operation(summary = "Delete a room", description = "Delete a room")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Room deleted successfully"),
-//            @ApiResponse(responseCode = "400", description = "Error deleting room")})
-//    @DeleteMapping(RestApiRoutes.DELETE_ROOM)
-//    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
-//        DeleteRoomInput input = DeleteRoomInput.builder().id(id).build();
-//
-//        return handle(deleteRoom.process(input));
-//    }
+
+    @Operation(summary = "Delete a room", description = "Delete a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Error deleting room")})
+    @DeleteMapping(RestApiRoutes.DELETE_ROOM)
+    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
+        DeleteRoomInput input = DeleteRoomInput.builder().id(id).build();
+
+        return handle(deleteRoom.process(input));
+    }
 //
 //    @Operation(summary = "Get all users by partial name", description = "Get all users by partial name")
 //    @ApiResponses(value = {
