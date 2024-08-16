@@ -23,7 +23,6 @@ import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput
 import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;

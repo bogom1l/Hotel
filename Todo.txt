@@ -136,6 +136,14 @@ Todo: ✔️ ❌ ❓
 ✔️getRoomBasicInfo
 ✔️bookRoom
 ✔️unbookRoom
+❌[bonus]updatePartiallyBooking
+❌[bonus]getBookingHistory
 
 ✔️registerGuest
+❌getReport
+❌createRoom
+❌updateRoom
+❌updatePartiallyRoom
+❌deleteRoom
+❌[bonus]getAllUsersByPartialName
 
