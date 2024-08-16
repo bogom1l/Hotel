@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 
+import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
@@ -9,6 +10,7 @@ import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersInpu
 import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOperation;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOperation;
+import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOperation;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
@@ -19,6 +21,7 @@ import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class SystemController extends BaseController {
-//    private final GetReportOperation getReport;
+    private final GetReportOperation getReport;
 //    private final GetAllUsersOperation getAllUsersByPartialName;
     private final RegisterGuestOperation registerGuest;
 //    private final CreateRoomOperation createRoom;
@@ -45,38 +48,40 @@ public class SystemController extends BaseController {
     public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
         return handleWithStatus(registerGuest.process(input), HttpStatus.CREATED);
     }
-//
-//    @Operation(summary = "Provides a report based on various criteria",
-//            description = "Provides a report based on various criteria")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Report generated successfully"),
-//            @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
-//    @GetMapping(RestApiRoutes.GET_REPORT)
-//    public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
-//                                       @RequestParam(required = false) String endDate,
-//                                       @RequestParam(required = false) String firstName,
-//                                       @RequestParam(required = false) String lastName,
-//                                       @RequestParam(required = false) String phoneNumber,
-//                                       @RequestParam(required = false) String idCardNumber,
-//                                       @RequestParam(required = false) String idCardValidity,
-//                                       @RequestParam(required = false) String idCardIssueAuthority,
-//                                       @RequestParam(required = false) String idCardIssueDate,
-//                                       @RequestParam(required = false) String roomNumber) {
-//        GetReportInput input = GetReportInput.builder()
-//                .startDate(startDate)
-//                .endDate(endDate)
-//                .firstName(firstName)
-//                .lastName(lastName)
-//                .phoneNumber(phoneNumber)
-//                .idCardNumber(idCardNumber)
-//                .idCardValidity(idCardValidity)
-//                .idCardIssueAuthority(idCardIssueAuthority)
-//                .idCardIssueDate(idCardIssueDate)
-//                .roomNumber(roomNumber)
-//                .build();
-//
-//        return handle(getReport.process(input));
-//    }
+
+    @Operation(summary = "Provides a report based on various criteria",
+            description = "Provides a report based on various criteria")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Report generated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters")})
+    @GetMapping(RestApiRoutes.GET_REPORT)
+    public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
+                                       @RequestParam(required = false) String endDate,
+                                       @RequestParam(required = false) String firstName,
+                                       @RequestParam(required = false) String lastName,
+                                       @RequestParam(required = false) String phoneNumber,
+                                       @RequestParam(required = false) String idCardNumber,
+                                       @RequestParam(required = false) String idCardValidity,
+                                       @RequestParam(required = false) String idCardIssueAuthority,
+                                       @RequestParam(required = false) String idCardIssueDate,
+                                       @RequestParam(required = false) String roomNumber) {
+        GetReportInput input = GetReportInput.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .firstName(firstName)
+                .lastName(lastName)
+                .phoneNumber(phoneNumber)
+                .idCardNumber(idCardNumber)
+                .idCardValidity(idCardValidity)
+                .idCardIssueAuthority(idCardIssueAuthority)
+                .idCardIssueDate(idCardIssueDate)
+                .roomNumber(roomNumber)
+                .build();
+
+        Either<ErrorsWrapper, GetReportOutput> result = getReport.process(input);
+
+        return handle(result);
+    }
 //
 //    @Operation(summary = "Create a room", description = "Create a room")
 //    @ApiResponses(value = {
