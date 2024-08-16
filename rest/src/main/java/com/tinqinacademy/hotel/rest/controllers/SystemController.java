@@ -34,8 +34,8 @@ public class SystemController extends BaseController {
 //    private final GetAllUsersOperation getAllUsersByPartialName;
     private final RegisterGuestOperation registerGuest;
     private final CreateRoomOperation createRoom;
-//    private final UpdateRoomOperation updateRoom;
-//    private final UpdatePartiallyRoomOperation updatePartiallyRoom;
+    private final UpdateRoomOperation updateRoom;
+    private final UpdatePartiallyRoomOperation updatePartiallyRoom;
 //    private final DeleteRoomOperation deleteRoom;
 //
 
@@ -92,30 +92,30 @@ public class SystemController extends BaseController {
 
         return handleWithStatus(createRoom.process(input), HttpStatus.CREATED);
     }
-//
-//    @Operation(summary = "Update a room", description = "Update a room")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Room updated successfully"),
-//            @ApiResponse(responseCode = "400", description = "Error updating room")})
-//    @PutMapping(RestApiRoutes.UPDATE_ROOM)
-//    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
-//                                        @RequestBody UpdateRoomInput input) {
-//        UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
-//
-//        return handle(updateRoom.process(updatedInput));
-//    }
-//
-//    @Operation(summary = "Update partially a room", description = "Update partially a room")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Room updated successfully"),
-//            @ApiResponse(responseCode = "400", description = "Error updating room")})
-//    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_ROOM)
-//    public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
-//                                                 @RequestBody UpdatePartiallyRoomInput input) {
-//        UpdatePartiallyRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
-//
-//        return handle(updatePartiallyRoom.process(updatedInput));
-//    }
+
+    @Operation(summary = "Update a room", description = "Update a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Error updating room")})
+    @PutMapping(RestApiRoutes.UPDATE_ROOM)
+    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
+                                        @RequestBody UpdateRoomInput input) {
+        UpdateRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
+
+        return handle(updateRoom.process(updatedInput));
+    }
+
+    @Operation(summary = "Update partially a room", description = "Update partially a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Error updating room")})
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_ROOM)
+    public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
+                                                 @RequestBody UpdatePartiallyRoomInput input) {
+        UpdatePartiallyRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
+
+        return handle(updatePartiallyRoom.process(updatedInput));
+    }
 //
 //    @Operation(summary = "Delete a room", description = "Delete a room")
 //    @ApiResponses(value = {
