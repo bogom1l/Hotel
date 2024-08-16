@@ -41,9 +41,6 @@ public class GuestInput {
     @NotNull(message = "Id card issue date is mandatory")
     private LocalDate idCardIssueDate;
 
-    @NotBlank(message = "Room id is mandatory")
-    private String roomId;
-
     @NotNull(message = "Birth date is mandatory")
     private LocalDate birthdate;
 }

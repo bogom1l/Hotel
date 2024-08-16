@@ -1,12 +1,12 @@
 package com.tinqinacademy.hotel.core.processors.system;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOperation;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
@@ -46,20 +46,17 @@ public class RegisterGuestOperationProcessor extends BaseOperationProcessor<Regi
 
     private RegisterGuestOutput registerGuest(RegisterGuestInput input) {
         log.info("Started registerGuest with input: {}", input);
-
         validateInput(input);
 
-        // todo: logic: ? should room be in the List, or should it be a separate field
+        Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
+                .orElseThrow(() -> new HotelException("No room found"));
 
         for (GuestInput guestInput : input.getGuests()) {
-            Room room = roomRepository.findById(UUID.fromString(guestInput.getRoomId()))
-                    .orElseThrow(() -> new HotelException("No room found"));
-
             Guest guest = conversionService.convert(guestInput, Guest.class);
 
-            Booking booking = bookingRepository.findByRoomIdAndStartDateAndEndDate(
-                            room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
-                    .orElseThrow(() -> new HotelException("No booking found"));
+            Booking booking = bookingRepository
+                    .findByRoomIdAndStartDateAndEndDate(room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
+                    .orElseThrow(() -> new HotelException("No booking found between these dates"));
 
             booking.getGuests().add(guest);
 

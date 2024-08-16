@@ -131,13 +131,11 @@ Todo: ✔️ ❌ ❓
 
 -------------------------------------------------------------------------
 
-da napravq UserContext (kakto toshko i plamen kazaha) (v tetradkata imam primer)
+- BFF to Hotel endpoints:
+✔️checkAvailableRoom
+✔️getRoomBasicInfo
+✔️bookRoom
+✔️unbookRoom
 
-drop User entity
-drop User table
-drop UserRepository
- because its all in Auth microservice
+✔️registerGuest
 
-v Booking entity veche shte e userId, a ne User entity
-
- drop all tables in all projects, reload maven in all projects

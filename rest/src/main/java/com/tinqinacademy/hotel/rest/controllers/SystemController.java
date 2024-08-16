@@ -19,40 +19,32 @@ import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 public class SystemController extends BaseController {
 //    private final GetReportOperation getReport;
 //    private final GetAllUsersOperation getAllUsersByPartialName;
-//    private final RegisterGuestOperation registerGuest;
+    private final RegisterGuestOperation registerGuest;
 //    private final CreateRoomOperation createRoom;
 //    private final UpdateRoomOperation updateRoom;
 //    private final UpdatePartiallyRoomOperation updatePartiallyRoom;
 //    private final DeleteRoomOperation deleteRoom;
 //
-//    public SystemController(GetReportOperation getReport, GetAllUsersOperation getAllUsersByPartialName, RegisterGuestOperation registerGuest, CreateRoomOperation createRoom, UpdateRoomOperation updateRoom, UpdatePartiallyRoomOperation updatePartiallyRoom, DeleteRoomOperation deleteRoom) {
-//        this.getReport = getReport;
-//        this.getAllUsersByPartialName = getAllUsersByPartialName;
-//        this.registerGuest = registerGuest;
-//        this.createRoom = createRoom;
-//        this.updateRoom = updateRoom;
-//        this.updatePartiallyRoom = updatePartiallyRoom;
-//        this.deleteRoom = deleteRoom;
-//    }
-//
-//    @Operation(summary = "Register a guest as room renter",
-//            description = "Register a guest as room renter by Booking's: roomId, startDate, endDate")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "201", description = "Guest registered successfully"),
-//            @ApiResponse(responseCode = "400", description = "Error registering guest")})
-//    @PostMapping(RestApiRoutes.REGISTER_GUEST)
-//    public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
-//
-//        return handleWithStatus(registerGuest.process(input), HttpStatus.CREATED);
-//    }
+
+    @Operation(summary = "Register a guest as room renter",
+            description = "Register a guest as room renter by Booking's: roomId, startDate, endDate")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Guest registered successfully"),
+            @ApiResponse(responseCode = "400", description = "Error registering guest")})
+    @PostMapping(RestApiRoutes.REGISTER_GUEST)
+    public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
+        return handleWithStatus(registerGuest.process(input), HttpStatus.CREATED);
+    }
 //
 //    @Operation(summary = "Provides a report based on various criteria",
 //            description = "Provides a report based on various criteria")
