@@ -33,7 +33,7 @@ public class SystemController extends BaseController {
     private final GetReportOperation getReport;
 //    private final GetAllUsersOperation getAllUsersByPartialName;
     private final RegisterGuestOperation registerGuest;
-//    private final CreateRoomOperation createRoom;
+    private final CreateRoomOperation createRoom;
 //    private final UpdateRoomOperation updateRoom;
 //    private final UpdatePartiallyRoomOperation updatePartiallyRoom;
 //    private final DeleteRoomOperation deleteRoom;
@@ -82,16 +82,16 @@ public class SystemController extends BaseController {
 
         return handle(result);
     }
-//
-//    @Operation(summary = "Create a room", description = "Create a room")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "201", description = "Room created successfully"),
-//            @ApiResponse(responseCode = "400", description = "Error creating room")})
-//    @PostMapping(RestApiRoutes.CREATE_ROOM)
-//    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
-//
-//        return handleWithStatus(createRoom.process(input), HttpStatus.CREATED);
-//    }
+
+    @Operation(summary = "Create a room", description = "Create a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Room created successfully"),
+            @ApiResponse(responseCode = "400", description = "Error creating room")})
+    @PostMapping(RestApiRoutes.CREATE_ROOM)
+    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
+
+        return handleWithStatus(createRoom.process(input), HttpStatus.CREATED);
+    }
 //
 //    @Operation(summary = "Update a room", description = "Update a room")
 //    @ApiResponses(value = {
