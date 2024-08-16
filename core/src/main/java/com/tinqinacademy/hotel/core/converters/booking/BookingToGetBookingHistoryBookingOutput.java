@@ -29,7 +29,7 @@ public class BookingToGetBookingHistoryBookingOutput implements Converter<Bookin
 
         GetBookingHistoryBookingOutput getBookingHistoryBookingOutput = GetBookingHistoryBookingOutput.builder()
                 .room(conversionService.convert(source.getRoom(), GetBookingHistoryRoomOutput.class))
-                .user(conversionService.convert(source.getUser(), GetBookingHistoryUserOutput.class))
+                //.user(conversionService.convert(source.getUser(), GetBookingHistoryUserOutput.class))
                 .bookingStartDate(source.getStartDate())
                 .bookingEndDate(source.getEndDate())
                 .bookingTotalPrice(source.getTotalPrice())

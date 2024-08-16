@@ -10,10 +10,8 @@ import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.User;
 import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
 import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
-import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.validation.Validator;
@@ -28,13 +26,11 @@ import java.util.UUID;
 @Slf4j
 public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomInput> implements BookRoomOperation {
     private final RoomRepository roomRepository;
-    private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
 
-    protected BookRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository) {
+    protected BookRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository, BookingRepository bookingRepository) {
         super(conversionService, errorHandler, validator); //
         this.roomRepository = roomRepository;
-        this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
     }
 
@@ -70,7 +66,7 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
         return Booking
                 .builder()
                 .room(room)
-                .user(user) //todo userId
+                .userId(UUID.fromString(userId)) //todo userId
                 .startDate(input.getStartDate())
                 .endDate(input.getEndDate())
                 .totalPrice(room.getPrice())

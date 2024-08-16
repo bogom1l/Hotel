@@ -16,6 +16,7 @@ import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,22 +24,14 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
+@RequiredArgsConstructor
 public class HotelController extends BaseController {
     private final GetRoomBasicInfoOperation getRoomBasicInfo;
-    private final GetBookingHistoryOperation getBookingHistory;
     private final CheckAvailableRoomOperation checkAvailableRoom;
     private final BookRoomOperation bookRoom;
-    private final UnbookRoomOperation unbookRoom;
-    private final UpdatePartiallyBookingOperation updatePartiallyBooking;
-
-    public HotelController(GetRoomBasicInfoOperation getRoomBasicInfo, GetBookingHistoryOperation getBookingHistory, CheckAvailableRoomOperation checkAvailableRoom, BookRoomOperation bookRoom, UnbookRoomOperation unbookRoom, UpdatePartiallyBookingOperation updatePartiallyBooking) {
-        this.getRoomBasicInfo = getRoomBasicInfo;
-        this.getBookingHistory = getBookingHistory;
-        this.checkAvailableRoom = checkAvailableRoom;
-        this.bookRoom = bookRoom;
-        this.unbookRoom = unbookRoom;
-        this.updatePartiallyBooking = updatePartiallyBooking;
-    }
+//    private final UnbookRoomOperation unbookRoom;
+//    private final UpdatePartiallyBookingOperation updatePartiallyBooking;
+//    private final GetBookingHistoryOperation getBookingHistory;
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -87,45 +80,45 @@ public class HotelController extends BaseController {
 
         return handleWithStatus(bookRoom.process(updatedInput), HttpStatus.CREATED);
     }
-
-    @Operation(summary = "Unbook a room", description = "Unbook a room")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
-            @ApiResponse(responseCode = "404", description = "Room booking not found")})
-    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
-    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {
-        UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
-
-        return handle(unbookRoom.process(input));
-    }
-
-    @Operation(summary = "Update partially a booking",
-            description = "Update partially a booking")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Booking updated successfully"),
-            @ApiResponse(responseCode = "400", description = "Error updating the booking")})
-    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
-    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
-                                                    @RequestBody UpdatePartiallyBookingInput input) {
-        UpdatePartiallyBookingInput updatedInput = input.toBuilder()
-                .bookingId(bookingId)
-                .build();
-
-        return handle(updatePartiallyBooking.process(updatedInput));
-    }
-
-    @Operation(summary = "Get booking history",
-            description = "Get booking history")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Booking history retrieved successfully"),
-            @ApiResponse(responseCode = "400", description = "Error retrieving booking history")})
-    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
-    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
-        GetBookingHistoryInput input = GetBookingHistoryInput.builder()
-                .phoneNumber(phoneNumber)
-                .build();
-
-        return handle(getBookingHistory.process(input));
-    }
+//
+//    @Operation(summary = "Unbook a room", description = "Unbook a room")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
+//            @ApiResponse(responseCode = "404", description = "Room booking not found")})
+//    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
+//    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {
+//        UnbookRoomInput input = UnbookRoomInput.builder().bookingId(bookingId).build();
+//
+//        return handle(unbookRoom.process(input));
+//    }
+//
+//    @Operation(summary = "Update partially a booking",
+//            description = "Update partially a booking")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Booking updated successfully"),
+//            @ApiResponse(responseCode = "400", description = "Error updating the booking")})
+//    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
+//    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
+//                                                    @RequestBody UpdatePartiallyBookingInput input) {
+//        UpdatePartiallyBookingInput updatedInput = input.toBuilder()
+//                .bookingId(bookingId)
+//                .build();
+//
+//        return handle(updatePartiallyBooking.process(updatedInput));
+//    }
+//
+//    @Operation(summary = "Get booking history",
+//            description = "Get booking history")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Booking history retrieved successfully"),
+//            @ApiResponse(responseCode = "400", description = "Error retrieving booking history")})
+//    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
+//    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
+//        GetBookingHistoryInput input = GetBookingHistoryInput.builder()
+//                .phoneNumber(phoneNumber)
+//                .build();
+//
+//        return handle(getBookingHistory.process(input));
+//    }
 
 }
