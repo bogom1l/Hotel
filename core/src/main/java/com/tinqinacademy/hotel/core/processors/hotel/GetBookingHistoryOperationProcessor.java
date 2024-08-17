@@ -40,9 +40,7 @@ public class GetBookingHistoryOperationProcessor extends BaseOperationProcessor<
         log.info("Started getBookingHistory with input: {}", input);
         validateInput(input);
 
-        UUID userId = UUID.fromString(input.getUserId());
-
-        List<Booking> bookings = bookingRepository.findAllByUserId(userId);
+        List<Booking> bookings = bookingRepository.findAllByUserId(UUID.fromString(input.getUserId()));
 
         List<GetBookingHistoryBookingOutput> bookingsOutput = bookings.stream()
                 .map(booking -> conversionService.convert(booking, GetBookingHistoryBookingOutput.class))

@@ -41,20 +41,17 @@ public class UnbookRoomOperationProcessor extends BaseOperationProcessor<UnbookR
 
     private UnbookRoomOutput unbookRoomOutput(UnbookRoomInput input) {
         log.info("Started unbookRoom with input: {}", input);
-
         validateInput(input);
 
-        UUID bookingId = UUID.fromString(input.getBookingId());
-
-        Booking booking = bookingRepository.findById(bookingId)
+        Booking booking = bookingRepository.findById(UUID.fromString(input.getBookingId()))
                 .orElseThrow(() -> new HotelException("Booking not found"));
 
-        if(!isUserCreatorOfBooking(input.getUserId(), booking.getUserId().toString())) {
-            throw new HotelException("This user is not the creator of the booking, and he isn't authorized to delete it");
+        if(!input.getUserId().equals(booking.getUserId().toString())) {
+            throw new HotelException("This user is not the creator of the booking, thus he isn't authorized to delete it");
         }
 
         for (Guest guest : booking.getGuests()) {
-            bookingRepository.deleteFromBookingsGuestsByBookingId(bookingId);
+            bookingRepository.deleteFromBookingsGuestsByBookingId(UUID.fromString(input.getBookingId()));
             guestRepository.deleteById(guest.getId());
         }
         bookingRepository.delete(booking);
@@ -62,10 +59,6 @@ public class UnbookRoomOperationProcessor extends BaseOperationProcessor<UnbookR
         UnbookRoomOutput output = UnbookRoomOutput.builder().build();
         log.info("Ended unbookRoom with output: {}", output);
         return output;
-    }
-
-    private boolean isUserCreatorOfBooking(String userId, String bookingUserId) {
-        return userId.equals(bookingUserId);
     }
 
 }

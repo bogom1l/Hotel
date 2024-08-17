@@ -40,15 +40,12 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
 
     private CheckAvailableRoomOutput checkAvailableRooms(CheckAvailableRoomInput input) {
         log.info("Started checkAvailableRoom with input: {}", input);
-
         validateInput(input);
 
         LocalDate startDate = input.getStartDate();
         LocalDate endDate = input.getEndDate();
-        BedSize bedSize = input.getBedSize() != null
-                ? BedSize.getByCode(input.getBedSize()) : null;
-        BathroomType bathroomType = input.getBathroomType() != null
-                ? BathroomType.getByCode(input.getBathroomType()) : null;
+        BedSize bedSize = input.getBedSize() != null ? BedSize.getByCode(input.getBedSize()) : null;
+        BathroomType bathroomType = input.getBathroomType() != null ? BathroomType.getByCode(input.getBathroomType()) : null;
 
         if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
             throw new HotelException("Start date should be before end date.");

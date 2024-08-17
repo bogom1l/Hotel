@@ -1,11 +1,11 @@
 package com.tinqinacademy.hotel.core.processors.hotel;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Room;
@@ -19,7 +19,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,17 +43,16 @@ public class GetRoomBasicInfoOperationProcessor extends BaseOperationProcessor<G
 
     private GetRoomBasicInfoOutput getRoomBasicInfoOutput(GetRoomBasicInfoInput input) {
         log.info("Started getRoomBasicInfo with input: {}", input);
-
         validateInput(input);
 
-        UUID roomId = UUID.fromString(input.getRoomId());
-        Room room = roomRepository.findByIdWithBeds(roomId)
+        Room room = roomRepository.findByIdWithBeds(UUID.fromString(input.getRoomId()))
                 .orElseThrow(() -> new HotelException("Room not found"));
 
         List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId());
 
         List<LocalDate> datesOccupied = bookings.stream()
-                .flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate())).toList();
+                .flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate()))
+                .toList();
 
         GetRoomBasicInfoOutput output = conversionService
                 .convert(room, GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder.class)
@@ -63,5 +61,4 @@ public class GetRoomBasicInfoOperationProcessor extends BaseOperationProcessor<G
         log.info("Ended getRoomBasicInfo with output: {}", output);
         return output;
     }
-
 }
