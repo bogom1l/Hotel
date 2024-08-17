@@ -1,11 +1,11 @@
 package com.tinqinacademy.hotel.core.processors.system;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Room;
 import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
@@ -40,7 +40,6 @@ public class DeleteRoomOperationProcessor extends BaseOperationProcessor<DeleteR
 
     private DeleteRoomOutput deleteRoom(DeleteRoomInput input) {
         log.info("Started deleteRoom with input: {}", input);
-
         validateInput(input);
 
         Room room = roomRepository.findById(UUID.fromString(input.getId()))
@@ -50,6 +49,7 @@ public class DeleteRoomOperationProcessor extends BaseOperationProcessor<DeleteR
         roomRepository.delete(room);
 
         //todo find all guests in the booking and delete them too.
+        //todo find all beds in the room and delete them too.
 
         DeleteRoomOutput output = DeleteRoomOutput.builder().build();
         log.info("Ended deleteRoom with output: {}", output);

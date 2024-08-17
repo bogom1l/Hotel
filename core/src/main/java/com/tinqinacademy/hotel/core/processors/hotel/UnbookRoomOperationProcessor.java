@@ -1,11 +1,11 @@
 package com.tinqinacademy.hotel.core.processors.hotel;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
@@ -46,7 +46,7 @@ public class UnbookRoomOperationProcessor extends BaseOperationProcessor<UnbookR
         Booking booking = bookingRepository.findById(UUID.fromString(input.getBookingId()))
                 .orElseThrow(() -> new HotelException("Booking not found"));
 
-        if(!input.getUserId().equals(booking.getUserId().toString())) {
+        if (!input.getUserId().equals(booking.getUserId().toString())) {
             throw new HotelException("This user is not the creator of the booking, thus he isn't authorized to delete it");
         }
 

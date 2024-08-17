@@ -1,15 +1,13 @@
 package com.tinqinacademy.hotel.core.processors.system;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
-import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Bed;
 import com.tinqinacademy.hotel.persistence.model.Room;
-import com.tinqinacademy.hotel.persistence.model.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.model.enums.BedSize;
 import com.tinqinacademy.hotel.persistence.repository.BedRepository;
 import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
@@ -43,12 +41,12 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
 
     private CreateRoomOutput createRoom(CreateRoomInput input) {
         log.info("Started createRoom with input: {}", input);
-
         validateInput(input);
 
-        // todo: logic: ? create the bed or find the bed
-        Bed bed = buildBed(input);
-        Room room = buildRoom(input, bed);
+        Bed bed = createBed(input);  // logic: create the bed
+        Room room = conversionService.convert(input, Room.RoomBuilder.class)
+                .beds(List.of(bed))
+                .build();
 
         bedRepository.save(bed);
         roomRepository.save(room);
@@ -59,18 +57,10 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
         return output;
     }
 
-    private Bed buildBed(CreateRoomInput input) {
+    private Bed createBed(CreateRoomInput input) {
         return Bed.builder()
                 .bedSize(BedSize.getByCode(input.getBedSize()))
                 .capacity(BedSize.getByCode(input.getBedSize()).getCapacity())
                 .build();
     }
-
-    private Room buildRoom(CreateRoomInput input, Bed bed) {
-        return conversionService
-                .convert(input, Room.RoomBuilder.class)
-                .beds(List.of(bed))
-                .build();
-    }
-
 }
