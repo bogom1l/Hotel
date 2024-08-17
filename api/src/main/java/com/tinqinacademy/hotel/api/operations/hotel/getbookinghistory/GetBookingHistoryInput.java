@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinqinacademy.hotel.api.base.OperationInput;
 import lombok.*;
 
@@ -7,7 +8,9 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
+@ToString
 public class GetBookingHistoryInput implements OperationInput {
-    private String phoneNumber;
+    @JsonIgnore
+    private String userId;
 }

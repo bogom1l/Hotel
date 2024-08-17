@@ -13,6 +13,7 @@ public class BedSizeValidator implements ConstraintValidator<BedSizeValidation, 
     private static final Set<String> VALID_BED_SIZES = EnumSet.allOf(BedSize.class).stream()
             .map(BedSize::getCode)
             .collect(Collectors.toSet());
+
     private boolean optional;
 
     @Override

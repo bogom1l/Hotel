@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.guest;
+package com.tinqinacademy.hotel.core.converters.system.getreport;
 
 import com.tinqinacademy.hotel.api.operations.system.getreport.GuestOutput;
 import com.tinqinacademy.hotel.persistence.model.Guest;
@@ -13,7 +13,7 @@ public class GuestToGuestOutputBuilder implements Converter<Guest, GuestOutput.G
     public GuestOutput.GuestOutputBuilder convert(Guest source) {
         log.info("Started Converter - Guest to GuestOutput");
 
-        GuestOutput.GuestOutputBuilder guestOutput = GuestOutput.builder()
+        GuestOutput.GuestOutputBuilder target = GuestOutput.builder()
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .phoneNumber(source.getPhoneNumber())
@@ -23,6 +23,6 @@ public class GuestToGuestOutputBuilder implements Converter<Guest, GuestOutput.G
                 .idCardIssueDate(source.getIdCardIssueDate());
 
         log.info("Ended Converter - Guest to GuestOutput");
-        return guestOutput;
+        return target;
     }
 }

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.guest;
+package com.tinqinacademy.hotel.core.converters.system.registerguest;
 
 import com.tinqinacademy.hotel.api.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.persistence.model.Guest;
@@ -13,7 +13,7 @@ public class GuestInputToGuest implements Converter<GuestInput, Guest> {
     public Guest convert(GuestInput source) {
         log.info("Started Converter - GuestInput to Guest");
 
-        Guest guest = Guest.builder()
+        Guest target = Guest.builder()
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .phoneNumber(source.getPhoneNumber())
@@ -25,6 +25,6 @@ public class GuestInputToGuest implements Converter<GuestInput, Guest> {
                 .build();
 
         log.info("Ended Converter - GuestInput to Guest");
-        return guest;
+        return target;
     }
 }

@@ -20,7 +20,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "rooms")
 public class Room {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -31,7 +30,7 @@ public class Room {
     @Column(name = "floor", nullable = false)
     private Integer floor;
 
-    @Column(name = "room_number", nullable = false, unique = true, length = 4) // potential problem
+    @Column(name = "room_number", nullable = false, unique = true, length = 4)
     private String roomNumber;
 
     @Column(name = "bathroom_type")

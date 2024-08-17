@@ -1,9 +1,8 @@
-package com.tinqinacademy.hotel.core.converters.booking;
+package com.tinqinacademy.hotel.core.converters.hotel.getbookinghistory;
 
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryBookingOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryGuestOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryRoomOutput;
-import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryUserOutput;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -27,18 +26,17 @@ public class BookingToGetBookingHistoryBookingOutput implements Converter<Bookin
     public GetBookingHistoryBookingOutput convert(Booking source) {
         log.info("Started Converter - Booking to GetBookingOutput");
 
-        GetBookingHistoryBookingOutput getBookingHistoryBookingOutput = GetBookingHistoryBookingOutput.builder()
+        GetBookingHistoryBookingOutput target = GetBookingHistoryBookingOutput.builder()
                 .room(conversionService.convert(source.getRoom(), GetBookingHistoryRoomOutput.class))
-                //.user(conversionService.convert(source.getUser(), GetBookingHistoryUserOutput.class))
                 .bookingStartDate(source.getStartDate())
                 .bookingEndDate(source.getEndDate())
                 .bookingTotalPrice(source.getTotalPrice())
-                .guests(source.getGuests().stream().map(guest -> conversionService
-                                .convert(guest, GetBookingHistoryGuestOutput.class))
+                .guests(source.getGuests().stream()
+                        .map(guest -> conversionService.convert(guest, GetBookingHistoryGuestOutput.class))
                         .collect(Collectors.toSet()))
                 .build();
 
         log.info("Ended Converter - Booking to GetBookingOutput");
-        return getBookingHistoryBookingOutput;
+        return target;
     }
 }

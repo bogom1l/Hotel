@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.room;
+package com.tinqinacademy.hotel.core.converters.hotel.getroombasicinfo;
 
 import com.tinqinacademy.hotel.api.enums.BathroomType;
 import com.tinqinacademy.hotel.api.enums.BedSize;
@@ -15,8 +15,7 @@ public class RoomToGetRoomBasicInfoOutputBuilder implements Converter<Room, GetR
     public GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder convert(Room source) {
         log.info("Started Converter - Room to GetRoomBasicInfoOutput");
 
-        GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder getRoomBasicInfoOutput = GetRoomBasicInfoOutput
-                .builder()
+        GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder target = GetRoomBasicInfoOutput.builder()
                 .id(source.getId())
                 .price(source.getPrice())
                 .floor(source.getFloor())
@@ -25,6 +24,6 @@ public class RoomToGetRoomBasicInfoOutputBuilder implements Converter<Room, GetR
                 .roomNumber(source.getRoomNumber());
 
         log.info("Ended Converter - Room to GetRoomBasicInfoOutput");
-        return getRoomBasicInfoOutput;
+        return target;
     }
 }

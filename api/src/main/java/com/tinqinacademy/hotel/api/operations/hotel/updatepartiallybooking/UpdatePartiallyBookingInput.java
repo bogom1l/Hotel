@@ -20,7 +20,7 @@ public class UpdatePartiallyBookingInput implements OperationInput {
     @JsonIgnore
     private String bookingId;
 
-    @RoomNumberValidation(optional = true) // Custom validation
+    @RoomNumberValidation(optional = true)
     private String roomNumber;
 
     // no userId, because: user shouldn't be changed; instead every user creates his new booking

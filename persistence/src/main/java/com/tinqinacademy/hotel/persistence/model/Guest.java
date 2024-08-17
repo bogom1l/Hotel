@@ -18,27 +18,26 @@ import java.util.UUID;
 @Entity
 @Table(name = "guests")
 public class Guest {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, length = 20)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
-    @Column(name = "id_card_number", nullable = false, unique = true)
+    @Column(name = "id_card_number", nullable = false, unique = true, length = 20)
     private String idCardNumber;
 
     @Column(name = "id_card_validity", nullable = false)
     private LocalDate idCardValidity;
 
-    @Column(name = "id_card_issue_authority", nullable = false)
+    @Column(name = "id_card_issue_authority", nullable = false, length = 20)
     private String idCardIssueAuthority;
 
     @Column(name = "id_card_issue_date", nullable = false)

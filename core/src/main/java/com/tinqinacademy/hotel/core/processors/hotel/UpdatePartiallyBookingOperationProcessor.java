@@ -1,12 +1,12 @@
 package com.tinqinacademy.hotel.core.processors.hotel;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOperation;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
@@ -46,7 +46,6 @@ public class UpdatePartiallyBookingOperationProcessor extends BaseOperationProce
 
     private UpdatePartiallyBookingOutput updatePartiallyBooking(UpdatePartiallyBookingInput input) {
         log.info("Started updatePartiallyBooking with input: {}", input);
-
         validateInput(input);
 
         Booking booking = bookingRepository.findById(UUID.fromString(input.getBookingId()))
@@ -80,7 +79,7 @@ public class UpdatePartiallyBookingOperationProcessor extends BaseOperationProce
                 throw new HotelException("Room number already exists. Please choose different room number.");
             }
 
-            booking.getRoom().setRoomNumber(input.getRoomNumber()); // logic: shouldn't be able to create a new room
+            booking.getRoom().setRoomNumber(input.getRoomNumber());
         }
 
         if (input.getGuests() != null && !input.getGuests().isEmpty()) { // if guests field is not left empty
@@ -92,7 +91,6 @@ public class UpdatePartiallyBookingOperationProcessor extends BaseOperationProce
                 booking.getGuests().add(newGuest);
             }
         }
-
     }
 
 }

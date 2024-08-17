@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.room;
+package com.tinqinacademy.hotel.core.converters.hotel.checkavailableroom;
 
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.Room;
@@ -16,15 +16,18 @@ public class RoomsToCheckAvailableRoomOutput implements Converter<List<Room>, Ch
     public CheckAvailableRoomOutput convert(List<Room> source) {
         log.info("Started Converter - Room to CheckAvailableRoomOutput");
 
-        List<String> ids = source.stream().map(Room::getId).map(UUID::toString).toList();
+        List<String> ids = source.stream()
+                .map(Room::getId)
+                .map(UUID::toString)
+                .toList();
 
-        CheckAvailableRoomOutput checkAvailableRoomOutput =
+        CheckAvailableRoomOutput target =
                 CheckAvailableRoomOutput
                         .builder()
                         .ids(ids)
                         .build();
 
         log.info("Ended Converter - Room to CheckAvailableRoomOutput");
-        return checkAvailableRoomOutput;
+        return target;
     }
 }

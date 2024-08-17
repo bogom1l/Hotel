@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.room;
+package com.tinqinacademy.hotel.core.converters.system.createroom;
 
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.Room;
@@ -14,13 +14,13 @@ public class CreateRoomInputToRoomBuilder implements Converter<CreateRoomInput, 
     public Room.RoomBuilder convert(CreateRoomInput source) {
         log.info("Started Converter - CreateRoomInput to Room");
 
-        Room.RoomBuilder room = Room.builder()
+        Room.RoomBuilder target = Room.builder()
                 .bathroomType(BathroomType.getByCode(source.getBathroomType()))
                 .floor(source.getFloor())
                 .roomNumber(source.getRoomNumber())
                 .price(source.getPrice());
 
         log.info("Ended Converter - CreateRoomInput to Room");
-        return room;
+        return target;
     }
 }

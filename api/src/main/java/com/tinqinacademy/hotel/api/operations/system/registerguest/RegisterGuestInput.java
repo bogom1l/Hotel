@@ -15,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class RegisterGuestInput implements OperationInput {
-    @NotEmpty(message = "Guests list should not be empty")
-    private List<@Valid GuestInput> guests;
-
     @NotBlank(message = "Room id is mandatory")
     private String roomId;
+
+    @NotEmpty(message = "Guests list should not be empty")
+    private List<@Valid GuestInput> guests;
 }

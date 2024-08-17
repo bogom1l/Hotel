@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotel.api.validation.bathroomtype;
 
-
 import com.tinqinacademy.hotel.api.enums.BathroomType;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -14,6 +13,7 @@ public class BathroomTypeValidator implements ConstraintValidator<BathroomTypeVa
     private static final Set<String> VALID_BATHROOM_TYPES = EnumSet.allOf(BathroomType.class).stream()
             .map(BathroomType::getCode)
             .collect(Collectors.toSet());
+
     private boolean optional;
 
     @Override

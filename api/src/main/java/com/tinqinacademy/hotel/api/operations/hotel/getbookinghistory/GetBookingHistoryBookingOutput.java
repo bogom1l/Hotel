@@ -11,10 +11,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class GetBookingHistoryBookingOutput {
     private GetBookingHistoryRoomOutput room;
-
-    private GetBookingHistoryUserOutput user;
 
     private LocalDate bookingStartDate;
 

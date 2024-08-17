@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.booking;
+package com.tinqinacademy.hotel.core.converters.hotel.updatepartiallybooking;
 
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import com.tinqinacademy.hotel.persistence.model.Booking;
@@ -13,12 +13,12 @@ public class BookingToUpdatePartiallyBookingOutput implements Converter<Booking,
     public UpdatePartiallyBookingOutput convert(Booking source) {
         log.info("Started Converter - Booking to UpdatePartiallyBookingOutput");
 
-        UpdatePartiallyBookingOutput updatePartiallyBookingOutput = UpdatePartiallyBookingOutput
+        UpdatePartiallyBookingOutput target = UpdatePartiallyBookingOutput
                 .builder()
                 .id((source.getId()))
                 .build();
 
         log.info("Ended Converter - Booking to UpdatePartiallyBookingOutput");
-        return updatePartiallyBookingOutput;
+        return target;
     }
 }

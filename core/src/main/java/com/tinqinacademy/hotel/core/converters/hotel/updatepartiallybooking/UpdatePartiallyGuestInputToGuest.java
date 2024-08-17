@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.guest;
+package com.tinqinacademy.hotel.core.converters.hotel.updatepartiallybooking;
 
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
 import com.tinqinacademy.hotel.persistence.model.Guest;
@@ -13,7 +13,7 @@ public class UpdatePartiallyGuestInputToGuest implements Converter<UpdatePartial
     public Guest convert(UpdatePartiallyGuestInput source) {
         log.info("Started Converter - UpdatePartiallyGuestInput to Guest");
 
-        Guest guest = Guest.builder()
+        Guest target = Guest.builder()
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .phoneNumber(source.getPhoneNumber())
@@ -25,6 +25,6 @@ public class UpdatePartiallyGuestInputToGuest implements Converter<UpdatePartial
                 .build();
 
         log.info("Ended Converter - UpdatePartiallyGuestInput to Guest");
-        return guest;
+        return target;
     }
 }

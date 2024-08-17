@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.room;
+package com.tinqinacademy.hotel.core.converters.system.createroom;
 
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.persistence.model.Room;
@@ -13,11 +13,11 @@ public class RoomToCreateRoomOutput implements Converter<Room, CreateRoomOutput>
     public CreateRoomOutput convert(Room source) {
         log.info("Started Converter - Room to CreateRoomOutput");
 
-        CreateRoomOutput createRoomOutput = CreateRoomOutput.builder()
+        CreateRoomOutput target = CreateRoomOutput.builder()
                 .id(source.getId())
                 .build();
 
         log.info("Ended Converter - Room to CreateRoomOutput");
-        return createRoomOutput;
+        return target;
     }
 }
