@@ -137,7 +137,7 @@ Todo: ✔️ ❌ ❓
 ✔️bookRoom
 ✔️unbookRoom
 ✔️[bonus]updatePartiallyBooking
-❌[bonus]getBookingHistory by username
+✔️[bonus]getBookingHistory
 
 ✔️registerGuest
 ✔️getReport
@@ -145,5 +145,7 @@ Todo: ✔️ ❌ ❓
 ✔️updateRoom
 ✔️updatePartiallyRoom
 ✔️deleteRoom
+
+-------------------------------------------------------------------------
 
 

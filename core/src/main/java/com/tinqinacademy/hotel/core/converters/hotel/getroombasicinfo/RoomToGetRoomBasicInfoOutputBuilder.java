@@ -15,8 +15,7 @@ public class RoomToGetRoomBasicInfoOutputBuilder implements Converter<Room, GetR
     public GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder convert(Room source) {
         log.info("Started Converter - Room to GetRoomBasicInfoOutput");
 
-        GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder target = GetRoomBasicInfoOutput
-                .builder()
+        GetRoomBasicInfoOutput.GetRoomBasicInfoOutputBuilder target = GetRoomBasicInfoOutput.builder()
                 .id(source.getId())
                 .price(source.getPrice())
                 .floor(source.getFloor())

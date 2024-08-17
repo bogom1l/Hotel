@@ -45,38 +45,23 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
         log.info("Started bookRoom with input: {}", input);
         validateInput(input);
 
-        Room room = findRoom(input);
+        Room room = roomRepository
+                .findById(UUID.fromString(input.getRoomId()))
+                .orElseThrow(() -> new HotelException("Room not found"));
 
         checkRoomAvailability(input, room);
 
-        String userId = findUserId(input);
-
-        Booking booking = buildBooking(input, room, userId);
+        Booking booking = conversionService.convert(input, Booking.BookingBuilder.class)
+                .room(room)
+                .totalPrice(room.getPrice())
+                .guests(Set.of())
+                .build(); // Empty set, because later user will be able to add guests to booking (RegisterGuestOperation)
 
         bookingRepository.save(booking);
 
         BookRoomOutput output = BookRoomOutput.builder().build();
-
         log.info("Ended bookRoom with output: {}", output);
         return output;
-    }
-
-    private Booking buildBooking(BookRoomInput input, Room room, String userId) {
-        return Booking
-                .builder()
-                .room(room)
-                .userId(UUID.fromString(userId)) //todo userId
-                .startDate(input.getStartDate())
-                .endDate(input.getEndDate())
-                .totalPrice(room.getPrice())
-                .guests(Set.of()) // Empty set, later will have endpoint for adding guests for certain booking
-                .build();
-    }
-
-    private Room findRoom(BookRoomInput input) {
-        return roomRepository
-                .findById(UUID.fromString(input.getRoomId()))
-                .orElseThrow(() -> new HotelException("Room not found"));
     }
 
     private void checkRoomAvailability(BookRoomInput input, Room room) {
@@ -85,9 +70,5 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
                     String.format("Room with ID %s is not available for the selected dates: %s - %s",
                             room.getId(), input.getStartDate(), input.getEndDate()));
         }
-    }
-
-    private String findUserId(BookRoomInput input) {
-        return input.getUserId();
     }
 }
