@@ -1,11 +1,11 @@
 package com.tinqinacademy.hotel.core.processors.system;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOperation;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Bed;
 import com.tinqinacademy.hotel.persistence.model.Room;
@@ -41,7 +41,6 @@ public class UpdateRoomOperationProcessor extends BaseOperationProcessor<UpdateR
 
     private UpdateRoomOutput updateRoom(UpdateRoomInput input) {
         log.info("Started updateRoom with input: {}", input);
-
         validateInput(input);
 
         validateFields(input);
@@ -52,7 +51,6 @@ public class UpdateRoomOperationProcessor extends BaseOperationProcessor<UpdateR
         setFields(input, room);
 
         UpdateRoomOutput output = conversionService.convert(room, UpdateRoomOutput.class);
-
         log.info("Ended updateRoom with output: {}", output);
         return output;
     }
@@ -72,15 +70,15 @@ public class UpdateRoomOperationProcessor extends BaseOperationProcessor<UpdateR
     }
 
     private void validateFields(UpdateRoomInput input) {
-        if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
-            throw new HotelException("Room number already exists");
-        }
-
         if (input.getBathroomType() == null ||
                 input.getBedSize() == null ||
                 input.getRoomNumber() == null ||
                 input.getPrice() == null) {
             throw new HotelException("Please fill all the fields.");
+        }
+
+        if (roomRepository.existsByRoomNumber(input.getRoomNumber())) {
+            throw new HotelException("Room number already exists");
         }
     }
 }

@@ -49,14 +49,14 @@ public class RegisterGuestOperationProcessor extends BaseOperationProcessor<Regi
         validateInput(input);
 
         Room room = roomRepository.findById(UUID.fromString(input.getRoomId()))
-                .orElseThrow(() -> new HotelException("No room found"));
+                .orElseThrow(() -> new HotelException("No room found with provided id"));
 
         for (GuestInput guestInput : input.getGuests()) {
             Guest guest = conversionService.convert(guestInput, Guest.class);
 
             Booking booking = bookingRepository
                     .findByRoomIdAndStartDateAndEndDate(room.getId(), guestInput.getStartDate(), guestInput.getEndDate())
-                    .orElseThrow(() -> new HotelException("No booking found between these dates"));
+                    .orElseThrow(() -> new HotelException("No booking found on these dates"));
 
             booking.getGuests().add(guest);
 
