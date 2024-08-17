@@ -136,7 +136,7 @@ Todo: ✔️ ❌ ❓
 ✔️getRoomBasicInfo
 ✔️bookRoom
 ✔️unbookRoom
-❌[bonus]updatePartiallyBooking
+✔️[bonus]updatePartiallyBooking
 ❌[bonus]getBookingHistory
 
 ✔️registerGuest

@@ -30,7 +30,7 @@ public class HotelController extends BaseController {
     private final CheckAvailableRoomOperation checkAvailableRoom;
     private final BookRoomOperation bookRoom;
     private final UnbookRoomOperation unbookRoom;
-//    private final UpdatePartiallyBookingOperation updatePartiallyBooking;
+    private final UpdatePartiallyBookingOperation updatePartiallyBooking;
 //    private final GetBookingHistoryOperation getBookingHistory;
 
     @Operation(summary = "Check room availability for a certain period",
@@ -92,21 +92,21 @@ public class HotelController extends BaseController {
 
         return handle(unbookRoom.process(updatedInput));
     }
-//
-//    @Operation(summary = "Update partially a booking",
-//            description = "Update partially a booking")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Booking updated successfully"),
-//            @ApiResponse(responseCode = "400", description = "Error updating the booking")})
-//    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
-//    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
-//                                                    @RequestBody UpdatePartiallyBookingInput input) {
-//        UpdatePartiallyBookingInput updatedInput = input.toBuilder()
-//                .bookingId(bookingId)
-//                .build();
-//
-//        return handle(updatePartiallyBooking.process(updatedInput));
-//    }
+
+    @Operation(summary = "Update partially a booking",
+            description = "Update partially a booking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Booking updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Error updating the booking")})
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
+    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
+                                                    @RequestBody UpdatePartiallyBookingInput input) {
+        UpdatePartiallyBookingInput updatedInput = input.toBuilder()
+                .bookingId(bookingId)
+                .build();
+
+        return handle(updatePartiallyBooking.process(updatedInput));
+    }
 //
 //    @Operation(summary = "Get booking history",
 //            description = "Get booking history")
