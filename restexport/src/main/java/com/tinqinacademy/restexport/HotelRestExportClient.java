@@ -3,7 +3,6 @@ package com.tinqinacademy.restexport;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
-import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;

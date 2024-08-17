@@ -13,7 +13,7 @@ public class GuestToGetBookingHistoryGuestOutput implements Converter<Guest, Get
     public GetBookingHistoryGuestOutput convert(Guest source) {
         log.info("Started Converter - Guest to GetBookingGuestOutput");
 
-        GetBookingHistoryGuestOutput getBookingHistoryGuestOutput = GetBookingHistoryGuestOutput.builder()
+        GetBookingHistoryGuestOutput target = GetBookingHistoryGuestOutput.builder()
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .phoneNumber(source.getPhoneNumber())
@@ -21,6 +21,6 @@ public class GuestToGetBookingHistoryGuestOutput implements Converter<Guest, Get
                 .build();
 
         log.info("Ended Converter - Guest to GetBookingGuestOutput");
-        return getBookingHistoryGuestOutput;
+        return target;
     }
 }

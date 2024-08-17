@@ -13,12 +13,12 @@ public class BookingToUpdatePartiallyBookingOutput implements Converter<Booking,
     public UpdatePartiallyBookingOutput convert(Booking source) {
         log.info("Started Converter - Booking to UpdatePartiallyBookingOutput");
 
-        UpdatePartiallyBookingOutput updatePartiallyBookingOutput = UpdatePartiallyBookingOutput
+        UpdatePartiallyBookingOutput target = UpdatePartiallyBookingOutput
                 .builder()
                 .id((source.getId()))
                 .build();
 
         log.info("Ended Converter - Booking to UpdatePartiallyBookingOutput");
-        return updatePartiallyBookingOutput;
+        return target;
     }
 }

@@ -115,15 +115,14 @@ public class HotelController extends BaseController {
             description = "Get booking history")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Booking history retrieved successfully"),
-            @ApiResponse(responseCode = "400", description = "Error retrieving booking history")})
+            @ApiResponse(responseCode = "400", description = "Bad request")})
     @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
     public ResponseEntity<?> getBookingHistory(@PathVariable String userId) {
-
-        GetBookingHistoryInput updatedInput = GetBookingHistoryInput.builder()
+        GetBookingHistoryInput input = GetBookingHistoryInput.builder()
                 .userId(userId)
                 .build();
 
-        return handle(getBookingHistory.process(updatedInput));
+        return handle(getBookingHistory.process(input));
     }
 
 }

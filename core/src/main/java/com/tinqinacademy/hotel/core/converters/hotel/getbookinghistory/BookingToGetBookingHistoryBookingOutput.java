@@ -26,7 +26,7 @@ public class BookingToGetBookingHistoryBookingOutput implements Converter<Bookin
     public GetBookingHistoryBookingOutput convert(Booking source) {
         log.info("Started Converter - Booking to GetBookingOutput");
 
-        GetBookingHistoryBookingOutput getBookingHistoryBookingOutput = GetBookingHistoryBookingOutput.builder()
+        GetBookingHistoryBookingOutput target = GetBookingHistoryBookingOutput.builder()
                 .room(conversionService.convert(source.getRoom(), GetBookingHistoryRoomOutput.class))
                 .bookingStartDate(source.getStartDate())
                 .bookingEndDate(source.getEndDate())
@@ -37,6 +37,6 @@ public class BookingToGetBookingHistoryBookingOutput implements Converter<Bookin
                 .build();
 
         log.info("Ended Converter - Booking to GetBookingOutput");
-        return getBookingHistoryBookingOutput;
+        return target;
     }
 }

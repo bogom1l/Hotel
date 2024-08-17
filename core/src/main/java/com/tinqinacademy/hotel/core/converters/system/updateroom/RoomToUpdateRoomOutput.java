@@ -14,11 +14,11 @@ public class RoomToUpdateRoomOutput implements Converter<Room, UpdateRoomOutput>
     public UpdateRoomOutput convert(Room source) {
         log.info("Started Converter - Room to UpdateRoomOutput");
 
-        UpdateRoomOutput updateRoomOutput = UpdateRoomOutput.builder()
+        UpdateRoomOutput target = UpdateRoomOutput.builder()
                 .id(source.getId())
                 .build();
 
         log.info("Ended Converter - Room to UpdateRoomOutput");
-        return updateRoomOutput;
+        return target;
     }
 }

@@ -13,13 +13,13 @@ public class RoomToGetBookingHistoryRoomOutput implements Converter<Room, GetBoo
     public GetBookingHistoryRoomOutput convert(Room source) {
         log.info("Started Converter - Room to GetBookingRoomOutput");
 
-        GetBookingHistoryRoomOutput getBookingHistoryRoomOutput = GetBookingHistoryRoomOutput.builder()
+        GetBookingHistoryRoomOutput target = GetBookingHistoryRoomOutput.builder()
                 .roomNumber(source.getRoomNumber())
                 .roomPrice(source.getPrice())
                 .roomFloor(source.getFloor())
                 .build();
 
         log.info("Ended Converter - Room to GetBookingRoomOutput");
-        return getBookingHistoryRoomOutput;
+        return target;
     }
 }

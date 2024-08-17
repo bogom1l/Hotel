@@ -14,11 +14,11 @@ public class RoomToUpdatePartiallyRoomOutput implements Converter<Room, UpdatePa
     public UpdatePartiallyRoomOutput convert(Room source) {
         log.info("Started Converter - Room to UpdatePartiallyRoomOutput");
 
-        UpdatePartiallyRoomOutput updatePartiallyRoomOutput = UpdatePartiallyRoomOutput.builder()
+        UpdatePartiallyRoomOutput target = UpdatePartiallyRoomOutput.builder()
                 .id(source.getId())
                 .build();
 
         log.info("Ended Converter - Room to UpdatePartiallyRoomOutput");
-        return updatePartiallyRoomOutput;
+        return target;
     }
 }
