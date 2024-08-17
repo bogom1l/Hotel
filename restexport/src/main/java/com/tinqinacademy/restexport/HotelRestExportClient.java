@@ -3,6 +3,7 @@ package com.tinqinacademy.restexport;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
@@ -12,7 +13,6 @@ import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.Updat
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.deleteroom.DeleteRoomOutput;
-import com.tinqinacademy.hotel.api.operations.system.getallusers.GetAllUsersOutput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
@@ -26,7 +26,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-
 
 @FeignClient(name = "hotel")
 @Headers("Content-Type: application/json")
@@ -52,7 +51,7 @@ public interface HotelRestExportClient {
                                                         @RequestBody UpdatePartiallyBookingInput input);
 
     @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
-    GetBookingHistoryOutput getBookingHistory(@PathVariable String phoneNumber);
+    GetBookingHistoryOutput getBookingHistory(@PathVariable String userId);
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
     RegisterGuestOutput registerGuest(@RequestBody RegisterGuestInput input);
@@ -80,7 +79,4 @@ public interface HotelRestExportClient {
 
     @DeleteMapping(RestApiRoutes.DELETE_ROOM)
     DeleteRoomOutput deleteRoom(@PathVariable("roomId") String id);
-
-    @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
-    GetAllUsersOutput getAllUsersByPartialName(@RequestParam(required = false) String partialName);
 }

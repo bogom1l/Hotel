@@ -29,7 +29,7 @@ public class RoomNumberValidator implements ConstraintValidator<RoomNumberValida
     @Override
     public boolean isValid(String roomNumber, ConstraintValidatorContext constraintValidatorContext) {
         if (optional && (roomNumber == null || roomNumber.isEmpty())) {
-            return true; // Skip validation if optional and room number is not provided
+            return true;
         }
 
         if (roomNumber == null || roomNumber.isEmpty()) {

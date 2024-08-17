@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class GetBookingHistoryOutput implements OperationOutput {
     private List<GetBookingHistoryBookingOutput> bookings;
 }

@@ -29,7 +29,7 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
     private final BookingRepository bookingRepository;
 
     protected BookRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository, BookingRepository bookingRepository) {
-        super(conversionService, errorHandler, validator); //
+        super(conversionService, errorHandler, validator);
         this.roomRepository = roomRepository;
         this.bookingRepository = bookingRepository;
     }
@@ -43,7 +43,6 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
 
     private BookRoomOutput bookRoom(BookRoomInput input) {
         log.info("Started bookRoom with input: {}", input);
-
         validateInput(input);
 
         Room room = findRoom(input);
@@ -88,19 +87,7 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor<BookRoomI
         }
     }
 
-    //     private User findUser(BookRoomInput input) {
-//        return userRepository
-//                .findByPhoneNumberAndFirstNameAndLastName(
-//                        input.getPhoneNumber(),
-//                        input.getFirstName(),
-//                        input.getLastName())
-//                .orElseThrow(() -> new HotelException(
-//                        String.format("No user found with first name: %s, last name: %s, phone number: %s",
-//                                input.getFirstName(),
-//                                input.getLastName(),
-//                                input.getPhoneNumber())));
     private String findUserId(BookRoomInput input) {
         return input.getUserId();
     }
-
 }

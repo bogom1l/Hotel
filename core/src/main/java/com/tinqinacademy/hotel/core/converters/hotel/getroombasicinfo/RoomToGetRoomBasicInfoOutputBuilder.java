@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.room;
+package com.tinqinacademy.hotel.core.converters.hotel.getroombasicinfo;
 
 import com.tinqinacademy.hotel.api.enums.BathroomType;
 import com.tinqinacademy.hotel.api.enums.BedSize;

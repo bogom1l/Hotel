@@ -1,8 +1,8 @@
 package com.tinqinacademy.hotel.core.processors.base;
 
 import com.tinqinacademy.hotel.api.error.Error;
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.exceptions.ValidationException;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.springframework.core.convert.ConversionService;

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.core.converters.booking;
+package com.tinqinacademy.hotel.core.converters.hotel.updatepartiallybooking;
 
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingOutput;
 import com.tinqinacademy.hotel.persistence.model.Booking;

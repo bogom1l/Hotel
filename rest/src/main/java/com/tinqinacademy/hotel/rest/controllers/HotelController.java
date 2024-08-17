@@ -31,7 +31,7 @@ public class HotelController extends BaseController {
     private final BookRoomOperation bookRoom;
     private final UnbookRoomOperation unbookRoom;
     private final UpdatePartiallyBookingOperation updatePartiallyBooking;
-//    private final GetBookingHistoryOperation getBookingHistory;
+    private final GetBookingHistoryOperation getBookingHistory;
 
     @Operation(summary = "Check room availability for a certain period",
             description = "Check room availability for a certain period")
@@ -70,13 +70,14 @@ public class HotelController extends BaseController {
     @Operation(summary = "Book a room", description = "Book a room")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Room booked successfully"),
-            @ApiResponse(responseCode = "400", description = "Room already booked or bad request"),
-            @ApiResponse(responseCode = "404", description = "Room not found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")})
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
     @PostMapping(RestApiRoutes.BOOK_ROOM)
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
                                       @RequestBody BookRoomInput input) {
-        BookRoomInput updatedInput = input.toBuilder().roomId(roomId).build();
+        BookRoomInput updatedInput = input.toBuilder()
+                .roomId(roomId)
+                .build();
 
         return handleWithStatus(bookRoom.process(updatedInput), HttpStatus.CREATED);
     }
@@ -88,7 +89,9 @@ public class HotelController extends BaseController {
     @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
     public ResponseEntity<?> unbookRoom(@PathVariable String bookingId,
                                         @RequestBody UnbookRoomInput input) {
-        UnbookRoomInput updatedInput = input.toBuilder().bookingId(bookingId).build();
+        UnbookRoomInput updatedInput = input.toBuilder()
+                .bookingId(bookingId)
+                .build();
 
         return handle(unbookRoom.process(updatedInput));
     }
@@ -97,7 +100,7 @@ public class HotelController extends BaseController {
             description = "Update partially a booking")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Booking updated successfully"),
-            @ApiResponse(responseCode = "400", description = "Error updating the booking")})
+            @ApiResponse(responseCode = "400", description = "Bad request")})
     @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
     public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
                                                     @RequestBody UpdatePartiallyBookingInput input) {
@@ -107,19 +110,20 @@ public class HotelController extends BaseController {
 
         return handle(updatePartiallyBooking.process(updatedInput));
     }
-//
-//    @Operation(summary = "Get booking history",
-//            description = "Get booking history")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Booking history retrieved successfully"),
-//            @ApiResponse(responseCode = "400", description = "Error retrieving booking history")})
-//    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
-//    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
-//        GetBookingHistoryInput input = GetBookingHistoryInput.builder()
-//                .phoneNumber(phoneNumber)
-//                .build();
-//
-//        return handle(getBookingHistory.process(input));
-//    }
+
+    @Operation(summary = "Get booking history",
+            description = "Get booking history")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Booking history retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Error retrieving booking history")})
+    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
+    public ResponseEntity<?> getBookingHistory(@PathVariable String userId) {
+
+        GetBookingHistoryInput updatedInput = GetBookingHistoryInput.builder()
+                .userId(userId)
+                .build();
+
+        return handle(getBookingHistory.process(updatedInput));
+    }
 
 }

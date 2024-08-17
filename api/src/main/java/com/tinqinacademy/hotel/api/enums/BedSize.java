@@ -36,5 +36,4 @@ public enum BedSize {
     public String toString() {
         return this.code;
     }
-
 }

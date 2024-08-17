@@ -12,5 +12,4 @@ public class ValidationException extends RuntimeException {
     public ValidationException(List<Error> violations) {
         this.violations = violations;
     }
-
 }

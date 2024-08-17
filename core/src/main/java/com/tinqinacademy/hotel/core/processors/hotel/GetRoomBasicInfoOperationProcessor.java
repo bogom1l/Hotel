@@ -51,7 +51,7 @@ public class GetRoomBasicInfoOperationProcessor extends BaseOperationProcessor<G
         Room room = roomRepository.findByIdWithBeds(roomId)
                 .orElseThrow(() -> new HotelException("Room not found"));
 
-        List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId()).orElse(new ArrayList<>());
+        List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId());
 
         List<LocalDate> datesOccupied = bookings.stream()
                 .flatMap(booking -> booking.getStartDate().datesUntil(booking.getEndDate())).toList();

@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-import com.tinqinacademy.hotel.persistence.model.Room;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,7 +20,6 @@ import com.tinqinacademy.hotel.persistence.model.Room;
 @Entity
 @Table(name = "bookings")
 public class Booking {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -31,10 +28,8 @@ public class Booking {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    //@ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UUID userId;
-//    private User user;
 
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;

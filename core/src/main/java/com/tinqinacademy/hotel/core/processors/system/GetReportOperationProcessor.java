@@ -121,8 +121,7 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
         Room room = roomRepository.findByRoomNumber(input.getRoomNumber())
                 .orElseThrow(() -> new HotelException("No room found with number: " + input.getRoomNumber()));
 
-        List<Booking> bookings = bookingRepository.findByRoomId(room.getId())
-                .orElse(Collections.emptyList());
+        List<Booking> bookings = bookingRepository.findAllByRoomId(room.getId());
 
         for (Booking booking : bookings) {
             for (Guest guest : booking.getGuests()) {
