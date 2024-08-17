@@ -29,4 +29,8 @@ public interface GuestRepository extends JpaRepository<Guest, UUID> {
                                              @Param("idCardIssueAuthority") String idCardIssueAuthority,
                                              @Param("idCardIssueDate") String idCardIssueDate); // Handle as String and cast in SQL
 
+    @Query(value = """
+            SELECT g.* FROM guests g JOIN bookings_guests bg ON g.id = bg.guests_id WHERE bg.booking_id = :bookingId
+            """, nativeQuery = true)
+    List<Guest> findAllByBookingId(@Param("bookingId") UUID bookingId);
 }

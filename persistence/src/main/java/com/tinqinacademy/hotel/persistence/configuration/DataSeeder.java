@@ -220,8 +220,8 @@ public class DataSeeder implements ApplicationRunner {
         Booking booking1 = Booking.builder()
                 .room(room1)
                 .userId(userId)
-                .startDate(LocalDate.now())
-                .endDate(LocalDate.now().plusDays(3))
+                .startDate(LocalDate.now().minusWeeks(5))
+                .endDate(LocalDate.now().minusWeeks(4))
                 .totalPrice(new BigDecimal("300.00"))
                 .guests(Set.of(guest1))
                 .build();
