@@ -19,9 +19,9 @@ public class GuestOutput {
 
     private String lastName;
 
-    private String phoneNo;
+    private String phoneNumber;
 
-    private String idCardNo;
+    private String idCardNumber;
 
     private LocalDate idCardValidity;
 
