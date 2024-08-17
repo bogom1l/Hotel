@@ -26,14 +26,14 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
                      WHERE (b.startDate BETWEEN :startDate AND :endDate) 
                      OR (b.endDate BETWEEN :startDate AND :endDate)
             """)
-    Optional<List<Booking>> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<Booking> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     @Query("""
                      SELECT b FROM Booking b
                      JOIN b.guests g
                      WHERE g.idCardNumber = :idCardNumber
             """)
-    Optional<List<Booking>> findByGuestIdCardNumber(@Param("idCardNumber") String idCardNumber);
+    List<Booking> findByGuestIdCardNumber(@Param("idCardNumber") String idCardNumber);
 
     @Modifying
     @Transactional

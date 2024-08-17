@@ -1,12 +1,12 @@
 package com.tinqinacademy.hotel.core.processors.system;
 
-import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotel.api.exceptions.HotelException;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOperation;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GuestOutput;
+import com.tinqinacademy.hotel.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotel.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.persistence.model.Booking;
 import com.tinqinacademy.hotel.persistence.model.Guest;
@@ -31,7 +31,6 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
     private final GuestRepository guestRepository;
     private final BookingRepository bookingRepository;
 
-
     protected GetReportOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository) {
         super(conversionService, errorHandler, validator);
         this.roomRepository = roomRepository;
@@ -46,29 +45,26 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
                 .mapLeft(errorHandler::handleErrors);
     }
 
-    //todo: ? refactor logic
-
     private GetReportOutput getReport(GetReportInput input) {
         log.info("Started getRoomReport with input: {}", input);
-
         validateInput(input);
 
-        if (!isAnyFieldProvided(input)) {
-            throw new HotelException("No search criteria provided."); // optional fields - fill only 1) or 2) or 3)
+        if (!isAnyFieldProvided(input)) { // optional fields - fill at least 1) or 2) or 3)
+            throw new HotelException("No search criteria provided. Please provide at least one of: start-end dates / full guest details / room number");
         }
 
         Map<UUID, GuestOutput> guestMap = new HashMap<>();
 
         if (isDateRangeProvided(input)) {
-            guestMap.putAll(filterByDateRange(input)); //1. Search by startDate and endDate
+            guestMap.putAll(filterByDateRange(input)); // 1. Search by startDate and endDate
         }
 
         if (isGuestDetailsProvided(input)) {
-            guestMap.putAll(filterByGuestDetails(input)); //2. Search by guest details
+            guestMap.putAll(filterByGuestDetails(input)); // 2. Search by guest details
         }
 
         if (isRoomDetailsProvided(input)) {
-            guestMap.putAll(filterByRoomNumber(input)); //3. Search by room number
+            guestMap.putAll(filterByRoomNumber(input)); // 3. Search by room number
         }
 
         if (guestMap.isEmpty()) {
@@ -79,22 +75,12 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
         GetReportOutput output = GetReportOutput.builder()
                 .guests(values)
                 .build();
-
         log.info("Ended getRoomReport with output: {}", output);
         return output;
     }
 
     private Boolean isAnyFieldProvided(GetReportInput input) {
-        return input.getStartDate() != null ||
-                input.getEndDate() != null ||
-                input.getFirstName() != null ||
-                input.getLastName() != null ||
-                input.getPhoneNumber() != null ||
-                input.getIdCardNumber() != null ||
-                input.getIdCardValidity() != null ||
-                input.getIdCardIssueAuthority() != null ||
-                input.getIdCardIssueDate() != null ||
-                input.getRoomNumber() != null;
+        return isDateRangeProvided(input) || isGuestDetailsProvided(input) || isRoomDetailsProvided(input);
     }
 
     private Boolean isDateRangeProvided(GetReportInput input) {
@@ -126,11 +112,10 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
         for (Booking booking : bookings) {
             for (Guest guest : booking.getGuests()) {
                 if (!guestMap.containsKey(guest.getId())) {
-                    GuestOutput guestOutput =
-                            conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
-                                    .startDate(booking.getStartDate())
-                                    .endDate(booking.getEndDate())
-                                    .build();
+                    GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
+                            .startDate(booking.getStartDate())
+                            .endDate(booking.getEndDate())
+                            .build();
                     guestMap.put(guest.getId(), guestOutput);
                 }
             }
@@ -143,16 +128,14 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
         Map<UUID, GuestOutput> guestMap = new HashMap<>();
 
         List<Booking> bookings = bookingRepository
-                .findByDateRange(LocalDate.parse(input.getStartDate()), LocalDate.parse(input.getEndDate()))
-                .orElse(Collections.emptyList());
+                .findByDateRange(LocalDate.parse(input.getStartDate()), LocalDate.parse(input.getEndDate()));
 
         for (Booking booking : bookings) {
             for (Guest guest : booking.getGuests()) {
-                GuestOutput guestOutput =
-                        conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
-                                .startDate(booking.getStartDate())
-                                .endDate(booking.getEndDate())
-                                .build();
+                GuestOutput guestOutput = conversionService.convert(guest, GuestOutput.GuestOutputBuilder.class)
+                        .startDate(booking.getStartDate())
+                        .endDate(booking.getEndDate())
+                        .build();
                 guestMap.putIfAbsent(guest.getId(), guestOutput);
             }
         }
@@ -170,12 +153,10 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
                 input.getIdCardNumber(),
                 input.getIdCardValidity(),
                 input.getIdCardIssueAuthority(),
-                input.getIdCardIssueDate()
-        ).orElse(Collections.emptyList());
+                input.getIdCardIssueDate());
 
         for (Guest guest : matchingGuests) {
-            List<Booking> bookings = bookingRepository.findByGuestIdCardNumber(guest.getIdCardNumber())
-                    .orElse(Collections.emptyList());
+            List<Booking> bookings = bookingRepository.findByGuestIdCardNumber(guest.getIdCardNumber());
 
             if (bookings.isEmpty()) {
                 if (!guestMap.containsKey(guest.getId())) {
