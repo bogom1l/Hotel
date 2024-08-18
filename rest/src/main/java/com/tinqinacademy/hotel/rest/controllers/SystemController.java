@@ -30,7 +30,7 @@ public class SystemController extends BaseController {
     private final UpdateRoomOperation updateRoom;
     private final UpdatePartiallyRoomOperation updatePartiallyRoom;
     private final DeleteRoomOperation deleteRoom;
-//    private final GetAllUsersOperation getAllUsersByPartialName;
+    // private final GetAllUsersOperation getAllUsersByPartialName;
 
     @Operation(summary = "Register a guest as room renter",
             description = "Register a guest as room renter by Booking's: roomId, startDate, endDate")

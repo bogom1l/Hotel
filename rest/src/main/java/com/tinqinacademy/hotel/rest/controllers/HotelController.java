@@ -84,7 +84,7 @@ public class HotelController extends BaseController {
 
     @Operation(summary = "Unbook a room", description = "Unbook a room")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Room unbooked successfully"),
+            @ApiResponse(responseCode = "200", description = "Room unbooked successfully"),
             @ApiResponse(responseCode = "404", description = "Room booking not found")})
     @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
     public ResponseEntity<?> unbookRoom(@PathVariable String bookingId,
