@@ -10,8 +10,8 @@ import com.tinqinacademy.hotel.persistence.repository.BedRepository;
 import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
 import com.tinqinacademy.hotel.persistence.repository.GuestRepository;
 import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -26,22 +26,16 @@ import java.util.UUID;
 /**
  * This class is responsible for seeding initial data into the database when the application starts.
  */
-@Slf4j
+
 @Component
 @Order(1)
+@RequiredArgsConstructor
+@Slf4j
 public class DataSeeder implements ApplicationRunner {
     private final BedRepository bedRepository;
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final BookingRepository bookingRepository;
-
-    @Autowired
-    public DataSeeder(BedRepository bedRepository, RoomRepository roomRepository, GuestRepository guestRepository, BookingRepository bookingRepository) {
-        this.bedRepository = bedRepository;
-        this.roomRepository = roomRepository;
-        this.guestRepository = guestRepository;
-        this.bookingRepository = bookingRepository;
-    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
