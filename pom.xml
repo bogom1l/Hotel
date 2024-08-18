@@ -10,7 +10,7 @@
 	</parent>
 
 	<properties>
-		<revision>0.0.1-SNAPSHOT</revision> <!-- Snapshot version -->
+		<revision>0.0.1-SNAPSHOT</revision>
 		<java.version>21</java.version> <!-- Java Version -->
 		<lombok.version>1.18.34</lombok.version> <!-- Lombok Version -->
 		<swagger.version>2.6.0</swagger.version> <!-- Swagger Version -->
