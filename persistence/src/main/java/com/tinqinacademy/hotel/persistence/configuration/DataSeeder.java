@@ -209,7 +209,7 @@ public class DataSeeder implements ApplicationRunner {
         Guest guest3 = guestRepository.findAll().get(2);
         Guest guest4 = guestRepository.findAll().get(3);
 
-        UUID userId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID(); // todo delete the Booking Seeder.
 
         Booking booking1 = Booking.builder()
                 .room(room1)
