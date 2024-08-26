@@ -1,10 +1,15 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
+import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.persistence.model.Booking;
+import com.tinqinacademy.hotel.persistence.model.Room;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,6 +37,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -39,8 +45,7 @@ import java.util.UUID;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -182,14 +187,102 @@ class SystemControllerTest {
 
     @Test
     void getReportReturnsOk() throws Exception {
-        String roomId = roomRepository.findAll().getFirst().getId().toString();
+        Room room = roomRepository.findAll().getFirst();
 
         mvc.perform(get(RestApiRoutes.GET_REPORT)
-                        .param("roomId", roomId)
+                        .param("roomNumber", room.getRoomNumber())
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8"))
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void createRoomReturnsCreated() throws Exception {
+        CreateRoomInput input = CreateRoomInput.builder()
+                .roomNumber("H864")
+                .bedSize("double")
+                .bathroomType("private")
+                .floor(1)
+                .price(BigDecimal.valueOf(100))
+                .build();
+
+        mvc.perform(post(RestApiRoutes.CREATE_ROOM)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(input))
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void updateRoomReturnsOk() throws Exception {
+        Room room = roomRepository.findAll().getFirst();
+        UpdateRoomInput input = UpdateRoomInput.builder()
+                .roomNumber("H864")
+                .bedSize("double")
+                .bathroomType("private")
+                .price(BigDecimal.valueOf(100))
+                .build();
+
+        mvc.perform(put(RestApiRoutes.UPDATE_ROOM, room.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(input))
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void updatePartiallyRoomReturnsOk() throws Exception {
+        Room room = roomRepository.findAll().getFirst();
+        UpdatePartiallyRoomInput input = UpdatePartiallyRoomInput.builder()
+                .roomNumber("H864")
+                .bedSize("double")
+                .bathroomType("private")
+                .price(BigDecimal.valueOf(100))
+                .build();
+
+        mvc.perform(patch(RestApiRoutes.UPDATE_PARTIALLY_ROOM, room.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(input))
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void updatePartiallyRoomReturnsNotFound() throws Exception {
+        UUID roomId = UUID.randomUUID();
+        UpdatePartiallyRoomInput input = UpdatePartiallyRoomInput.builder()
+                .roomNumber("H864")
+                .bedSize("double")
+                .bathroomType("private")
+                .price(BigDecimal.valueOf(100))
+                .build();
+
+        mvc.perform(patch(RestApiRoutes.UPDATE_PARTIALLY_ROOM, roomId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(input))
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void deleteRoomReturnsOk() throws Exception {
+        Room room = roomRepository.findAll().getFirst();
+
+        mvc.perform(delete(RestApiRoutes.DELETE_ROOM, room.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void deleteRoomReturnsNotFound() throws Exception {
+        UUID roomId = UUID.randomUUID();
+
+        mvc.perform(delete(RestApiRoutes.DELETE_ROOM, roomId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isNotFound());
+    }
+    
 
 }
