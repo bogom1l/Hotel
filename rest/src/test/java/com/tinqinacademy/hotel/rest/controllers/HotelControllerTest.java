@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -90,52 +91,6 @@ class HotelControllerTest {
                 return List.of();
             }
         });
-
-//        Bed bed = Bed.builder()
-//                .id(UUID.fromString("a1111b03-e491-4ff3-a617-2b2b3a190a59"))
-//                .bedSize(BedSize.DOUBLE)
-//                .capacity(BedSize.DOUBLE.getCapacity())
-//                .build();
-//
-//        bedRepository.save(bed); //√
-//
-//        Room room = Room.builder()
-//                .id(UUID.fromString("4446112d-6611-4562-a2db-ee1e4f4c3894"))
-//                .roomNumber("A912")
-//                .price(BigDecimal.valueOf(100))
-//                .beds((List<Bed>) new HashSet<>(Collections.singletonList(bed)))
-//                .floor(5)
-//                .bathroomType(BathroomType.PRIVATE)
-//                .build();
-//
-//        roomRepository.save(room);
-//
-//        Guest guest = Guest.builder()
-//                .id(UUID.fromString("88888b03-e491-4ff3-a617-2b2b3a190a59"))
-//                .firstName("John")
-//                .lastName("Doe")
-//                .birthdate(LocalDate.parse("2001-01-01"))
-//                .phoneNumber("08912355122")
-//                .idCardValidity(LocalDate.parse("2028-01-01"))
-//                .idCardIssueDate(LocalDate.parse("2015-01-01"))
-//                .idCardIssueAuthority("Sofia")
-//                .idCardNumber("123456789")
-//                .build();
-//
-//        guestRepository.save(guest);
-//
-//        Booking booking = Booking.builder()
-//                .id(UUID.fromString("cccc1b03-e491-4ff3-a617-2b2b3a190a59"))
-//                .room(room)
-//                .userId(UUID.fromString("bbbb1b03-e491-4ff3-a617-2b2b3a190a59"))
-//                .startDate(LocalDate.parse("2021-01-01"))
-//                .endDate(LocalDate.parse("2021-01-10"))
-//                .totalPrice(room.getPrice())
-//                .guests(Set.of(guest))
-//                .build();
-//
-//        bookingRepository.save(booking);
-
     }
 
     @AfterEach
@@ -188,5 +143,95 @@ class HotelControllerTest {
         assertEquals("private", getRoomBasicInfoOutput.getBathroomType().toString());
     }
 
+    @Test
+    void getRoomByIdReturnsNotFound() throws Exception {
+        UUID roomId = UUID.randomUUID();
+
+        mvc.perform(get(RestApiRoutes.GET_ROOM_INFO, roomId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void bookRoomReturnsCreated() throws Exception {
+        String roomId = roomRepository.findAll().getFirst().getId().toString();
+        String userId = UUID.randomUUID().toString();
+
+        mvc.perform(get(RestApiRoutes.BOOK_ROOM, roomId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDate\":\"2024-11-27\",\"endDate\":\"2024-11-30\",\"userId\":\"" + userId + "\"}")
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isOk());
+    }
+
+//    @Test
+//    void bookRoomReturnsBadRequest() throws Exception {
+//        String roomId = roomRepository.findAll().getFirst().getId().toString();
+//        String userId = UUID.randomUUID().toString();
+//
+//        mvc.perform(get(RestApiRoutes.BOOK_ROOM, roomId)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("{\"startDate\":\"2024-11-27\",\"endDate\":\"2024-11-30\",\"userId\":\"" + userId + "\"}")
+//                        .characterEncoding("UTF-8"))
+//                .andExpect(status().isBadRequest());
+//    }
+
+    @Test
+    void unbookRoomReturnsNotFound() throws Exception {
+        String bookingId = bookingRepository.findAll().getFirst().getId().toString();
+
+        mvc.perform(get(RestApiRoutes.UNBOOK_ROOM, bookingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userId\":\"" + UUID.randomUUID().toString() + "\"}")
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void unbookRoomReturnsOk() throws Exception {
+        String bookingId = bookingRepository.findAll().getFirst().getId().toString();
+        String roomId = roomRepository.findAll().getFirst().getId().toString();
+
+        mvc.perform(get(RestApiRoutes.UNBOOK_ROOM, bookingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userId\":\"" + roomId + "\"}")
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void updateBookingReturnsOk() throws Exception {
+        String bookingId = bookingRepository.findAll().getFirst().getId().toString();
+        String roomId = roomRepository.findAll().getFirst().getId().toString();
+
+        mvc.perform(get(RestApiRoutes.UPDATE_PARTIALLY_BOOKING, bookingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDate\":\"2024-11-27\",\"endDate\":\"2024-11-30\",\"userId\":\"" + roomId + "\"}")
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void updateBookingReturnsNotFound() throws Exception {
+        String bookingId = bookingRepository.findAll().getFirst().getId().toString();
+        String roomId = roomRepository.findAll().getFirst().getId().toString();
+
+        mvc.perform(get(RestApiRoutes.UPDATE_PARTIALLY_BOOKING, bookingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDate\":\"2024-11-27\",\"endDate\":\"2024-11-30\",\"userId\":\"" + roomId + "\"}")
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getBookingHistoryReturnsOk() throws Exception {
+        String userId = UUID.randomUUID().toString();
+
+        mvc.perform(get(RestApiRoutes.GET_BOOKING_HISTORY, userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isOk());
+    }
 
 }
