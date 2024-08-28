@@ -1,24 +1,31 @@
 Hotel Project: project with mircoservice architecture
+<br>
 
-Spring
-Maven
-PostgreSQL
-Git
-Docker (5 containers - Postgre DB Server; Hotel microservice; Comments microservice; Authentication microservice; BFF microservice)
- * docker-compose.yaml
- * Dockerfile (creates images)
+Spring <br>
+Maven <br>
+PostgreSQL <br>
+Git <br>
+Docker (5 containers - Postgre DB Server; Hotel microservice; Comments microservice; Authentication microservice; BFF microservice) <br>
+ * docker-compose.yaml <br>
+ * Dockerfile (creates images) <br>
+<br>
 
 Logic:
 We authenticate in Authentication (with JWT) [Spring Security] -> then access the endpoints in BFF
 
---------------------------------------------
+<br>
+<hr>
+<br>
 
 Hotel microservice
 -multimoduled architecture (api, core, persistence, domain, rest, restexport)
   rest depends on: core; 
   core depends on: api, persistence, domain;
+  
+<br>
+<hr>
+<br>
 
-_______________________________________________________________________________
 ► api:
 
 base Operation's interface:
@@ -36,7 +43,7 @@ Custom Exceptions
 
 Custom Validations
 
-_______________________________________________________________________________
+<hr>
 
 ► core:
 
@@ -46,13 +53,13 @@ Converters
 
 OperationProcessors
 
-_______________________________________________________________________________
+<hr>
 
 ► domain:
 
 n/a (used for getting exposed endpoints from other microservices [BFF receives from Hotel, Comments, Auth]
 
-_______________________________________________________________________________
+<hr>
 
 ► persistence:
 
@@ -62,7 +69,7 @@ Entities - Database tables created with JPA
 
 Repositories - Queries for the database
 
-_______________________________________________________________________________
+<hr>
 
 ► rest:
 
@@ -76,7 +83,7 @@ application.properties
 
 Tests
 
-_______________________________________________________________________________
+<hr>
 
 ► restexport:
 
