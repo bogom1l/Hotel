@@ -1,4 +1,4 @@
-Hotel Project: project with mircoservice architecture
+Hotel Project: project with mircoservice architecture (Hotel, Comments, Authentication, HotelBff)
 <br>
 
 Spring <br>
@@ -17,7 +17,7 @@ We authenticate in Authentication (with JWT) [Spring Security] -> then access th
 <hr>
 <br>
 
-Hotel microservice
+Microservice:
 -multimoduled architecture (api, core, persistence, domain, rest, restexport)
   rest depends on: core; 
   core depends on: api, persistence, domain;
@@ -37,7 +37,7 @@ Operations' input/output models and the operation's extension of the OperationPr
 
 RestApiRoutes
 
-Custom Errors (for errorhandling)
+Custom Errors (for error handling)
 
 Custom Exceptions
 
