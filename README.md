@@ -6,8 +6,8 @@ Maven <br>
 PostgreSQL <br>
 Git <br>
 Docker (5 containers - Postgre DB Server; Hotel microservice; Comments microservice; Authentication microservice; BFF microservice) <br>
- * docker-compose.yaml <br>
- * Dockerfile (creates images) <br>
+- docker-compose.yaml <br>
+- Dockerfile (creates images) <br>
 <br>
 
 Logic:
