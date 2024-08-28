@@ -1,4 +1,4 @@
-Hotel Project: project with mircoservice architecture (Hotel, Comments, Authentication, HotelBff)
+Hotel Project: project with mircoservice architecture (Hotel, Comments, Authentication, HotelBff) <br>
 [Comments](https://github.com/bogom1l/comments)  
 [Authentication](https://github.com/bogom1l/authentication)  
 [BFF](https://github.com/bogom1l/HotelBff)
